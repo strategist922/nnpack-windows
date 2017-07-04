@@ -7,7 +7,7 @@ from peachpy.x86_64 import *
 from common import sqrt2_over_2
 from common import butterfly
 
-import fft.complex_soa
+import complex_soa
 
 def ifft8_across_rows(ymm_data, bias=None):
     assert isinstance(ymm_data, list) and len(ymm_data) == 8
@@ -64,7 +64,7 @@ def ifft8_across_rows(ymm_data, bias=None):
     VFMSUB231PS(ymm_g1_imag, ymm_h1_minus, ymm_sqrt2_over_2)
     SWAP.REGISTERS(ymm_imag[3], ymm_g1_imag)
 
-    fft.complex_soa.fft4_across_rows(ymm_real, ymm_imag, transformation="inverse")
+    complex_soa.fft4_across_rows(ymm_real, ymm_imag, transformation="inverse")
 
     if bias is not None:
         ymm_bias = bias

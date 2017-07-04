@@ -7,7 +7,7 @@ from peachpy.x86_64 import *
 from common import sqrt2_over_2
 from common import butterfly
 
-import fft.complex_soa
+import complex_soa
 
 
 def fft8_across_rows(ymm_data):
