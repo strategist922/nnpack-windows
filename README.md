@@ -7,9 +7,10 @@ The steps to build the nnpack-windows repo:
 
 (Check you have Visual Studio 2017 and Python installed)
 
-To install PeachPy:
-Open a Phyton command prompt:
+First you have to install PeachPy.
+Open a Phyton command prompt and type:
 pip install --upgrade git+https://github.com/Maratyszcza/PeachPy
+
 Download the nnpack-windows repo somewhere and after extracting it 
 go in the python prompt to the directory ..\nnpack-windows\src\x86_64-fma
 

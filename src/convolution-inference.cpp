@@ -770,7 +770,6 @@ static enum nnp_status compute_gemm_convolution_inference(
 		const size_t reduction_block_size = min(reduction_size - reduction_block_start, reduction_block_max);
 
 		/* Pack kernel into memory block */
-		
 		struct kernel_packing_context kernel_packing_context = 
 		{
 			kernel + reduction_block_start,
