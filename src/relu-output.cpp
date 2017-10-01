@@ -65,7 +65,7 @@ enum nnp_status nnp_relu_output(
 	assert(((uintptr_t) input) % sizeof(float) == 0);
 	assert(((uintptr_t) output) % sizeof(float) == 0);
 
-	const size_t prologue_elements = min((size_t) (-(((uintptr_t) output) / sizeof(float)) % simd_width), elements);
+	const size_t prologue_elements = min((size_t)(-(long long)(((uintptr_t) output) / sizeof(float)) % simd_width), elements);
 	for (size_t i = 0ull; i < prologue_elements; i++) 
 		output[i] = relu(input[i], negative_slope);
 	

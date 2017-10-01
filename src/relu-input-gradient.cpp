@@ -51,7 +51,7 @@ enum nnp_status nnp_relu_input_gradient(
 	assert(((uintptr_t) input) % sizeof(float) == 0);
 	assert(((uintptr_t) grad_input) % sizeof(float) == 0);
 
-	const size_t prologue_elements = min((size_t) (-(((uintptr_t) grad_input) / sizeof(float)) % simd_width), elements);
+	const size_t prologue_elements = min((size_t)(-(long long)(((uintptr_t)grad_input) / sizeof(float)) % simd_width), elements);
 	for (size_t i = 0ull; i < prologue_elements; i++) 
 		grad_input[i] = grad_relu(grad_output[i], input[i], negative_slope);
 	
