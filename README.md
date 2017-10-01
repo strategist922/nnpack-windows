@@ -13,7 +13,7 @@ Open a Phyton command prompt and type:
 pip install --upgrade git+https://github.com/Maratyszcza/PeachPy
 
 Download the nnpack-windows repo somewhere and after extracting it 
-go in the python prompt to the directory ..\nnpack-windows\src\x86_64-fma
+go in the command prompt to the directory ..\nnpack-windows\src\x86_64-fma
 
 Type: python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o common.obj common.py
 
