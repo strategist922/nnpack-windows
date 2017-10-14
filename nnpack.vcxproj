@@ -153,6 +153,9 @@
     <ClCompile Include="src\init.cpp" />
     <ClCompile Include="src\pooling-output.cpp" />
     <ClCompile Include="src\pthreadpool.cpp" />
+    <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp" />
+    <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp" />
+    <ClCompile Include="src\ref\convolution-output-ref.cpp" />
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
     <ClCompile Include="src\softmax-output.cpp" />
@@ -171,6 +174,7 @@
     <ClInclude Include="include\nnpack.h" />
     <ClInclude Include="include\pooling.h" />
     <ClInclude Include="include\pthreadpool.h" />
+    <ClInclude Include="include\reference.h" />
     <ClInclude Include="include\relu.h" />
     <ClInclude Include="include\softmax.h" />
     <ClInclude Include="include\stdafx.h" />
