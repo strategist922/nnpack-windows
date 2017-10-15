@@ -156,6 +156,11 @@
     <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp" />
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp" />
     <ClCompile Include="src\ref\convolution-output-ref.cpp" />
+    <ClCompile Include="src\ref\fully-connected-output-ref.cpp" />
+    <ClCompile Include="src\ref\max-pooling-output-ref.cpp" />
+    <ClCompile Include="src\ref\relu-input-gradient-ref.cpp" />
+    <ClCompile Include="src\ref\relu-output-ref.cpp" />
+    <ClCompile Include="src\ref\softmax-output-ref.cpp" />
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
     <ClCompile Include="src\softmax-output.cpp" />

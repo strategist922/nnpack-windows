@@ -69,6 +69,21 @@
     <ClCompile Include="src\ref\convolution-output-ref.cpp">
       <Filter>Reference</Filter>
     </ClCompile>
+    <ClCompile Include="src\ref\fully-connected-output-ref.cpp">
+      <Filter>Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\max-pooling-output-ref.cpp">
+      <Filter>Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\relu-input-gradient-ref.cpp">
+      <Filter>Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\relu-output-ref.cpp">
+      <Filter>Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\softmax-output-ref.cpp">
+      <Filter>Reference</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h">
