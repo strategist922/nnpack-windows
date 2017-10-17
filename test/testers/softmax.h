@@ -12,8 +12,8 @@
 #include <algorithm>
 
 #include <nnpack.h>
-#include <nnpack/reference.h>
-#include <nnpack/utils.h>
+#include <reference.h>
+#include <utils.h>
 
 class SoftmaxTester {
 public:
@@ -24,7 +24,7 @@ public:
 		batchSize_(1),
 		channels_(1)
 	{
-		this->threadpool = nullptr;
+		
 	}
 
 	SoftmaxTester(const SoftmaxTester&) = delete;
@@ -34,19 +34,15 @@ public:
 		errorLimit_(tester.errorLimit_),
 		multithreading_(tester.multithreading_),
 		batchSize_(tester.batchSize_),
-		channels_(tester.channels_),
-		threadpool(tester.threadpool)
+		channels_(tester.channels_)
 	{
-		tester.threadpool = nullptr;
+		
 	}
 
 	SoftmaxTester& operator=(const SoftmaxTester&) = delete;
 
 	~SoftmaxTester() {
-		if (this->threadpool != nullptr) {
-			pthreadpool_destroy(this->threadpool);
-			this->threadpool = nullptr;
-		}
+		
 	}
 
 	inline SoftmaxTester& iterations(size_t iterations) {
@@ -69,12 +65,7 @@ public:
 
 	inline SoftmaxTester& multithreading(bool multithreading) {
 		this->multithreading_ = multithreading;
-		if (multithreading && this->threadpool == nullptr) {
-			this->threadpool = pthreadpool_create(0);
-		} else if (!multithreading && this->threadpool != nullptr) {
-			pthreadpool_destroy(this->threadpool);
-			this->threadpool = nullptr;
-		}
+		
 		return *this;
 	}
 
@@ -119,8 +110,7 @@ public:
 
 			enum nnp_status status = nnp_softmax_output(
 				batchSize(), channels(),
-				input.data(), output.data(),
-				this->threadpool);
+				input.data(), output.data());
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceOutput.cbegin(), referenceOutput.cend(), output.cbegin(), 0.0f,
@@ -143,8 +133,7 @@ public:
 
 			nnp_softmax_output__reference(
 				batchSize(), channels(),
-				referenceData.data(), referenceData.data(),
-				this->threadpool);
+				referenceData.data(), referenceData.data());
 
 			enum nnp_status status = nnp_softmax_output(
 				batchSize(), channels(),
@@ -157,9 +146,6 @@ public:
 			EXPECT_LT(maxError, errorLimit());
 		}
 	}
-
-protected:
-	pthreadpool_t threadpool;
 
 private:
 	inline static float relativeError(float reference, float actual) {
