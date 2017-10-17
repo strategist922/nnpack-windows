@@ -13,9 +13,9 @@
 
 #include <gtest\gtest.h>
 
-#include "..//..//nnpack//include/nnpack.h"
-#include "..//..//nnpack//include/reference.h"
-#include "..//..//nnpack//include/utils.h"
+#include <nnpack.h>
+#include <reference.h>
+#include <utils.h>
 
 class PoolingTester {
 public:

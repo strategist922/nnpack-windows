@@ -13,8 +13,9 @@
 
 #include "..//..//nnpack/src/x86_64-fma/blas/fp16/fp16.h"
 
-#include "..//..//nnpack//include/nnpack.h"
-#include <..//..//nnpack//include/reference.h>
+#include <nnpack.h>
+#include <reference.h>
+#include <utils.h>
 
 #include <gtest\gtest.h>
 
