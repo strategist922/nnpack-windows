@@ -1,24 +1,27 @@
 #pragma once
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
 
-#define SQRT2_OVER_2 0x1.6A09E6p-1f
-#define SQRT2_OVER_4 0x1.6A09E6p-2f
+#define SQRT2_OVER_2 std::strtof("0x1.6A09E6p-1f" ,NULL);
+#define SQRT2_OVER_4 std::strtof("0x1.6A09E6p-2f" ,NULL);
 
 #define COS__0PI_OVER_32 1.0f
-#define COS__1PI_OVER_32 0x1.FD88DAp-1f
-#define COS__2PI_OVER_32 0x1.F6297Cp-1f
-#define COS__3PI_OVER_32 0x1.E9F416p-1f
-#define COS__4PI_OVER_32 0x1.D906BCp-1f
-#define COS__5PI_OVER_32 0x1.C38B30p-1f
-#define COS__6PI_OVER_32 0x1.A9B662p-1f
-#define COS__7PI_OVER_32 0x1.8BC806p-1f
+#define COS__1PI_OVER_32 std::strtof("0x1.FD88DAp-1f" ,NULL);
+#define COS__2PI_OVER_32 std::strtof("0x1.F6297Cp-1f" ,NULL);
+#define COS__3PI_OVER_32 std::strtof("0x1.E9F416p-1f" ,NULL);
+#define COS__4PI_OVER_32 std::strtof("0x1.D906BCp-1f" ,NULL);
+#define COS__5PI_OVER_32 std::strtof("0x1.C38B30p-1f" ,NULL);
+#define COS__6PI_OVER_32 std::strtof("0x1.A9B662p-1f" ,NULL);
+#define COS__7PI_OVER_32 std::strtof("0x1.8BC806p-1f" ,NULL);
 #define COS__8PI_OVER_32 SQRT2_OVER_2
-#define COS__9PI_OVER_32 0x1.44CF32p-1f
-#define COS_10PI_OVER_32 0x1.1C73B4p-1f
-#define COS_11PI_OVER_32 0x1.E2B5D4p-2f
-#define COS_12PI_OVER_32 0x1.87DE2Ap-2f
-#define COS_13PI_OVER_32 0x1.294062p-2f
-#define COS_14PI_OVER_32 0x1.8F8B84p-3f
-#define COS_15PI_OVER_32 0x1.917A6Cp-4f
+#define COS__9PI_OVER_32 std::strtof("0x1.44CF32p-1f" ,NULL);
+#define COS_10PI_OVER_32 std::strtof("0x1.1C73B4p-1f" ,NULL);
+#define COS_11PI_OVER_32 std::strtof("0x1.E2B5D4p-2f" ,NULL);
+#define COS_12PI_OVER_32 std::strtof("0x1.87DE2Ap-2f" ,NULL);
+#define COS_13PI_OVER_32 std::strtof("0x1.294062p-2f" ,NULL);
+#define COS_14PI_OVER_32 std::strtof("0x1.8F8B84p-3f" ,NULL);
+#define COS_15PI_OVER_32 std::strtof("0x1.917A6Cp-4f" ,NULL);
 #define COS_16PI_OVER_32 0.0f
 #define COS_17PI_OVER_32 -COS_15PI_OVER_32
 #define COS_18PI_OVER_32 -COS_14PI_OVER_32
