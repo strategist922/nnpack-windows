@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\dhaen\Source\Repos\nnpack\googletest\googletest\include;C:\Users\dhaen\Source\Repos\nnpack\test\testers;C:\Users\dhaen\Source\Repos\nnpack\test;C:\Users\dhaen\Source\Repos\nnpack\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)googletest\googletest\include;$(SolutionDir)test\testers;$(SolutionDir)test;uint_fast32_tinclude;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -92,7 +92,7 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\dhaen\Source\Repos\nnpack\include;C:\Users\dhaen\Source\Repos\nnpack\test\testers;C:\Users\dhaen\Source\Repos\googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)test\testers;$(SolutionDir)googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -185,7 +185,6 @@
     <Object Include="..\src\x86_64-fma\2d-winograd-8x8-3x3.obj" />
     <Object Include="..\src\x86_64-fma\blas\avx2.obj" />
     <Object Include="..\src\x86_64-fma\blas\c8gemm.obj" />
-    <Object Include="..\src\x86_64-fma\blas\common.obj" />
     <Object Include="..\src\x86_64-fma\blas\conv1x1.obj" />
     <Object Include="..\src\x86_64-fma\blas\s4c6gemm.obj" />
     <Object Include="..\src\x86_64-fma\blas\s8gemm.obj" />
@@ -193,6 +192,7 @@
     <Object Include="..\src\x86_64-fma\blas\sgemm.obj" />
     <Object Include="..\src\x86_64-fma\blas\shdotxf.obj" />
     <Object Include="..\src\x86_64-fma\block8x8.obj" />
+    <Object Include="..\src\x86_64-fma\common.obj" />
     <Object Include="..\src\x86_64-fma\fft-aos.obj" />
     <Object Include="..\src\x86_64-fma\fft-dualreal.obj" />
     <Object Include="..\src\x86_64-fma\fft-real.obj" />

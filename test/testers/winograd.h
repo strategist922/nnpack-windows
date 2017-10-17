@@ -10,7 +10,10 @@
 #include <chrono>
 #include <functional>
 #include <algorithm>
+#include <numeric>
 
+#include <nnpack.h>
+#include <reference.h>
 #include "../../nnpack/include/winograd.h"
 #include "../../nnpack/include/transform.h"
 #include "../../nnpack/include/hwinfo.h"

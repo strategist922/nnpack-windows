@@ -94,9 +94,6 @@
     <Object Include="..\src\x86_64-fma\blas\c8gemm.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\common.obj">
-      <Filter>Objects</Filter>
-    </Object>
     <Object Include="..\src\x86_64-fma\blas\conv1x1.obj">
       <Filter>Objects</Filter>
     </Object>
@@ -152,6 +149,9 @@
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\winograd-f6k3.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\common.obj">
       <Filter>Objects</Filter>
     </Object>
   </ItemGroup>
