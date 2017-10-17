@@ -219,7 +219,7 @@ public:
 				case nnp_activation_relu:
 					nnp_relu_output__reference(
 						batchSize(), outputChannels() * outputHeight() * outputWidth(),
-						referenceOutput.data(), referenceOutput.data(), 0.0);
+						referenceOutput.data(), referenceOutput.data(), 0.0f);
 					break;
 				default:
 					FAIL() << "Unexpected activation value: " << activation;

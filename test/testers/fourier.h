@@ -12,9 +12,8 @@
 #include <algorithm>
 #include <numeric>
 #include <functional>
-#include <iterator>
 
-#include "..//../nnpack/include/fft.h"
+#include <fft.h>
 
 #include <gtest\gtest.h>
 

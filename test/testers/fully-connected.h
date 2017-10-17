@@ -11,7 +11,7 @@
 #include <functional>
 #include <algorithm>
 
-#include "..//..//nnpack/src/x86_64-fma/blas/fp16/fp16.h"
+#include "../../nnpack/src/x86_64-fma/blas/fp16/fp16.h"
 
 #include <nnpack.h>
 #include <reference.h>
