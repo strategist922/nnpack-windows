@@ -16,6 +16,8 @@
 #include "..//..//nnpack//include/nnpack.h"
 #include <..//..//nnpack//include/reference.h>
 
+#include <gtest\gtest.h>
+
 class FullyConnectedTester {
 public:
 	FullyConnectedTester() :

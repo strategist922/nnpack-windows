@@ -16,6 +16,8 @@
 #include <reference.h>
 #include <utils.h>
 
+#include <gtest\gtest.h>
+
 class ReLUTester {
 public:
 	ReLUTester() :

@@ -17,6 +17,8 @@
 
 #include <relu.h>
 
+#include <gtest\gtest.h>
+
 class ConvolutionTester {
 public:
 	ConvolutionTester() :

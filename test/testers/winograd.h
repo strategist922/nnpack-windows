@@ -18,6 +18,8 @@
 #include "../../nnpack/include/transform.h"
 #include "../../nnpack/include/hwinfo.h"
 
+#include <gtest\gtest.h>
+
 #include <AlignedAllocator.h>
 
 class WinogradTransformTester {

@@ -16,6 +16,8 @@
 
 #include "..//../nnpack/include/fft.h"
 
+#include <gtest\gtest.h>
+
 #include <AlignedAllocator.h>
 
 class FFTTester {
@@ -64,36 +66,25 @@ public:
 		return this->errorLimit_;
 	}
 
-	/*template <class InputIterator1, class InputIterator2, class T>
-	T inner_product(InputIterator1 first1, InputIterator1 last1,
-		InputIterator2 first2, InputIterator2 last2, T init)
-	{
-		for (; first1 != last1 && first2 != last2; ++first1, ++first2)
-		{
-			init += (*first1)*(*first2);
-		}
-		return init;
-	}*/
-
 	/**
 	 * Validates that output of forward complex 1D FFT with array-of-structure layout matches reference samples.
 	 */
 	void testForwardAosSamples(nnp_strided_fft_function forward_fft, const float input[], const float expectedOutput[]) const
 	{
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 		
 		std::vector<float> output(2 * fftSize());
 		forward_fft(input, 1, output.data(), 1);
 
-		const float maxError = inner_product(output.cbegin(), output.cend(), expectedOutput, 0.0f, [](float x, float y)->float { return std::max<float>(y, x); }, relativeError);
-		_ASSERT(maxError < errorLimit());
+		const float maxError = std::inner_product(output.cbegin(), output.cend(), expectedOutput, 0.0f, [](float x, float y)->float { return std::max<float>(y, x); }, relativeError);
+		ASSERT_LT(maxError, errorLimit());
 	}
 
 	/**
 	 * Validates that complex 1D forward FFT + inverse FFT with array-of-structure layout is an identity transformation.
 	 */
 	void testForwardAndInverseAos(nnp_strided_fft_function forward_fft, nnp_strided_fft_function inverse_fft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -121,7 +112,7 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 	/**
@@ -129,7 +120,7 @@ public:
 	 * as FFT with array-of-structures layout. This function works for both forward and inverse FFT.
 	 */
 	void testSoa(nnp_strided_fft_function soa_fft, nnp_strided_fft_function aos_fft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -172,14 +163,14 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 	/**
 	 * Validates that real-to-complex 1D FFT produces the same output as complex FFT with array-of-structures layout.
 	 */
 	void testRealToComplex(nnp_strided_fft_function real_fft, nnp_strided_fft_function aos_fft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -224,14 +215,14 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 	/**
 	 * Validates that complex-to-real 1D FFT produces the same output as complex FFT with array-of-structures layout.
 	 */
 	void testComplexToReal(nnp_strided_fft_function real_ifft, nnp_strided_fft_function aos_ifft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -284,14 +275,14 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 	/**
 	 * Validates that dual-sequence real-to-complex 1D FFT produces the same output as two real-to-complex FFTs.
 	 */
 	void testDualRealToComplex(nnp_fft_function dual_real_fft, nnp_strided_fft_function real_fft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -334,14 +325,14 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 	/**
 	 * Validates that dual-sequence complex-to-real 1D FFT produces the same output as two complex-to-real FFTs.
 	 */
 	void testDualComplexToReal(nnp_fft_function dual_real_ifft, nnp_strided_fft_function real_ifft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -384,7 +375,7 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 	/**
@@ -405,8 +396,8 @@ public:
 	 * Validates that optimized dual-sequence real 1D FFT produces the same output as reference implementation.
 	 */
 	void testOptimizedDualReal(nnp_fft_function optimized_fft, nnp_fft_function reference_fft) const {
-		_ASSERT(1 ==  simdWidth());
-		_ASSERT(fftSize() != 0);
+		ASSERT_EQ(1, simdWidth());
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -434,12 +425,12 @@ public:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 protected:
 	void testOptimized(size_t elements, nnp_fft_function optimized_fft, nnp_strided_fft_function reference_fft) const {
-		_ASSERT(fftSize() != 0);
+		ASSERT_NE(fftSize(), 0);
 
 		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
@@ -470,7 +461,7 @@ protected:
 
 		const std::vector<float> medianErrors = median(errors);
 		const float maxMedianError = *std::max_element(medianErrors.cbegin(), medianErrors.cend());
-		_ASSERT(maxMedianError < errorLimit());
+		ASSERT_LT(maxMedianError, errorLimit());
 	}
 
 private:

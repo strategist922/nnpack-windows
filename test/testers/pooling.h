@@ -11,6 +11,7 @@
 #include <functional>
 #include <algorithm>
 
+#include <gtest\gtest.h>
 
 #include "..//..//nnpack//include/nnpack.h"
 #include "..//..//nnpack//include/reference.h"
