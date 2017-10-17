@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Reference">
+    <Filter Include="Source Files\Reference">
       <UniqueIdentifier>{d3884015-d0af-4f5d-9574-bd74ba49b2cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -61,28 +61,28 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-output-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fully-connected-output-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\max-pooling-output-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\relu-input-gradient-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\relu-output-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\softmax-output-ref.cpp">
-      <Filter>Reference</Filter>
+      <Filter>Source Files\Reference</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

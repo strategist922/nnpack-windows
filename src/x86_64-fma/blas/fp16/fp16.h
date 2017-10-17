@@ -10,9 +10,37 @@
 	#include <math.h>
 #endif
 
-#include <fp16/bitcasts.h>
+#include "..//..//blas/fp16/bitcasts.h"
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
 
 
+
+#ifdef _MSC_VER
+#include <intrin.h>
+
+//static uint32_t __inline ctz(uint32_t x)
+//{
+//	int r = 0;
+//	_BitScanReverse(&r, x);
+//	return r;
+//}
+//
+//static uint32_t __inline clz(uint32_t x)
+//{
+//	int r = 0;
+//	_BitScanForward(&r, x);
+//	return r;
+//}
+
+static uint32_t __inline __builtin_clz(uint32_t x) {
+	unsigned long r = 0;
+	_BitScanReverse(&r, x);
+	return (31 - r);
+}
+
+#endif
 /*
  * Convert a 16-bit floating-point number in IEEE half-precision format, in bit representation, to
  * a 32-bit floating-point number in IEEE single-precision format, in bit representation.
@@ -152,7 +180,7 @@ static inline float fp16_ieee_to_fp32_value(uint16_t h) {
 	 * operate on denormal inputs, and do not produce denormal results.
 	 */
 	const uint32_t exp_offset = UINT32_C(0xE0) << 23;
-	const float exp_scale = 0x1.0p-112f;
+	const float exp_scale = std::strtof("0x1.0p-112f", NULL);
 	const float normalized_value = fp32_from_bits((two_w >> 4) + exp_offset) * exp_scale;
 
 	/*
@@ -207,8 +235,8 @@ static inline float fp16_ieee_to_fp32_value(uint16_t h) {
  * floating-point operations and bitcasts between integer and floating-point variables.
  */
 static inline uint16_t fp16_ieee_from_fp32_value(float f) {
-	const float scale_to_inf = 0x1.0p+112f;
-	const float scale_to_zero = 0x1.0p-110f;
+	const float scale_to_inf = std::strtof("0x1.0p+112f", NULL);
+	const float scale_to_zero = std::strtof("0x1.0p-110f", NULL);
 	float base = (fabsf(f) * scale_to_inf) * scale_to_zero;
 
 	const uint32_t w = fp32_to_bits(f);
