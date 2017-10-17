@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\dhaen\Source\Repos\nnpack\test\testers;C:\Users\dhaen\Source\Repos\nnpack\test;C:\Users\dhaen\Source\Repos\nnpack\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\dhaen\Source\Repos\nnpack\googletest\googletest\include;C:\Users\dhaen\Source\Repos\nnpack\test\testers;C:\Users\dhaen\Source\Repos\nnpack\test;C:\Users\dhaen\Source\Repos\nnpack\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -172,7 +172,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\googletest\googletest\msvc\2010\gtest.vcxproj">
+    <ProjectReference Include="..\googletest\googletest\msvc\2010\gtest.vcxproj">
       <Project>{c8f6c172-56f2-4e76-b5fa-c3b423b31be7}</Project>
     </ProjectReference>
     <ProjectReference Include="..\nnpack.vcxproj">
