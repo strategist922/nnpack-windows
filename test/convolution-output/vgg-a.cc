@@ -1,7 +1,9 @@
+#include <stdafx.h>
+
 #include <gtest/gtest.h>
 
 
-#include "..//..//nnpack//include/nnpack.h"
+#include <nnpack.h>
 
 #include <testers/convolution.h>
 #include <models/vgg-a.h>
