@@ -332,7 +332,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 				};
 
 				pthreadpool_compute_2d_tiled(
-					(pthreadpool_function_2d_tiled_t) compute_input_transform,
+					(pthreadpool_function_2d_tiled_t)compute_input_transform,
 					&input_transform_context,
 					batch_block_size, input_channels,
 					1u, input_channels_subblock_max);
@@ -388,7 +388,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 						} 
 						
 						pthreadpool_compute_2d_tiled(
-							(pthreadpool_function_2d_tiled_t) compute_matrix_multiplication,
+							(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 							&matrix_multiplication_context,
 							output_channels,           input_channels_block_size,
 							output_channels_block_max, input_channels_subblock_max);
