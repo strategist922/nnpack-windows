@@ -189,6 +189,7 @@
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\validation.h" />
     <ClInclude Include="include\winograd.h" />
+    <ClInclude Include="src\ref\fft\complex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
