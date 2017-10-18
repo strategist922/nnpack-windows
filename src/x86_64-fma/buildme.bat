@@ -1,5 +1,7 @@
 set current_dir=%cd%
 
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\common.obj %current_dir%\common.py
+
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\2d-fourier-8x8.obj %current_dir%\2d-fourier-8x8.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\2d-fourier-16x16.obj %current_dir%\2d-fourier-16x16.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\2d-winograd-8x8-3x3.obj %current_dir%\2d-winograd-8x8-3x3.py
