@@ -7,6 +7,9 @@ python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %curre
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\relu.obj %current_dir%\relu.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\softmax.obj %current_dir%\softmax.py
 
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\avx.obj %current_dir%\blas\avx.py
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\avx2.obj %current_dir%\blas\avx2.py
+
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\s8gemm.obj %current_dir%\blas\s8gemm.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\c8gemm.obj %current_dir%\blas\c8gemm.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\s4c6gemm.obj %current_dir%\blas\s4c6gemm.py
