@@ -19,5 +19,5 @@ buildme.bat
 
 After all the objects are created you open te visual studio solution file with vs2017
 
-(In de buildme.bat script you can specify your target cpu by changing -mcp=haswell to -mcp=skylake for example)
+(In the buildme.bat script you can specify your target cpu by changing -mcp=haswell to -mcp=skylake for example)
 
