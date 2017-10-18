@@ -24,7 +24,7 @@ namespace samples
 	{
 		static const float input[8] = 
 		{
-			std::strtof("0x1.A8E4F8p-2f", NULL), std::strtof("0x1.EE376Cp-3f", NULL),
+			std::strtof("0x1.A8E4F8p-2f", NULL) , std::strtof("0x1.EE376Cp-3f", NULL),
 			std::strtof("0x1.E29E82p-1f", NULL), std::strtof("0x1.BD43D2p-1f", NULL),
 			std::strtof("0x1.3E6038p-3f", NULL), std::strtof("0x1.CC237Ep-1f", NULL),
 			std::strtof("0x1.1CB97Ep-2f", NULL), std::strtof("0x1.ECC3C2p-2f", NULL) 
