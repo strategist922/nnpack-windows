@@ -157,6 +157,12 @@
     <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp" />
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp" />
     <ClCompile Include="src\ref\convolution-output-ref.cpp" />
+    <ClCompile Include="src\ref\fft\aos.cpp" />
+    <ClCompile Include="src\ref\fft\forward-dualreal.cpp" />
+    <ClCompile Include="src\ref\fft\forward-real.cpp" />
+    <ClCompile Include="src\ref\fft\inverse-dualreal.cpp" />
+    <ClCompile Include="src\ref\fft\inverse-real.cpp" />
+    <ClCompile Include="src\ref\fft\soa.cpp" />
     <ClCompile Include="src\ref\fully-connected-output-ref.cpp" />
     <ClCompile Include="src\ref\max-pooling-output-ref.cpp" />
     <ClCompile Include="src\ref\relu-input-gradient-ref.cpp" />

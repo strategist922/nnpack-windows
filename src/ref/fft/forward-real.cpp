@@ -1,19 +1,18 @@
 #include <stddef.h>
 
-#include <nnpack/fft-constants.h>
-#include <nnpack/complex.h>
-#include <fft/complex.h>
+#include "../../../include/fft-constants.h"
+#include "../../../include/complex.h"
+#include "complex.h"
+#include <ccomplex>
 
 
-void nnp_fft8_real__ref(
-	const float t[restrict static 8], size_t t_stride,
-	float f[restrict static 8], size_t f_stride)
+void nnp_fft8_real__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
 {
 	/* Load inputs */
-	float _Complex w0 = CMPLXF(t[0 * t_stride], t[1 * t_stride]);
-	float _Complex w1 = CMPLXF(t[2 * t_stride], t[3 * t_stride]);
-	float _Complex w2 = CMPLXF(t[4 * t_stride], t[5 * t_stride]);
-	float _Complex w3 = CMPLXF(t[6 * t_stride], t[7 * t_stride]);
+	std::complex<float> w0 = CMPLXF(t[0 * t_stride], t[1 * t_stride]);
+	std::complex<float> w1 = CMPLXF(t[2 * t_stride], t[3 * t_stride]);
+	std::complex<float> w2 = CMPLXF(t[4 * t_stride], t[5 * t_stride]);
+	std::complex<float> w3 = CMPLXF(t[6 * t_stride], t[7 * t_stride]);
 
 	fft4fc(&w0, &w1, &w2, &w3);
 
@@ -41,19 +40,17 @@ void nnp_fft8_real__ref(
 	f[7 * f_stride] = 0.5f * two_w3_imag;
 }
 
-void nnp_fft16_real__ref(
-	const float t[restrict static 16], size_t t_stride,
-	float f[restrict static 16], size_t f_stride)
+void nnp_fft16_real__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
 {
 	/* Load inputs */
-	float _Complex w0 = CMPLXF(t[ 0 * t_stride], t[ 1 * t_stride]);
-	float _Complex w1 = CMPLXF(t[ 2 * t_stride], t[ 3 * t_stride]);
-	float _Complex w2 = CMPLXF(t[ 4 * t_stride], t[ 5 * t_stride]);
-	float _Complex w3 = CMPLXF(t[ 6 * t_stride], t[ 7 * t_stride]);
-	float _Complex w4 = CMPLXF(t[ 8 * t_stride], t[ 9 * t_stride]);
-	float _Complex w5 = CMPLXF(t[10 * t_stride], t[11 * t_stride]);
-	float _Complex w6 = CMPLXF(t[12 * t_stride], t[13 * t_stride]);
-	float _Complex w7 = CMPLXF(t[14 * t_stride], t[15 * t_stride]);
+	std::complex<float> w0 = CMPLXF(t[ 0 * t_stride], t[ 1 * t_stride]);
+	std::complex<float> w1 = CMPLXF(t[ 2 * t_stride], t[ 3 * t_stride]);
+	std::complex<float> w2 = CMPLXF(t[ 4 * t_stride], t[ 5 * t_stride]);
+	std::complex<float> w3 = CMPLXF(t[ 6 * t_stride], t[ 7 * t_stride]);
+	std::complex<float> w4 = CMPLXF(t[ 8 * t_stride], t[ 9 * t_stride]);
+	std::complex<float> w5 = CMPLXF(t[10 * t_stride], t[11 * t_stride]);
+	std::complex<float> w6 = CMPLXF(t[12 * t_stride], t[13 * t_stride]);
+	std::complex<float> w7 = CMPLXF(t[14 * t_stride], t[15 * t_stride]);
 
 	fft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
@@ -105,27 +102,25 @@ void nnp_fft16_real__ref(
 	f[15 * f_stride] = 0.5f * two_w7_imag;
 }
 
-void nnp_fft32_real__ref(
-	const float t[restrict static 32], size_t t_stride,
-	float f[restrict static 32], size_t f_stride)
+void nnp_fft32_real__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
 {
 	/* Load inputs */
-	float _Complex w0  = CMPLXF(t[ 0 * t_stride], t[ 1 * t_stride]);
-	float _Complex w1  = CMPLXF(t[ 2 * t_stride], t[ 3 * t_stride]);
-	float _Complex w2  = CMPLXF(t[ 4 * t_stride], t[ 5 * t_stride]);
-	float _Complex w3  = CMPLXF(t[ 6 * t_stride], t[ 7 * t_stride]);
-	float _Complex w4  = CMPLXF(t[ 8 * t_stride], t[ 9 * t_stride]);
-	float _Complex w5  = CMPLXF(t[10 * t_stride], t[11 * t_stride]);
-	float _Complex w6  = CMPLXF(t[12 * t_stride], t[13 * t_stride]);
-	float _Complex w7  = CMPLXF(t[14 * t_stride], t[15 * t_stride]);
-	float _Complex w8  = CMPLXF(t[16 * t_stride], t[17 * t_stride]);
-	float _Complex w9  = CMPLXF(t[18 * t_stride], t[19 * t_stride]);
-	float _Complex w10 = CMPLXF(t[20 * t_stride], t[21 * t_stride]);
-	float _Complex w11 = CMPLXF(t[22 * t_stride], t[23 * t_stride]);
-	float _Complex w12 = CMPLXF(t[24 * t_stride], t[25 * t_stride]);
-	float _Complex w13 = CMPLXF(t[26 * t_stride], t[27 * t_stride]);
-	float _Complex w14 = CMPLXF(t[28 * t_stride], t[29 * t_stride]);
-	float _Complex w15 = CMPLXF(t[30 * t_stride], t[31 * t_stride]);
+	std::complex<float> w0  = CMPLXF(t[ 0 * t_stride], t[ 1 * t_stride]);
+	std::complex<float> w1  = CMPLXF(t[ 2 * t_stride], t[ 3 * t_stride]);
+	std::complex<float> w2  = CMPLXF(t[ 4 * t_stride], t[ 5 * t_stride]);
+	std::complex<float> w3  = CMPLXF(t[ 6 * t_stride], t[ 7 * t_stride]);
+	std::complex<float> w4  = CMPLXF(t[ 8 * t_stride], t[ 9 * t_stride]);
+	std::complex<float> w5  = CMPLXF(t[10 * t_stride], t[11 * t_stride]);
+	std::complex<float> w6  = CMPLXF(t[12 * t_stride], t[13 * t_stride]);
+	std::complex<float> w7  = CMPLXF(t[14 * t_stride], t[15 * t_stride]);
+	std::complex<float> w8  = CMPLXF(t[16 * t_stride], t[17 * t_stride]);
+	std::complex<float> w9  = CMPLXF(t[18 * t_stride], t[19 * t_stride]);
+	std::complex<float> w10 = CMPLXF(t[20 * t_stride], t[21 * t_stride]);
+	std::complex<float> w11 = CMPLXF(t[22 * t_stride], t[23 * t_stride]);
+	std::complex<float> w12 = CMPLXF(t[24 * t_stride], t[25 * t_stride]);
+	std::complex<float> w13 = CMPLXF(t[26 * t_stride], t[27 * t_stride]);
+	std::complex<float> w14 = CMPLXF(t[28 * t_stride], t[29 * t_stride]);
+	std::complex<float> w15 = CMPLXF(t[30 * t_stride], t[31 * t_stride]);
 
 	fft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 

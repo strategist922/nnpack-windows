@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Reference">
       <UniqueIdentifier>{d3884015-d0af-4f5d-9574-bd74ba49b2cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Reference\fft">
+      <UniqueIdentifier>{33f47aaf-093d-44be-b48d-ec1cf921bafb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\convolution-inference.cpp">
@@ -84,6 +87,24 @@
     <ClCompile Include="src\ref\softmax-output-ref.cpp">
       <Filter>Source Files\Reference</Filter>
     </ClCompile>
+    <ClCompile Include="src\ref\fft\aos.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\forward-dualreal.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\forward-real.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\inverse-dualreal.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\inverse-real.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\soa.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h">
@@ -147,7 +168,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ref\fft\complex.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Reference\fft</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

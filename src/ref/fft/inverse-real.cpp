@@ -1,8 +1,9 @@
 #include <stddef.h>
 
-#include <nnpack/fft-constants.h>
-#include <nnpack/complex.h>
-#include <fft/complex.h>
+#include "../../../include/fft-constants.h"
+#include "../../../include/complex.h"
+#include "complex.h"
+#include <ccomplex>
 
 
 /**
@@ -33,9 +34,7 @@
  *   h[n]                        = 0.5 (w[n] - conj w[-n]) * CEXP_nPI_OVER_N
  */
 
-void nnp_ifft8_real__ref(
-	const float f[restrict static 8], size_t f_stride,
-	float t[restrict static 8], size_t t_stride)
+void nnp_ifft8_real__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
 {
 	/* Load inputs and scale */
 	const float W0_real = 0.5f * f[0 * f_stride];
@@ -47,8 +46,8 @@ void nnp_ifft8_real__ref(
 	const float W3_real = 0.5f * f[6 * f_stride];
 	const float W3_imag = 0.5f * f[7 * f_stride];
 
-	float _Complex w0 = CMPLXF(W0_real + W4_real, W0_real - W4_real);
-	float _Complex w2 = CMPLXF(W2_real, -W2_imag);
+	std::complex<float> w0 = CMPLXF(W0_real + W4_real, W0_real - W4_real);
+	std::complex<float> w2 = CMPLXF(W2_real, -W2_imag);
 
 	const float G1_real = W1_real + W3_real;
 	const float G1_imag = W1_imag - W3_imag;
@@ -64,8 +63,8 @@ void nnp_ifft8_real__ref(
 	const float w3_real =  G1_real + SQRT2_OVER_2 * H1_plus;
 	const float w3_imag = -G1_imag + SQRT2_OVER_2 * H1_minus;
 
-	float _Complex w1 = CMPLXF(w1_real, w1_imag);
-	float _Complex w3 = CMPLXF(w3_real, w3_imag);
+	std::complex<float> w1 = CMPLXF(w1_real, w1_imag);
+	std::complex<float> w3 = CMPLXF(w3_real, w3_imag);
 
 	ifft4fc(&w0, &w1, &w2, &w3);
 
@@ -80,9 +79,7 @@ void nnp_ifft8_real__ref(
 	t[7 * t_stride] = cimagf(w3);
 }
 
-void nnp_ifft16_real__ref(
-	const float f[restrict static 16], size_t f_stride,
-	float t[restrict static 16], size_t t_stride)
+void nnp_ifft16_real__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
 {
 	/* Load inputs and scale */
 	const float W0_real = 0.5f * f[ 0 * f_stride];
@@ -102,8 +99,8 @@ void nnp_ifft16_real__ref(
 	const float W7_real = 0.5f * f[14 * f_stride];
 	const float W7_imag = 0.5f * f[15 * f_stride];
 
-	float _Complex w0 = CMPLXF(W0_real + W8_real, W0_real - W8_real);
-	float _Complex w4 = CMPLXF(W4_real, -W4_imag);
+	std::complex<float> w0 = CMPLXF(W0_real + W8_real, W0_real - W8_real);
+	std::complex<float> w4 = CMPLXF(W4_real, -W4_imag);
 
 	const float G2_real = W2_real + W6_real;
 	const float G2_imag = W2_imag - W6_imag;
@@ -139,12 +136,12 @@ void nnp_ifft16_real__ref(
 	const float w5_real =  G3_real + H3_imag * COS_3PI_OVER_8 + H3_real * COS_1PI_OVER_8;
 	const float w5_imag = -G3_imag + H3_real * COS_3PI_OVER_8 - H3_imag * COS_1PI_OVER_8;
 
-	float _Complex w1 = CMPLXF(w1_real, w1_imag);
-	float _Complex w7 = CMPLXF(w7_real, w7_imag);
-	float _Complex w2 = CMPLXF(w2_real, w2_imag);
-	float _Complex w6 = CMPLXF(w6_real, w6_imag);
-	float _Complex w3 = CMPLXF(w3_real, w3_imag);
-	float _Complex w5 = CMPLXF(w5_real, w5_imag);
+	std::complex<float> w1 = CMPLXF(w1_real, w1_imag);
+	std::complex<float> w7 = CMPLXF(w7_real, w7_imag);
+	std::complex<float> w2 = CMPLXF(w2_real, w2_imag);
+	std::complex<float> w6 = CMPLXF(w6_real, w6_imag);
+	std::complex<float> w3 = CMPLXF(w3_real, w3_imag);
+	std::complex<float> w5 = CMPLXF(w5_real, w5_imag);
 
 	ifft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
@@ -167,9 +164,7 @@ void nnp_ifft16_real__ref(
 	t[15 * t_stride] = cimagf(w7);
 }
 
-void nnp_ifft32_real__ref(
-	const float f[restrict static 16], size_t f_stride,
-	float t[restrict static 16], size_t t_stride)
+void nnp_ifft32_real__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
 {
 	/* Load inputs and scale */
 	const float  W0_real = 0.5f * f[ 0 * f_stride];
@@ -205,8 +200,8 @@ void nnp_ifft32_real__ref(
 	const float W15_real = 0.5f * f[30 * f_stride];
 	const float W15_imag = 0.5f * f[31 * f_stride];
 
-	float _Complex w0 = CMPLXF(W0_real + W16_real, W0_real - W16_real);
-	float _Complex w8 = CMPLXF(W8_real, -W8_imag);
+	std::complex<float> w0 = CMPLXF(W0_real + W16_real, W0_real - W16_real);
+	std::complex<float> w8 = CMPLXF(W8_real, -W8_imag);
 
 	const float G4_real = W4_real + W12_real;
 	const float G4_imag = W4_imag - W12_imag;
@@ -221,8 +216,8 @@ void nnp_ifft32_real__ref(
 	const float  w4_imag =  G4_imag + SQRT2_OVER_2 * H4_minus;
 	const float w12_real =  G4_real + SQRT2_OVER_2 * H4_plus;
 	const float w12_imag = -G4_imag + SQRT2_OVER_2 * H4_minus;
-	float _Complex w4  = CMPLXF( w4_real,  w4_imag);
-	float _Complex w12 = CMPLXF(w12_real, w12_imag);
+	std::complex<float> w4  = CMPLXF( w4_real,  w4_imag);
+	std::complex<float> w12 = CMPLXF(w12_real, w12_imag);
 
 	const float G1_real = W1_real + W15_real;
 	const float G1_imag = W1_imag - W15_imag;
@@ -238,15 +233,15 @@ void nnp_ifft32_real__ref(
 	const float  w1_imag =  G1_imag + H1_real * COS__1PI_OVER_16 - H1_imag * COS__7PI_OVER_16;
 	const float w15_real =  G1_real + H1_imag * COS__1PI_OVER_16 + H1_real * COS__7PI_OVER_16;
 	const float w15_imag = -G1_imag + H1_real * COS__1PI_OVER_16 - H1_imag * COS__7PI_OVER_16;
-	float _Complex w1  = CMPLXF( w1_real,  w1_imag);
-	float _Complex w15 = CMPLXF(w15_real, w15_imag);
+	std::complex<float> w1  = CMPLXF( w1_real,  w1_imag);
+	std::complex<float> w15 = CMPLXF(w15_real, w15_imag);
 
 	const float w7_real =  G7_real - H7_imag * COS__7PI_OVER_16 - H7_real * COS__1PI_OVER_16;
 	const float w7_imag =  G7_imag + H7_real * COS__7PI_OVER_16 - H7_imag * COS__1PI_OVER_16;
 	const float w9_real =  G7_real + H7_imag * COS__7PI_OVER_16 + H7_real * COS__1PI_OVER_16;
 	const float w9_imag = -G7_imag + H7_real * COS__7PI_OVER_16 - H7_imag * COS__1PI_OVER_16;
-	float _Complex w7 = CMPLXF(w7_real, w7_imag);
-	float _Complex w9 = CMPLXF(w9_real, w9_imag);
+	std::complex<float> w7 = CMPLXF(w7_real, w7_imag);
+	std::complex<float> w9 = CMPLXF(w9_real, w9_imag);
 
 	const float G2_real = W2_real + W14_real;
 	const float G2_imag = W2_imag - W14_imag;
@@ -262,15 +257,15 @@ void nnp_ifft32_real__ref(
 	const float  w2_imag =  G2_imag + H2_real * COS__2PI_OVER_16 - H2_imag * COS__6PI_OVER_16;
 	const float w14_real =  G2_real + H2_imag * COS__2PI_OVER_16 + H2_real * COS__6PI_OVER_16;
 	const float w14_imag = -G2_imag + H2_real * COS__2PI_OVER_16 - H2_imag * COS__6PI_OVER_16;
-	float _Complex w2  = CMPLXF( w2_real,  w2_imag);
-	float _Complex w14 = CMPLXF(w14_real, w14_imag);
+	std::complex<float> w2  = CMPLXF( w2_real,  w2_imag);
+	std::complex<float> w14 = CMPLXF(w14_real, w14_imag);
 
 	const float  w6_real =  G6_real - H6_imag * COS__6PI_OVER_16 - H6_real * COS__2PI_OVER_16;
 	const float  w6_imag =  G6_imag + H6_real * COS__6PI_OVER_16 - H6_imag * COS__2PI_OVER_16;
 	const float w10_real =  G6_real + H6_imag * COS__6PI_OVER_16 + H6_real * COS__2PI_OVER_16;
 	const float w10_imag = -G6_imag + H6_real * COS__6PI_OVER_16 - H6_imag * COS__2PI_OVER_16;
-	float _Complex w6  = CMPLXF( w6_real,  w6_imag);
-	float _Complex w10 = CMPLXF(w10_real, w10_imag);
+	std::complex<float> w6  = CMPLXF( w6_real,  w6_imag);
+	std::complex<float> w10 = CMPLXF(w10_real, w10_imag);
 
 	const float G3_real = W3_real + W13_real;
 	const float G3_imag = W3_imag - W13_imag;
@@ -286,15 +281,15 @@ void nnp_ifft32_real__ref(
 	const float  w3_imag =  G3_imag + H3_real * COS__3PI_OVER_16 - H3_imag * COS__5PI_OVER_16;
 	const float w13_real =  G3_real + H3_imag * COS__3PI_OVER_16 + H3_real * COS__5PI_OVER_16;
 	const float w13_imag = -G3_imag + H3_real * COS__3PI_OVER_16 - H3_imag * COS__5PI_OVER_16;
-	float _Complex w3  = CMPLXF( w3_real,  w3_imag);
-	float _Complex w13 = CMPLXF(w13_real, w13_imag);
+	std::complex<float> w3  = CMPLXF( w3_real,  w3_imag);
+	std::complex<float> w13 = CMPLXF(w13_real, w13_imag);
 
 	const float  w5_real =  G5_real - H5_imag * COS__5PI_OVER_16 - H5_real * COS__3PI_OVER_16;
 	const float  w5_imag =  G5_imag + H5_real * COS__5PI_OVER_16 - H5_imag * COS__3PI_OVER_16;
 	const float w11_real =  G5_real + H5_imag * COS__5PI_OVER_16 + H5_real * COS__3PI_OVER_16;
 	const float w11_imag = -G5_imag + H5_real * COS__5PI_OVER_16 - H5_imag * COS__3PI_OVER_16;
-	float _Complex w5  = CMPLXF( w5_real,  w5_imag);
-	float _Complex w11 = CMPLXF(w11_real, w11_imag);
+	std::complex<float> w5  = CMPLXF( w5_real,  w5_imag);
+	std::complex<float> w11 = CMPLXF(w11_real, w11_imag);
 
 	ifft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 

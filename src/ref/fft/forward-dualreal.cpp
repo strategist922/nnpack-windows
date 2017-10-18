@@ -1,31 +1,33 @@
 #include <stddef.h>
 
-#include <nnpack/fft-constants.h>
-#include <nnpack/complex.h>
-#include <fft/complex.h>
+#include "../../../include/fft-constants.h"
+#include "../../../include/complex.h"
+#include "complex.h"
+#include <ccomplex>
 
-
-void nnp_fft8_dualreal__ref(const float t[restrict static 16], float f[restrict static 16]) {
-	float _Complex w0 = CMPLXF(t[0], t[ 8]);
-	float _Complex w1 = CMPLXF(t[1], t[ 9]);
-	float _Complex w2 = CMPLXF(t[2], t[10]);
-	float _Complex w3 = CMPLXF(t[3], t[11]);
-	float _Complex w4 = CMPLXF(t[4], t[12]);
-	float _Complex w5 = CMPLXF(t[5], t[13]);
-	float _Complex w6 = CMPLXF(t[6], t[14]);
-	float _Complex w7 = CMPLXF(t[7], t[15]);
+void nnp_fft8_dualreal__ref(const float* t, float* f) 
+{
+	std::complex<float> w0 = CMPLXF(t[0], t[ 8]);
+	std::complex<float> w1 = CMPLXF(t[1], t[ 9]);
+	std::complex<float> w2 = CMPLXF(t[2], t[10]);
+	std::complex<float> w3 = CMPLXF(t[3], t[11]);
+	std::complex<float> w4 = CMPLXF(t[4], t[12]);
+	std::complex<float> w5 = CMPLXF(t[5], t[13]);
+	std::complex<float> w6 = CMPLXF(t[6], t[14]);
+	std::complex<float> w7 = CMPLXF(t[7], t[15]);
 
 	fft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
 	const float x0 = crealf(w0);
 	const float h0 = cimagf(w0);
+	
 
-	const float _Complex x1 =  0.5f  * (w1 + conjf(w7));
-	const float _Complex h1 = -0.5fi * (w1 - conjf(w7));
-	const float _Complex x2 =  0.5f  * (w2 + conjf(w6));
-	const float _Complex h2 = -0.5fi * (w2 - conjf(w6));
-	const float _Complex x3 =  0.5f  * (w3 + conjf(w5));
-	const float _Complex h3 = -0.5fi * (w3 - conjf(w5));
+	const std::complex<float>  x1 =  0.5f  * (w1 + std::conj(w7));
+	const std::complex<float> h1 = std::complex<float>(0.0f, -0.5f) * (w1 - std::conj(w7));
+	const std::complex<float> x2 =  0.5f  * (w2 + std::conj(w6));
+	const std::complex<float> h2 = std::complex<float>(0.0f, -0.5f) * (w2 - std::conj(w6));
+	const std::complex<float> x3 =  0.5f  * (w3 + std::conj(w5));
+	const std::complex<float> h3 = std::complex<float>(0.0f, -0.5f) * (w3 - std::conj(w5));
 
 	const float x4 = crealf(w4);
 	const float h4 = cimagf(w4);
@@ -49,43 +51,44 @@ void nnp_fft8_dualreal__ref(const float t[restrict static 16], float f[restrict 
 	f[15] = cimagf(h3);
 }
 
-void nnp_fft16_dualreal__ref(const float t[restrict static 16], float f[restrict static 16]) {
-	float _Complex w0  = CMPLXF(t[ 0], t[16]);
-	float _Complex w1  = CMPLXF(t[ 1], t[17]);
-	float _Complex w2  = CMPLXF(t[ 2], t[18]);
-	float _Complex w3  = CMPLXF(t[ 3], t[19]);
-	float _Complex w4  = CMPLXF(t[ 4], t[20]);
-	float _Complex w5  = CMPLXF(t[ 5], t[21]);
-	float _Complex w6  = CMPLXF(t[ 6], t[22]);
-	float _Complex w7  = CMPLXF(t[ 7], t[23]);
-	float _Complex w8  = CMPLXF(t[ 8], t[24]);
-	float _Complex w9  = CMPLXF(t[ 9], t[25]);
-	float _Complex w10 = CMPLXF(t[10], t[26]);
-	float _Complex w11 = CMPLXF(t[11], t[27]);
-	float _Complex w12 = CMPLXF(t[12], t[28]);
-	float _Complex w13 = CMPLXF(t[13], t[29]);
-	float _Complex w14 = CMPLXF(t[14], t[30]);
-	float _Complex w15 = CMPLXF(t[15], t[31]);
+void nnp_fft16_dualreal__ref(const float* t, float* f)
+{
+	std::complex<float> w0  = CMPLXF(t[ 0], t[16]);
+	std::complex<float> w1  = CMPLXF(t[ 1], t[17]);
+	std::complex<float> w2  = CMPLXF(t[ 2], t[18]);
+	std::complex<float> w3  = CMPLXF(t[ 3], t[19]);
+	std::complex<float> w4  = CMPLXF(t[ 4], t[20]);
+	std::complex<float> w5  = CMPLXF(t[ 5], t[21]);
+	std::complex<float> w6  = CMPLXF(t[ 6], t[22]);
+	std::complex<float> w7  = CMPLXF(t[ 7], t[23]);
+	std::complex<float> w8  = CMPLXF(t[ 8], t[24]);
+	std::complex<float> w9  = CMPLXF(t[ 9], t[25]);
+	std::complex<float> w10 = CMPLXF(t[10], t[26]);
+	std::complex<float> w11 = CMPLXF(t[11], t[27]);
+	std::complex<float> w12 = CMPLXF(t[12], t[28]);
+	std::complex<float> w13 = CMPLXF(t[13], t[29]);
+	std::complex<float> w14 = CMPLXF(t[14], t[30]);
+	std::complex<float> w15 = CMPLXF(t[15], t[31]);
 
 	fft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 
 	const float x0 = crealf(w0);
 	const float h0 = cimagf(w0);
 
-	const float _Complex x1 =  0.5f  * (w1 + conjf(w15));
-	const float _Complex h1 = -0.5fi * (w1 - conjf(w15));
-	const float _Complex x2 =  0.5f  * (w2 + conjf(w14));
-	const float _Complex h2 = -0.5fi * (w2 - conjf(w14));
-	const float _Complex x3 =  0.5f  * (w3 + conjf(w13));
-	const float _Complex h3 = -0.5fi * (w3 - conjf(w13));
-	const float _Complex x4 =  0.5f  * (w4 + conjf(w12));
-	const float _Complex h4 = -0.5fi * (w4 - conjf(w12));
-	const float _Complex x5 =  0.5f  * (w5 + conjf(w11));
-	const float _Complex h5 = -0.5fi * (w5 - conjf(w11));
-	const float _Complex x6 =  0.5f  * (w6 + conjf(w10));
-	const float _Complex h6 = -0.5fi * (w6 - conjf(w10));
-	const float _Complex x7 =  0.5f  * (w7 + conjf(w9));
-	const float _Complex h7 = -0.5fi * (w7 - conjf(w9));
+	const std::complex<float> x1 =  0.5f  * (w1 + std::conj(w15));
+	const std::complex<float> h1 = std::complex<float>(0.0f, -0.5f) * (w1 - std::conj(w15));
+	const std::complex<float> x2 =  0.5f  * (w2 + std::conj(w14));
+	const std::complex<float> h2 = std::complex<float>(0.0f, -0.5f) * (w2 - std::conj(w14));
+	const std::complex<float> x3 =  0.5f  * (w3 + std::conj(w13));
+	const std::complex<float> h3 = std::complex<float>(0.0f, -0.5f) * (w3 - std::conj(w13));
+	const std::complex<float> x4 =  0.5f  * (w4 + std::conj(w12));
+	const std::complex<float> h4 = std::complex<float>(0.0f, -0.5f) * (w4 - std::conj(w12));
+	const std::complex<float> x5 =  0.5f  * (w5 + std::conj(w11));
+	const std::complex<float> h5 = std::complex<float>(0.0f, -0.5f) * (w5 - std::conj(w11));
+	const std::complex<float> x6 =  0.5f  * (w6 + std::conj(w10));
+	const std::complex<float> h6 = std::complex<float>(0.0f, -0.5f) * (w6 - std::conj(w10));
+	const std::complex<float> x7 =  0.5f  * (w7 + std::conj(w9));
+	const std::complex<float> h7 = std::complex<float>(0.0f, -0.5f) * (w7 - std::conj(w9));
 
 	const float x8 = crealf(w8);
 	const float h8 = cimagf(w8);
@@ -125,75 +128,76 @@ void nnp_fft16_dualreal__ref(const float t[restrict static 16], float f[restrict
 	f[31] = cimagf(h7);
 }
 
-void nnp_fft32_dualreal__ref(const float t[restrict static 32], float f[restrict static 32]) {
-	float _Complex w0  = CMPLXF(t[ 0], t[32]);
-	float _Complex w1  = CMPLXF(t[ 1], t[33]);
-	float _Complex w2  = CMPLXF(t[ 2], t[34]);
-	float _Complex w3  = CMPLXF(t[ 3], t[35]);
-	float _Complex w4  = CMPLXF(t[ 4], t[36]);
-	float _Complex w5  = CMPLXF(t[ 5], t[37]);
-	float _Complex w6  = CMPLXF(t[ 6], t[38]);
-	float _Complex w7  = CMPLXF(t[ 7], t[39]);
-	float _Complex w8  = CMPLXF(t[ 8], t[40]);
-	float _Complex w9  = CMPLXF(t[ 9], t[41]);
-	float _Complex w10 = CMPLXF(t[10], t[42]);
-	float _Complex w11 = CMPLXF(t[11], t[43]);
-	float _Complex w12 = CMPLXF(t[12], t[44]);
-	float _Complex w13 = CMPLXF(t[13], t[45]);
-	float _Complex w14 = CMPLXF(t[14], t[46]);
-	float _Complex w15 = CMPLXF(t[15], t[47]);
-	float _Complex w16 = CMPLXF(t[16], t[48]);
-	float _Complex w17 = CMPLXF(t[17], t[49]);
-	float _Complex w18 = CMPLXF(t[18], t[50]);
-	float _Complex w19 = CMPLXF(t[19], t[51]);
-	float _Complex w20 = CMPLXF(t[20], t[52]);
-	float _Complex w21 = CMPLXF(t[21], t[53]);
-	float _Complex w22 = CMPLXF(t[22], t[54]);
-	float _Complex w23 = CMPLXF(t[23], t[55]);
-	float _Complex w24 = CMPLXF(t[24], t[56]);
-	float _Complex w25 = CMPLXF(t[25], t[57]);
-	float _Complex w26 = CMPLXF(t[26], t[58]);
-	float _Complex w27 = CMPLXF(t[27], t[59]);
-	float _Complex w28 = CMPLXF(t[28], t[60]);
-	float _Complex w29 = CMPLXF(t[29], t[61]);
-	float _Complex w30 = CMPLXF(t[30], t[62]);
-	float _Complex w31 = CMPLXF(t[31], t[63]);
+void nnp_fft32_dualreal__ref(const float* t, float* f) 
+{
+	std::complex<float> w0  = CMPLXF(t[ 0], t[32]);
+	std::complex<float> w1  = CMPLXF(t[ 1], t[33]);
+	std::complex<float> w2  = CMPLXF(t[ 2], t[34]);
+	std::complex<float> w3  = CMPLXF(t[ 3], t[35]);
+	std::complex<float> w4  = CMPLXF(t[ 4], t[36]);
+	std::complex<float> w5  = CMPLXF(t[ 5], t[37]);
+	std::complex<float> w6  = CMPLXF(t[ 6], t[38]);
+	std::complex<float> w7  = CMPLXF(t[ 7], t[39]);
+	std::complex<float> w8  = CMPLXF(t[ 8], t[40]);
+	std::complex<float> w9  = CMPLXF(t[ 9], t[41]);
+	std::complex<float> w10 = CMPLXF(t[10], t[42]);
+	std::complex<float> w11 = CMPLXF(t[11], t[43]);
+	std::complex<float> w12 = CMPLXF(t[12], t[44]);
+	std::complex<float> w13 = CMPLXF(t[13], t[45]);
+	std::complex<float> w14 = CMPLXF(t[14], t[46]);
+	std::complex<float> w15 = CMPLXF(t[15], t[47]);
+	std::complex<float> w16 = CMPLXF(t[16], t[48]);
+	std::complex<float> w17 = CMPLXF(t[17], t[49]);
+	std::complex<float> w18 = CMPLXF(t[18], t[50]);
+	std::complex<float> w19 = CMPLXF(t[19], t[51]);
+	std::complex<float> w20 = CMPLXF(t[20], t[52]);
+	std::complex<float> w21 = CMPLXF(t[21], t[53]);
+	std::complex<float> w22 = CMPLXF(t[22], t[54]);
+	std::complex<float> w23 = CMPLXF(t[23], t[55]);
+	std::complex<float> w24 = CMPLXF(t[24], t[56]);
+	std::complex<float> w25 = CMPLXF(t[25], t[57]);
+	std::complex<float> w26 = CMPLXF(t[26], t[58]);
+	std::complex<float> w27 = CMPLXF(t[27], t[59]);
+	std::complex<float> w28 = CMPLXF(t[28], t[60]);
+	std::complex<float> w29 = CMPLXF(t[29], t[61]);
+	std::complex<float> w30 = CMPLXF(t[30], t[62]);
+	std::complex<float> w31 = CMPLXF(t[31], t[63]);
 
 	fft32fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15, &w16, &w17, &w18, &w19, &w20, &w21, &w22, &w23, &w24, &w25, &w26, &w27, &w28, &w29, &w30, &w31);
 
 	const float x0 = crealf(w0);
 	const float h0 = cimagf(w0);
 
-	const float _Complex x1  =  0.5f  * (w1  + conjf(w31));
-	const float _Complex h1  = -0.5fi * (w1  - conjf(w31));
-	const float _Complex x2  =  0.5f  * (w2  + conjf(w30));
-	const float _Complex h2  = -0.5fi * (w2  - conjf(w30));
-	const float _Complex x3  =  0.5f  * (w3  + conjf(w29));
-	const float _Complex h3  = -0.5fi * (w3  - conjf(w29));
-	const float _Complex x4  =  0.5f  * (w4  + conjf(w28));
-	const float _Complex h4  = -0.5fi * (w4  - conjf(w28));
-	const float _Complex x5  =  0.5f  * (w5  + conjf(w27));
-	const float _Complex h5  = -0.5fi * (w5  - conjf(w27));
-	const float _Complex x6  =  0.5f  * (w6  + conjf(w26));
-	const float _Complex h6  = -0.5fi * (w6  - conjf(w26));
-	const float _Complex x7  =  0.5f  * (w7  + conjf(w25));
-	const float _Complex h7  = -0.5fi * (w7  - conjf(w25));
-	const float _Complex x8  =  0.5f  * (w8  + conjf(w24));
-	const float _Complex h8  = -0.5fi * (w8  - conjf(w24));
-	const float _Complex x9  =  0.5f  * (w9  + conjf(w23));
-	const float _Complex h9  = -0.5fi * (w9  - conjf(w23));
-	const float _Complex x10 =  0.5f  * (w10 + conjf(w22));
-	const float _Complex h10 = -0.5fi * (w10 - conjf(w22));
-	const float _Complex x11 =  0.5f  * (w11 + conjf(w21));
-	const float _Complex h11 = -0.5fi * (w11 - conjf(w21));
-	const float _Complex x12 =  0.5f  * (w12 + conjf(w20));
-	const float _Complex h12 = -0.5fi * (w12 - conjf(w20));
-	const float _Complex x13 =  0.5f  * (w13 + conjf(w19));
-	const float _Complex h13 = -0.5fi * (w13 - conjf(w19));
-	const float _Complex x14 =  0.5f  * (w14 + conjf(w18));
-	const float _Complex h14 = -0.5fi * (w14 - conjf(w18));
-	const float _Complex x15 =  0.5f  * (w15 + conjf(w17));
-	const float _Complex h15 = -0.5fi * (w15 - conjf(w17));
+	const std::complex<float> x1  =  0.5f  * (w1  + std::conj(w31));
+	const std::complex<float> h1  = std::complex<float>(0.0f, -0.5f) * (w1  - std::conj(w31));
+	const std::complex<float> x2  =  0.5f  * (w2  + std::conj(w30));
+	const std::complex<float> h2  = std::complex<float>(0.0f, -0.5f) * (w2  - std::conj(w30));
+	const std::complex<float> x3  =  0.5f  * (w3  + std::conj(w29));
+	const std::complex<float> h3  = std::complex<float>(0.0f, -0.5f) * (w3  - std::conj(w29));
+	const std::complex<float> x4  =  0.5f  * (w4  + std::conj(w28));
+	const std::complex<float> h4  = std::complex<float>(0.0f, -0.5f) * (w4  - std::conj(w28));
+	const std::complex<float> x5  =  0.5f  * (w5  + std::conj(w27));
+	const std::complex<float> h5  = std::complex<float>(0.0f, -0.5f) * (w5  - std::conj(w27));
+	const std::complex<float> x6  =  0.5f  * (w6  + std::conj(w26));
+	const std::complex<float> h6  = std::complex<float>(0.0f, -0.5f) * (w6  - std::conj(w26));
+	const std::complex<float> x7  =  0.5f  * (w7  + std::conj(w25));
+	const std::complex<float> h7  = std::complex<float>(0.0f, -0.5f) * (w7  - std::conj(w25));
+	const std::complex<float> x8  =  0.5f  * (w8  + std::conj(w24));
+	const std::complex<float> h8  = std::complex<float>(0.0f, -0.5f) * (w8  - std::conj(w24));
+	const std::complex<float> x9  =  0.5f  * (w9  + std::conj(w23));
+	const std::complex<float> h9  = std::complex<float>(0.0f, -0.5f) * (w9  - std::conj(w23));
+	const std::complex<float> x10 =  0.5f  * (w10 + std::conj(w22));
+	const std::complex<float> h10 = std::complex<float>(0.0f, -0.5f) * (w10 - std::conj(w22));
+	const std::complex<float> x11 =  0.5f  * (w11 + std::conj(w21));
+	const std::complex<float> h11 = std::complex<float>(0.0f, -0.5f) * (w11 - std::conj(w21));
+	const std::complex<float> x12 =  0.5f  * (w12 + std::conj(w20));
+	const std::complex<float> h12 = std::complex<float>(0.0f, -0.5f) * (w12 - std::conj(w20));
+	const std::complex<float> x13 =  0.5f  * (w13 + std::conj(w19));
+	const std::complex<float> h13 = std::complex<float>(0.0f, -0.5f) * (w13 - std::conj(w19));
+	const std::complex<float> x14 =  0.5f  * (w14 + std::conj(w18));
+	const std::complex<float> h14 = std::complex<float>(0.0f, -0.5f) * (w14 - std::conj(w18));
+	const std::complex<float> x15 =  0.5f  * (w15 + std::conj(w17));
+	const std::complex<float> h15 = std::complex<float>(0.0f, -0.5f) * (w15 - std::conj(w17));
 
 	const float x16 = crealf(w16);
 	const float h16 = cimagf(w16);
@@ -231,8 +235,11 @@ void nnp_fft32_dualreal__ref(const float t[restrict static 32], float f[restrict
 	f[30] = crealf(x15);
 	f[31] = crealf(h15);
 
-	f[32] = x8;
-	f[33] = h8;
+	/*f[32] = x8;
+	f[33] = h8;*/
+	f[32] = x16;
+	f[33] = h16;
+
 	f[34] = cimagf(x1);
 	f[35] = cimagf(h1);
 	f[36] = cimagf(x2);
