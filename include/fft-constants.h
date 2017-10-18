@@ -142,7 +142,7 @@
 #define SIN_0PI_OVER_2 0.0f
 #define SIN_1PI_OVER_2 1.0f
 
-#define COMPLEX_LITERAL_HELPER(real, imag) (real + imag##i)
+#define COMPLEX_LITERAL_HELPER(real, imag) std::complex<float>(real, imag)
 #define COMPLEX_LITERAL(real, imag) COMPLEX_LITERAL_HELPER(real, imag)
 
 #define CEXP__0PI_OVER_16 COMPLEX_LITERAL(COS__0PI_OVER_16, SIN__0PI_OVER_16)

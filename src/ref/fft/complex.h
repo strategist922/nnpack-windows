@@ -1,14 +1,8 @@
 #pragma once
 #include <complex.h>
-//#include <complex>
 #include <ccomplex>
 
-#ifndef CMPLXF
-#define CMPLXF(real, imag) ((real) + _Complex_I * (imag))
-#endif
 #include "../../../include/fft-constants.h"
-
-//#define _Complex std::complex<float>
 
 
 inline static void butterflyfc(std::complex<float>* a, std::complex<float>* b)
