@@ -25,3 +25,14 @@ python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %curre
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\ifft-real.obj %current_dir%\ifft-real.py
 
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\winograd-f6k3.obj %current_dir%\winograd-f6k3.py
+
+
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\fft\complex_soa.obj %current_dir%\fft\complex_soa.py
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\fft\complex_soa_perm_to_real.obj %current_dir%\fft\complex_soa_perm_to_real.py
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\fft\real_to_complex_soa_perm.obj %current_dir%\fft\real_to_complex_soa_perm.py
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\fft\two_complex_soa_perm_to_two_real_planar.obj %current_dir%\fft\two_complex_soa_perm_to_two_real_planar.py
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\fft\two_real_to_two_complex_soa_perm_planar.obj %current_dir%\fft\two_real_to_two_complex_soa_perm_planar.py
+
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\vecmath\exp.obj %current_dir%\vecmath\exp.py
+
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\winograd\o6x6k3x3.obj %current_dir%\winograd\o6x6k3x3.py
