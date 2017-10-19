@@ -169,7 +169,7 @@ static void compute_fully_connected_output(
 		batch_subblock_max
 	};
 	pthreadpool_compute_2d_tiled(
-		(pthreadpool_function_2d_tiled_t) pack_input_matrix,
+		(pthreadpool_function_2d_tiled_t)pack_input_matrix,
 		&input_packing_context,
 		batch_size, input_channels,
 		batch_block_max, input_channels_block_max);
@@ -207,7 +207,7 @@ static void compute_fully_connected_output(
 			input_channels_block_size
 		};
 		pthreadpool_compute_1d_tiled(
-			(pthreadpool_function_1d_tiled_t) pack_kernel_matrix,
+			(pthreadpool_function_1d_tiled_t)pack_kernel_matrix,
 			&kernel_packing_context,
 			output_channels, output_channels_block_max);
 		
@@ -221,7 +221,7 @@ static void compute_fully_connected_output(
 			matrix_multiplication_context.batch_block_start = batch_block_start;
 			matrix_multiplication_context.batch_block_size = batch_block_size;
 			pthreadpool_compute_2d_tiled(
-				(pthreadpool_function_2d_tiled_t) compute_matrix_multiplication,
+				(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 				&matrix_multiplication_context,
 				output_channels,           batch_block_size,
 				output_channels_block_max, batch_subblock_max);

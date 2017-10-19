@@ -4,7 +4,6 @@
 
 #include "../../../include/fft-constants.h"
 
-
 inline static void butterflyfc(std::complex<float>* a, std::complex<float>* b)
 {
 	const std::complex<float> new_a = *a + *b;

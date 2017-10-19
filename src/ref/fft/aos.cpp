@@ -3,7 +3,7 @@
 #include "../../../include/complex.h"
 #include "complex.h"
 #include <ccomplex>
-#include "../../include/reference.h"
+#include "../../include/fft.h"
 
 void nnp_fft2_aos__ref(	const float* t, size_t t_stride, float* f, size_t f_stride)
 {

@@ -5,7 +5,7 @@
 #include "complex.h"
 #include <ccomplex>
 
-#include "../../include/reference.h"
+#include "../../include/fft.h"
 
 void nnp_ifft8_dualreal__ref(const float* f, float* t) 
 {

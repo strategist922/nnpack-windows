@@ -58,7 +58,7 @@ TEST(MaxPooling2x2, pool5) {
 int main(int argc, char* argv[]) {
 	const enum nnp_status init_status = nnp_initialize();
 	assert(init_status == nnp_status_success);
-	setenv("TERM", "xterm-256color", 0);
+	//setenv("TERM", "xterm-256color", 0);
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }

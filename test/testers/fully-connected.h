@@ -10,6 +10,7 @@
 #include <chrono>
 #include <functional>
 #include <algorithm>
+#include <numeric>
 
 #include "../../nnpack/src/x86_64-fma/blas/fp16/fp16.h"
 

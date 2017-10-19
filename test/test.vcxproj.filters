@@ -68,10 +68,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="fourier\x86_64-avx2.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fourier\x86_64-avx2.cc">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -62,7 +62,7 @@ enum nnp_status nnp_fully_connected_inference(
 		output
 	};
 	pthreadpool_compute_1d_tiled(
-		(pthreadpool_function_1d_tiled_t) compute_fully_connected_inference_f32,
+		(pthreadpool_function_1d_tiled_t)compute_fully_connected_inference_f32,
 		&fully_connected_inference_context,
 		output_channels, output_channels_subblock_max);
 
