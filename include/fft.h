@@ -19,6 +19,7 @@ typedef void (*nnp_fft_function)(const float*, float*);
 extern "C" {  // only need to export C interface if  
 			  // used by C++ source code  
 #endif 
+	
 /* Forward FFT within rows with SOA layout: used in the horizontal phase of 2D FFT */
 void nnp_fft8_soa__avx2(const float* t, float* f);
 void nnp_fft16_soa__avx2(const float* t, float* f);

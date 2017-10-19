@@ -10,10 +10,12 @@
 #include <chrono>
 #include <functional>
 #include <algorithm>
-
+#include <numeric>
 #include <nnpack.h>
 #include <reference.h>
 #include <utils.h>
+
+#include <gtest\gtest.h>
 
 class SoftmaxTester {
 public:
@@ -105,8 +107,7 @@ public:
 
 			nnp_softmax_output__reference(
 				batchSize(), channels(),
-				input.data(), referenceOutput.data(),
-				this->threadpool);
+				input.data(), referenceOutput.data());
 
 			enum nnp_status status = nnp_softmax_output(
 				batchSize(), channels(),
@@ -137,8 +138,7 @@ public:
 
 			enum nnp_status status = nnp_softmax_output(
 				batchSize(), channels(),
-				data.data(), data.data(),
-				this->threadpool);
+				data.data(), data.data());
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceData.cbegin(), referenceData.cend(), data.cbegin(), 0.0f,

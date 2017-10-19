@@ -71,7 +71,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convolution-output\vgg-a.cc">
+    <ClCompile Include="fourier\x86_64-avx2.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,6 +152,21 @@
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\common.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\fft\complex_soa.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\fft\complex_soa_perm_to_real.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\fft\real_to_complex_soa_perm.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\fft\two_complex_soa_perm_to_two_real_planar.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\fft\two_real_to_two_complex_soa_perm_planar.obj">
       <Filter>Objects</Filter>
     </Object>
   </ItemGroup>

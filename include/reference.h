@@ -82,6 +82,39 @@ void nnp_softmax_output__reference(
 	const float* input,
 	float* output);
 
+void nnp_fft2_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft4_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft8_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft16_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft32_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft2_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft4_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft8_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft16_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_fft32_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
+void nnp_ifft2_aos__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft4_aos__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft8_aos__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft16_aos__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft32_aos__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft2_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft4_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft8_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft16_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_ifft32_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride);
+void nnp_fft8_real__ref(const float* t, size_t f_stride, float* f, size_t t_stride);
+void nnp_fft16_real__ref(const float* t, size_t f_stride, float* f, size_t t_stride);
+void nnp_fft32_real__ref(const float* t, size_t f_stride, float* f, size_t t_stride);
+void nnp_ifft8_real__ref(const float* t, size_t f_stride, float* f, size_t t_stride);
+void nnp_ifft16_real__ref(const float* t, size_t f_stride, float* f, size_t t_stride);
+void nnp_ifft32_real__ref(const float* t, size_t f_stride, float* f, size_t t_stride);
+void nnp_fft8_dualreal__ref(const float* t, float* f);
+void nnp_fft16_dualreal__ref(const float* t, float* f);
+void nnp_fft32_dualreal__ref(const float* t, float* f);
+void nnp_ifft8_dualreal__ref(const float* f, float* t);
+void nnp_ifft16_dualreal__ref(const float* f, float* t);
+void nnp_ifft32_dualreal__ref(const float* f, float* t);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

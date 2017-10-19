@@ -4,7 +4,7 @@
 #include "../../../include/complex.h"
 #include "complex.h"
 #include <ccomplex>
-
+#include "../../include/reference.h"
 void nnp_fft8_dualreal__ref(const float* t, float* f) 
 {
 	std::complex<float> w0 = CMPLXF(t[0], t[ 8]);
