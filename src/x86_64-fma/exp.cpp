@@ -19,7 +19,8 @@
 #include <ccomplex>
 #include <limits>
 
-__m256 _mm256_exp_ps(__m256 x) {
+__m256 _mm256_exp_ps(__m256 x) 
+{
 	const __m256 magic_bias = _mm256_set1_ps(std::strtof("0x1.800000p+23f", NULL));
 	const __m256 zero_cutoff = _mm256_set1_ps(std::strtof("-0x1.9FE368p+6f", NULL)); /* The smallest x for which expf(x) is non-zero */
 	const __m256 inf_cutoff = _mm256_set1_ps(std::strtof("0x1.62E42Ep+6f", NULL)); /* The largest x for which expf(x) is finite */
@@ -86,16 +87,18 @@ static inline float as_float(uint32_t n)
 	return data.x;
 }
 
-static inline float ulpf(float x) {
+static inline float ulpf(float x) 
+{
 	const float absx = fabsf(x);
-	if (absx < std::numeric_limits<float>::infinity()) {
+
+	if (absx < std::numeric_limits<float>::infinity()) 
 		return as_float(as_uint32(absx) + 1) - absx;
-	} else {
+	else
 		return absx;
-	}
 }
 
-int main() {
+int main() 
+{
 	float max_error = 0.0f;
 	for (uint32_t n = INT32_MIN; n < as_uint32(std::strtof("-0x1.9FE368p+6f", NULL)); n++) {
 		const float x = as_float(n);
