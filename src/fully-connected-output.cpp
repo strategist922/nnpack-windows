@@ -41,7 +41,8 @@ static void pack_input_matrix(
 	}
 }
 
-struct __declspec(align(64)) kernel_packing_context {
+struct __declspec(align(64)) kernel_packing_context 
+{
 	const float* matrix;
 	float* packed_matrix;
 
@@ -256,12 +257,13 @@ enum nnp_status nnp_fully_connected_output(
 
 	/* Calculate memory footprint and allocate memory */
 	const size_t packed_input_size = round_up(batch_size, batch_subblock_max) * input_channels * sizeof(float);
+	const size_t packed_kernel_offset = round_up(packed_input_size, 64ull);
 	const size_t packed_kernel_size = round_up(output_channels, output_channels_subblock_max) * input_channels_block_max * sizeof(float);
 	
 	void* memory_block_input = NULL;
 	void* memory_block_kernel = NULL;
 
-	memory_block_input = _aligned_malloc(packed_input_size, 64ull);
+	memory_block_input = _aligned_malloc(packed_kernel_offset, 64ull);
 	memory_block_kernel = _aligned_malloc(packed_kernel_size, 64ull);
 
 	if (memory_block_input == NULL || memory_block_kernel == NULL)

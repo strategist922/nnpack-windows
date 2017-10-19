@@ -25,7 +25,6 @@ TEST(F32, fc7) {
 		.testInferenceF32();
 }
 
-
 /*
  * VGG model A fc8 layer
  */
