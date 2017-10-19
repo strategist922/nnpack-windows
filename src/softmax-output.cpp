@@ -6,6 +6,7 @@
 #include "../include/hwinfo.h"
 #include "../include/activations.h"
 #include "../include/validation.h"
+#include "../../include/softmax.h"
 
 struct __declspec(align(64)) softmax_context 
 {
@@ -26,7 +27,8 @@ static void compute_softmax_output(const struct softmax_context* context, const 
 	softmax(channels, input + sample, output + sample);
 }
 
-struct __declspec(align(64)) inplace_softmax_context {
+struct __declspec(align(64)) inplace_softmax_context 
+{
 	nnp_inplace_softmax_function softmax_function;
 	const size_t channels;
 	float* data;
@@ -41,7 +43,7 @@ static void compute_inplace_softmax_output(
 
 	float* data = context->data;
 
-	softmax(channels, data + sample);
+	softmax(channels, data + sample * channels);
 }
 
 enum nnp_status nnp_softmax_output(
@@ -65,7 +67,7 @@ enum nnp_status nnp_softmax_output(
 			output
 		};
 		pthreadpool_compute_1d(
-			(pthreadpool_function_1d_t) compute_softmax_output,
+			(pthreadpool_function_1d_t)compute_softmax_output,
 			&softmax_context,
 			batch_size);
 	} 
@@ -76,10 +78,10 @@ enum nnp_status nnp_softmax_output(
 		{
 			nnp_hwinfo.activations.inplace_softmax,
 			channels,
-			output,
+			output
 		};
 		pthreadpool_compute_1d(
-			(pthreadpool_function_1d_t) compute_inplace_softmax_output,
+			(pthreadpool_function_1d_t)compute_inplace_softmax_output,
 			&inplace_softmax_context,
 			batch_size);
 	}

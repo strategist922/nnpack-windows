@@ -8,7 +8,7 @@
 static inline float vector_maxf(const size_t length, const float* array) 
 {
     float max_element = -FLT_MAX;
-    for (size_t i = 0; i < length; i++) 
+    for (size_t i = 0ull; i < length; i++) 
 	     max_element = maxf(max_element, array[i]);
     
     return max_element;
@@ -55,7 +55,7 @@ void nnp_softmax_output__reference(
 	{
         channels,
         input,
-        output,
+        output
     };
     
 	pthreadpool_compute_1d(

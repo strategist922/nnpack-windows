@@ -126,7 +126,7 @@ public:
 
 		std::vector<float> data(batchSize() * channels());
 		std::vector<float> referenceData(batchSize() * channels());
-		const float negativeSlope = 0.2f;
+		//const float negativeSlope = 0.2f;
 
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(data.begin(), data.end(), std::ref(rng));

@@ -8,6 +8,7 @@ python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %curre
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\max-pooling.obj %current_dir%\max-pooling.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\relu.obj %current_dir%\relu.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\softmax.obj %current_dir%\softmax.py
+python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\exp.obj %current_dir%\exp.py
 
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\avx.obj %current_dir%\blas\avx.py
 python -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=haswell -o %current_dir%\blas\avx2.obj %current_dir%\blas\avx2.py
