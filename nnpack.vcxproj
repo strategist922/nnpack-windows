@@ -171,9 +171,9 @@
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
     <ClCompile Include="src\softmax-output.cpp" />
-    <ClCompile Include="src\softmax.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\x86_64-fma\exp.cpp" />
+    <ClCompile Include="src\x86_64-fma\softmax.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h" />

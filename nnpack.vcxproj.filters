@@ -54,9 +54,6 @@
     <ClCompile Include="src\relu-output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\softmax.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\softmax-output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +103,9 @@
       <Filter>Source Files\Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\x86_64-fma\exp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\x86_64-fma\softmax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

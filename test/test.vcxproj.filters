@@ -145,9 +145,6 @@
     <Object Include="..\src\x86_64-fma\blas\shdotxf.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\softmax.obj">
-      <Filter>Objects</Filter>
-    </Object>
     <Object Include="..\src\x86_64-fma\winograd-f6k3.obj">
       <Filter>Objects</Filter>
     </Object>
@@ -167,6 +164,12 @@
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\fft\two_real_to_two_complex_soa_perm_planar.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\x64\Release\soa.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\softmax.obj">
       <Filter>Objects</Filter>
     </Object>
   </ItemGroup>
