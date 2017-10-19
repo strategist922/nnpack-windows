@@ -13,9 +13,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <float.h>
-#include <iostream>
 #include <stdlib.h>
-#include <stdio.h>
 #include <ccomplex>
 #include <limits>
 
@@ -60,7 +58,7 @@ __m256 _mm256_exp_ps(__m256 x)
 	return f;
 }
 
-static inline uint32_t as_uint32(float x) 
+static inline uint32_t as_uint32(float input) 
 {
 	union data
 	{
@@ -69,12 +67,12 @@ static inline uint32_t as_uint32(float x)
 		data(uint32_t n) : n(n) {}
 		data(float x) : x(x) {}
 		
-	} data(x);
+	} data(input);
 	
 	return data.n;
 }
 
-static inline float as_float(uint32_t n) 
+static inline float as_float(uint32_t input)
 {
 	union data
 	{
@@ -82,7 +80,7 @@ static inline float as_float(uint32_t n)
 		uint32_t n;
 		data(uint32_t n) : n(n) {}
 		data(float x) : x(x) {}
-	} data(n);
+	} data(input);
 	
 	return data.x;
 }
