@@ -262,7 +262,7 @@ enum nnp_status nnp_fully_connected_output(
 	void* memory_block_input = NULL;
 	void* memory_block_kernel = NULL;
 
-	memory_block_input = _aligned_malloc(packed_kernel_size, 64ull);
+	memory_block_input = _aligned_malloc(packed_input_size, 64ull);
 	memory_block_kernel = _aligned_malloc(packed_kernel_size, 64ull);
 
 	if (memory_block_input == NULL || memory_block_kernel == NULL)
