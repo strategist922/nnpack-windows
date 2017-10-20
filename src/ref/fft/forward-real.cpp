@@ -1,9 +1,7 @@
-#include <stddef.h>
-
 #include <ccomplex>
 #include <complex.h>
-#include <complexbase.h>
-#include "../fft/complexref.h"
+#include <complex-base.h>
+#include "complex-ref.h"
 #include <fft-constants.h>
 
 void nnp_fft8_real__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
