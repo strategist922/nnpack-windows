@@ -68,10 +68,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="max-pooling-output\vgg-a.cc">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="convolution-inference\vgg-a.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

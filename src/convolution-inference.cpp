@@ -536,8 +536,8 @@ static enum nnp_status compute_fast_convolution_inference(
 	if (memory_block_input == NULL || memory_block_output == NULL)
 		return nnp_status_out_of_memory;
 
-	float* input_transform = (float*)(memory_block_input);
-	float* output_transform = (float*)(memory_block_output);
+	float* input_transform = static_cast<float*>(memory_block_input);
+	float* output_transform = static_cast<float*>(memory_block_output);
 
 	void* memory_block_kernel = NULL;
 	float* kernel_transform;
@@ -583,7 +583,7 @@ static enum nnp_status compute_fast_convolution_inference(
 					
 				} 
 				else 
-					kernel_transform = (float*) kernel + input_channels_block_start * output_channels * tile_elements;
+					kernel_transform = (float*)kernel + input_channels_block_start * output_channels * tile_elements;
 				
 				struct input_transform_context input_transform_context = 
 				{
@@ -676,10 +676,10 @@ static enum nnp_status compute_fast_convolution_inference(
 				(pthreadpool_function_2d_tiled_t) compute_output_transform,
 				&output_transform_context,
 				output_channels,              tiles_count,
-				output_channels_subblock_max, tiles_subblock_max);
-			
-			break;
+				output_channels_subblock_max, tiles_subblock_max);	
 		}
+		break;
+
 		case nnp_convolution_transform_strategy_precompute:
 		{
 			const size_t kernel_transform_size = output_channels * input_channels * transform_tile_size;
@@ -689,7 +689,7 @@ static enum nnp_status compute_fast_convolution_inference(
 			if (memory_block_kernel == NULL)
 				return nnp_status_out_of_memory;
 
-			kernel_transform = (float*)(memory_block_kernel);
+			kernel_transform = static_cast<float*>(memory_block_kernel);
 
 			for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) 
 			{
@@ -714,8 +714,11 @@ static enum nnp_status compute_fast_convolution_inference(
 			}
 			break;
 		}
+		break;
+
 		default:
 			return nnp_status_invalid_transform_strategy;
+			break;
 	}
 
 	_aligned_free(memory_block_input);
@@ -876,7 +879,7 @@ static enum nnp_status compute_direct_convolution_inference(
 		nnp_hwinfo.conv1x1.upto_mr_x_nr
 	};
 	pthreadpool_compute_1d_tiled(
-		(pthreadpool_function_1d_tiled_t) compute_direct_convolution,
+		(pthreadpool_function_1d_tiled_t)compute_direct_convolution,
 		&direct_convolution_context,
 		output_channels, nnp_hwinfo.conv1x1.nr);
 
@@ -932,6 +935,7 @@ enum nnp_status nnp_convolution_inference(
 				algorithm = nnp_convolution_algorithm_ft16x16;
 		}
 	}
+
 	enum nnp_status status;
 	struct nnp_size tile_size;
 	size_t transform_element_size;
@@ -939,33 +943,41 @@ enum nnp_status nnp_convolution_inference(
 	nnp_transform_2d_with_offset input_transform_function = NULL;
 	nnp_transform_2d_with_offset kernel_transform_function = NULL;
 	nnp_transform_2d_with_bias output_transform_function = NULL;
+
 	switch (algorithm) 
 	{
 		case nnp_convolution_algorithm_wt8x8:
-			tile_size = nnp_size { 8ull, 8ull };
+		{
+			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.kwt_f6x6_3x3;
 			output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
 			transform_element_size = sizeof(float);
 			fourier_transform = false;
-			
-			break;
+		}
+		break;
+
 		case nnp_convolution_algorithm_ft8x8:
-			tile_size = nnp_size { 8ull, 8ull };
+		{
+			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
 			transform_element_size = sizeof(float);
 			fourier_transform = true;
-			break;
+		}
+		break;
+
 		case nnp_convolution_algorithm_ft16x16:
-			tile_size = nnp_size { 16ull, 16ull };
+		{
+			tile_size = nnp_size{ 16ull, 16ull };
 			input_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
 			transform_element_size = sizeof(float);
 			fourier_transform = true;
-			break;
+		}
+		break;
 		
 		case nnp_convolution_algorithm_implicit_gemm:
 		case nnp_convolution_algorithm_direct:
@@ -973,6 +985,7 @@ enum nnp_status nnp_convolution_inference(
 
 		default:
 			return nnp_status_invalid_algorithm;
+			break;
 	}
 
 	switch (algorithm) 
@@ -980,42 +993,48 @@ enum nnp_status nnp_convolution_inference(
 		case nnp_convolution_algorithm_wt8x8:
 		case nnp_convolution_algorithm_ft8x8:
 		case nnp_convolution_algorithm_ft16x16:
-			if (max(output_subsampling.height, output_subsampling.width) != 1ull) 
+		{
+			if (max(output_subsampling.height, output_subsampling.width) != 1ull)
 				return nnp_status_unsupported_algorithm;
-			if (kernel_size.height > tile_size.height || kernel_size.width > tile_size.width) 
+			if (kernel_size.height > tile_size.height || kernel_size.width > tile_size.width)
 				return nnp_status_unsupported_algorithm;
-			
+
 			status = compute_fast_convolution_inference(
 				fourier_transform, transform_strategy, transform_element_size,
 				input_channels, output_channels,
 				tile_size, input_size, input_padding, kernel_size, output_size,
 				input, kernel, bias, output, input_transform_function, kernel_transform_function, output_transform_function);
-			break;
+		}
+		break;
 
 		case nnp_convolution_algorithm_implicit_gemm:
-			if (transform_strategy != nnp_convolution_transform_strategy_compute) 
+		{
+			if (transform_strategy != nnp_convolution_transform_strategy_compute)
 				return nnp_status_unsupported_transform_strategy;
-				
+
 			status = compute_gemm_convolution_inference(
 				input_channels, output_channels,
 				input_size, input_padding, kernel_size, output_size, output_subsampling,
 				input, kernel, bias, output);
-			break;
+		}
+		break;
 
 		case nnp_convolution_algorithm_direct:
-			if (transform_strategy != nnp_convolution_transform_strategy_compute) 
+		{
+			if (transform_strategy != nnp_convolution_transform_strategy_compute)
 				return nnp_status_unsupported_transform_strategy;
-				
-			if (max(output_subsampling.height, output_subsampling.width) != 1ull) 
+
+			if (max(output_subsampling.height, output_subsampling.width) != 1ull)
 				return nnp_status_unsupported_algorithm;
-			
-			if (max(kernel_size.height, kernel_size.width) != 1ull) 
+
+			if (max(kernel_size.height, kernel_size.width) != 1ull)
 				return nnp_status_unsupported_algorithm;
-				
+
 			status = compute_direct_convolution_inference(
 				input_channels, output_channels, input_size, kernel_size,
 				input, kernel, bias, output);
-			break;
+		}
+		break;
 	}
 
 	return status;
