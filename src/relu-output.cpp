@@ -2,12 +2,12 @@
 #include <stddef.h>
 #include <assert.h>
 
-#include "../include/nnpack.h"
-#include "../include/macros.h"
-#include "../include/utils.h"
-#include "../include/hwinfo.h"
-#include "../include/activations.h"
-#include "../include/validation.h"
+#include <nnpack.h>
+#include <macros.h>
+#include <utils.h>
+#include <hwinfo.h>
+#include <activations.h>
+#include <validation.h>
 
 
 struct __declspec(align(64)) relu_context

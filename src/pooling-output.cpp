@@ -10,9 +10,9 @@
 
 #include <limits>
 
-#include "../include/nnpack.h"
-#include "../include/utils.h"
-#include "../include/pooling.h"
+#include <nnpack.h>
+#include <utils.h>
+#include <pooling.h>
 
 struct __declspec(align(64)) pooling_context 
 {

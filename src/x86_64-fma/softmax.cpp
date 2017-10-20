@@ -1,8 +1,8 @@
 
 #include <math.h>
 
-#include "../../include/utils.h"
-#include "../../include/softmax.h"
+#include <utils.h>
+#include <softmax.h>
 
 #ifdef __cplusplus
 extern "C" {

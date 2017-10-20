@@ -1,7 +1,7 @@
 #include <ppl.h>
 
-#include "../include/pthreadpool.h"
-#include "../include/utils.h"
+#include <pthreadpool.h>
+#include <utils.h>
 
 void pthreadpool_compute_1d(
 	pthreadpool_function_1d_t function,

@@ -10,16 +10,15 @@
 
 #include <intrin.h>
 
-#include "../include/nnpack.h"
-#include "../include/hwinfo.h"
-#include "../include/blas.h"
-#include "../include/transform.h"
-#include "../include/relu.h"
-#include "../include/softmax.h"
-#include "../include/fft.h"
-#include "../include/winograd.h"
-#include "../include/pooling.h"
-
+#include <nnpack.h>
+#include <hwinfo.h>
+#include <blas.h>
+#include <transform.h>
+#include <relu.h>
+#include <softmax.h>
+#include <fft.h>
+#include <winograd.h>
+#include <pooling.h>
 
 
 struct hardware_info nnp_hwinfo = {  };
