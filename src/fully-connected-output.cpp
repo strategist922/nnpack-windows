@@ -1,10 +1,10 @@
 #include <stddef.h>
 
-#include "../include/nnpack.h"
-#include "../include/utils.h"
-#include "../include/hwinfo.h"
-#include "../include/validation.h"
-#include "../include/macros.h"
+#include <nnpack.h>
+#include <utils.h>
+#include <hwinfo.h>
+#include <validation.h>
+#include <macros.h>
 
 
 struct __declspec(align(64)) input_packing_context 

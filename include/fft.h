@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #endif
 
+
 /* Reference versions */
 
 typedef void (*nnp_strided_fft_function)(const float*, size_t, float*, size_t);

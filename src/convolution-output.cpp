@@ -7,12 +7,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 #endif
-#include <malloc.h>
+//#include <malloc.h>
 
 
-#include "../include/nnpack.h"
-#include "../include/utils.h"
-#include "../include/hwinfo.h"
+#include <nnpack.h>
+#include <utils.h>
+#include <hwinfo.h>
+#include <validation.h>
 
 
 struct __declspec(align(64)) kernel_transform_context

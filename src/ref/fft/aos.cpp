@@ -1,9 +1,11 @@
 #include <stddef.h>
 
-#include "../../../include/complex.h"
-#include "complex.h"
 #include <ccomplex>
-#include "../../include/fft.h"
+#include <complex.h>
+#include <complexbase.h>
+#include "../fft/complexref.h"
+#include <fft-constants.h>
+
 
 void nnp_fft2_aos__ref(	const float* t, size_t t_stride, float* f, size_t f_stride)
 {

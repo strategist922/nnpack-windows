@@ -73,6 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -181,7 +182,7 @@
   <ItemGroup>
     <ClInclude Include="include\activations.h" />
     <ClInclude Include="include\blas.h" />
-    <ClInclude Include="include\complex.h" />
+    <ClInclude Include="include\complexbase.h" />
     <ClInclude Include="include\fft-constants.h" />
     <ClInclude Include="include\fft.h" />
     <ClInclude Include="include\fxdiv.h" />
@@ -199,7 +200,7 @@
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\validation.h" />
     <ClInclude Include="include\winograd.h" />
-    <ClInclude Include="src\ref\fft\complex.h" />
+    <ClInclude Include="src\ref\fft\complexref.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

@@ -10,10 +10,12 @@
 #include <malloc.h>
 #include <string.h>
 
-#include "../include/fxdiv.h"
-#include "../include/nnpack.h"
-#include "../include/utils.h"
-#include "../include/hwinfo.h"
+#include <nnpack.h>
+#include <utils.h>
+#include <hwinfo.h>
+#include <validation.h>
+#include <fxdiv.h>
+
 
 struct __declspec(align(64)) kernel_transform_context 
 {

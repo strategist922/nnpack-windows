@@ -1,8 +1,8 @@
 #pragma once
-#include <complex.h>
 #include <ccomplex>
-
-#include "../../../include/fft-constants.h"
+#include <complexbase.h>
+#include "../fft/complexref.h"
+#include <fft-constants.h>
 
 inline static void butterflyfc(std::complex<float>* a, std::complex<float>* b)
 {
