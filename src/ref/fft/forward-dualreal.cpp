@@ -2,7 +2,6 @@
 #include <complex.h>
 #include <complex-base.h>
 #include <complex-ref.h>
-#include <fft-constants.h>
 
 
 void nnp_fft8_dualreal__ref(const float* t, float* f) 

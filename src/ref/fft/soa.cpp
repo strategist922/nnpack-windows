@@ -2,7 +2,7 @@
 #include <complex.h>
 #include <complex-base.h>
 #include <complex-ref.h>
-#include <fft-constants.h>
+
 
 void nnp_fft2_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_stride)
 {

@@ -815,7 +815,7 @@ static enum nnp_status compute_gemm_convolution_inference(
 				output_subsampling
 			};
 			pthreadpool_compute_2d_tiled(
-				(pthreadpool_function_2d_tiled_t) compute_input_packing,
+				(pthreadpool_function_2d_tiled_t)compute_input_packing,
 				&input_packing_context,
 				reduction_block_size, output_image_block_size,
 				1ull, output_image_subblock_max);
@@ -833,7 +833,7 @@ static enum nnp_status compute_gemm_convolution_inference(
 				output_channels_subblock_max
 			};
 			pthreadpool_compute_2d_tiled(
-				(pthreadpool_function_2d_tiled_t) compute_matrix_multiplication,
+				(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 				&matrix_multiplication_context,
 				output_channels,           output_image_block_size,
 				output_channels_block_max, output_image_subblock_max);

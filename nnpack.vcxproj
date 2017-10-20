@@ -133,7 +133,6 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>Full</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_LIB;_WIN64%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -145,12 +144,15 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <OmitFramePointers>true</OmitFramePointers>
+      <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\convolution-inference.cpp" />
@@ -207,6 +209,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="src\x86_64-fma\2d-fourier-16x16.py" />
+    <None Include="src\x86_64-fma\2d-fourier-8x8.py" />
+    <None Include="src\x86_64-fma\2d-winograd-8x8-3x3.py" />
+    <None Include="src\x86_64-fma\blas\avx.py" />
+    <None Include="src\x86_64-fma\blas\avx2.py" />
+    <None Include="src\x86_64-fma\blas\c8gemm.py" />
+    <None Include="src\x86_64-fma\blas\conv1x1.py" />
+    <None Include="src\x86_64-fma\blas\s4c6gemm.py" />
+    <None Include="src\x86_64-fma\blas\s8gemm.py" />
+    <None Include="src\x86_64-fma\blas\sdotxf.py" />
+    <None Include="src\x86_64-fma\blas\sgemm.py" />
+    <None Include="src\x86_64-fma\blas\shdotxf.py" />
+    <None Include="src\x86_64-fma\block8x8.py" />
+    <None Include="src\x86_64-fma\common.py" />
+    <None Include="src\x86_64-fma\exp.py" />
+    <None Include="src\x86_64-fma\fft-aos.py" />
+    <None Include="src\x86_64-fma\fft-dualreal.py" />
+    <None Include="src\x86_64-fma\fft-real.py" />
+    <None Include="src\x86_64-fma\fft-soa.py" />
+    <None Include="src\x86_64-fma\fft16x16.py" />
+    <None Include="src\x86_64-fma\fft\complex_soa.py" />
+    <None Include="src\x86_64-fma\fft\complex_soa_perm_to_real.py" />
+    <None Include="src\x86_64-fma\fft\real_to_complex_soa_perm.py" />
+    <None Include="src\x86_64-fma\fft\two_complex_soa_perm_to_two_real_planar.py" />
+    <None Include="src\x86_64-fma\fft\two_real_to_two_complex_soa_perm_planar.py" />
+    <None Include="src\x86_64-fma\ifft-dualreal.py" />
+    <None Include="src\x86_64-fma\ifft-real.py" />
+    <None Include="src\x86_64-fma\max-pooling.py" />
+    <None Include="src\x86_64-fma\relu.py" />
+    <None Include="src\x86_64-fma\softmax.py" />
+    <None Include="src\x86_64-fma\vecmath\exp.py" />
+    <None Include="src\x86_64-fma\winograd-f6k3.py" />
+    <None Include="src\x86_64-fma\winograd\o6x6k3x3.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

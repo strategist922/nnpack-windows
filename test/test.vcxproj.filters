@@ -71,7 +71,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convolution-inference\vgg-a.cc">
+    <ClCompile Include="convolution-output\vgg-a.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,19 +85,10 @@
     <Object Include="..\src\x86_64-fma\2d-winograd-8x8-3x3.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\avx2.obj">
-      <Filter>Objects</Filter>
-    </Object>
     <Object Include="..\src\x86_64-fma\block8x8.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\c8gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\conv1x1.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\vecmath\exp.obj">
+    <Object Include="..\src\x86_64-fma\common.obj">
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\fft16x16.obj">
@@ -124,31 +115,19 @@
     <Object Include="..\src\x86_64-fma\max-pooling.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\winograd\o6x6k3x3.obj">
-      <Filter>Objects</Filter>
-    </Object>
     <Object Include="..\src\x86_64-fma\relu.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\s4c6gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\s8gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\sdotxf.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\sgemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\shdotxf.obj">
+    <Object Include="..\src\x86_64-fma\softmax.obj">
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\winograd-f6k3.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\common.obj">
+    <Object Include="..\src\x86_64-fma\winograd\o6x6k3x3.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\vecmath\exp.obj">
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\fft\complex_soa.obj">
@@ -166,10 +145,31 @@
     <Object Include="..\src\x86_64-fma\fft\two_real_to_two_complex_soa_perm_planar.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\x64\Release\soa.obj">
+    <Object Include="..\src\x86_64-fma\blas\avx.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\softmax.obj">
+    <Object Include="..\src\x86_64-fma\blas\avx2.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\c8gemm.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\conv1x1.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\s4c6gemm.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\s8gemm.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\sdotxf.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\sgemm.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\blas\shdotxf.obj">
       <Filter>Objects</Filter>
     </Object>
   </ItemGroup>
