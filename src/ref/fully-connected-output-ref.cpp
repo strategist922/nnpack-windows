@@ -24,7 +24,7 @@ static void compute_fully_connected_output_f32(
 
 	double v = 0.0;
 	for (size_t input_channel = 0ull; input_channel < input_channels; input_channel++)
-		v += double(input[sample * input_channels + input_channel]) * double(kernel[output_channel * output_channels + input_channel]);
+		v += double(input[sample * input_channels + input_channel]) * double(kernel[output_channel * input_channels + input_channel]);
 	
 	output[sample * output_channels + output_channel] = float(v);
 }

@@ -256,14 +256,13 @@ enum nnp_status nnp_fully_connected_output(
 	const size_t output_channels_block_max = round_down(cache_elements_l2 / input_channels_block_max, output_channels_subblock_max);
 
 	/* Calculate memory footprint and allocate memory */
-	const size_t packed_input_size = round_up(batch_size, batch_subblock_max) * input_channels * sizeof(float);
-	const size_t packed_kernel_offset = round_up(packed_input_size, 64ull);
-	const size_t packed_kernel_size = round_up(output_channels, output_channels_subblock_max) * input_channels_block_max * sizeof(float);
+	const size_t packed_input_size = round_up(round_up(batch_size, batch_subblock_max) * input_channels * sizeof(float), 64ull);
+	const size_t packed_kernel_size = round_up(round_up(output_channels, output_channels_subblock_max) * input_channels_block_max * sizeof(float), 64ull);
 	
 	void* memory_block_input = NULL;
 	void* memory_block_kernel = NULL;
 
-	memory_block_input = _aligned_malloc(packed_kernel_offset, 64ull);
+	memory_block_input = _aligned_malloc(packed_kernel_size, 64ull);
 	memory_block_kernel = _aligned_malloc(packed_kernel_size, 64ull);
 
 	if (memory_block_input == NULL || memory_block_kernel == NULL)
