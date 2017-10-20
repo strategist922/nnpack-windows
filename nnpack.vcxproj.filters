@@ -164,10 +164,10 @@
     <ClInclude Include="include\reference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ref\fft\complex-ref.h">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClInclude>
     <ClInclude Include="include\complex-base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\complex-ref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
