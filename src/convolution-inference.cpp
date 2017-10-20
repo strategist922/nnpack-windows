@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #endif
-#include <malloc.h>
+
 #include <string.h>
 
 #include <nnpack.h>

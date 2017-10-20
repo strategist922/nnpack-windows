@@ -1,5 +1,5 @@
-#include "../../include/nnpack.h"
-#include "../../include/reference.h"
+#include <nnpack.h>
+#include <reference.h>
 
 struct fully_connected_output_context 
 {

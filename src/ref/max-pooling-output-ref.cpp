@@ -1,7 +1,6 @@
-#include "../../include/nnpack.h"
-#include "../../include/reference.h"
-#include "../../include/utils.h"
-
+#include <nnpack.h>
+#include <reference.h>
+#include <utils.h>
 #include <limits>
 
 struct max_pooling_output_context 

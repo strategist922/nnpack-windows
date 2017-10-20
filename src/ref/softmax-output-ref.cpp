@@ -1,9 +1,10 @@
-#include "../../include/nnpack.h"
-#include "../../include/reference.h"
-#include "../../include/utils.h"
-
 #include <float.h>
 #include <math.h>
+
+#include <nnpack.h>
+#include <reference.h>
+#include <activations.h>
+
 
 static inline float vector_maxf(const size_t length, const float* array) 
 {
