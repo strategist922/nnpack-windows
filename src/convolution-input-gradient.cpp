@@ -494,8 +494,12 @@ enum nnp_status nnp_convolution_input_gradient(
 			algorithm = nnp_convolution_algorithm_ft16x16;
 		else 
 		{
-			const size_t tile_count_8x8 = divide_round_up(input_size.height, 8ull - kernel_size.height + 1ull) * divide_round_up(input_size.width, 8ull - kernel_size.width + 1ull);
-			const size_t tile_count_16x16 =	divide_round_up(input_size.height, 16ull - kernel_size.height + 1ull) * divide_round_up(input_size.width, 16ull - kernel_size.width + 1ull);
+			const size_t tile_count_8x8 =	divide_round_up(input_size.height, 8ull - kernel_size.height + 1ull) * 
+											divide_round_up(input_size.width, 8ull - kernel_size.width + 1ull);
+
+			const size_t tile_count_16x16 =	divide_round_up(input_size.height, 16ull - kernel_size.height + 1ull) *
+											divide_round_up(input_size.width, 16ull - kernel_size.width + 1ull);
+
 			if (tile_count_8x8 <= 4 * tile_count_16x16) 
 			{
 				/* 8x8 tiles are more efficient */
@@ -514,7 +518,7 @@ enum nnp_status nnp_convolution_input_gradient(
 	switch (algorithm) 
 	{
 	case nnp_convolution_algorithm_wt8x8:
-		if ((kernel_size.height != 3ull) || (kernel_size.width != 3ull))
+		if (kernel_size.height != 3ull || kernel_size.width != 3ull)
 			status = nnp_status_unsupported_algorithm;
 		else
 			status = compute_fast_convolution_input_gradient(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3Rx3R, nnp_hwinfo.transforms.owt_f6x6_3x3);
