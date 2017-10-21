@@ -11,6 +11,7 @@
  * VGG model A conv1 layer
  */
 
+
 TEST(FT8x8, conv1) {
 	VGG_A::conv1()
 		.batchSize(64)
@@ -24,6 +25,7 @@ TEST(FT16x16, conv1) {
 		.errorLimit(1.0e-5)
 		.testKernelGradient(nnp_convolution_algorithm_ft16x16);
 }
+
 
 TEST(WT8x8, DISABLED_conv1) {
 	VGG_A::conv1()

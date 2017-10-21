@@ -71,7 +71,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convolution-input-gradient\vgg-a.cc">
+    <ClCompile Include="convolution-output\smoke.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -127,9 +127,6 @@
     <Object Include="..\src\x86_64-fma\winograd\o6x6k3x3.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\vecmath\exp.obj">
-      <Filter>Objects</Filter>
-    </Object>
     <Object Include="..\src\x86_64-fma\fft\complex_soa.obj">
       <Filter>Objects</Filter>
     </Object>
@@ -170,6 +167,9 @@
       <Filter>Objects</Filter>
     </Object>
     <Object Include="..\src\x86_64-fma\blas\shdotxf.obj">
+      <Filter>Objects</Filter>
+    </Object>
+    <Object Include="..\src\x86_64-fma\vecmath\exp.obj">
       <Filter>Objects</Filter>
     </Object>
   </ItemGroup>

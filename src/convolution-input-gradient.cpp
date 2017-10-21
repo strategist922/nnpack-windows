@@ -385,6 +385,7 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 					for (size_t batch_block_start = 0ull; batch_block_start < batch_size; batch_block_start += batch_block_max) 
 					{
 						const size_t batch_block_size = min(batch_size - batch_block_start, batch_block_max);
+						
 						struct matrix_multiplication_context matrix_multiplication_context = 
 						{
 							tuple_elements,
@@ -402,17 +403,20 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 							nnp_hwinfo.sxgemm.only_mr_x_nr,
 							nnp_hwinfo.sxgemm.upto_mr_x_nr
 						};
-						if (fourier_transform) 
-							if (tuple_index < NNP_COMPLEX_TUPLE_INDEX) 
+						
+						if (fourier_transform)
+						{
+							if (tuple_index < NNP_COMPLEX_TUPLE_INDEX)
 							{
 								matrix_multiplication_context.fast_gemm = nnp_hwinfo.cxgemm.s4cX_only_mr_x_nr;
 								matrix_multiplication_context.full_gemm = nnp_hwinfo.cxgemm.s4cX_upto_mr_x_nr;
-							} 
-							else 
+							}
+							else
 							{
 								matrix_multiplication_context.fast_gemm = nnp_hwinfo.cxgemm.cX_only_mr_x_nr;
 								matrix_multiplication_context.full_gemm = nnp_hwinfo.cxgemm.cX_upto_mr_x_nr;
 							}
+						}
 						
 						pthreadpool_compute_2d_tiled(
 							(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
@@ -529,7 +533,7 @@ enum nnp_status nnp_convolution_input_gradient(
 		break;
 
 	case nnp_convolution_algorithm_ft16x16:
-		status =  compute_fast_convolution_input_gradient(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_offset);
+		status = compute_fast_convolution_input_gradient(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_offset);
 	    break;
 
 	default:

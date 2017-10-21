@@ -120,6 +120,9 @@
     <ClCompile Include="src\x86_64-fma\softmax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\x86_64-fma\exp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h">
@@ -283,9 +286,6 @@
     </None>
     <None Include="src\x86_64-fma\winograd\o6x6k3x3.py">
       <Filter>x86_64-fma\winograd</Filter>
-    </None>
-    <None Include="src\x86_64-fma\exp.py">
-      <Filter>x86_64-fma</Filter>
     </None>
   </ItemGroup>
 </Project>
