@@ -182,8 +182,8 @@ struct __declspec(align(64)) matrix_multiplication_context
 	const size_t batch_subblock_max;
 	const size_t input_channels_subblock_max;
 
-	float* grad_output_transform;
-	float* kernel_transform;
+	const float* grad_output_transform;
+	const float* kernel_transform;
 	float* grad_input_transform;
 
 	nnp_fast_tuple_gemm_function fast_gemm;
@@ -206,11 +206,14 @@ static void compute_matrix_multiplication(
 	const size_t output_channels_block_size		= context->output_channels_block_size;
 	const size_t batch_subblock_max				= context->batch_subblock_max;
 	const size_t input_channels_subblock_max	= context->input_channels_subblock_max;
-	float* grad_output_transform				= context->grad_output_transform + (output_channels_block_start * batch_size + (batch_block_start + batch_subblock_start) * output_channels_block_size) * tuple_elements;
-	float* kernel_transform						= context->kernel_transform + (output_channels_block_start * input_channels + input_channels_block_start * output_channels_block_size) * tuple_elements;
+	const float* grad_output_transform			= context->grad_output_transform + (output_channels_block_start * batch_size + (batch_block_start + batch_subblock_start) * output_channels_block_size) * tuple_elements;
+	const float* kernel_transform				= context->kernel_transform + (output_channels_block_start * input_channels + input_channels_block_start * output_channels_block_size) * tuple_elements;
 	float* grad_input_transform					= context->grad_input_transform + (batch_block_start * input_channels + input_channels_block_start * batch_block_size) * tuple_elements;
 	nnp_fast_sgemm_function fast_gemm			= context->fast_gemm;
 	nnp_full_sgemm_function full_gemm			= context->full_gemm;
+
+	size_t kernel_offset = 0ull;
+	size_t input_offset = 0ull;
 
 	if (batch_subblock_size == batch_subblock_max) 
 		while (input_channels_block_size >= input_channels_subblock_max) 
@@ -221,12 +224,15 @@ static void compute_matrix_multiplication(
 				output_channels_block_size,
 				output_channels_block_start,
 				grad_output_transform,
-				kernel_transform,
-				grad_input_transform + batch_subblock_start * input_channels_subblock_max * tuple_elements,
+				kernel_transform + kernel_offset,
+				grad_input_transform + batch_subblock_start * input_channels_subblock_max * tuple_elements + input_offset,
 				input_channels_subblock_max * tuple_elements);
 
-			kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
-			grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;
+			kernel_offset += input_channels_subblock_max * output_channels_block_size * tuple_elements;
+			input_offset += input_channels_subblock_max * batch_block_size * tuple_elements;
+			
+			//kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
+			//grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;
 		}
 		
 	while (input_channels_block_size != 0ull) 
@@ -240,12 +246,15 @@ static void compute_matrix_multiplication(
 			output_channels_block_size, 
 			output_channels_block_start,
 			grad_output_transform,
-			kernel_transform,
-			grad_input_transform + batch_subblock_start * input_channels_subblock_size * tuple_elements,
+			kernel_transform + kernel_offset,
+			grad_input_transform + batch_subblock_start * input_channels_subblock_size * tuple_elements + input_offset,
 			input_channels_subblock_size * tuple_elements);
 
-		kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
-		grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;
+		kernel_offset += input_channels_subblock_max * output_channels_block_size * tuple_elements;
+		input_offset += input_channels_subblock_max * batch_block_size * tuple_elements;
+
+		/*kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
+		grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;*/
 	}
 }
 
@@ -263,9 +272,9 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 	const float* kernel,
 	float* grad_input,
 	struct nnp_workspace_pointers* workspace_buffer,
-	nnp_transform_2d_with_offset grad_output_transform_function,
-	nnp_transform_2d_with_offset kernel_transform_function,
-	nnp_transform_2d_with_offset grad_input_transform_function)
+	const nnp_transform_2d_with_offset grad_output_transform_function,
+	const nnp_transform_2d_with_offset kernel_transform_function,
+	const nnp_transform_2d_with_offset grad_input_transform_function)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = (fourier_transform ? simd_width << 1ull : simd_width);
@@ -344,7 +353,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 		(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
 		&kernel_transform_context,
 		output_channels, input_channels,
-		1u, input_channels_subblock_max);
+		1u,
+		input_channels_subblock_max);
 	
 	for (size_t y = 0ull; y < input_size.height; y += grad_input_tile_size.height) 
 	{
@@ -510,11 +520,12 @@ enum nnp_status nnp_convolution_input_gradient(
 	}
 
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
-	struct nnp_size tile_size;
-	bool fourier_transform;
 	nnp_transform_2d_with_offset grad_output_transform_function;
 	nnp_transform_2d_with_offset kernel_transform_function;
 	nnp_transform_2d_with_offset grad_input_transform_function;
+	struct nnp_size tile_size;
+	bool fourier_transform;
+		
 	switch (algorithm) 
 	{
 	case nnp_convolution_algorithm_wt8x8:
@@ -555,5 +566,5 @@ enum nnp_status nnp_convolution_input_gradient(
 		break;
 	}
 
-	return compute_fast_convolution_input_gradient(fourier_transform, batch_size, input_channels, output_channels,	tile_size, input_size, input_padding, kernel_size, output_size,	grad_output, kernel, grad_input, workspace_buffer, grad_output_transform_function, kernel_transform_function, grad_input_transform_function);
+	return compute_fast_convolution_input_gradient(fourier_transform, batch_size, input_channels, output_channels, tile_size, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, grad_output_transform_function, kernel_transform_function, grad_input_transform_function);
 }
