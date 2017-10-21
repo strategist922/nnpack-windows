@@ -212,9 +212,6 @@ static void compute_matrix_multiplication(
 	nnp_fast_sgemm_function fast_gemm			= context->fast_gemm;
 	nnp_full_sgemm_function full_gemm			= context->full_gemm;
 
-	size_t kernel_transform_offset = 0ull;
-	size_t input_transform_offset = 0ull;
-
 	if (batch_subblock_size == batch_subblock_max) 
 		while (input_channels_block_size >= input_channels_subblock_max) 
 		{
@@ -224,15 +221,12 @@ static void compute_matrix_multiplication(
 				output_channels_block_size,
 				output_channels_block_start,
 				grad_output_transform,
-				kernel_transform + kernel_transform_offset,
-				grad_input_transform + batch_subblock_start * input_channels_subblock_max * tuple_elements + input_transform_offset,
+				kernel_transform,
+				grad_input_transform + batch_subblock_start * input_channels_subblock_max * tuple_elements,
 				input_channels_subblock_max * tuple_elements);
-
-			kernel_transform_offset += input_channels_subblock_max * output_channels_block_size * tuple_elements;
-			input_transform_offset += input_channels_subblock_max * batch_block_size * tuple_elements;
 			
-			//kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
-			//grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;
+			kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
+			grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;
 		}
 		
 	while (input_channels_block_size != 0ull) 
@@ -246,15 +240,12 @@ static void compute_matrix_multiplication(
 			output_channels_block_size, 
 			output_channels_block_start,
 			grad_output_transform,
-			kernel_transform + kernel_transform_offset,
-			grad_input_transform + batch_subblock_start * input_channels_subblock_size * tuple_elements + input_transform_offset,
+			kernel_transform,
+			grad_input_transform + batch_subblock_start * input_channels_subblock_size * tuple_elements,
 			input_channels_subblock_size * tuple_elements);
 
-		kernel_transform_offset += input_channels_subblock_max * output_channels_block_size * tuple_elements;
-		input_transform_offset += input_channels_subblock_max * batch_block_size * tuple_elements;
-
-		//kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
-		//grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements
+		kernel_transform += input_channels_subblock_max * output_channels_block_size * tuple_elements;
+		grad_input_transform += input_channels_subblock_max * batch_block_size * tuple_elements;
 	}
 }
 
