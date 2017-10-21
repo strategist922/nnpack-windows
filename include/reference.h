@@ -82,8 +82,6 @@ void nnp_softmax_output__reference(
 	const float* input,
 	float* output);
 
-
-
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

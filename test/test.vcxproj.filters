@@ -71,8 +71,8 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fourier\x86_64-avx2.cc">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="convolution-input-gradient\vgg-a.cc">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

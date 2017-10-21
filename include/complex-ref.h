@@ -1,6 +1,4 @@
 #pragma once
-//#include <ccomplex>
-//#include <complex-base.h>
 #include <fft-constants.h>
 
 inline static void butterflyfc(std::complex<float>* a, std::complex<float>* b)
@@ -58,11 +56,7 @@ inline static void fft4fc(std::complex<float>* w0, std::complex<float>* w1,	std:
 	swapfc(w1, w2);
 }
 
-inline static void ifft4fc(
-	std::complex<float>* w0,
-	std::complex<float>* w1,
-	std::complex<float>* w2,
-	std::complex<float>* w3)
+inline static void ifft4fc(std::complex<float>* w0,	std::complex<float>* w1, std::complex<float>* w2, std::complex<float>* w3)
 {
 	/*
 	 * Bit reversal:
