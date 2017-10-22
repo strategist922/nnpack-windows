@@ -1,6 +1,7 @@
 SETLOCAL ENABLEEXTENSIONS
-SET output_dir=C:\Users\dhaen\Source\Repos\nnpack\x64\Release
-SET current_dir=C:\Users\dhaen\Source\Repos\nnpack\src\x86_64-fma
+SET nnpack_dir=C:\Users\dhaen\Source\Repos\nnpack
+SET output_dir=%nnpack_dir%\x64\Release
+SET current_dir=%nnpack_dir%\src\x86_64-fma
 SET python_dir=C:\PROGRA~1\Python36
 SET proc_arch=haswell
 
