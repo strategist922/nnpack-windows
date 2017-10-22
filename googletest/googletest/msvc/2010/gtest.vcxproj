@@ -73,7 +73,7 @@
     <TargetName>gtestd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)$(SolutionName)\$(Platform)-$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)googletest\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(OutDir)temp\$(ProjectName)\</IntDir>
     <TargetName>gtest</TargetName>
   </PropertyGroup>
