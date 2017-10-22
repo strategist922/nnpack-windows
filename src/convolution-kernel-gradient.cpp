@@ -468,7 +468,11 @@ enum nnp_status nnp_convolution_kernel_gradient(
 	float* grad_kernel,
 	struct nnp_workspace_pointers* workspace_buffer)
 {
-	const struct nnp_size output_size = { input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull, input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull };
+	const struct nnp_size output_size = 
+	{
+		input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull,
+		input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull
+	};
 
 	/* If requested, choose optimal convolution algorithm */
 	if (algorithm == nnp_convolution_algorithm_auto) 
