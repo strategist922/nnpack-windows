@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs/nnpack/v15
+/googletest/googletest/msvc/2010/.vs/gtest/v15
+/googletest/googletest/msvc/2010/x64/Release/gtest.tlog
