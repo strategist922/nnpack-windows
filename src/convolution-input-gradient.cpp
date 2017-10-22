@@ -343,8 +343,9 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 	pthreadpool_compute_2d_tiled(
 		(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
 		&kernel_transform_context,
-		output_channels, input_channels,
-		1u,
+		output_channels,
+		input_channels,
+		1ull,
 		input_channels_subblock_max);
 	
 	for (size_t y = 0ull; y < input_size.height; y += grad_input_tile_size.height) 
@@ -498,7 +499,7 @@ enum nnp_status nnp_convolution_input_gradient(
 			algorithm = nnp_convolution_algorithm_ft16x16;
 		else 
 		{
-			const size_t tile_count_8x8 =	divide_round_up(input_size.height, 8ull - kernel_size.height + 1ull) * 
+			const size_t tile_count_8x8	=	divide_round_up(input_size.height, 8ull - kernel_size.height + 1ull) * 
 											divide_round_up(input_size.width, 8ull - kernel_size.width + 1ull);
 
 			const size_t tile_count_16x16 =	divide_round_up(input_size.height, 16ull - kernel_size.height + 1ull) *
@@ -507,7 +508,7 @@ enum nnp_status nnp_convolution_input_gradient(
 			if (tile_count_8x8 <= 4 * tile_count_16x16) 
 			{
 				/* 8x8 tiles are more efficient */
-				if ((kernel_size.height == 3ull) && (kernel_size.width == 3ull)) 
+				if (kernel_size.height == 3ull && kernel_size.width == 3ull)
 					algorithm = nnp_convolution_algorithm_wt8x8;
 				else 
 					algorithm = nnp_convolution_algorithm_ft8x8;
@@ -519,6 +520,7 @@ enum nnp_status nnp_convolution_input_gradient(
 	
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
 	enum nnp_status status = nnp_status_success;
+
 	switch (algorithm) 
 	{
 	case nnp_convolution_algorithm_wt8x8:

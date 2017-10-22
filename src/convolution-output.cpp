@@ -508,7 +508,7 @@ enum nnp_status nnp_convolution_output(
 			if (tile_count_8x8 <= 4 * tile_count_16x16) 
 			{
 				/* 8x8 tiles are more efficient */
-				if ((kernel_size.height == 3ull) && (kernel_size.width == 3ull)) 
+				if (kernel_size.height == 3ull && kernel_size.width == 3ull) 
 					algorithm = nnp_convolution_algorithm_wt8x8;
 				else 
 					algorithm = nnp_convolution_algorithm_ft8x8;
