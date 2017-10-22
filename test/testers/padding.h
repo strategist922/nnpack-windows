@@ -12,7 +12,6 @@
 
 #include <gtest/gtest.h>
 
-#include "../../nnpack/src/x86_64-fma/blas/fp16/psimd.h"
 
 class Padded2DTransformTester {
 public:
