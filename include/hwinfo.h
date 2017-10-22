@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #endif
 
+#include <stdafx.h>
 #include <macros.h>
 
 #define bit_OSXSAVE        (1 << 27)

@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #endif
 
+#include <stdafx.h>
 #include <pthreadpool.h>
 
 enum nnp_status 
