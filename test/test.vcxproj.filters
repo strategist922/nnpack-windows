@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Objects">
-      <UniqueIdentifier>{677738b3-3094-4626-aede-586df8322484}</UniqueIdentifier>
+      <UniqueIdentifier>{0f62f061-e17f-4d5f-97e7-c5b1ec7b81ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,100 +76,88 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="..\src\x86_64-fma\2d-fourier-8x8.obj">
+    <Object Include="..\x64\Release\2d-fourier-8x8.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\2d-fourier-16x16.obj">
+    <Object Include="..\x64\Release\2d-fourier-16x16.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\2d-winograd-8x8-3x3.obj">
+    <Object Include="..\x64\Release\2d-winograd-8x8-3x3.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\block8x8.obj">
+    <Object Include="..\x64\Release\avx.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\common.obj">
+    <Object Include="..\x64\Release\avx2.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft16x16.obj">
+    <Object Include="..\x64\Release\c8gemm.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft-aos.obj">
+    <Object Include="..\x64\Release\common.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft-dualreal.obj">
+    <Object Include="..\x64\Release\complex_soa.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft-real.obj">
+    <Object Include="..\x64\Release\complex_soa_perm_to_real.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft-soa.obj">
+    <Object Include="..\x64\Release\conv1x1.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\ifft-dualreal.obj">
+    <Object Include="..\x64\Release\fft-aos.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\ifft-real.obj">
+    <Object Include="..\x64\Release\fft-dualreal.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\max-pooling.obj">
+    <Object Include="..\x64\Release\fft-real.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\relu.obj">
+    <Object Include="..\x64\Release\fft-soa.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\softmax.obj">
+    <Object Include="..\x64\Release\ifft-dualreal.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\winograd-f6k3.obj">
+    <Object Include="..\x64\Release\ifft-real.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\winograd\o6x6k3x3.obj">
+    <Object Include="..\x64\Release\o6x6k3x3.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft\complex_soa.obj">
+    <Object Include="..\x64\Release\real_to_complex_soa_perm.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft\complex_soa_perm_to_real.obj">
+    <Object Include="..\x64\Release\s4c6gemm.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft\real_to_complex_soa_perm.obj">
+    <Object Include="..\x64\Release\s8gemm.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft\two_complex_soa_perm_to_two_real_planar.obj">
+    <Object Include="..\x64\Release\sdotxf.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\fft\two_real_to_two_complex_soa_perm_planar.obj">
+    <Object Include="..\x64\Release\sgemm.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\avx.obj">
+    <Object Include="..\x64\Release\shdotxf.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\avx2.obj">
+    <Object Include="..\x64\Release\two_complex_soa_perm_to_two_real_planar.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\c8gemm.obj">
+    <Object Include="..\x64\Release\two_real_to_two_complex_soa_perm_planar.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\conv1x1.obj">
+    <Object Include="..\x64\Release\winograd-f6k3.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\s4c6gemm.obj">
+    <Object Include="..\x64\Release\relu.obj">
       <Filter>Objects</Filter>
     </Object>
-    <Object Include="..\src\x86_64-fma\blas\s8gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\sdotxf.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\sgemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\blas\shdotxf.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\src\x86_64-fma\vecmath\exp.obj">
+    <Object Include="..\x64\Release\softmax.obj">
       <Filter>Objects</Filter>
     </Object>
   </ItemGroup>

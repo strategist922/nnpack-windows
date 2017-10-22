@@ -153,6 +153,10 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <ProjectReference />
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\convolution-inference.cpp" />
@@ -224,6 +228,7 @@
     <None Include="src\x86_64-fma\blas\shdotxf.py" />
     <None Include="src\x86_64-fma\block8x8.py" />
     <None Include="src\x86_64-fma\common.py" />
+    <None Include="src\x86_64-fma\exp.py" />
     <None Include="src\x86_64-fma\fft-aos.py" />
     <None Include="src\x86_64-fma\fft-dualreal.py" />
     <None Include="src\x86_64-fma\fft-real.py" />
