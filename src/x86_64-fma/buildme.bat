@@ -1,10 +1,9 @@
 SETLOCAL ENABLEEXTENSIONS
 
+SET python_dir=C:\PROGRA~1\Python36
 SET nnpack_dir=C:\Users\dhaen\Source\Repos\nnpack
-
 SET output_dir=%nnpack_dir%\x64\Release
 SET current_dir=%nnpack_dir%\src\x86_64-fma
-SET python_dir=C:\PROGRA~1\Python36
 SET proc_arch=haswell
 
 %python_dir%\python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\common.obj %current_dir%\common.py
