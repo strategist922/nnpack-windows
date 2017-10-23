@@ -1,4 +1,20 @@
-﻿  smoke.cc
+﻿  x86_64-avx2.cc
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(88): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(88): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(124): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(124): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(174): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(174): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(226): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(226): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(286): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(286): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(336): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(336): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(401): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(401): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(434): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
+C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(434): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
   stdafx.cpp
   Generating code
   Finished generating code
