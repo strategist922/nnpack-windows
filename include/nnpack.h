@@ -238,4 +238,3 @@ void nnp_fft32_dualreal__ref(const float* t, float* f);
 void nnp_ifft8_dualreal__ref(const float* f, float* t);
 void nnp_ifft16_dualreal__ref(const float* f, float* t);
 void nnp_ifft32_dualreal__ref(const float* f, float* t);
-

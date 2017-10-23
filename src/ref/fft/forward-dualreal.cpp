@@ -233,11 +233,8 @@ void nnp_fft32_dualreal__ref(const float* t, float* f)
 	f[29] = crealf(h14);
 	f[30] = crealf(x15);
 	f[31] = crealf(h15);
-	//f[32] = x8;  bug in original code ???
-	//f[33] = h8;
 	f[32] = x16;
 	f[33] = h16;
-
 	f[34] = cimagf(x1);
 	f[35] = cimagf(h1);
 	f[36] = cimagf(x2);
