@@ -1,0 +1,33 @@
+﻿  softmax.cpp
+  exp.cpp
+  stdafx.cpp
+  softmax-output.cpp
+  relu-output.cpp
+  relu-input-gradient.cpp
+  softmax-output-ref.cpp
+  relu-output-ref.cpp
+  relu-input-gradient-ref.cpp
+  max-pooling-output-ref.cpp
+  fully-connected-output-ref.cpp
+  soa.cpp
+  inverse-real.cpp
+  inverse-dualreal.cpp
+  forward-real.cpp
+  forward-dualreal.cpp
+  aos.cpp
+  convolution-output-ref.cpp
+  convolution-kernel-gradient-ref.cpp
+  convolution-input-gradient-ref.cpp
+  Generating Code...
+  Compiling...
+  pthreadpool.cpp
+  pooling-output.cpp
+  init.cpp
+  fully-connected-output.cpp
+  fully-connected-inference.cpp
+  convolution-output.cpp
+  convolution-kernel-gradient.cpp
+  convolution-input-gradient.cpp
+  convolution-inference.cpp
+  Generating Code...
+  nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib

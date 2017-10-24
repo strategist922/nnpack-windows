@@ -1,0 +1,5 @@
+﻿  stdafx.cpp
+  smoke.cc
+  Generating Code...
+smoke.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+  test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\test.exe
