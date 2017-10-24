@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
-#include <ccomplex>
+#include <string>
 
 #define SQRT2_OVER_2 std::strtof("0x1.6A09E6p-1f", NULL)
 #define SQRT2_OVER_4 std::strtof("0x1.6A09E6p-2f", NULL)

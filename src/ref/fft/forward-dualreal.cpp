@@ -1,19 +1,17 @@
-#include <ccomplex>
-#include <complex.h>
-#include <complex-base.h>
+#include <complex>
 #include <complex-ref.h>
 
 
 void nnp_fft8_dualreal__ref(const float* t, float* f) 
 {
-	std::complex<float> w0 = CMPLXF(t[0], t[ 8]);
-	std::complex<float> w1 = CMPLXF(t[1], t[ 9]);
-	std::complex<float> w2 = CMPLXF(t[2], t[10]);
-	std::complex<float> w3 = CMPLXF(t[3], t[11]);
-	std::complex<float> w4 = CMPLXF(t[4], t[12]);
-	std::complex<float> w5 = CMPLXF(t[5], t[13]);
-	std::complex<float> w6 = CMPLXF(t[6], t[14]);
-	std::complex<float> w7 = CMPLXF(t[7], t[15]);
+	std::complex<float> w0 = std::complex<float>(t[0], t[ 8]);
+	std::complex<float> w1 = std::complex<float>(t[1], t[ 9]);
+	std::complex<float> w2 = std::complex<float>(t[2], t[10]);
+	std::complex<float> w3 = std::complex<float>(t[3], t[11]);
+	std::complex<float> w4 = std::complex<float>(t[4], t[12]);
+	std::complex<float> w5 = std::complex<float>(t[5], t[13]);
+	std::complex<float> w6 = std::complex<float>(t[6], t[14]);
+	std::complex<float> w7 = std::complex<float>(t[7], t[15]);
 
 	fft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
@@ -52,22 +50,22 @@ void nnp_fft8_dualreal__ref(const float* t, float* f)
 
 void nnp_fft16_dualreal__ref(const float* t, float* f)
 {
-	std::complex<float> w0  = CMPLXF(t[ 0], t[16]);
-	std::complex<float> w1  = CMPLXF(t[ 1], t[17]);
-	std::complex<float> w2  = CMPLXF(t[ 2], t[18]);
-	std::complex<float> w3  = CMPLXF(t[ 3], t[19]);
-	std::complex<float> w4  = CMPLXF(t[ 4], t[20]);
-	std::complex<float> w5  = CMPLXF(t[ 5], t[21]);
-	std::complex<float> w6  = CMPLXF(t[ 6], t[22]);
-	std::complex<float> w7  = CMPLXF(t[ 7], t[23]);
-	std::complex<float> w8  = CMPLXF(t[ 8], t[24]);
-	std::complex<float> w9  = CMPLXF(t[ 9], t[25]);
-	std::complex<float> w10 = CMPLXF(t[10], t[26]);
-	std::complex<float> w11 = CMPLXF(t[11], t[27]);
-	std::complex<float> w12 = CMPLXF(t[12], t[28]);
-	std::complex<float> w13 = CMPLXF(t[13], t[29]);
-	std::complex<float> w14 = CMPLXF(t[14], t[30]);
-	std::complex<float> w15 = CMPLXF(t[15], t[31]);
+	std::complex<float> w0  = std::complex<float>(t[ 0], t[16]);
+	std::complex<float> w1  = std::complex<float>(t[ 1], t[17]);
+	std::complex<float> w2  = std::complex<float>(t[ 2], t[18]);
+	std::complex<float> w3  = std::complex<float>(t[ 3], t[19]);
+	std::complex<float> w4  = std::complex<float>(t[ 4], t[20]);
+	std::complex<float> w5  = std::complex<float>(t[ 5], t[21]);
+	std::complex<float> w6  = std::complex<float>(t[ 6], t[22]);
+	std::complex<float> w7  = std::complex<float>(t[ 7], t[23]);
+	std::complex<float> w8  = std::complex<float>(t[ 8], t[24]);
+	std::complex<float> w9  = std::complex<float>(t[ 9], t[25]);
+	std::complex<float> w10 = std::complex<float>(t[10], t[26]);
+	std::complex<float> w11 = std::complex<float>(t[11], t[27]);
+	std::complex<float> w12 = std::complex<float>(t[12], t[28]);
+	std::complex<float> w13 = std::complex<float>(t[13], t[29]);
+	std::complex<float> w14 = std::complex<float>(t[14], t[30]);
+	std::complex<float> w15 = std::complex<float>(t[15], t[31]);
 
 	fft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 
@@ -129,38 +127,38 @@ void nnp_fft16_dualreal__ref(const float* t, float* f)
 
 void nnp_fft32_dualreal__ref(const float* t, float* f) 
 {
-	std::complex<float> w0  = CMPLXF(t[ 0], t[32]);
-	std::complex<float> w1  = CMPLXF(t[ 1], t[33]);
-	std::complex<float> w2  = CMPLXF(t[ 2], t[34]);
-	std::complex<float> w3  = CMPLXF(t[ 3], t[35]);
-	std::complex<float> w4  = CMPLXF(t[ 4], t[36]);
-	std::complex<float> w5  = CMPLXF(t[ 5], t[37]);
-	std::complex<float> w6  = CMPLXF(t[ 6], t[38]);
-	std::complex<float> w7  = CMPLXF(t[ 7], t[39]);
-	std::complex<float> w8  = CMPLXF(t[ 8], t[40]);
-	std::complex<float> w9  = CMPLXF(t[ 9], t[41]);
-	std::complex<float> w10 = CMPLXF(t[10], t[42]);
-	std::complex<float> w11 = CMPLXF(t[11], t[43]);
-	std::complex<float> w12 = CMPLXF(t[12], t[44]);
-	std::complex<float> w13 = CMPLXF(t[13], t[45]);
-	std::complex<float> w14 = CMPLXF(t[14], t[46]);
-	std::complex<float> w15 = CMPLXF(t[15], t[47]);
-	std::complex<float> w16 = CMPLXF(t[16], t[48]);
-	std::complex<float> w17 = CMPLXF(t[17], t[49]);
-	std::complex<float> w18 = CMPLXF(t[18], t[50]);
-	std::complex<float> w19 = CMPLXF(t[19], t[51]);
-	std::complex<float> w20 = CMPLXF(t[20], t[52]);
-	std::complex<float> w21 = CMPLXF(t[21], t[53]);
-	std::complex<float> w22 = CMPLXF(t[22], t[54]);
-	std::complex<float> w23 = CMPLXF(t[23], t[55]);
-	std::complex<float> w24 = CMPLXF(t[24], t[56]);
-	std::complex<float> w25 = CMPLXF(t[25], t[57]);
-	std::complex<float> w26 = CMPLXF(t[26], t[58]);
-	std::complex<float> w27 = CMPLXF(t[27], t[59]);
-	std::complex<float> w28 = CMPLXF(t[28], t[60]);
-	std::complex<float> w29 = CMPLXF(t[29], t[61]);
-	std::complex<float> w30 = CMPLXF(t[30], t[62]);
-	std::complex<float> w31 = CMPLXF(t[31], t[63]);
+	std::complex<float> w0  = std::complex<float>(t[ 0], t[32]);
+	std::complex<float> w1  = std::complex<float>(t[ 1], t[33]);
+	std::complex<float> w2  = std::complex<float>(t[ 2], t[34]);
+	std::complex<float> w3  = std::complex<float>(t[ 3], t[35]);
+	std::complex<float> w4  = std::complex<float>(t[ 4], t[36]);
+	std::complex<float> w5  = std::complex<float>(t[ 5], t[37]);
+	std::complex<float> w6  = std::complex<float>(t[ 6], t[38]);
+	std::complex<float> w7  = std::complex<float>(t[ 7], t[39]);
+	std::complex<float> w8  = std::complex<float>(t[ 8], t[40]);
+	std::complex<float> w9  = std::complex<float>(t[ 9], t[41]);
+	std::complex<float> w10 = std::complex<float>(t[10], t[42]);
+	std::complex<float> w11 = std::complex<float>(t[11], t[43]);
+	std::complex<float> w12 = std::complex<float>(t[12], t[44]);
+	std::complex<float> w13 = std::complex<float>(t[13], t[45]);
+	std::complex<float> w14 = std::complex<float>(t[14], t[46]);
+	std::complex<float> w15 = std::complex<float>(t[15], t[47]);
+	std::complex<float> w16 = std::complex<float>(t[16], t[48]);
+	std::complex<float> w17 = std::complex<float>(t[17], t[49]);
+	std::complex<float> w18 = std::complex<float>(t[18], t[50]);
+	std::complex<float> w19 = std::complex<float>(t[19], t[51]);
+	std::complex<float> w20 = std::complex<float>(t[20], t[52]);
+	std::complex<float> w21 = std::complex<float>(t[21], t[53]);
+	std::complex<float> w22 = std::complex<float>(t[22], t[54]);
+	std::complex<float> w23 = std::complex<float>(t[23], t[55]);
+	std::complex<float> w24 = std::complex<float>(t[24], t[56]);
+	std::complex<float> w25 = std::complex<float>(t[25], t[57]);
+	std::complex<float> w26 = std::complex<float>(t[26], t[58]);
+	std::complex<float> w27 = std::complex<float>(t[27], t[59]);
+	std::complex<float> w28 = std::complex<float>(t[28], t[60]);
+	std::complex<float> w29 = std::complex<float>(t[29], t[61]);
+	std::complex<float> w30 = std::complex<float>(t[30], t[62]);
+	std::complex<float> w31 = std::complex<float>(t[31], t[63]);
 
 	fft32fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15, &w16, &w17, &w18, &w19, &w20, &w21, &w22, &w23, &w24, &w25, &w26, &w27, &w28, &w29, &w30, &w31);
 

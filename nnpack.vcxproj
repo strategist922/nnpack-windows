@@ -142,7 +142,7 @@
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <DebugInformationFormat>None</DebugInformationFormat>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointModel>Precise</FloatingPointModel>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <OmitFramePointers>false</OmitFramePointers>
@@ -200,7 +200,6 @@
   <ItemGroup>
     <ClInclude Include="include\activations.h" />
     <ClInclude Include="include\blas.h" />
-    <ClInclude Include="include\complex-base.h" />
     <ClInclude Include="include\fft-constants.h" />
     <ClInclude Include="include\fft.h" />
     <ClInclude Include="include\fxdiv.h" />

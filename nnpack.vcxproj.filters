@@ -182,9 +182,6 @@
     <ClInclude Include="include\reference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\complex-base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\complex-ref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
