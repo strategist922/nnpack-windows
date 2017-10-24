@@ -1,7 +1,10 @@
 # nnpack-windows
-nnpack for Windows
+NNPACK for Windows
 
 Windows port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
+
+(there are still some unresolved bugs in the convolution part)
+
 
 The steps to build the nnpack-windows repo:
 
