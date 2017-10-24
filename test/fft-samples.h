@@ -2,11 +2,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
+#include <string>
 
 namespace samples 
 {
 
-	#define ToFloat(str) strof(str, NULL)
+	#define ToFloat(str) std::strtof(str, NULL)
 
 	namespace fft2 
 	{
