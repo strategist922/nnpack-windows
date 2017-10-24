@@ -151,7 +151,7 @@ private:
 		std::vector<std::vector<float>> errors(outputSize * simdWidth());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(input.begin(), input.end(), std::ref(rng));
-			std::fill(output.begin(), output.end(), std::nanf(""));
+			std::fill(output.begin(), output.end(), std::numeric_limits<float>::quiet_NaN());
 			std::fill(referenceOutput.begin(), referenceOutput.end(), 0.0f);
 
 			transform(input.data(), output.data());
@@ -194,7 +194,7 @@ private:
 		std::vector<std::vector<float>> errors(outputSize * outputSize);
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(input.begin(), input.end(), std::ref(rng));
-			std::fill(output.begin(), output.end(), std::nanf(""));
+			std::fill(output.begin(), output.end(), std::numeric_limits<float>::quiet_NaN());
 			std::fill(referenceOutput.begin(), referenceOutput.end(), 0.0f);
 
 			if (type == Type::output) {

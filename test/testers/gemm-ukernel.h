@@ -2,7 +2,6 @@
 
 #include <cstddef>
 #include <cstdlib>
-
 #include <cmath>
 #include <cfloat>
 #include <vector>
@@ -101,7 +100,7 @@ public:
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(a.begin(), a.end(), std::ref(rng));
 			std::generate(b.begin(), b.end(), std::ref(rng));
-			std::fill(c.begin(), c.end(), std::nanf(""));
+			std::fill(c.begin(), c.end(), std::numeric_limits<float>::quiet_NaN());
 			std::fill(cReference.begin(), cReference.end(), 0.0f);
 
 			fast_sgemm(kc(), 0, a.data(), b.data(), c.data(), nr());
@@ -137,7 +136,7 @@ public:
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(a.begin(), a.end(), std::ref(rng));
 			std::generate(b.begin(), b.end(), std::ref(rng));
-			std::fill(c.begin(), c.end(), std::nanf(""));
+			std::fill(c.begin(), c.end(), std::numeric_limits<float>::quiet_NaN());
 			std::fill(cReference.begin(), cReference.end(), 0.0f);
 
 			full_sgemm(mr(), nr(), kc(), 0, a.data(), b.data(), c.data(), nr());

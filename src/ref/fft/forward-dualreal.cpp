@@ -17,8 +17,8 @@ void nnp_fft8_dualreal__ref(const float* t, float* f)
 
 	fft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
-	const float x0 = crealf(w0);
-	const float h0 = cimagf(w0);
+	const float x0 = std::real<float>(w0);
+	const float h0 = std::imag<float>(w0);
 	
 
 	const std::complex<float>  x1 =  0.5f  * (w1 + std::conj(w7));
@@ -28,26 +28,26 @@ void nnp_fft8_dualreal__ref(const float* t, float* f)
 	const std::complex<float> x3 =  0.5f  * (w3 + std::conj(w5));
 	const std::complex<float> h3 = std::complex<float>(0.0f, -0.5f) * (w3 - std::conj(w5));
 
-	const float x4 = crealf(w4);
-	const float h4 = cimagf(w4);
+	const float x4 = std::real<float>(w4);
+	const float h4 = std::imag<float>(w4);
 
 	f[0] = x0;
 	f[1] = h0;
-	f[2] = crealf(x1);
-	f[3] = crealf(h1);
-	f[4] = crealf(x2);
-	f[5] = crealf(h2);
-	f[6] = crealf(x3);
-	f[7] = crealf(h3);
+	f[2] = std::real<float>(x1);
+	f[3] = std::real<float>(h1);
+	f[4] = std::real<float>(x2);
+	f[5] = std::real<float>(h2);
+	f[6] = std::real<float>(x3);
+	f[7] = std::real<float>(h3);
 
 	f[ 8] = x4;
 	f[ 9] = h4;
-	f[10] = cimagf(x1);
-	f[11] = cimagf(h1);
-	f[12] = cimagf(x2);
-	f[13] = cimagf(h2);
-	f[14] = cimagf(x3);
-	f[15] = cimagf(h3);
+	f[10] = std::imag<float>(x1);
+	f[11] = std::imag<float>(h1);
+	f[12] = std::imag<float>(x2);
+	f[13] = std::imag<float>(h2);
+	f[14] = std::imag<float>(x3);
+	f[15] = std::imag<float>(h3);
 }
 
 void nnp_fft16_dualreal__ref(const float* t, float* f)
@@ -71,8 +71,8 @@ void nnp_fft16_dualreal__ref(const float* t, float* f)
 
 	fft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 
-	const float x0 = crealf(w0);
-	const float h0 = cimagf(w0);
+	const float x0 = std::real<float>(w0);
+	const float h0 = std::imag<float>(w0);
 
 	const std::complex<float> x1 =  0.5f  * (w1 + std::conj(w15));
 	const std::complex<float> h1 = std::complex<float>(0.0f, -0.5f) * (w1 - std::conj(w15));
@@ -89,42 +89,42 @@ void nnp_fft16_dualreal__ref(const float* t, float* f)
 	const std::complex<float> x7 =  0.5f  * (w7 + std::conj(w9));
 	const std::complex<float> h7 = std::complex<float>(0.0f, -0.5f) * (w7 - std::conj(w9));
 
-	const float x8 = crealf(w8);
-	const float h8 = cimagf(w8);
+	const float x8 = std::real<float>(w8);
+	const float h8 = std::imag<float>(w8);
 
 	f[ 0] = x0;
 	f[ 1] = h0;
-	f[ 2] = crealf(x1);
-	f[ 3] = crealf(h1);
-	f[ 4] = crealf(x2);
-	f[ 5] = crealf(h2);
-	f[ 6] = crealf(x3);
-	f[ 7] = crealf(h3);
-	f[ 8] = crealf(x4);
-	f[ 9] = crealf(h4);
-	f[10] = crealf(x5);
-	f[11] = crealf(h5);
-	f[12] = crealf(x6);
-	f[13] = crealf(h6);
-	f[14] = crealf(x7);
-	f[15] = crealf(h7);
+	f[ 2] = std::real<float>(x1);
+	f[ 3] = std::real<float>(h1);
+	f[ 4] = std::real<float>(x2);
+	f[ 5] = std::real<float>(h2);
+	f[ 6] = std::real<float>(x3);
+	f[ 7] = std::real<float>(h3);
+	f[ 8] = std::real<float>(x4);
+	f[ 9] = std::real<float>(h4);
+	f[10] = std::real<float>(x5);
+	f[11] = std::real<float>(h5);
+	f[12] = std::real<float>(x6);
+	f[13] = std::real<float>(h6);
+	f[14] = std::real<float>(x7);
+	f[15] = std::real<float>(h7);
 
 	f[16] = x8;
 	f[17] = h8;
-	f[18] = cimagf(x1);
-	f[19] = cimagf(h1);
-	f[20] = cimagf(x2);
-	f[21] = cimagf(h2);
-	f[22] = cimagf(x3);
-	f[23] = cimagf(h3);
-	f[24] = cimagf(x4);
-	f[25] = cimagf(h4);
-	f[26] = cimagf(x5);
-	f[27] = cimagf(h5);
-	f[28] = cimagf(x6);
-	f[29] = cimagf(h6);
-	f[30] = cimagf(x7);
-	f[31] = cimagf(h7);
+	f[18] = std::imag<float>(x1);
+	f[19] = std::imag<float>(h1);
+	f[20] = std::imag<float>(x2);
+	f[21] = std::imag<float>(h2);
+	f[22] = std::imag<float>(x3);
+	f[23] = std::imag<float>(h3);
+	f[24] = std::imag<float>(x4);
+	f[25] = std::imag<float>(h4);
+	f[26] = std::imag<float>(x5);
+	f[27] = std::imag<float>(h5);
+	f[28] = std::imag<float>(x6);
+	f[29] = std::imag<float>(h6);
+	f[30] = std::imag<float>(x7);
+	f[31] = std::imag<float>(h7);
 }
 
 void nnp_fft32_dualreal__ref(const float* t, float* f) 
@@ -164,8 +164,8 @@ void nnp_fft32_dualreal__ref(const float* t, float* f)
 
 	fft32fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15, &w16, &w17, &w18, &w19, &w20, &w21, &w22, &w23, &w24, &w25, &w26, &w27, &w28, &w29, &w30, &w31);
 
-	const float x0 = crealf(w0);
-	const float h0 = cimagf(w0);
+	const float x0 = std::real<float>(w0);
+	const float h0 = std::imag<float>(w0);
 
 	const std::complex<float> x1  =  0.5f  * (w1  + std::conj(w31));
 	const std::complex<float> h1  = std::complex<float>(0.0f, -0.5f) * (w1  - std::conj(w31));
@@ -198,71 +198,71 @@ void nnp_fft32_dualreal__ref(const float* t, float* f)
 	const std::complex<float> x15 =  0.5f  * (w15 + std::conj(w17));
 	const std::complex<float> h15 = std::complex<float>(0.0f, -0.5f) * (w15 - std::conj(w17));
 
-	const float x16 = crealf(w16);
-	const float h16 = cimagf(w16);
+	const float x16 = std::real<float>(w16);
+	const float h16 = std::imag<float>(w16);
 
 	f[ 0] = x0;
 	f[ 1] = h0;
-	f[ 2] = crealf(x1);
-	f[ 3] = crealf(h1);
-	f[ 4] = crealf(x2);
-	f[ 5] = crealf(h2);
-	f[ 6] = crealf(x3);
-	f[ 7] = crealf(h3);
-	f[ 8] = crealf(x4);
-	f[ 9] = crealf(h4);
-	f[10] = crealf(x5);
-	f[11] = crealf(h5);
-	f[12] = crealf(x6);
-	f[13] = crealf(h6);
-	f[14] = crealf(x7);
-	f[15] = crealf(h7);
-	f[16] = crealf(x8);
-	f[17] = crealf(h8);
-	f[18] = crealf(x9);
-	f[19] = crealf(h9);
-	f[20] = crealf(x10);
-	f[21] = crealf(h10);
-	f[22] = crealf(x11);
-	f[23] = crealf(h11);
-	f[24] = crealf(x12);
-	f[25] = crealf(h12);
-	f[26] = crealf(x13);
-	f[27] = crealf(h13);
-	f[28] = crealf(x14);
-	f[29] = crealf(h14);
-	f[30] = crealf(x15);
-	f[31] = crealf(h15);
+	f[ 2] = std::real<float>(x1);
+	f[ 3] = std::real<float>(h1);
+	f[ 4] = std::real<float>(x2);
+	f[ 5] = std::real<float>(h2);
+	f[ 6] = std::real<float>(x3);
+	f[ 7] = std::real<float>(h3);
+	f[ 8] = std::real<float>(x4);
+	f[ 9] = std::real<float>(h4);
+	f[10] = std::real<float>(x5);
+	f[11] = std::real<float>(h5);
+	f[12] = std::real<float>(x6);
+	f[13] = std::real<float>(h6);
+	f[14] = std::real<float>(x7);
+	f[15] = std::real<float>(h7);
+	f[16] = std::real<float>(x8);
+	f[17] = std::real<float>(h8);
+	f[18] = std::real<float>(x9);
+	f[19] = std::real<float>(h9);
+	f[20] = std::real<float>(x10);
+	f[21] = std::real<float>(h10);
+	f[22] = std::real<float>(x11);
+	f[23] = std::real<float>(h11);
+	f[24] = std::real<float>(x12);
+	f[25] = std::real<float>(h12);
+	f[26] = std::real<float>(x13);
+	f[27] = std::real<float>(h13);
+	f[28] = std::real<float>(x14);
+	f[29] = std::real<float>(h14);
+	f[30] = std::real<float>(x15);
+	f[31] = std::real<float>(h15);
 	f[32] = x16;
 	f[33] = h16;
-	f[34] = cimagf(x1);
-	f[35] = cimagf(h1);
-	f[36] = cimagf(x2);
-	f[37] = cimagf(h2);
-	f[38] = cimagf(x3);
-	f[39] = cimagf(h3);
-	f[40] = cimagf(x4);
-	f[41] = cimagf(h4);
-	f[42] = cimagf(x5);
-	f[43] = cimagf(h5);
-	f[44] = cimagf(x6);
-	f[45] = cimagf(h6);
-	f[46] = cimagf(x7);
-	f[47] = cimagf(h7);
-	f[48] = cimagf(x8);
-	f[49] = cimagf(h8);
-	f[50] = cimagf(x9);
-	f[51] = cimagf(h9);
-	f[52] = cimagf(x10);
-	f[53] = cimagf(h10);
-	f[54] = cimagf(x11);
-	f[55] = cimagf(h11);
-	f[56] = cimagf(x12);
-	f[57] = cimagf(h12);
-	f[58] = cimagf(x13);
-	f[59] = cimagf(h13);
-	f[60] = cimagf(x14);
-	f[61] = cimagf(h14);
-	f[62] = cimagf(x15);
-	f[63] = cimagf(h15);
+	f[34] = std::imag<float>(x1);
+	f[35] = std::imag<float>(h1);
+	f[36] = std::imag<float>(x2);
+	f[37] = std::imag<float>(h2);
+	f[38] = std::imag<float>(x3);
+	f[39] = std::imag<float>(h3);
+	f[40] = std::imag<float>(x4);
+	f[41] = std::imag<float>(h4);
+	f[42] = std::imag<float>(x5);
+	f[43] = std::imag<float>(h5);
+	f[44] = std::imag<float>(x6);
+	f[45] = std::imag<float>(h6);
+	f[46] = std::imag<float>(x7);
+	f[47] = std::imag<float>(h7);
+	f[48] = std::imag<float>(x8);
+	f[49] = std::imag<float>(h8);
+	f[50] = std::imag<float>(x9);
+	f[51] = std::imag<float>(h9);
+	f[52] = std::imag<float>(x10);
+	f[53] = std::imag<float>(h10);
+	f[54] = std::imag<float>(x11);
+	f[55] = std::imag<float>(h11);
+	f[56] = std::imag<float>(x12);
+	f[57] = std::imag<float>(h12);
+	f[58] = std::imag<float>(x13);
+	f[59] = std::imag<float>(h13);
+	f[60] = std::imag<float>(x14);
+	f[61] = std::imag<float>(h14);
+	f[62] = std::imag<float>(x15);
+	f[63] = std::imag<float>(h15);
 }

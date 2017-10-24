@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <numeric>
 #include <functional>
+#include <limits>
 
 #include <fft.h>
 
@@ -98,8 +99,8 @@ public:
 		std::vector<std::vector<float>> errors(2 * fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(data.begin(), data.end(), std::ref(rng));
-			std::fill(freqData.begin(), freqData.end(), std::nanf(""));
-			std::fill(timeData.begin(), timeData.end(), std::nanf(""));
+			std::fill(freqData.begin(), freqData.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(timeData.begin(), timeData.end(), std::numeric_limits<float>::quiet_NaN());
 
 			forward_fft(data.data(), 1, freqData.data(), 1);
 			inverse_fft(freqData.data(), 1, timeData.data(), 1);
@@ -138,8 +139,8 @@ public:
 		std::vector<std::vector<float>> errors(2 * fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(inputSOA.begin(), inputSOA.end(), std::ref(rng));
-			std::fill(outputSOA.begin(), outputSOA.end(), std::nanf(""));
-			std::fill(referenceOutputAOS.begin(), referenceOutputAOS.end(), std::nanf(""));
+			std::fill(outputSOA.begin(), outputSOA.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(referenceOutputAOS.begin(), referenceOutputAOS.end(), std::numeric_limits<float>::quiet_NaN());
 
 			soa_fft(inputSOA.data(), 1, outputSOA.data(), 1);
 
@@ -188,8 +189,8 @@ public:
 		std::vector<std::vector<float>> errors(fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(realInput.begin(), realInput.end(), std::ref(rng));
-			std::fill(realOutput.begin(), realOutput.end(), std::nanf(""));
-			std::fill(complexOutput.begin(), complexOutput.end(), std::nanf(""));
+			std::fill(realOutput.begin(), realOutput.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(complexOutput.begin(), complexOutput.end(), std::numeric_limits<float>::quiet_NaN());
 
 			/* Repack real input sequence into complex AOS sequence */
 			for (size_t i = 0; i < fftSize(); i++) {
@@ -240,8 +241,8 @@ public:
 		std::vector<std::vector<float>> errors(fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(realInput.begin(), realInput.end(), std::ref(rng));
-			std::fill(realOutput.begin(), realOutput.end(), std::nanf(""));
-			std::fill(complexOutput.begin(), complexOutput.end(), std::nanf(""));
+			std::fill(realOutput.begin(), realOutput.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(complexOutput.begin(), complexOutput.end(), std::numeric_limits<float>::quiet_NaN());
 
 			/* Repack input sequence in MKL PERM format into complex AOS sequence */
 			complexInput[0] = realInput[0];
@@ -298,8 +299,8 @@ public:
 		std::vector<std::vector<float>> errors(fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(input.begin(), input.end(), std::ref(rng));
-			std::fill(output.begin(), output.end(), std::nanf(""));
-			std::fill(deinterleavedOutput.begin(), deinterleavedOutput.end(), std::nanf(""));
+			std::fill(output.begin(), output.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(deinterleavedOutput.begin(), deinterleavedOutput.end(), std::numeric_limits<float>::quiet_NaN());
 
 			dual_real_fft(input.data(), output.data());
 			real_fft(input.data(), 1, deinterleavedOutput.data(), 1);
@@ -348,8 +349,8 @@ public:
 		std::vector<std::vector<float>> errors(fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(input.begin(), input.end(), std::ref(rng));
-			std::fill(output.begin(), output.end(), std::nanf(""));
-			std::fill(referenceOutput.begin(), referenceOutput.end(), std::nanf(""));
+			std::fill(output.begin(), output.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(referenceOutput.begin(), referenceOutput.end(), std::numeric_limits<float>::quiet_NaN());
 
 			/* Unpack and deinterleave two real input sequences */
 			for (size_t i = 0; i < fftSize() / 2; i++) {
@@ -411,8 +412,8 @@ public:
 		std::vector<std::vector<float>> errors(2 * fftSize());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(data.begin(), data.end(), std::ref(rng));
-			std::fill(transformedData.begin(), transformedData.end(), std::nanf(""));
-			std::fill(referenceTransformedData.begin(), referenceTransformedData.end(), std::nanf(""));
+			std::fill(transformedData.begin(), transformedData.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(referenceTransformedData.begin(), referenceTransformedData.end(), std::numeric_limits<float>::quiet_NaN());
 
 			optimized_fft(data.data(), transformedData.data());
 			reference_fft(data.data(), referenceTransformedData.data());
@@ -444,8 +445,8 @@ protected:
 		std::vector<std::vector<float>> errors(elements * fftSize() * simdWidth());
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(data.begin(), data.end(), std::ref(rng));
-			std::fill(transformedData.begin(), transformedData.end(), std::nanf(""));
-			std::fill(referenceTransformedData.begin(), referenceTransformedData.end(), std::nanf(""));
+			std::fill(transformedData.begin(), transformedData.end(), std::numeric_limits<float>::quiet_NaN());
+			std::fill(referenceTransformedData.begin(), referenceTransformedData.end(), std::numeric_limits<float>::quiet_NaN());
 
 			optimized_fft(data.data(), transformedData.data());
 			for (size_t simdOffset = 0; simdOffset < simdWidth(); simdOffset++) {

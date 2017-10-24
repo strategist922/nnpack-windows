@@ -40,7 +40,7 @@ inline static void fft4fc(std::complex<float>* w0, std::complex<float>* w1,	std:
 	butterflyfc(w1, w3);
 
 	/* FFT4: multiplication by twiddle factors */
-	*w3 *= conjf(CEXP_1PI_OVER_2);
+	*w3 *= std::conj<float>(CEXP_1PI_OVER_2);
 
 	/* 2x FFT2: butterfly */
 	butterflyfc(w0, w1);
@@ -102,9 +102,9 @@ inline static void fft8fc(
 	butterflyfc(w3, w7);
 
 	/* FFT4: multiplication by twiddle factors */
-	*w5 *= conjf(CEXP_1PI_OVER_4);
-	*w6 *= conjf(CEXP_2PI_OVER_4);
-	*w7 *= conjf(CEXP_3PI_OVER_4);
+	*w5 *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w6 *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w7 *= std::conj<float>(CEXP_3PI_OVER_4);
 
 	/* 2x FFT4: butterfly */
 	butterflyfc(w0, w2);
@@ -114,8 +114,8 @@ inline static void fft8fc(
 	butterflyfc(w5, w7);
 
 	/* 2x FFT4: multiplication by twiddle factors */
-	*w3 *= conjf(CEXP_1PI_OVER_2);
-	*w7 *= conjf(CEXP_1PI_OVER_2);
+	*w3 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w7 *= std::conj<float>(CEXP_1PI_OVER_2);
 
 	/* 4x FFT2: butterfly */
 	butterflyfc(w0, w1);
@@ -222,13 +222,13 @@ inline static void fft16fc(
 	butterflyfc(w7, w15);
 
 	/* FFT16: multiplication by twiddle factors */
-	*w9  *= conjf(CEXP_1PI_OVER_8);
-	*w10 *= conjf(CEXP_2PI_OVER_8);
-	*w11 *= conjf(CEXP_3PI_OVER_8);
-	*w12 *= conjf(CEXP_4PI_OVER_8);
-	*w13 *= conjf(CEXP_5PI_OVER_8);
-	*w14 *= conjf(CEXP_6PI_OVER_8);
-	*w15 *= conjf(CEXP_7PI_OVER_8);
+	*w9  *= std::conj<float>(CEXP_1PI_OVER_8);
+	*w10 *= std::conj<float>(CEXP_2PI_OVER_8);
+	*w11 *= std::conj<float>(CEXP_3PI_OVER_8);
+	*w12 *= std::conj<float>(CEXP_4PI_OVER_8);
+	*w13 *= std::conj<float>(CEXP_5PI_OVER_8);
+	*w14 *= std::conj<float>(CEXP_6PI_OVER_8);
+	*w15 *= std::conj<float>(CEXP_7PI_OVER_8);
 
 	/* 2x FFT8: butterfly */
 	butterflyfc(w0,  w4);
@@ -242,13 +242,13 @@ inline static void fft16fc(
 	butterflyfc(w11, w15);
 
 	/* 2x FFT8: multiplication by twiddle factors */
-	*w5  *= conjf(CEXP_1PI_OVER_4);
-	*w6  *= conjf(CEXP_2PI_OVER_4);
-	*w7  *= conjf(CEXP_3PI_OVER_4);
+	*w5  *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w6  *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w7  *= std::conj<float>(CEXP_3PI_OVER_4);
 
-	*w13 *= conjf(CEXP_1PI_OVER_4);
-	*w14 *= conjf(CEXP_2PI_OVER_4);
-	*w15 *= conjf(CEXP_3PI_OVER_4);
+	*w13 *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w14 *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w15 *= std::conj<float>(CEXP_3PI_OVER_4);
 
 	/* 4x FFT4: butterfly */
 	butterflyfc(w0,  w2);
@@ -264,10 +264,10 @@ inline static void fft16fc(
 	butterflyfc(w13, w15);
 
 	/* 4x FFT4: multiplication by twiddle factors */
-	*w3  *= conjf(CEXP_1PI_OVER_2);
-	*w7  *= conjf(CEXP_1PI_OVER_2);
-	*w11 *= conjf(CEXP_1PI_OVER_2);
-	*w15 *= conjf(CEXP_1PI_OVER_2);
+	*w3  *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w7  *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w11 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w15 *= std::conj<float>(CEXP_1PI_OVER_2);
 
 	/* 8x FFT2: butterfly */
 	butterflyfc(w0,  w1);
@@ -466,21 +466,21 @@ inline static void fft32fc(
 	butterflyfc(w15, w31);
 
 	/* FFT32: multiplication by twiddle factors */
-	*w17 *= conjf(CEXP__1PI_OVER_16);
-	*w18 *= conjf(CEXP__2PI_OVER_16);
-	*w19 *= conjf(CEXP__3PI_OVER_16);
-	*w20 *= conjf(CEXP__4PI_OVER_16);
-	*w21 *= conjf(CEXP__5PI_OVER_16);
-	*w22 *= conjf(CEXP__6PI_OVER_16);
-	*w23 *= conjf(CEXP__7PI_OVER_16);
-	*w24 *= conjf(CEXP__8PI_OVER_16);
-	*w25 *= conjf(CEXP__9PI_OVER_16);
-	*w26 *= conjf(CEXP_10PI_OVER_16);
-	*w27 *= conjf(CEXP_11PI_OVER_16);
-	*w28 *= conjf(CEXP_12PI_OVER_16);
-	*w29 *= conjf(CEXP_13PI_OVER_16);
-	*w30 *= conjf(CEXP_14PI_OVER_16);
-	*w31 *= conjf(CEXP_15PI_OVER_16);
+	*w17 *= std::conj<float>(CEXP__1PI_OVER_16);
+	*w18 *= std::conj<float>(CEXP__2PI_OVER_16);
+	*w19 *= std::conj<float>(CEXP__3PI_OVER_16);
+	*w20 *= std::conj<float>(CEXP__4PI_OVER_16);
+	*w21 *= std::conj<float>(CEXP__5PI_OVER_16);
+	*w22 *= std::conj<float>(CEXP__6PI_OVER_16);
+	*w23 *= std::conj<float>(CEXP__7PI_OVER_16);
+	*w24 *= std::conj<float>(CEXP__8PI_OVER_16);
+	*w25 *= std::conj<float>(CEXP__9PI_OVER_16);
+	*w26 *= std::conj<float>(CEXP_10PI_OVER_16);
+	*w27 *= std::conj<float>(CEXP_11PI_OVER_16);
+	*w28 *= std::conj<float>(CEXP_12PI_OVER_16);
+	*w29 *= std::conj<float>(CEXP_13PI_OVER_16);
+	*w30 *= std::conj<float>(CEXP_14PI_OVER_16);
+	*w31 *= std::conj<float>(CEXP_15PI_OVER_16);
 
 	/* 2x FFT16: butterfly */
 	butterflyfc(w0,  w8);
@@ -502,21 +502,21 @@ inline static void fft32fc(
 	butterflyfc(w23, w31);
 
 	/* 2x FFT16: multiplication by twiddle factors */
-	*w9  *= conjf(CEXP_1PI_OVER_8);
-	*w10 *= conjf(CEXP_2PI_OVER_8);
-	*w11 *= conjf(CEXP_3PI_OVER_8);
-	*w12 *= conjf(CEXP_4PI_OVER_8);
-	*w13 *= conjf(CEXP_5PI_OVER_8);
-	*w14 *= conjf(CEXP_6PI_OVER_8);
-	*w15 *= conjf(CEXP_7PI_OVER_8);
+	*w9  *= std::conj<float>(CEXP_1PI_OVER_8);
+	*w10 *= std::conj<float>(CEXP_2PI_OVER_8);
+	*w11 *= std::conj<float>(CEXP_3PI_OVER_8);
+	*w12 *= std::conj<float>(CEXP_4PI_OVER_8);
+	*w13 *= std::conj<float>(CEXP_5PI_OVER_8);
+	*w14 *= std::conj<float>(CEXP_6PI_OVER_8);
+	*w15 *= std::conj<float>(CEXP_7PI_OVER_8);
 
-	*w25 *= conjf(CEXP_1PI_OVER_8);
-	*w26 *= conjf(CEXP_2PI_OVER_8);
-	*w27 *= conjf(CEXP_3PI_OVER_8);
-	*w28 *= conjf(CEXP_4PI_OVER_8);
-	*w29 *= conjf(CEXP_5PI_OVER_8);
-	*w30 *= conjf(CEXP_6PI_OVER_8);
-	*w31 *= conjf(CEXP_7PI_OVER_8);
+	*w25 *= std::conj<float>(CEXP_1PI_OVER_8);
+	*w26 *= std::conj<float>(CEXP_2PI_OVER_8);
+	*w27 *= std::conj<float>(CEXP_3PI_OVER_8);
+	*w28 *= std::conj<float>(CEXP_4PI_OVER_8);
+	*w29 *= std::conj<float>(CEXP_5PI_OVER_8);
+	*w30 *= std::conj<float>(CEXP_6PI_OVER_8);
+	*w31 *= std::conj<float>(CEXP_7PI_OVER_8);
 
 	/* 4x FFT8: butterfly */
 	butterflyfc(w0,  w4);
@@ -540,21 +540,21 @@ inline static void fft32fc(
 	butterflyfc(w27, w31);
 
 	/* 4x FFT8: multiplication by twiddle factors */
-	*w5  *= conjf(CEXP_1PI_OVER_4);
-	*w6  *= conjf(CEXP_2PI_OVER_4);
-	*w7  *= conjf(CEXP_3PI_OVER_4);
+	*w5  *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w6  *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w7  *= std::conj<float>(CEXP_3PI_OVER_4);
 
-	*w13 *= conjf(CEXP_1PI_OVER_4);
-	*w14 *= conjf(CEXP_2PI_OVER_4);
-	*w15 *= conjf(CEXP_3PI_OVER_4);
+	*w13 *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w14 *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w15 *= std::conj<float>(CEXP_3PI_OVER_4);
 
-	*w21 *= conjf(CEXP_1PI_OVER_4);
-	*w22 *= conjf(CEXP_2PI_OVER_4);
-	*w23 *= conjf(CEXP_3PI_OVER_4);
+	*w21 *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w22 *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w23 *= std::conj<float>(CEXP_3PI_OVER_4);
 
-	*w29 *= conjf(CEXP_1PI_OVER_4);
-	*w30 *= conjf(CEXP_2PI_OVER_4);
-	*w31 *= conjf(CEXP_3PI_OVER_4);
+	*w29 *= std::conj<float>(CEXP_1PI_OVER_4);
+	*w30 *= std::conj<float>(CEXP_2PI_OVER_4);
+	*w31 *= std::conj<float>(CEXP_3PI_OVER_4);
 
 	/* 8x FFT4: butterfly */
 	butterflyfc(w0,  w2);
@@ -582,14 +582,14 @@ inline static void fft32fc(
 	butterflyfc(w29, w31);
 
 	/* 8x FFT4: multiplication by twiddle factors */
-	*w3  *= conjf(CEXP_1PI_OVER_2);
-	*w7  *= conjf(CEXP_1PI_OVER_2);
-	*w11 *= conjf(CEXP_1PI_OVER_2);
-	*w15 *= conjf(CEXP_1PI_OVER_2);
-	*w19 *= conjf(CEXP_1PI_OVER_2);
-	*w23 *= conjf(CEXP_1PI_OVER_2);
-	*w27 *= conjf(CEXP_1PI_OVER_2);
-	*w31 *= conjf(CEXP_1PI_OVER_2);
+	*w3  *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w7  *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w11 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w15 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w19 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w23 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w27 *= std::conj<float>(CEXP_1PI_OVER_2);
+	*w31 *= std::conj<float>(CEXP_1PI_OVER_2);
 
 	/* 16x FFT2: butterfly */
 	butterflyfc(w0,  w1);

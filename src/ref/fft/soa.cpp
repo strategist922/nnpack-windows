@@ -13,10 +13,10 @@ void nnp_fft2_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_strid
 	fft2fc(&w0, &w1);
 
 	/* Store outputs */
-	f[0 * f_stride] = crealf(w0);
-	f[1 * f_stride] = crealf(w1);
-	f[2 * f_stride] = cimagf(w0);
-	f[3 * f_stride] = cimagf(w1);
+	f[0 * f_stride] = std::real<float>(w0);
+	f[1 * f_stride] = std::real<float>(w1);
+	f[2 * f_stride] = std::imag<float>(w0);
+	f[3 * f_stride] = std::imag<float>(w1);
 }
 
 void nnp_fft4_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_stride)
@@ -30,14 +30,14 @@ void nnp_fft4_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_strid
 	fft4fc(&w0, &w1, &w2, &w3);
 
 	/* Store outputs */
-	f[0 * f_stride] = crealf(w0);
-	f[1 * f_stride] = crealf(w1);
-	f[2 * f_stride] = crealf(w2);
-	f[3 * f_stride] = crealf(w3);
-	f[4 * f_stride] = cimagf(w0);
-	f[5 * f_stride] = cimagf(w1);
-	f[6 * f_stride] = cimagf(w2);
-	f[7 * f_stride] = cimagf(w3);
+	f[0 * f_stride] = std::real<float>(w0);
+	f[1 * f_stride] = std::real<float>(w1);
+	f[2 * f_stride] = std::real<float>(w2);
+	f[3 * f_stride] = std::real<float>(w3);
+	f[4 * f_stride] = std::imag<float>(w0);
+	f[5 * f_stride] = std::imag<float>(w1);
+	f[6 * f_stride] = std::imag<float>(w2);
+	f[7 * f_stride] = std::imag<float>(w3);
 }
 
 void nnp_fft8_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_stride)
@@ -55,22 +55,22 @@ void nnp_fft8_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_strid
 	fft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
 	/* Store outputs */
-	f[ 0 * f_stride] = crealf(w0);
-	f[ 1 * f_stride] = crealf(w1);
-	f[ 2 * f_stride] = crealf(w2);
-	f[ 3 * f_stride] = crealf(w3);
-	f[ 4 * f_stride] = crealf(w4);
-	f[ 5 * f_stride] = crealf(w5);
-	f[ 6 * f_stride] = crealf(w6);
-	f[ 7 * f_stride] = crealf(w7);
-	f[ 8 * f_stride] = cimagf(w0);
-	f[ 9 * f_stride] = cimagf(w1);
-	f[10 * f_stride] = cimagf(w2);
-	f[11 * f_stride] = cimagf(w3);
-	f[12 * f_stride] = cimagf(w4);
-	f[13 * f_stride] = cimagf(w5);
-	f[14 * f_stride] = cimagf(w6);
-	f[15 * f_stride] = cimagf(w7);
+	f[ 0 * f_stride] = std::real<float>(w0);
+	f[ 1 * f_stride] = std::real<float>(w1);
+	f[ 2 * f_stride] = std::real<float>(w2);
+	f[ 3 * f_stride] = std::real<float>(w3);
+	f[ 4 * f_stride] = std::real<float>(w4);
+	f[ 5 * f_stride] = std::real<float>(w5);
+	f[ 6 * f_stride] = std::real<float>(w6);
+	f[ 7 * f_stride] = std::real<float>(w7);
+	f[ 8 * f_stride] = std::imag<float>(w0);
+	f[ 9 * f_stride] = std::imag<float>(w1);
+	f[10 * f_stride] = std::imag<float>(w2);
+	f[11 * f_stride] = std::imag<float>(w3);
+	f[12 * f_stride] = std::imag<float>(w4);
+	f[13 * f_stride] = std::imag<float>(w5);
+	f[14 * f_stride] = std::imag<float>(w6);
+	f[15 * f_stride] = std::imag<float>(w7);
 }
 
 void nnp_fft16_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
@@ -96,38 +96,38 @@ void nnp_fft16_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stri
 	fft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 
 	/* Store outputs */
-	f[ 0 * f_stride] = crealf(w0);
-	f[ 1 * f_stride] = crealf(w1);
-	f[ 2 * f_stride] = crealf(w2);
-	f[ 3 * f_stride] = crealf(w3);
-	f[ 4 * f_stride] = crealf(w4);
-	f[ 5 * f_stride] = crealf(w5);
-	f[ 6 * f_stride] = crealf(w6);
-	f[ 7 * f_stride] = crealf(w7);
-	f[ 8 * f_stride] = crealf(w8);
-	f[ 9 * f_stride] = crealf(w9);
-	f[10 * f_stride] = crealf(w10);
-	f[11 * f_stride] = crealf(w11);
-	f[12 * f_stride] = crealf(w12);
-	f[13 * f_stride] = crealf(w13);
-	f[14 * f_stride] = crealf(w14);
-	f[15 * f_stride] = crealf(w15);
-	f[16 * f_stride] = cimagf(w0);
-	f[17 * f_stride] = cimagf(w1);
-	f[18 * f_stride] = cimagf(w2);
-	f[19 * f_stride] = cimagf(w3);
-	f[20 * f_stride] = cimagf(w4);
-	f[21 * f_stride] = cimagf(w5);
-	f[22 * f_stride] = cimagf(w6);
-	f[23 * f_stride] = cimagf(w7);
-	f[24 * f_stride] = cimagf(w8);
-	f[25 * f_stride] = cimagf(w9);
-	f[26 * f_stride] = cimagf(w10);
-	f[27 * f_stride] = cimagf(w11);
-	f[28 * f_stride] = cimagf(w12);
-	f[29 * f_stride] = cimagf(w13);
-	f[30 * f_stride] = cimagf(w14);
-	f[31 * f_stride] = cimagf(w15);
+	f[ 0 * f_stride] = std::real<float>(w0);
+	f[ 1 * f_stride] = std::real<float>(w1);
+	f[ 2 * f_stride] = std::real<float>(w2);
+	f[ 3 * f_stride] = std::real<float>(w3);
+	f[ 4 * f_stride] = std::real<float>(w4);
+	f[ 5 * f_stride] = std::real<float>(w5);
+	f[ 6 * f_stride] = std::real<float>(w6);
+	f[ 7 * f_stride] = std::real<float>(w7);
+	f[ 8 * f_stride] = std::real<float>(w8);
+	f[ 9 * f_stride] = std::real<float>(w9);
+	f[10 * f_stride] = std::real<float>(w10);
+	f[11 * f_stride] = std::real<float>(w11);
+	f[12 * f_stride] = std::real<float>(w12);
+	f[13 * f_stride] = std::real<float>(w13);
+	f[14 * f_stride] = std::real<float>(w14);
+	f[15 * f_stride] = std::real<float>(w15);
+	f[16 * f_stride] = std::imag<float>(w0);
+	f[17 * f_stride] = std::imag<float>(w1);
+	f[18 * f_stride] = std::imag<float>(w2);
+	f[19 * f_stride] = std::imag<float>(w3);
+	f[20 * f_stride] = std::imag<float>(w4);
+	f[21 * f_stride] = std::imag<float>(w5);
+	f[22 * f_stride] = std::imag<float>(w6);
+	f[23 * f_stride] = std::imag<float>(w7);
+	f[24 * f_stride] = std::imag<float>(w8);
+	f[25 * f_stride] = std::imag<float>(w9);
+	f[26 * f_stride] = std::imag<float>(w10);
+	f[27 * f_stride] = std::imag<float>(w11);
+	f[28 * f_stride] = std::imag<float>(w12);
+	f[29 * f_stride] = std::imag<float>(w13);
+	f[30 * f_stride] = std::imag<float>(w14);
+	f[31 * f_stride] = std::imag<float>(w15);
 }
 
 void nnp_fft32_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
@@ -169,70 +169,70 @@ void nnp_fft32_soa__ref(const float* t, size_t t_stride, float* f, size_t f_stri
 	fft32fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15, &w16, &w17, &w18, &w19, &w20, &w21, &w22, &w23, &w24, &w25, &w26, &w27, &w28, &w29, &w30, &w31);
 
 	/* Store outputs */
-	f[ 0 * f_stride] = crealf(w0);
-	f[ 1 * f_stride] = crealf(w1);
-	f[ 2 * f_stride] = crealf(w2);
-	f[ 3 * f_stride] = crealf(w3);
-	f[ 4 * f_stride] = crealf(w4);
-	f[ 5 * f_stride] = crealf(w5);
-	f[ 6 * f_stride] = crealf(w6);
-	f[ 7 * f_stride] = crealf(w7);
-	f[ 8 * f_stride] = crealf(w8);
-	f[ 9 * f_stride] = crealf(w9);
-	f[10 * f_stride] = crealf(w10);
-	f[11 * f_stride] = crealf(w11);
-	f[12 * f_stride] = crealf(w12);
-	f[13 * f_stride] = crealf(w13);
-	f[14 * f_stride] = crealf(w14);
-	f[15 * f_stride] = crealf(w15);
-	f[16 * f_stride] = crealf(w16);
-	f[17 * f_stride] = crealf(w17);
-	f[18 * f_stride] = crealf(w18);
-	f[19 * f_stride] = crealf(w19);
-	f[20 * f_stride] = crealf(w20);
-	f[21 * f_stride] = crealf(w21);
-	f[22 * f_stride] = crealf(w22);
-	f[23 * f_stride] = crealf(w23);
-	f[24 * f_stride] = crealf(w24);
-	f[25 * f_stride] = crealf(w25);
-	f[26 * f_stride] = crealf(w26);
-	f[27 * f_stride] = crealf(w27);
-	f[28 * f_stride] = crealf(w28);
-	f[29 * f_stride] = crealf(w29);
-	f[30 * f_stride] = crealf(w30);
-	f[31 * f_stride] = crealf(w31);
-	f[32 * f_stride] = cimagf(w0);
-	f[33 * f_stride] = cimagf(w1);
-	f[34 * f_stride] = cimagf(w2);
-	f[35 * f_stride] = cimagf(w3);
-	f[36 * f_stride] = cimagf(w4);
-	f[37 * f_stride] = cimagf(w5);
-	f[38 * f_stride] = cimagf(w6);
-	f[39 * f_stride] = cimagf(w7);
-	f[40 * f_stride] = cimagf(w8);
-	f[41 * f_stride] = cimagf(w9);
-	f[42 * f_stride] = cimagf(w10);
-	f[43 * f_stride] = cimagf(w11);
-	f[44 * f_stride] = cimagf(w12);
-	f[45 * f_stride] = cimagf(w13);
-	f[46 * f_stride] = cimagf(w14);
-	f[47 * f_stride] = cimagf(w15);
-	f[48 * f_stride] = cimagf(w16);
-	f[49 * f_stride] = cimagf(w17);
-	f[50 * f_stride] = cimagf(w18);
-	f[51 * f_stride] = cimagf(w19);
-	f[52 * f_stride] = cimagf(w20);
-	f[53 * f_stride] = cimagf(w21);
-	f[54 * f_stride] = cimagf(w22);
-	f[55 * f_stride] = cimagf(w23);
-	f[56 * f_stride] = cimagf(w24);
-	f[57 * f_stride] = cimagf(w25);
-	f[58 * f_stride] = cimagf(w26);
-	f[59 * f_stride] = cimagf(w27);
-	f[60 * f_stride] = cimagf(w28);
-	f[61 * f_stride] = cimagf(w29);
-	f[62 * f_stride] = cimagf(w30);
-	f[63 * f_stride] = cimagf(w31);
+	f[ 0 * f_stride] = std::real<float>(w0);
+	f[ 1 * f_stride] = std::real<float>(w1);
+	f[ 2 * f_stride] = std::real<float>(w2);
+	f[ 3 * f_stride] = std::real<float>(w3);
+	f[ 4 * f_stride] = std::real<float>(w4);
+	f[ 5 * f_stride] = std::real<float>(w5);
+	f[ 6 * f_stride] = std::real<float>(w6);
+	f[ 7 * f_stride] = std::real<float>(w7);
+	f[ 8 * f_stride] = std::real<float>(w8);
+	f[ 9 * f_stride] = std::real<float>(w9);
+	f[10 * f_stride] = std::real<float>(w10);
+	f[11 * f_stride] = std::real<float>(w11);
+	f[12 * f_stride] = std::real<float>(w12);
+	f[13 * f_stride] = std::real<float>(w13);
+	f[14 * f_stride] = std::real<float>(w14);
+	f[15 * f_stride] = std::real<float>(w15);
+	f[16 * f_stride] = std::real<float>(w16);
+	f[17 * f_stride] = std::real<float>(w17);
+	f[18 * f_stride] = std::real<float>(w18);
+	f[19 * f_stride] = std::real<float>(w19);
+	f[20 * f_stride] = std::real<float>(w20);
+	f[21 * f_stride] = std::real<float>(w21);
+	f[22 * f_stride] = std::real<float>(w22);
+	f[23 * f_stride] = std::real<float>(w23);
+	f[24 * f_stride] = std::real<float>(w24);
+	f[25 * f_stride] = std::real<float>(w25);
+	f[26 * f_stride] = std::real<float>(w26);
+	f[27 * f_stride] = std::real<float>(w27);
+	f[28 * f_stride] = std::real<float>(w28);
+	f[29 * f_stride] = std::real<float>(w29);
+	f[30 * f_stride] = std::real<float>(w30);
+	f[31 * f_stride] = std::real<float>(w31);
+	f[32 * f_stride] = std::imag<float>(w0);
+	f[33 * f_stride] = std::imag<float>(w1);
+	f[34 * f_stride] = std::imag<float>(w2);
+	f[35 * f_stride] = std::imag<float>(w3);
+	f[36 * f_stride] = std::imag<float>(w4);
+	f[37 * f_stride] = std::imag<float>(w5);
+	f[38 * f_stride] = std::imag<float>(w6);
+	f[39 * f_stride] = std::imag<float>(w7);
+	f[40 * f_stride] = std::imag<float>(w8);
+	f[41 * f_stride] = std::imag<float>(w9);
+	f[42 * f_stride] = std::imag<float>(w10);
+	f[43 * f_stride] = std::imag<float>(w11);
+	f[44 * f_stride] = std::imag<float>(w12);
+	f[45 * f_stride] = std::imag<float>(w13);
+	f[46 * f_stride] = std::imag<float>(w14);
+	f[47 * f_stride] = std::imag<float>(w15);
+	f[48 * f_stride] = std::imag<float>(w16);
+	f[49 * f_stride] = std::imag<float>(w17);
+	f[50 * f_stride] = std::imag<float>(w18);
+	f[51 * f_stride] = std::imag<float>(w19);
+	f[52 * f_stride] = std::imag<float>(w20);
+	f[53 * f_stride] = std::imag<float>(w21);
+	f[54 * f_stride] = std::imag<float>(w22);
+	f[55 * f_stride] = std::imag<float>(w23);
+	f[56 * f_stride] = std::imag<float>(w24);
+	f[57 * f_stride] = std::imag<float>(w25);
+	f[58 * f_stride] = std::imag<float>(w26);
+	f[59 * f_stride] = std::imag<float>(w27);
+	f[60 * f_stride] = std::imag<float>(w28);
+	f[61 * f_stride] = std::imag<float>(w29);
+	f[62 * f_stride] = std::imag<float>(w30);
+	f[63 * f_stride] = std::imag<float>(w31);
 }
 
 void nnp_ifft2_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
@@ -244,10 +244,10 @@ void nnp_ifft2_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stri
 	ifft2fc(&w0, &w1);
 
 	/* Store outputs */
-	t[0 * t_stride] = crealf(w0);
-	t[1 * t_stride] = crealf(w1);
-	t[2 * t_stride] = cimagf(w0);
-	t[3 * t_stride] = cimagf(w1);
+	t[0 * t_stride] = std::real<float>(w0);
+	t[1 * t_stride] = std::real<float>(w1);
+	t[2 * t_stride] = std::imag<float>(w0);
+	t[3 * t_stride] = std::imag<float>(w1);
 }
 
 void nnp_ifft4_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
@@ -261,14 +261,14 @@ void nnp_ifft4_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stri
 	ifft4fc(&w0, &w1, &w2, &w3);
 
 	/* Store outputs */
-	t[0 * t_stride] = crealf(w0);
-	t[1 * t_stride] = crealf(w1);
-	t[2 * t_stride] = crealf(w2);
-	t[3 * t_stride] = crealf(w3);
-	t[4 * t_stride] = cimagf(w0);
-	t[5 * t_stride] = cimagf(w1);
-	t[6 * t_stride] = cimagf(w2);
-	t[7 * t_stride] = cimagf(w3);
+	t[0 * t_stride] = std::real<float>(w0);
+	t[1 * t_stride] = std::real<float>(w1);
+	t[2 * t_stride] = std::real<float>(w2);
+	t[3 * t_stride] = std::real<float>(w3);
+	t[4 * t_stride] = std::imag<float>(w0);
+	t[5 * t_stride] = std::imag<float>(w1);
+	t[6 * t_stride] = std::imag<float>(w2);
+	t[7 * t_stride] = std::imag<float>(w3);
 }
 
 void nnp_ifft8_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
@@ -286,22 +286,22 @@ void nnp_ifft8_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stri
 	ifft8fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7);
 
 	/* Store outputs */
-	t[ 0 * t_stride] = crealf(w0);
-	t[ 1 * t_stride] = crealf(w1);
-	t[ 2 * t_stride] = crealf(w2);
-	t[ 3 * t_stride] = crealf(w3);
-	t[ 4 * t_stride] = crealf(w4);
-	t[ 5 * t_stride] = crealf(w5);
-	t[ 6 * t_stride] = crealf(w6);
-	t[ 7 * t_stride] = crealf(w7);
-	t[ 8 * t_stride] = cimagf(w0);
-	t[ 9 * t_stride] = cimagf(w1);
-	t[10 * t_stride] = cimagf(w2);
-	t[11 * t_stride] = cimagf(w3);
-	t[12 * t_stride] = cimagf(w4);
-	t[13 * t_stride] = cimagf(w5);
-	t[14 * t_stride] = cimagf(w6);
-	t[15 * t_stride] = cimagf(w7);
+	t[ 0 * t_stride] = std::real<float>(w0);
+	t[ 1 * t_stride] = std::real<float>(w1);
+	t[ 2 * t_stride] = std::real<float>(w2);
+	t[ 3 * t_stride] = std::real<float>(w3);
+	t[ 4 * t_stride] = std::real<float>(w4);
+	t[ 5 * t_stride] = std::real<float>(w5);
+	t[ 6 * t_stride] = std::real<float>(w6);
+	t[ 7 * t_stride] = std::real<float>(w7);
+	t[ 8 * t_stride] = std::imag<float>(w0);
+	t[ 9 * t_stride] = std::imag<float>(w1);
+	t[10 * t_stride] = std::imag<float>(w2);
+	t[11 * t_stride] = std::imag<float>(w3);
+	t[12 * t_stride] = std::imag<float>(w4);
+	t[13 * t_stride] = std::imag<float>(w5);
+	t[14 * t_stride] = std::imag<float>(w6);
+	t[15 * t_stride] = std::imag<float>(w7);
 }
 
 void nnp_ifft16_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
@@ -327,38 +327,38 @@ void nnp_ifft16_soa__ref(const float* f, size_t f_stride, float* t, size_t t_str
 	ifft16fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15);
 
 	/* Store outputs */
-	t[ 0 * t_stride] = crealf(w0);
-	t[ 1 * t_stride] = crealf(w1);
-	t[ 2 * t_stride] = crealf(w2);
-	t[ 3 * t_stride] = crealf(w3);
-	t[ 4 * t_stride] = crealf(w4);
-	t[ 5 * t_stride] = crealf(w5);
-	t[ 6 * t_stride] = crealf(w6);
-	t[ 7 * t_stride] = crealf(w7);
-	t[ 8 * t_stride] = crealf(w8);
-	t[ 9 * t_stride] = crealf(w9);
-	t[10 * t_stride] = crealf(w10);
-	t[11 * t_stride] = crealf(w11);
-	t[12 * t_stride] = crealf(w12);
-	t[13 * t_stride] = crealf(w13);
-	t[14 * t_stride] = crealf(w14);
-	t[15 * t_stride] = crealf(w15);
-	t[16 * t_stride] = cimagf(w0);
-	t[17 * t_stride] = cimagf(w1);
-	t[18 * t_stride] = cimagf(w2);
-	t[19 * t_stride] = cimagf(w3);
-	t[20 * t_stride] = cimagf(w4);
-	t[21 * t_stride] = cimagf(w5);
-	t[22 * t_stride] = cimagf(w6);
-	t[23 * t_stride] = cimagf(w7);
-	t[24 * t_stride] = cimagf(w8);
-	t[25 * t_stride] = cimagf(w9);
-	t[26 * t_stride] = cimagf(w10);
-	t[27 * t_stride] = cimagf(w11);
-	t[28 * t_stride] = cimagf(w12);
-	t[29 * t_stride] = cimagf(w13);
-	t[30 * t_stride] = cimagf(w14);
-	t[31 * t_stride] = cimagf(w15);
+	t[ 0 * t_stride] = std::real<float>(w0);
+	t[ 1 * t_stride] = std::real<float>(w1);
+	t[ 2 * t_stride] = std::real<float>(w2);
+	t[ 3 * t_stride] = std::real<float>(w3);
+	t[ 4 * t_stride] = std::real<float>(w4);
+	t[ 5 * t_stride] = std::real<float>(w5);
+	t[ 6 * t_stride] = std::real<float>(w6);
+	t[ 7 * t_stride] = std::real<float>(w7);
+	t[ 8 * t_stride] = std::real<float>(w8);
+	t[ 9 * t_stride] = std::real<float>(w9);
+	t[10 * t_stride] = std::real<float>(w10);
+	t[11 * t_stride] = std::real<float>(w11);
+	t[12 * t_stride] = std::real<float>(w12);
+	t[13 * t_stride] = std::real<float>(w13);
+	t[14 * t_stride] = std::real<float>(w14);
+	t[15 * t_stride] = std::real<float>(w15);
+	t[16 * t_stride] = std::imag<float>(w0);
+	t[17 * t_stride] = std::imag<float>(w1);
+	t[18 * t_stride] = std::imag<float>(w2);
+	t[19 * t_stride] = std::imag<float>(w3);
+	t[20 * t_stride] = std::imag<float>(w4);
+	t[21 * t_stride] = std::imag<float>(w5);
+	t[22 * t_stride] = std::imag<float>(w6);
+	t[23 * t_stride] = std::imag<float>(w7);
+	t[24 * t_stride] = std::imag<float>(w8);
+	t[25 * t_stride] = std::imag<float>(w9);
+	t[26 * t_stride] = std::imag<float>(w10);
+	t[27 * t_stride] = std::imag<float>(w11);
+	t[28 * t_stride] = std::imag<float>(w12);
+	t[29 * t_stride] = std::imag<float>(w13);
+	t[30 * t_stride] = std::imag<float>(w14);
+	t[31 * t_stride] = std::imag<float>(w15);
 }
 
 void nnp_ifft32_soa__ref(const float* f, size_t f_stride, float* t, size_t t_stride)
@@ -400,68 +400,68 @@ void nnp_ifft32_soa__ref(const float* f, size_t f_stride, float* t, size_t t_str
 	ifft32fc(&w0, &w1, &w2, &w3, &w4, &w5, &w6, &w7, &w8, &w9, &w10, &w11, &w12, &w13, &w14, &w15, &w16, &w17, &w18, &w19, &w20, &w21, &w22, &w23, &w24, &w25, &w26, &w27, &w28, &w29, &w30, &w31);
 
 	/* Store outputs */
-	t[ 0 * t_stride] = crealf(w0);
-	t[ 1 * t_stride] = crealf(w1);
-	t[ 2 * t_stride] = crealf(w2);
-	t[ 3 * t_stride] = crealf(w3);
-	t[ 4 * t_stride] = crealf(w4);
-	t[ 5 * t_stride] = crealf(w5);
-	t[ 6 * t_stride] = crealf(w6);
-	t[ 7 * t_stride] = crealf(w7);
-	t[ 8 * t_stride] = crealf(w8);
-	t[ 9 * t_stride] = crealf(w9);
-	t[10 * t_stride] = crealf(w10);
-	t[11 * t_stride] = crealf(w11);
-	t[12 * t_stride] = crealf(w12);
-	t[13 * t_stride] = crealf(w13);
-	t[14 * t_stride] = crealf(w14);
-	t[15 * t_stride] = crealf(w15);
-	t[16 * t_stride] = crealf(w16);
-	t[17 * t_stride] = crealf(w17);
-	t[18 * t_stride] = crealf(w18);
-	t[19 * t_stride] = crealf(w19);
-	t[20 * t_stride] = crealf(w20);
-	t[21 * t_stride] = crealf(w21);
-	t[22 * t_stride] = crealf(w22);
-	t[23 * t_stride] = crealf(w23);
-	t[24 * t_stride] = crealf(w24);
-	t[25 * t_stride] = crealf(w25);
-	t[26 * t_stride] = crealf(w26);
-	t[27 * t_stride] = crealf(w27);
-	t[28 * t_stride] = crealf(w28);
-	t[29 * t_stride] = crealf(w29);
-	t[30 * t_stride] = crealf(w30);
-	t[31 * t_stride] = crealf(w31);
-	t[32 * t_stride] = cimagf(w0);
-	t[33 * t_stride] = cimagf(w1);
-	t[34 * t_stride] = cimagf(w2);
-	t[35 * t_stride] = cimagf(w3);
-	t[36 * t_stride] = cimagf(w4);
-	t[37 * t_stride] = cimagf(w5);
-	t[38 * t_stride] = cimagf(w6);
-	t[39 * t_stride] = cimagf(w7);
-	t[40 * t_stride] = cimagf(w8);
-	t[41 * t_stride] = cimagf(w9);
-	t[42 * t_stride] = cimagf(w10);
-	t[43 * t_stride] = cimagf(w11);
-	t[44 * t_stride] = cimagf(w12);
-	t[45 * t_stride] = cimagf(w13);
-	t[46 * t_stride] = cimagf(w14);
-	t[47 * t_stride] = cimagf(w15);
-	t[48 * t_stride] = cimagf(w16);
-	t[49 * t_stride] = cimagf(w17);
-	t[50 * t_stride] = cimagf(w18);
-	t[51 * t_stride] = cimagf(w19);
-	t[52 * t_stride] = cimagf(w20);
-	t[53 * t_stride] = cimagf(w21);
-	t[54 * t_stride] = cimagf(w22);
-	t[55 * t_stride] = cimagf(w23);
-	t[56 * t_stride] = cimagf(w24);
-	t[57 * t_stride] = cimagf(w25);
-	t[58 * t_stride] = cimagf(w26);
-	t[59 * t_stride] = cimagf(w27);
-	t[60 * t_stride] = cimagf(w28);
-	t[61 * t_stride] = cimagf(w29);
-	t[62 * t_stride] = cimagf(w30);
-	t[63 * t_stride] = cimagf(w31);
+	t[ 0 * t_stride] = std::real<float>(w0);
+	t[ 1 * t_stride] = std::real<float>(w1);
+	t[ 2 * t_stride] = std::real<float>(w2);
+	t[ 3 * t_stride] = std::real<float>(w3);
+	t[ 4 * t_stride] = std::real<float>(w4);
+	t[ 5 * t_stride] = std::real<float>(w5);
+	t[ 6 * t_stride] = std::real<float>(w6);
+	t[ 7 * t_stride] = std::real<float>(w7);
+	t[ 8 * t_stride] = std::real<float>(w8);
+	t[ 9 * t_stride] = std::real<float>(w9);
+	t[10 * t_stride] = std::real<float>(w10);
+	t[11 * t_stride] = std::real<float>(w11);
+	t[12 * t_stride] = std::real<float>(w12);
+	t[13 * t_stride] = std::real<float>(w13);
+	t[14 * t_stride] = std::real<float>(w14);
+	t[15 * t_stride] = std::real<float>(w15);
+	t[16 * t_stride] = std::real<float>(w16);
+	t[17 * t_stride] = std::real<float>(w17);
+	t[18 * t_stride] = std::real<float>(w18);
+	t[19 * t_stride] = std::real<float>(w19);
+	t[20 * t_stride] = std::real<float>(w20);
+	t[21 * t_stride] = std::real<float>(w21);
+	t[22 * t_stride] = std::real<float>(w22);
+	t[23 * t_stride] = std::real<float>(w23);
+	t[24 * t_stride] = std::real<float>(w24);
+	t[25 * t_stride] = std::real<float>(w25);
+	t[26 * t_stride] = std::real<float>(w26);
+	t[27 * t_stride] = std::real<float>(w27);
+	t[28 * t_stride] = std::real<float>(w28);
+	t[29 * t_stride] = std::real<float>(w29);
+	t[30 * t_stride] = std::real<float>(w30);
+	t[31 * t_stride] = std::real<float>(w31);
+	t[32 * t_stride] = std::imag<float>(w0);
+	t[33 * t_stride] = std::imag<float>(w1);
+	t[34 * t_stride] = std::imag<float>(w2);
+	t[35 * t_stride] = std::imag<float>(w3);
+	t[36 * t_stride] = std::imag<float>(w4);
+	t[37 * t_stride] = std::imag<float>(w5);
+	t[38 * t_stride] = std::imag<float>(w6);
+	t[39 * t_stride] = std::imag<float>(w7);
+	t[40 * t_stride] = std::imag<float>(w8);
+	t[41 * t_stride] = std::imag<float>(w9);
+	t[42 * t_stride] = std::imag<float>(w10);
+	t[43 * t_stride] = std::imag<float>(w11);
+	t[44 * t_stride] = std::imag<float>(w12);
+	t[45 * t_stride] = std::imag<float>(w13);
+	t[46 * t_stride] = std::imag<float>(w14);
+	t[47 * t_stride] = std::imag<float>(w15);
+	t[48 * t_stride] = std::imag<float>(w16);
+	t[49 * t_stride] = std::imag<float>(w17);
+	t[50 * t_stride] = std::imag<float>(w18);
+	t[51 * t_stride] = std::imag<float>(w19);
+	t[52 * t_stride] = std::imag<float>(w20);
+	t[53 * t_stride] = std::imag<float>(w21);
+	t[54 * t_stride] = std::imag<float>(w22);
+	t[55 * t_stride] = std::imag<float>(w23);
+	t[56 * t_stride] = std::imag<float>(w24);
+	t[57 * t_stride] = std::imag<float>(w25);
+	t[58 * t_stride] = std::imag<float>(w26);
+	t[59 * t_stride] = std::imag<float>(w27);
+	t[60 * t_stride] = std::imag<float>(w28);
+	t[61 * t_stride] = std::imag<float>(w29);
+	t[62 * t_stride] = std::imag<float>(w30);
+	t[63 * t_stride] = std::imag<float>(w31);
 }

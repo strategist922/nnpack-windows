@@ -18,7 +18,6 @@
   soa.cpp
   fully-connected-output-ref.cpp
   max-pooling-output-ref.cpp
-  Generating Code...
   Compiling...
   relu-input-gradient-ref.cpp
   relu-output-ref.cpp
@@ -29,5 +28,4 @@
   stdafx.cpp
   exp.cpp
   softmax.cpp
-  Generating Code...
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\nnpack.lib

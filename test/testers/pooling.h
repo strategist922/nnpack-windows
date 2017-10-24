@@ -190,7 +190,7 @@ public:
 
 		for (size_t iteration = 0; iteration < iterations(); iteration++) {
 			std::generate(input.begin(), input.end(), std::ref(rng));
-			std::fill(output.begin(), output.end(), std::nanf(""));
+			std::fill(output.begin(), output.end(), std::numeric_limits<float>::quiet_NaN());
 
 			nnp_max_pooling_output__reference(
 				batchSize(), channels(),
