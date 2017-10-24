@@ -90,7 +90,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointModel>Precise</FloatingPointModel>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)test\testers;$(SolutionDir)googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -172,7 +172,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-output\smoke.cc" />
+    <ClCompile Include="convolution-kernel-gradient\vgg-a.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

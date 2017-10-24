@@ -22,7 +22,7 @@ class PoolingTester {
 public:
 	PoolingTester() :
 		iterations_(1),
-		errorLimit_(1.0e-7),
+		errorLimit_(1.0e-7f),
 		multithreading_(false),
 		batchSize_(1),
 		channels_(1)

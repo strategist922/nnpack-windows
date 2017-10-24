@@ -22,7 +22,7 @@ class FullyConnectedTester {
 public:
 	FullyConnectedTester() :
 		iterations_(1),
-		errorLimit_(1.0e-5),
+		errorLimit_(1.0e-5f),
 		multithreading_(false),
 		batchSize_(1),
 		inputChannels_(1),

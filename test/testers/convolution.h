@@ -23,7 +23,7 @@ class ConvolutionTester {
 public:
 	ConvolutionTester() :
 		iterations_(1),
-		errorLimit_(1.0e-5),
+		errorLimit_(1.0e-5f),
 		multithreading_(false),
 		batchSize_(1),
 		inputChannels_(1),
@@ -191,7 +191,7 @@ public:
 
 	void testOutput(enum nnp_convolution_algorithm algorithm, enum nnp_activation activation = nnp_activation_identity) const {
 		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
-		auto rng = std::bind(std::uniform_real_distribution<float>(-0.1, 1.0), std::mt19937(seed));
+		auto rng = std::bind(std::uniform_real_distribution<float>(-0.1f, 1.0f), std::mt19937(seed));
 
 		std::vector<float> input(batchSize() * inputChannels() * inputHeight() * inputWidth());
 		std::vector<float> kernel(outputChannels() * inputChannels() * kernelHeight() * kernelWidth());
@@ -314,7 +314,7 @@ public:
 		ASSERT_EQ(1, batchSize());
 
 		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
-		auto rng = std::bind(std::uniform_real_distribution<float>(-0.1, 1.0), std::mt19937(seed));
+		auto rng = std::bind(std::uniform_real_distribution<float>(-0.1f, 1.0f), std::mt19937(seed));
 
 		std::vector<float> input(inputChannels() * inputHeight() * inputWidth());
 		std::vector<float> kernel(outputChannels() * inputChannels() * kernelHeight() * kernelWidth());
@@ -342,7 +342,7 @@ public:
 				case nnp_activation_relu:
 					nnp_relu_output__reference(
 						batchSize(), outputChannels() * outputHeight() * outputWidth(),
-						referenceOutput.data(), referenceOutput.data(), 0.0);
+						referenceOutput.data(), referenceOutput.data(), 0.0f);
 					break;
 				default:
 					FAIL() << "Unexpected activation value: " << activation;

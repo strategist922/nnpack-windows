@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #endif
-
+#include "../include/stdafx.h"
 #include <intrin.h>
 
 #include <nnpack.h>

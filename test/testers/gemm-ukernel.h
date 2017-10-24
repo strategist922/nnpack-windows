@@ -24,7 +24,7 @@ public:
 		kc_(1),
 		simdWidth_(1),
 		iterations_(1000),
-		errorLimit_(1.0e-5)
+		errorLimit_(1.0e-5f)
 	{
 	}
 
