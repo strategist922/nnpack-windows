@@ -71,7 +71,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fourier\x86_64-avx2.cc">
+    <ClCompile Include="convolution-output\smoke.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

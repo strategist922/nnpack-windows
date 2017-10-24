@@ -351,10 +351,12 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 	for (size_t y = 0ull; y < input_size.height; y += grad_input_tile_size.height) 
 	{
 		const size_t grad_output_y = min(doz(y + input_padding.top, kernel_size.height - 1ull), output_size.height);
+		const size_t row_offset = doz(kernel_size.height - 1ull, y + input_padding.top);
+
 		for (size_t x = 0ull; x < input_size.width; x += grad_input_tile_size.width) 
 		{
 			const size_t grad_output_x = min(doz(x + input_padding.left, kernel_size.width - 1ull), output_size.width);
-
+			const size_t column_offset = doz(kernel_size.width - 1ull, x + input_padding.left);
 			struct grad_output_transform_context grad_output_transform_context = 
 			{
 				grad_output_transform_function,
@@ -365,10 +367,10 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 				output_channels,
 				output_channels_block_max,
 				output_size,
-				doz(kernel_size.height - 1ull, y + input_padding.top),
-				min(output_size.height - grad_output_y,	tile_size.height - grad_output_transform_context.row_offset),
-				doz(kernel_size.width - 1ull, x + input_padding.left),
-				min(output_size.width - grad_output_x, tile_size.width - grad_output_transform_context.column_offset)
+				row_offset,
+				min(output_size.height - grad_output_y,	tile_size.height - row_offset),
+				column_offset,
+				min(output_size.width - grad_output_x, tile_size.width - column_offset)
 			};
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_grad_output_transform,

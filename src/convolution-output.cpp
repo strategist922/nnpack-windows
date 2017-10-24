@@ -350,9 +350,12 @@ static enum nnp_status compute_fast_convolution_output(
 	for (size_t y = 0ull; y < output_size.height; y += output_tile_size.height) 
 	{
 		const size_t input_y = min(doz(y, input_padding.top), input_size.height);
+		const size_t row_offset = doz(input_padding.top, y);
+
 		for (size_t x = 0ull; x < output_size.width; x += output_tile_size.width) 
 		{
 			const size_t input_x = min(doz(x, input_padding.left), input_size.width);
+			const size_t column_offset = doz(input_padding.left, x);
 
 			struct input_transform_context input_transform_ctx =
 			{
@@ -364,12 +367,11 @@ static enum nnp_status compute_fast_convolution_output(
 				input_channels,
 				input_channels_block_max,
 				input_size,
-				doz(input_padding.top, y),
-				min(input_size.height - input_y, tile_size.height - input_transform_ctx.row_offset),
-				doz(input_padding.left, x),
-				min(input_size.width - input_x,tile_size.width - input_transform_ctx.column_offset)
+				row_offset,
+				min(input_size.height - input_y, tile_size.height - row_offset),
+				column_offset,
+				min(input_size.width - input_x,tile_size.width - column_offset)
 			};
-						
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_input_transform,
 				&input_transform_ctx,

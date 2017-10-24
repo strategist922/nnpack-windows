@@ -318,9 +318,12 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	for (size_t y = 0ull; y < output_size.height; y += output_tile.height) 
 	{
 		const size_t input_y = min(doz(y, input_padding.top), input_size.height);
+		const uint32_t row_offset = uint32_t(doz(input_padding.top, y));
+
 		for (size_t x = 0ull; x < output_size.width; x += output_tile.width) 
 		{
 			const size_t input_x = min(doz(x, input_padding.left), input_size.width);
+			const uint32_t column_offset = uint32_t(doz(input_padding.left, x));
 
 			for (size_t batch_block_start = 0ull; batch_block_start < batch_size; batch_block_start += batch_block_max) 
 			{
@@ -334,15 +337,14 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 					batch_block_size,
 					input_channels,
 					input_size.width,
-					uint32_t(doz(input_padding.top, y)),
-					uint32_t(doz(input_padding.left, x)),
-					uint32_t(min(input_size.height - input_y, tile_size.height - input_transform_context.row_offset)),
-					uint32_t(min(input_size.width - input_x, tile_size.width - input_transform_context.column_offset)),
+					row_offset,
+					column_offset,
+					uint32_t(min(input_size.height - input_y, tile_size.height - row_offset)),
+					uint32_t(min(input_size.width - input_x, tile_size.width - column_offset)),
 					input + (batch_block_start * input_channels * input_size.height + input_y) * input_size.width + input_x,
 					input_transform,
 					input_transform_function
 				};
-
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_input_transform,
 					&input_transform_context,

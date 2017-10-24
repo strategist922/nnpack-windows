@@ -172,7 +172,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fourier\x86_64-avx2.cc" />
+    <ClCompile Include="convolution-output\smoke.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
