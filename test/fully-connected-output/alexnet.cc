@@ -12,7 +12,7 @@
 TEST(FC, fc6) {
 	AlexNet::fc6()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -23,7 +23,7 @@ TEST(FC, fc6) {
 TEST(FC, fc7) {
 	AlexNet::fc7()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -34,7 +34,7 @@ TEST(FC, fc7) {
 TEST(FC, fc8) {
 	AlexNet::fc8()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 

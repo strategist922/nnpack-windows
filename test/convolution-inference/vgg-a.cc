@@ -11,49 +11,49 @@
 
 TEST(FT8x8, conv1) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv1_with_relu) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv1) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv1_with_relu) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv1) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv1_with_relu) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv1) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv1_with_relu) {
 	VGG_A::conv1()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 
@@ -63,49 +63,49 @@ TEST(IMPLICIT_GEMM, conv1_with_relu) {
 
 TEST(FT8x8, conv2) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv2_with_relu) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv2) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv2_with_relu) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv2) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv2_with_relu) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv2) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv2_with_relu) {
 	VGG_A::conv2()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 
@@ -115,49 +115,49 @@ TEST(IMPLICIT_GEMM, conv2_with_relu) {
 
 TEST(FT8x8, conv3) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv3_with_relu) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv3) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv3_with_relu) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv3) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv3_with_relu) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv3) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv3_with_relu) {
 	VGG_A::conv3()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 
@@ -167,49 +167,49 @@ TEST(IMPLICIT_GEMM, conv3_with_relu) {
 
 TEST(FT8x8, conv4) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv4_with_relu) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv4) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv4_with_relu) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv4) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv4_with_relu) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv4) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv4_with_relu) {
 	VGG_A::conv4()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 
@@ -219,49 +219,49 @@ TEST(IMPLICIT_GEMM, conv4_with_relu) {
 
 TEST(FT8x8, conv5) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv5_with_relu) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv5) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv5_with_relu) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv5) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv5_with_relu) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv5) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv5_with_relu) {
 	VGG_A::conv5()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 
@@ -271,49 +271,49 @@ TEST(IMPLICIT_GEMM, conv5_with_relu) {
 
 TEST(FT8x8, conv6) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv6_with_relu) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv6) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv6_with_relu) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv6) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv6_with_relu) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv6) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv6_with_relu) {
 	VGG_A::conv6()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 
@@ -323,49 +323,49 @@ TEST(IMPLICIT_GEMM, conv6_with_relu) {
 
 TEST(FT8x8, conv8) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT8x8, conv8_with_relu) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
 TEST(FT16x16, conv8) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(FT16x16, conv8_with_relu) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
 TEST(WT8x8, conv8) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
 TEST(WT8x8, conv8_with_relu) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
 TEST(IMPLICIT_GEMM, conv8) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm);
 }
 
 TEST(IMPLICIT_GEMM, conv8_with_relu) {
 	VGG_A::conv8()
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_implicit_gemm, nnp_activation_relu);
 }
 

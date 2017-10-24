@@ -13,7 +13,7 @@ TEST(FT8x8, single_tile) {
 	ConvolutionTester()
 		.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
@@ -21,7 +21,7 @@ TEST(FT8x8, single_tile_with_relu) {
 	ConvolutionTester()
 		.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
@@ -29,7 +29,7 @@ TEST(FT16x16, single_tile) {
 	ConvolutionTester()
 		.inputSize(16, 16)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
@@ -37,7 +37,7 @@ TEST(FT16x16, single_tile_with_relu) {
 	ConvolutionTester()
 		.inputSize(16, 16)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
@@ -45,7 +45,7 @@ TEST(WT8x8, single_tile) {
 	ConvolutionTester()
 		.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
@@ -53,7 +53,7 @@ TEST(WT8x8, single_tile_with_relu) {
 	ConvolutionTester()
 		.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
@@ -65,7 +65,7 @@ TEST(FT8x8, input_subtile) {
 	ConvolutionTester()
 		.inputSize(4, 4)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
@@ -73,7 +73,7 @@ TEST(FT8x8, input_subtile_with_relu) {
 	ConvolutionTester()
 		.inputSize(4, 4)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
@@ -81,7 +81,7 @@ TEST(FT16x16, input_subtile) {
 	ConvolutionTester()
 		.inputSize(4, 4)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
@@ -89,7 +89,7 @@ TEST(FT16x16, input_subtile_with_relu) {
 	ConvolutionTester()
 		.inputSize(4, 4)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
@@ -97,7 +97,7 @@ TEST(WT8x8, input_subtile) {
 	ConvolutionTester()
 		.inputSize(4, 4)
 		.iterations(100)
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
@@ -105,7 +105,7 @@ TEST(WT8x8, input_subtile_with_relu) {
 	ConvolutionTester()
 		.inputSize(4, 4)
 		.iterations(100)
-		.errorLimit(1.0e-4)
+		.errorLimit(1.0e-4f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
@@ -117,7 +117,7 @@ TEST(FT8x8, multi_tile) {
 	ConvolutionTester()
 		.inputSize(13, 13)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
@@ -125,7 +125,7 @@ TEST(FT8x8, multi_tile_with_relu) {
 	ConvolutionTester()
 		.inputSize(13, 13)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
@@ -133,7 +133,7 @@ TEST(FT16x16, multi_tile) {
 	ConvolutionTester()
 		.inputSize(29, 29)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
@@ -141,7 +141,7 @@ TEST(FT16x16, multi_tile_with_relu) {
 	ConvolutionTester()
 		.inputSize(29, 29)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
@@ -149,7 +149,7 @@ TEST(WT8x8, multi_tile) {
 	ConvolutionTester()
 		.inputSize(13, 13)
 		.iterations(100)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
@@ -157,7 +157,7 @@ TEST(WT8x8, multi_tile_with_relu) {
 	ConvolutionTester()
 		.inputSize(13, 13)
 		.iterations(100)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
 
@@ -170,7 +170,7 @@ TEST(FT8x8, implicit_padding) {
 	tester.inputSize(8, 8)
 		.kernelSize(5, 5)
 		.iterations(5)
-		.errorLimit(5.0e-2);
+		.errorLimit(5.0e-2f);
 	for (size_t paddingTop = 0; paddingTop < tester.kernelHeight(); paddingTop++) {
 		for (size_t paddingRight = 0; paddingRight < tester.kernelWidth(); paddingRight++) {
 			for (size_t paddingLeft = 0; paddingLeft < tester.kernelWidth(); paddingLeft++) {
@@ -188,7 +188,7 @@ TEST(FT8x8, implicit_padding_with_relu) {
 	tester.inputSize(8, 8)
 		.kernelSize(5, 5)
 		.iterations(5)
-		.errorLimit(5.0e-2);
+		.errorLimit(5.0e-2f);
 	for (size_t paddingTop = 0; paddingTop < tester.kernelHeight(); paddingTop++) {
 		for (size_t paddingRight = 0; paddingRight < tester.kernelWidth(); paddingRight++) {
 			for (size_t paddingLeft = 0; paddingLeft < tester.kernelWidth(); paddingLeft++) {
@@ -206,7 +206,7 @@ TEST(FT16x16, implicit_padding) {
 	tester.inputSize(16, 16)
 		.kernelSize(5, 5)
 		.iterations(5)
-		.errorLimit(5.0e-2);
+		.errorLimit(5.0e-2f);
 	for (size_t paddingTop = 0; paddingTop < tester.kernelHeight(); paddingTop++) {
 		for (size_t paddingRight = 0; paddingRight < tester.kernelWidth(); paddingRight++) {
 			for (size_t paddingLeft = 0; paddingLeft < tester.kernelWidth(); paddingLeft++) {
@@ -224,7 +224,7 @@ TEST(FT16x16, implicit_padding_with_relu) {
 	tester.inputSize(16, 16)
 		.kernelSize(5, 5)
 		.iterations(5)
-		.errorLimit(5.0e-2);
+		.errorLimit(5.0e-2f);
 	for (size_t paddingTop = 0; paddingTop < tester.kernelHeight(); paddingTop++) {
 		for (size_t paddingRight = 0; paddingRight < tester.kernelWidth(); paddingRight++) {
 			for (size_t paddingLeft = 0; paddingLeft < tester.kernelWidth(); paddingLeft++) {
@@ -242,7 +242,7 @@ TEST(WT8x8, implicit_padding) {
 	tester.inputSize(8, 8)
 		.kernelSize(3, 3)
 		.iterations(15)
-		.errorLimit(1.0e-1);
+		.errorLimit(1.0e-1f);
 	for (size_t paddingTop = 0; paddingTop < tester.kernelHeight(); paddingTop++) {
 		for (size_t paddingRight = 0; paddingRight < tester.kernelWidth(); paddingRight++) {
 			for (size_t paddingLeft = 0; paddingLeft < tester.kernelWidth(); paddingLeft++) {
@@ -260,7 +260,7 @@ TEST(WT8x8, implicit_padding_with_relu) {
 	tester.inputSize(8, 8)
 		.kernelSize(3, 3)
 		.iterations(15)
-		.errorLimit(1.0e-1);
+		.errorLimit(1.0e-1f);
 	for (size_t paddingTop = 0; paddingTop < tester.kernelHeight(); paddingTop++) {
 		for (size_t paddingRight = 0; paddingRight < tester.kernelWidth(); paddingRight++) {
 			for (size_t paddingLeft = 0; paddingLeft < tester.kernelWidth(); paddingLeft++) {
@@ -281,7 +281,7 @@ TEST(FT8x8, few_input_channels) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t inputChannels = 2; inputChannels <= 5; inputChannels++) {
 		tester.inputChannels(inputChannels)
 			.testInference(nnp_convolution_algorithm_ft8x8);
@@ -292,7 +292,7 @@ TEST(FT8x8, few_input_channels_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t inputChannels = 2; inputChannels <= 5; inputChannels++) {
 		tester.inputChannels(inputChannels)
 			.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
@@ -303,7 +303,7 @@ TEST(FT16x16, few_input_channels) {
 	ConvolutionTester tester;
 	tester.inputSize(16, 16)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t inputChannels = 2; inputChannels <= 5; inputChannels++) {
 		tester.inputChannels(inputChannels)
 			.testInference(nnp_convolution_algorithm_ft16x16);
@@ -314,7 +314,7 @@ TEST(FT16x16, few_input_channels_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(16, 16)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t inputChannels = 2; inputChannels <= 5; inputChannels++) {
 		tester.inputChannels(inputChannels)
 			.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
@@ -325,7 +325,7 @@ TEST(WT8x8, few_input_channels) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-3);
+		.errorLimit(1.0e-3f);
 	for (size_t inputChannels = 2; inputChannels <= 5; inputChannels++) {
 		tester.inputChannels(inputChannels)
 			.testInference(nnp_convolution_algorithm_wt8x8);
@@ -336,7 +336,7 @@ TEST(WT8x8, few_input_channels_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-3);
+		.errorLimit(1.0e-3f);
 	for (size_t inputChannels = 2; inputChannels <= 5; inputChannels++) {
 		tester.inputChannels(inputChannels)
 			.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
@@ -351,7 +351,7 @@ TEST(FT8x8, few_output_channels) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t outputChannels = 2; outputChannels <= 5; outputChannels++) {
 		tester.outputChannels(outputChannels)
 			.testInference(nnp_convolution_algorithm_ft8x8);
@@ -362,7 +362,7 @@ TEST(FT8x8, few_output_channels_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t outputChannels = 2; outputChannels <= 5; outputChannels++) {
 		tester.outputChannels(outputChannels)
 			.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
@@ -373,7 +373,7 @@ TEST(FT16x16, few_output_channels) {
 	ConvolutionTester tester;
 	tester.inputSize(16, 16)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t outputChannels = 2; outputChannels <= 5; outputChannels++) {
 		tester.outputChannels(outputChannels)
 			.testInference(nnp_convolution_algorithm_ft16x16);
@@ -384,7 +384,7 @@ TEST(FT16x16, few_output_channels_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(16, 16)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t outputChannels = 2; outputChannels <= 5; outputChannels++) {
 		tester.outputChannels(outputChannels)
 			.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
@@ -395,7 +395,7 @@ TEST(WT8x8, few_output_channels) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-3);
+		.errorLimit(1.0e-3f);
 	for (size_t outputChannels = 2; outputChannels <= 5; outputChannels++) {
 		tester.outputChannels(outputChannels)
 			.testInference(nnp_convolution_algorithm_wt8x8);
@@ -406,7 +406,7 @@ TEST(WT8x8, few_output_channels_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(8, 8)
 		.iterations(100)
-		.errorLimit(1.0e-3);
+		.errorLimit(1.0e-3f);
 	for (size_t outputChannels = 2; outputChannels <= 5; outputChannels++) {
 		tester.outputChannels(outputChannels)
 			.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
@@ -422,7 +422,7 @@ TEST(FT8x8, non_square_kernel) {
 	tester.inputSize(8, 8)
 		.kernelSize(2, 3)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
@@ -431,7 +431,7 @@ TEST(FT8x8, non_square_kernel_with_relu) {
 	tester.inputSize(8, 8)
 		.kernelSize(2, 3)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
@@ -440,7 +440,7 @@ TEST(FT16x16, non_square_kernel) {
 	tester.inputSize(16, 16)
 		.kernelSize(2, 3)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
@@ -449,7 +449,7 @@ TEST(FT16x16, non_square_kernel_with_relu) {
 	tester.inputSize(16, 16)
 		.kernelSize(2, 3)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
@@ -461,7 +461,7 @@ TEST(FT8x8, non_square_image) {
 	ConvolutionTester tester;
 	tester.inputSize(9, 10)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8);
 }
 
@@ -469,7 +469,7 @@ TEST(FT8x8, non_square_image_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(9, 10)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
 }
 
@@ -477,7 +477,7 @@ TEST(FT16x16, non_square_image) {
 	ConvolutionTester tester;
 	tester.inputSize(17, 19)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16);
 }
 
@@ -485,7 +485,7 @@ TEST(FT16x16, non_square_image_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(17, 19)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_ft16x16, nnp_activation_relu);
 }
 
@@ -493,7 +493,7 @@ TEST(WT8x8, non_square_image) {
 	ConvolutionTester tester;
 	tester.inputSize(9, 10)
 		.iterations(100)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testInference(nnp_convolution_algorithm_wt8x8);
 }
 
@@ -501,10 +501,9 @@ TEST(WT8x8, non_square_image_with_relu) {
 	ConvolutionTester tester;
 	tester.inputSize(9, 10)
 		.iterations(100)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testInference(nnp_convolution_algorithm_wt8x8, nnp_activation_relu);
 }
-
 /*
  * Test direct 1x1 convolution
  */
@@ -516,7 +515,7 @@ TEST(DIRECT_1x1, channel_tile) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr)
 		.outputChannels(nnp_hwinfo.conv1x1.nr)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct);
 }
 
@@ -527,7 +526,7 @@ TEST(DIRECT_1x1, channel_tile_with_relu) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr)
 		.outputChannels(nnp_hwinfo.conv1x1.nr)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct, nnp_activation_relu);
 }
 
@@ -543,7 +542,7 @@ TEST(DIRECT_1x1, channel_subtile) {
 				.inputChannels(inputChannels)
 				.outputChannels(outputChannels)
 				.iterations(100)
-				.errorLimit(1.0e-5)
+				.errorLimit(1.0e-5f)
 				.testInference(nnp_convolution_algorithm_direct);
 		}
 	}
@@ -561,7 +560,7 @@ TEST(DIRECT_1x1, channel_subtile_with_relu) {
 				.inputChannels(inputChannels)
 				.outputChannels(outputChannels)
 				.iterations(100)
-				.errorLimit(1.0e-5)
+				.errorLimit(1.0e-5f)
 				.testInference(nnp_convolution_algorithm_direct, nnp_activation_relu);
 		}
 	}
@@ -574,7 +573,7 @@ TEST(DIRECT_1x1, input_multi_tile) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr * 3)
 		.outputChannels(nnp_hwinfo.conv1x1.nr)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct);
 }
 
@@ -585,7 +584,7 @@ TEST(DIRECT_1x1, input_multi_tile_with_relu) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr * 3)
 		.outputChannels(nnp_hwinfo.conv1x1.nr)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct, nnp_activation_relu);
 }
 
@@ -596,7 +595,7 @@ TEST(DIRECT_1x1, output_multi_tile) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr)
 		.outputChannels(nnp_hwinfo.conv1x1.nr * 5)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct);
 }
 
@@ -607,7 +606,7 @@ TEST(DIRECT_1x1, output_multi_tile_with_relu) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr)
 		.outputChannels(nnp_hwinfo.conv1x1.nr * 5)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct, nnp_activation_relu);
 }
 
@@ -618,7 +617,7 @@ TEST(DIRECT_1x1, input_output_multi_tile) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr * 5)
 		.outputChannels(nnp_hwinfo.conv1x1.nr * 3)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct);
 }
 
@@ -629,7 +628,7 @@ TEST(DIRECT_1x1, input_output_multi_tile_with_relu) {
 		.inputChannels(nnp_hwinfo.conv1x1.mr * 5)
 		.outputChannels(nnp_hwinfo.conv1x1.nr * 3)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInference(nnp_convolution_algorithm_direct, nnp_activation_relu);
 }
 
@@ -648,7 +647,7 @@ TEST(DIRECT_1x1, odd_image_size) {
 						.inputChannels(nnp_hwinfo.conv1x1.mr + 1)
 						.outputChannels(nnp_hwinfo.conv1x1.nr + 1)
 						.iterations(100)
-						.errorLimit(1.0e-5)
+						.errorLimit(1.0e-5f)
 						.testInference(nnp_convolution_algorithm_direct);
 				}
 			}
@@ -671,7 +670,7 @@ TEST(DIRECT_1x1, odd_image_size_with_relu) {
 						.inputChannels(nnp_hwinfo.conv1x1.mr + 1)
 						.outputChannels(nnp_hwinfo.conv1x1.nr + 1)
 						.iterations(100)
-						.errorLimit(1.0e-5)
+						.errorLimit(1.0e-5f)
 						.testInference(nnp_convolution_algorithm_direct, nnp_activation_relu);
 				}
 			}

@@ -1,5 +1,6 @@
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.pdb
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.idb
+c:\users\dhaen\source\repos\nnpack\x64\debug\pthreadpool.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\convolution-input-gradient-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\convolution-kernel-gradient-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\convolution-output-ref.obj
@@ -17,7 +18,6 @@ c:\users\dhaen\source\repos\nnpack\x64\debug\softmax-output-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\relu-input-gradient.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\relu-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\softmax-output.obj
-c:\users\dhaen\source\repos\nnpack\x64\debug\stdafx.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\exp.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\softmax.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\convolution-inference.obj
@@ -28,8 +28,8 @@ c:\users\dhaen\source\repos\nnpack\x64\debug\fully-connected-inference.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fully-connected-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\init.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\pooling-output.obj
-c:\users\dhaen\source\repos\nnpack\x64\debug\pthreadpool.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.lib
+c:\users\dhaen\source\repos\nnpack\x64\debug\test.pdb
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.command.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.read.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.write.1.tlog

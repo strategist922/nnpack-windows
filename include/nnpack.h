@@ -116,7 +116,9 @@ enum nnp_status nnp_convolution_output(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	nnp_workspace_pointers* workspace_buffer);
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters);
 
 	
 enum nnp_status nnp_convolution_input_gradient(
@@ -130,7 +132,9 @@ enum nnp_status nnp_convolution_input_gradient(
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
-	nnp_workspace_pointers* workspace_buffer);
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters);
 
 enum nnp_status nnp_convolution_kernel_gradient(
 	enum nnp_convolution_algorithm algorithm,
@@ -143,7 +147,9 @@ enum nnp_status nnp_convolution_kernel_gradient(
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
-	nnp_workspace_pointers* workspace_buffer);
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters);
 
 	
 enum nnp_status nnp_convolution_inference(
@@ -158,7 +164,10 @@ enum nnp_status nnp_convolution_inference(
 	const float* input,
 	const float* kernel,
 	const float* bias,
-	float* output);
+	float* output,
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters);
 
 enum nnp_status nnp_fully_connected_output(
 	const size_t batch_size,

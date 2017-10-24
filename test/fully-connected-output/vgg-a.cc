@@ -12,7 +12,7 @@
 TEST(FC, fc6) {
 	VGG_A::fc6()
 		.batchSize(64)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -23,7 +23,7 @@ TEST(FC, fc6) {
 TEST(FC, fc7) {
 	VGG_A::fc7()
 		.batchSize(64)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -34,7 +34,7 @@ TEST(FC, fc7) {
 TEST(FC, fc8) {
 	VGG_A::fc8()
 		.batchSize(64)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 

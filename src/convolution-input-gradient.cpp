@@ -487,13 +487,20 @@ enum nnp_status nnp_convolution_input_gradient(
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
-	struct nnp_workspace_pointers* workspace_buffer)
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters)
 {
 	const struct nnp_size output_size =
 	{
 		input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull,
 		input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull
 	};
+
+	if (activation != nnp_activation_identity)
+		return nnp_status_unsupported_activation;
+	if (activation_parameters != NULL)
+		return nnp_status_unsupported_activation_parameters;
 
 	if (algorithm == nnp_convolution_algorithm_auto) 
 	{

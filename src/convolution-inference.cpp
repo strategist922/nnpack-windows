@@ -13,6 +13,7 @@
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>
+#include <activations.h>
 #include <validation.h>
 #include <fxdiv.h>
 
@@ -498,6 +499,7 @@ static enum nnp_status compute_fast_convolution_inference(
 	const float* kernel,
 	const float* bias,
 	float* output,
+	struct nnp_workspace_pointers* workspace_buffer,
 	const nnp_transform_2d_with_offset input_transform_function,
 	const nnp_transform_2d_with_offset kernel_transform_function,
 	const nnp_transform_2d_with_bias output_transform_function)
@@ -739,7 +741,9 @@ static enum nnp_status compute_gemm_convolution_inference(
 	const float* input,
 	const float* kernel,
 	const float* bias,
-	float* output)
+	float* output,
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation)
 {
 	enum nnp_status status = nnp_status_success;
 	const size_t simd_width = nnp_hwinfo.simd_width;
@@ -841,11 +845,25 @@ static enum nnp_status compute_gemm_convolution_inference(
 	}
 	
 	/* Add bias */
-	for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++)
+	switch (activation) 
 	{
-		const float bias_value = bias[output_channel];
-		for (size_t index = 0ull; index < output_image_size; index++)
-			output[output_channel * output_image_size + index] += bias_value;
+	case nnp_activation_identity:
+		for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++)
+		{
+			const float bias_value = bias[output_channel];
+			for (size_t index = 0ull; index < output_image_size; index++)
+				output[output_channel * output_image_size + index] += bias_value;
+		}
+		break;
+
+	case nnp_activation_relu:
+		for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++)
+		{
+			const float bias_value = bias[output_channel];
+			for (size_t index = 0ull; index < output_image_size; index++)
+				relu(output[output_channel * output_image_size + index] += bias_value, 0.0f);
+		}
+		break;
 	}
 
 	_aligned_free(packed_input);
@@ -862,7 +880,9 @@ static enum nnp_status compute_direct_convolution_inference(
 	const float* input,
 	const float* kernel,
 	const float* bias,
-	float* output)
+	float* output,
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation)
 {
 	const size_t image_elements = image_size.height * image_size.width;
 
@@ -906,10 +926,16 @@ enum nnp_status nnp_convolution_inference(
 	const float* input,
 	const float* kernel,
 	const float* bias,
-	float* output)
+	float* output,
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters)
 {
 	const struct nnp_size output_size = { (input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, 
 									      (input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull };
+
+	if (activation_parameters != NULL)
+		return nnp_status_unsupported_activation_parameters;
 
 	if (algorithm == nnp_convolution_algorithm_auto) 
 	{
@@ -951,7 +977,10 @@ enum nnp_status nnp_convolution_inference(
 			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.kwt_f6x6_3x3;
-			output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
+			if (activation == nnp_activation_relu)
+				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
+			else
+				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
 			transform_element_size = sizeof(float);
 			fourier_transform = false;
 		}
@@ -962,7 +991,10 @@ enum nnp_status nnp_convolution_inference(
 			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
-			output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
+			if (activation == nnp_activation_relu)
+				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu;
+			else
+				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
 			transform_element_size = sizeof(float);
 			fourier_transform = true;
 		}
@@ -973,7 +1005,10 @@ enum nnp_status nnp_convolution_inference(
 			tile_size = nnp_size{ 16ull, 16ull };
 			input_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
-			output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
+			if (activation == nnp_activation_relu)
+				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
+			else
+				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu;
 			transform_element_size = sizeof(float);
 			fourier_transform = true;
 		}
@@ -1003,7 +1038,7 @@ enum nnp_status nnp_convolution_inference(
 				fourier_transform, transform_strategy, transform_element_size,
 				input_channels, output_channels,
 				tile_size, input_size, input_padding, kernel_size, output_size,
-				input, kernel, bias, output, input_transform_function, kernel_transform_function, output_transform_function);
+				input, kernel, bias, output, workspace_buffer, input_transform_function, kernel_transform_function, output_transform_function);
 		}
 		break;
 
@@ -1015,7 +1050,7 @@ enum nnp_status nnp_convolution_inference(
 			status = compute_gemm_convolution_inference(
 				input_channels, output_channels,
 				input_size, input_padding, kernel_size, output_size, output_subsampling,
-				input, kernel, bias, output);
+				input, kernel, bias, output, workspace_buffer, activation);
 		}
 		break;
 
@@ -1032,7 +1067,7 @@ enum nnp_status nnp_convolution_inference(
 
 			status = compute_direct_convolution_inference(
 				input_channels, output_channels, input_size, kernel_size,
-				input, kernel, bias, output);
+				input, kernel, bias, output, workspace_buffer, activation);
 		}
 		break;
 	}

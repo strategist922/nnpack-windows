@@ -12,14 +12,14 @@
 TEST(FT8x8, conv2) {
 	AlexNet::conv2()
 		.batchSize(128)
-		.errorLimit(1.0e-6)
+		.errorLimit(1.0e-6f)
 		.testKernelGradient(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT16x16, conv2) {
 	AlexNet::conv2()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testKernelGradient(nnp_convolution_algorithm_ft16x16);
 }
 
@@ -30,21 +30,21 @@ TEST(FT16x16, conv2) {
 TEST(FT8x8, conv3) {
 	AlexNet::conv3()
 		.batchSize(128)
-		.errorLimit(1.0e-6)
+		.errorLimit(1.0e-6f)
 		.testKernelGradient(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT16x16, conv3) {
 	AlexNet::conv3()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testKernelGradient(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(WT8x8, DISABLED_conv3) {
 	AlexNet::conv3()
 		.batchSize(128)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testKernelGradient(nnp_convolution_algorithm_wt8x8);
 }
 
@@ -55,21 +55,21 @@ TEST(WT8x8, DISABLED_conv3) {
 TEST(FT8x8, conv4) {
 	AlexNet::conv4()
 		.batchSize(128)
-		.errorLimit(1.0e-6)
+		.errorLimit(1.0e-6f)
 		.testKernelGradient(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT16x16, conv4) {
 	AlexNet::conv4()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testKernelGradient(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(WT8x8, DISABLED_conv4) {
 	AlexNet::conv4()
 		.batchSize(128)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testKernelGradient(nnp_convolution_algorithm_wt8x8);
 }
 
@@ -80,21 +80,21 @@ TEST(WT8x8, DISABLED_conv4) {
 TEST(FT8x8, conv5) {
 	AlexNet::conv5()
 		.batchSize(128)
-		.errorLimit(1.0e-6)
+		.errorLimit(1.0e-6f)
 		.testKernelGradient(nnp_convolution_algorithm_ft8x8);
 }
 
 TEST(FT16x16, conv5) {
 	AlexNet::conv5()
 		.batchSize(128)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testKernelGradient(nnp_convolution_algorithm_ft16x16);
 }
 
 TEST(WT8x8, DISABLED_conv5) {
 	AlexNet::conv5()
 		.batchSize(128)
-		.errorLimit(1.0e-3)
+		.errorLimit(1.0e-3f)
 		.testKernelGradient(nnp_convolution_algorithm_wt8x8);
 }
 

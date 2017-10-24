@@ -13,8 +13,7 @@
 #include <numeric>
 
 #include <nnpack.h>
-#include <reference.h>
-#include <winograd.h>
+#include <../../include/winograd.h>
 #include <transform.h>
 #include <hwinfo.h>
 
@@ -141,7 +140,7 @@ private:
 		ASSERT_NE(this->kernelSize(), 0);
 		ASSERT_NE(this->outputSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		std::vector<float> input(inputSize * simdWidth());
@@ -182,7 +181,7 @@ private:
 		ASSERT_NE(this->kernelSize(), 0);
 		ASSERT_NE(this->outputSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		std::vector<float, AlignedAllocator<float, 64>> simdInput(inputSize * inputSize);
@@ -208,8 +207,7 @@ private:
 			} else {
 				std::copy(input.cbegin(), input.cend(), simdInput.begin());
 			}
-			transform2d(simdInput.data(), simdOutput.data(), inputStride, outputStride,
-				type == Type::output ? outputSize : inputSize, type == Type::output ? outputSize : inputSize, 0, 0);
+			transform2d(simdInput.data(), simdOutput.data(), inputStride, outputStride,	uint32_t(type == Type::output ? outputSize : inputSize), uint32_t(type == Type::output ? outputSize : inputSize), 0u, 0u);
 			if (type != Type::output) {
 				for (size_t row = 0; row < inputSize; row += 1) {
 					for (size_t column = 0; column < inputSize; column += simdWidth()) {

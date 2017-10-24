@@ -11,7 +11,7 @@
 
 TEST(F32, fc6) {
 	VGG_A::fc6()
-		.errorLimit(2.0e-5)
+		.errorLimit(2.0e-5f)
 		.testInferenceF32();
 }
 
@@ -21,7 +21,7 @@ TEST(F32, fc6) {
 
 TEST(F32, fc7) {
 	VGG_A::fc7()
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInferenceF32();
 }
 
@@ -31,7 +31,7 @@ TEST(F32, fc7) {
 
 TEST(F32, fc8) {
 	VGG_A::fc8()
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testInferenceF32();
 }
 

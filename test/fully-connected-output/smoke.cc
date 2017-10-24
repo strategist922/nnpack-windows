@@ -13,7 +13,7 @@ TEST(MRxNR_4x24, single_input_channel) {
 		.batchSize(4)
 		.outputChannels(24)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -27,7 +27,7 @@ TEST(MRxNR_4x24, few_input_channels) {
 		.inputChannels(13)
 		.outputChannels(24)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -41,7 +41,7 @@ TEST(MRxNR_4x24, many_input_channels) {
 		.inputChannels(1024)
 		.outputChannels(24)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -53,7 +53,7 @@ TEST(MRxNR_4x24, batch_subblock) {
 	FullyConnectedTester tester;
 	tester.outputChannels(24)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t batchSize = 1; batchSize < 4; batchSize += 1) {
 		tester.batchSize(batchSize)
 			.testOutput();
@@ -69,7 +69,7 @@ TEST(MRxNR_4x24, small_batch_size) {
 		.batchSize(12)
 		.outputChannels(24)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -84,7 +84,7 @@ TEST(MRxNR_4x24, batch_remainder_subblock) {
 			.batchSize(batchSize)
 			.outputChannels(24)
 			.iterations(100)
-			.errorLimit(1.0e-5)
+			.errorLimit(1.0e-5f)
 			.testOutput();
 	}
 }
@@ -98,7 +98,7 @@ TEST(MRxNR_4x24, large_batch_size) {
 		.batchSize(1024)
 		.outputChannels(24)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -110,7 +110,7 @@ TEST(MRxNR_4x24, output_channels_subblock) {
 	FullyConnectedTester tester;
 	tester.batchSize(4)
 		.iterations(100)
-		.errorLimit(1.0e-5);
+		.errorLimit(1.0e-5f);
 	for (size_t outputChannels = 1; outputChannels < 24; outputChannels += 1) {
 		tester.outputChannels(outputChannels)
 			.testOutput();
@@ -126,7 +126,7 @@ TEST(MRxNR_4x24, few_output_channels) {
 		.batchSize(4)
 		.outputChannels(72)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 
@@ -141,7 +141,7 @@ TEST(MRxNR_4x24, output_channels_remainder_subblock) {
 			.batchSize(4)
 			.outputChannels(outputChannels)
 			.iterations(100)
-			.errorLimit(1.0e-5)
+			.errorLimit(1.0e-5f)
 			.testOutput();
 	}
 }
@@ -155,7 +155,7 @@ TEST(MRxNR_4x24, many_output_channels) {
 		.batchSize(4)
 		.outputChannels(1200)
 		.iterations(100)
-		.errorLimit(1.0e-5)
+		.errorLimit(1.0e-5f)
 		.testOutput();
 }
 

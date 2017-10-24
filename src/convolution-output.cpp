@@ -487,13 +487,19 @@ enum nnp_status nnp_convolution_output(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer)
+	struct nnp_workspace_pointers* workspace_buffer,
+	const enum nnp_activation activation,
+	const void* activation_parameters
+	)
 {
 	const struct nnp_size output_size = 
 	{ 
 		input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull, 
 		input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull 
 	};
+
+	if (activation_parameters != NULL)
+		return nnp_status_unsupported_activation_parameters;
 
 	/* If requested, choose optimal convolution algorithm */
 	if (algorithm == nnp_convolution_algorithm_auto) 
@@ -522,6 +528,7 @@ enum nnp_status nnp_convolution_output(
 
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
 	enum nnp_status status = nnp_status_success;
+	nnp_transform_2d_with_bias output_transform_function;
 	
 	switch (algorithm) 
 	{
@@ -529,21 +536,34 @@ enum nnp_status nnp_convolution_output(
 		if (kernel_size.height > 8ull || kernel_size.width > 8ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_output(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3x3, nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias);
+			if (activation == nnp_activation_relu)
+				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
+			else
+				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
+			status = compute_fast_convolution_output(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3x3, output_transform_function);
 		break;
 
 	case nnp_convolution_algorithm_ft8x8:
 		if (kernel_size.height > 8ull || kernel_size.width > 8ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.ifft8x8_with_bias);
+			if (activation == nnp_activation_relu)
+				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu;
+			else
+				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
+
+			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, output_transform_function);
 		break;
 
 	case nnp_convolution_algorithm_ft16x16:
 		if (kernel_size.height > 16ull || kernel_size.width > 16ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_bias);
+			if (activation == nnp_activation_relu)
+				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu;
+			else
+				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
+			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, output_transform_function);
 		break;
 
 	default:

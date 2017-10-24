@@ -1,8 +1,14 @@
 ﻿  softmax.cpp
   exp.cpp
+src\x86_64-fma\exp.cpp(101): warning C4245: 'initializing': conversion from 'int' to 'uint32_t', signed/unsigned mismatch
   softmax-output.cpp
+src\softmax-output.cpp(17): warning C4324: 'softmax_context': structure was padded due to alignment specifier
+src\softmax-output.cpp(35): warning C4324: 'inplace_softmax_context': structure was padded due to alignment specifier
   relu-output.cpp
+src\relu-output.cpp(19): warning C4324: 'relu_context': structure was padded due to alignment specifier
+src\relu-output.cpp(38): warning C4324: 'inplace_relu_context': structure was padded due to alignment specifier
   relu-input-gradient.cpp
+src\relu-input-gradient.cpp(20): warning C4324: 'relu_context': structure was padded due to alignment specifier
   softmax-output-ref.cpp
   relu-output-ref.cpp
   relu-input-gradient-ref.cpp
@@ -23,10 +29,46 @@
   pooling-output.cpp
   init.cpp
   fully-connected-output.cpp
+src\fully-connected-output.cpp(16): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\fully-connected-output.cpp(54): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\fully-connected-output.cpp(101): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   fully-connected-inference.cpp
+src\fully-connected-inference.cpp(15): warning C4324: 'fully_connected_inference_context': structure was padded due to alignment specifier
   convolution-output.cpp
+src\convolution-output.cpp(26): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(78): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(134): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(188): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-kernel-gradient.cpp
+src\convolution-kernel-gradient.cpp(30): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-kernel-gradient.cpp(78): warning C4324: 'grad_output_transform_context': structure was padded due to alignment specifier
+src\convolution-kernel-gradient.cpp(123): warning C4324: 'grad_kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-kernel-gradient.cpp(178): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-input-gradient.cpp
+src\convolution-input-gradient.cpp(26): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-input-gradient.cpp(77): warning C4324: 'grad_output_transform_context': structure was padded due to alignment specifier
+src\convolution-input-gradient.cpp(132): warning C4324: 'grad_input_transform_context': structure was padded due to alignment specifier
+src\convolution-input-gradient.cpp(191): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-inference.cpp
+src\convolution-inference.cpp(32): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(82): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(149): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(214): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(276): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(310): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(371): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(436): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(502): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(745): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(885): warning C4100: 'activation': unreferenced formal parameter
+src\convolution-inference.cpp(884): warning C4100: 'workspace_buffer': unreferenced formal parameter
   Generating Code...
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1034): warning C4701: potentially uninitialized local variable 'tile_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1037): warning C4701: potentially uninitialized local variable 'transform_element_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1037): warning C4701: potentially uninitialized local variable 'fourier_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1075): warning C4701: potentially uninitialized local variable 'status' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(573): warning C4701: potentially uninitialized local variable 'kernel_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(573): warning C4703: potentially uninitialized local pointer variable 'kernel_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4701: potentially uninitialized local variable 'output_transform_function' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4703: potentially uninitialized local pointer variable 'output_transform_function' used
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib
