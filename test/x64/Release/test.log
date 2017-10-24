@@ -16,6 +16,6 @@ C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(401): warning C4244: '
 C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(434): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
 C:\Users\dhaen\Source\Repos\nnpack\test\testers/fourier.h(434): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
   stdafx.cpp
-  Generating code
-  Finished generating code
+  Generating Code...
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\test.exe
