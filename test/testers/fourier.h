@@ -86,7 +86,7 @@ public:
 	void testForwardAndInverseAos(nnp_strided_fft_function forward_fft, nnp_strided_fft_function inverse_fft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Original sequence */
@@ -122,7 +122,7 @@ public:
 	void testSoa(nnp_strided_fft_function soa_fft, nnp_strided_fft_function aos_fft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Input sequence with SOA layout */
@@ -172,7 +172,7 @@ public:
 	void testRealToComplex(nnp_strided_fft_function real_fft, nnp_strided_fft_function aos_fft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Input for real-to-complex 1D FFT */
@@ -224,7 +224,7 @@ public:
 	void testComplexToReal(nnp_strided_fft_function real_ifft, nnp_strided_fft_function aos_ifft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Input for complex-to-real 1D IFFT in MKL PERM format */
@@ -284,7 +284,7 @@ public:
 	void testDualRealToComplex(nnp_fft_function dual_real_fft, nnp_strided_fft_function real_fft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Two sequences as input of dual-sequence real-to-complex 1D FFT */
@@ -334,7 +334,7 @@ public:
 	void testDualComplexToReal(nnp_fft_function dual_real_ifft, nnp_strided_fft_function real_ifft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Two interleaved sequences in MKL PERM SOA format as input of dual-sequence complex-to-real 1D IFFT */
@@ -399,7 +399,7 @@ public:
 		ASSERT_EQ(1, simdWidth());
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Original sequence */
@@ -432,7 +432,7 @@ protected:
 	void testOptimized(size_t elements, nnp_fft_function optimized_fft, nnp_strided_fft_function reference_fft) const {
 		ASSERT_NE(fftSize(), 0);
 
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(), std::mt19937(seed));
 
 		/* Original sequence */
