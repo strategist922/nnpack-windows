@@ -1,6 +1,5 @@
 ﻿  softmax.cpp
   exp.cpp
-  stdafx.cpp
   softmax-output.cpp
   relu-output.cpp
   relu-input-gradient.cpp
@@ -18,9 +17,9 @@
   convolution-output-ref.cpp
   convolution-kernel-gradient-ref.cpp
   convolution-input-gradient-ref.cpp
+  pthreadpool.cpp
   Generating Code...
   Compiling...
-  pthreadpool.cpp
   pooling-output.cpp
   init.cpp
   fully-connected-output.cpp

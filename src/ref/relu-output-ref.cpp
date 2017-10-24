@@ -14,10 +14,10 @@ static void compute_relu_output(
 	const struct relu_output_context* context,
 	const size_t sample)
 {
-	const size_t channels = context->channels;
-	const float* input    = context->input  + sample * channels;
-	float* output         = context->output + sample * channels;
-	const float negative_slope  = context->negative_slope;
+	const size_t channels		= context->channels;
+	const float* input			= context->input  + sample * channels;
+	float* output				= context->output + sample * channels;
+	const float negative_slope	= context->negative_slope;
 
 	for (size_t channel = 0ull; channel < channels; channel++)
 		output[channel] = relu(input[channel], negative_slope);

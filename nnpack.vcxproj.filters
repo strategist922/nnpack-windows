@@ -72,9 +72,6 @@
     <ClCompile Include="src\softmax-output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp">
       <Filter>Source Files\Reference</Filter>
     </ClCompile>
