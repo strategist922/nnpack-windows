@@ -282,13 +282,12 @@ static void compute_kernel_packing(
 	const size_t output_channels_subblock_size,
 	const size_t reduction_block_range)
 {
-	const size_t reduction_size        = context->reduction_size;
-	const size_t reduction_block_start = context->reduction_block_start;
-	const size_t reduction_block_size  = context->reduction_block_size;
-
-	const float* kernel  = context->kernel + output_channels_subblock_start * reduction_size + reduction_block_offset;
-	float* packed_kernel = context->packed_kernel +	output_channels_subblock_start * reduction_block_size + reduction_block_offset * output_channels_subblock_size;
-
+	const size_t reduction_size			= context->reduction_size;
+	const size_t reduction_block_start	= context->reduction_block_start;
+	const size_t reduction_block_size	= context->reduction_block_size;
+	const float* kernel					= context->kernel + output_channels_subblock_start * reduction_size + reduction_block_offset;
+	float* packed_kernel				= context->packed_kernel + output_channels_subblock_start * reduction_block_size + reduction_block_offset * output_channels_subblock_size;
+		
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
 		packed_kernel[output_channels_subblock_offset] = kernel[output_channels_subblock_offset * reduction_size];
 }
@@ -351,8 +350,8 @@ static void compute_input_packing(
 		const size_t input_x = output_x * output_subsampling.width  + kernel_x - input_padding_left;
 
 		const size_t packed_index = output_image_subblock_start * reduction_block_size + reduction_block_offset * output_image_subblock_stride + output_image_subblock_offset;
-		if ((input_x < input_size.width) && (input_y < input_size.height)) 
-		   	packed_input[packed_index] = input[(input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x];
+		if (input_x < input_size.width && input_y < input_size.height)
+			packed_input[packed_index] = input[(input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x];
 		else 
 			packed_input[packed_index] = 0.0f;
 	}
@@ -387,7 +386,7 @@ static void compute_matrix_multiplication(
 	const float* packed_kernel					= context->packed_kernel + output_channels_block_start * reduction_block_size;
 	const float* packed_input					= context->packed_input + output_image_subblock_start * reduction_block_size;
 	float* output								= context->output + output_channels_block_start * output_image_size + output_image_block_start + output_image_subblock_start;
-	
+		
 	if (output_image_subblock_size == output_image_subblock_max) 
 	{
 		const nnp_fast_sgemm_function fast_gemm = nnp_hwinfo.sgemm.only_mr_x_nr;
@@ -420,7 +419,8 @@ static void compute_matrix_multiplication(
 			reduction_block_size,
 			reduction_block_start,
 			packed_kernel,
-			packed_input, output,
+			packed_input,
+			output,
 			output_image_size);
 
 		packed_kernel += reduction_block_size * output_channels_subblock_max;
@@ -448,6 +448,7 @@ static void compute_direct_convolution(
 	const size_t output_channels_block_start, 
 	const size_t output_channels_block_size)
 {
+	
 	const size_t image_elements				= context->image_elements;
 	const size_t input_channels				= context->input_channels;
 	const size_t input_channels_block_max	= context->input_channels_block_max;
@@ -943,12 +944,12 @@ static enum nnp_status compute_direct_convolution_inference(
 enum nnp_status nnp_convolution_inference(
 	enum nnp_convolution_algorithm algorithm,
 	enum nnp_convolution_transform_strategy transform_strategy,
-	size_t input_channels,
-	size_t output_channels,
-	struct nnp_size input_size,
-	struct nnp_padding input_padding,
-	struct nnp_size kernel_size,
-	struct nnp_size output_subsampling,
+	const size_t input_channels,
+	const size_t output_channels,
+	const struct nnp_size input_size,
+	const struct nnp_padding input_padding,
+	const struct nnp_size kernel_size,
+	const struct nnp_size output_subsampling,
 	const float* input,
 	const float* kernel,
 	const float* bias,
@@ -990,7 +991,7 @@ enum nnp_status nnp_convolution_inference(
 
 	enum nnp_status status;
 	struct nnp_size tile_size;
-	size_t transform_element_size;
+	const size_t transform_element_size = sizeof(float);
 	bool fourier_transform;
 	nnp_transform_2d_with_offset input_transform_function = NULL;
 	nnp_transform_2d_with_offset kernel_transform_function = NULL;
@@ -1007,7 +1008,6 @@ enum nnp_status nnp_convolution_inference(
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
 			else
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
-			transform_element_size = sizeof(float);
 			fourier_transform = false;
 		}
 		break;
@@ -1021,7 +1021,6 @@ enum nnp_status nnp_convolution_inference(
 				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu;
 			else
 				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
-			transform_element_size = sizeof(float);
 			fourier_transform = true;
 		}
 		break;
@@ -1032,10 +1031,9 @@ enum nnp_status nnp_convolution_inference(
 			input_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			if (activation == nnp_activation_relu)
-				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
-			else
 				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu;
-			transform_element_size = sizeof(float);
+			else
+				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
 			fourier_transform = true;
 		}
 		break;

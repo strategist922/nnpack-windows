@@ -153,7 +153,7 @@ static void init_x86_hwinfo()
 }
 
 
-static const nnp_sdotxf_function sdotxf[8] = 
+static const nnp_sdotxf_function sdotxf_function[8] = 
 {
 	nnp_sdotxf1__avx2,
 	nnp_sdotxf2__avx2,
@@ -165,7 +165,7 @@ static const nnp_sdotxf_function sdotxf[8] =
 	nnp_sdotxf8__avx2
 };
 
-static const nnp_shdotxf_function shdotxf[8] = 
+static const nnp_shdotxf_function shdotxf_function[8] =
 {
 	nnp_shdotxf1__avx2,
 	nnp_shdotxf2__avx2,
@@ -230,37 +230,49 @@ static void init_hwinfo()
 			nnp_hwinfo.activations.grad_relu = nnp_grad_relu__avx2;
 			nnp_hwinfo.activations.softmax = nnp_softmax__avx2;
 			nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__avx2;
-			nnp_hwinfo.sdotxf.functions = sdotxf;
-			nnp_hwinfo.sdotxf.fusion = NNP_COUNT_OF(sdotxf);
-			nnp_hwinfo.shdotxf.functions = shdotxf;
-			nnp_hwinfo.shdotxf.fusion = NNP_COUNT_OF(shdotxf);
-			nnp_hwinfo.conv1x1.mr = 2u;
-			nnp_hwinfo.conv1x1.nr = 4u;
-			nnp_hwinfo.conv1x1.only_mr_x_nr = nnp_conv1x1_only_2x4__fma3;
-			nnp_hwinfo.conv1x1.upto_mr_x_nr = nnp_conv1x1_upto_2x4__fma3;
-			nnp_hwinfo.sgemm.mr = 4u;
-			nnp_hwinfo.sgemm.nr = 24u;
-			nnp_hwinfo.sgemm.only_mr_x_nr = nnp_sgemm_only_4x24__fma3;
-			nnp_hwinfo.sgemm.upto_mr_x_nr = nnp_sgemm_upto_4x24__fma3;
-			nnp_hwinfo.sxgemm.mr = 3u;
-			nnp_hwinfo.sxgemm.nr = 4u;
-			nnp_hwinfo.sxgemm.only_mr_x_nr = nnp_s8gemm_only_3x4__fma3;
-			nnp_hwinfo.sxgemm.upto_mr_x_nr = nnp_s8gemm_upto_3x4__fma3;
-			nnp_hwinfo.cxgemm.mr = 2u;
-			nnp_hwinfo.cxgemm.nr = 2u;
-			nnp_hwinfo.cxgemm.s4cX_only_mr_x_nr = nnp_s4c6gemm_only_2x2__fma3;
-			nnp_hwinfo.cxgemm.s4cX_upto_mr_x_nr = nnp_s4c6gemm_upto_2x2__fma3;
-			nnp_hwinfo.cxgemm.cX_only_mr_x_nr = nnp_c8gemm_only_2x2__fma3;
-			nnp_hwinfo.cxgemm.cX_upto_mr_x_nr = nnp_c8gemm_upto_2x2__fma3;
-			nnp_hwinfo.cxgemm.s4cX_conjb_only_mr_x_nr = nnp_s4c6gemm_conjb_only_2x2__fma3;
-			nnp_hwinfo.cxgemm.s4cX_conjb_upto_mr_x_nr = nnp_s4c6gemm_conjb_upto_2x2__fma3,
-			nnp_hwinfo.cxgemm.cX_conjb_only_mr_x_nr = nnp_c8gemm_conjb_only_2x2__fma3;
-			nnp_hwinfo.cxgemm.cX_conjb_upto_mr_x_nr = nnp_c8gemm_conjb_upto_2x2__fma3;
-			nnp_hwinfo.cxgemm.s4cX_conjb_transc_only_mr_x_nr = nnp_s4c6gemm_conjb_transc_only_2x2__fma3;
-			nnp_hwinfo.cxgemm.s4cX_conjb_transc_upto_mr_x_nr = nnp_s4c6gemm_conjb_transc_upto_2x2__fma3,
-			nnp_hwinfo.cxgemm.cX_conjb_transc_only_mr_x_nr = nnp_c8gemm_conjb_transc_only_2x2__fma3;
-			nnp_hwinfo.cxgemm.cX_conjb_transc_upto_mr_x_nr = nnp_c8gemm_conjb_transc_upto_2x2__fma3;
-			
+
+			nnp_hwinfo.sdotxf = sdotxf { 
+				sdotxf_function, 
+				NNP_COUNT_OF(sdotxf_function) };;
+
+			nnp_hwinfo.shdotxf = shdotxf { 
+				shdotxf_function, 
+				NNP_COUNT_OF(shdotxf_function) };
+
+			nnp_hwinfo.conv1x1 = convolution { 
+				nnp_conv1x1_only_2x4__fma3 , 
+				nnp_conv1x1_upto_2x4__fma3, 
+				2u, 
+				4u };
+
+			nnp_hwinfo.sgemm = sgemm { 
+				nnp_sgemm_only_4x24__fma3, 
+				nnp_sgemm_upto_4x24__fma3, 
+				4u, 
+				24u };
+
+			nnp_hwinfo.sxgemm = sxgemm { 
+				nnp_s8gemm_only_3x4__fma3, 
+				nnp_s8gemm_upto_3x4__fma3,
+				3u,
+				4u };
+
+			nnp_hwinfo.cxgemm = cxgemm { 
+				nnp_s4c6gemm_only_2x2__fma3,
+				nnp_s4c6gemm_upto_2x2__fma3,
+				nnp_c8gemm_only_2x2__fma3,
+				nnp_c8gemm_upto_2x2__fma3,
+				nnp_s4c6gemm_conjb_only_2x2__fma3,
+				nnp_s4c6gemm_conjb_upto_2x2__fma3,
+				nnp_c8gemm_conjb_only_2x2__fma3,
+				nnp_c8gemm_conjb_upto_2x2__fma3,
+				nnp_s4c6gemm_conjb_transc_only_2x2__fma3,
+				nnp_s4c6gemm_conjb_transc_upto_2x2__fma3,
+				nnp_c8gemm_conjb_transc_only_2x2__fma3,
+				nnp_c8gemm_conjb_transc_upto_2x2__fma3,
+				2u,
+				2u};
+					
 			nnp_hwinfo.supported = true;
 		}
 	}
