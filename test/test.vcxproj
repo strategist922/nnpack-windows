@@ -172,8 +172,8 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="convolution-output\smoke.cc" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="winograd\x86_64-fma3.cc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\googletest\googletest\msvc\2010\gtest.vcxproj">
