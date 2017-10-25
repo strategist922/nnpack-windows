@@ -1,4 +1,3 @@
-
 # nnpack-windows
 #### NNPACK for Windows - port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
