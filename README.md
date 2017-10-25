@@ -1,3 +1,4 @@
+
 # nnpack-windows
 #### NNPACK for Windows - port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
@@ -12,6 +13,7 @@ Open a Phyton command prompt with Administrator rights and type:
 
 
 Now you can build the repo in VS2017
+
 
 
 
