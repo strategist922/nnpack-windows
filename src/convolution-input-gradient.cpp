@@ -15,7 +15,7 @@
 
 struct __declspec(align(64)) kernel_transform_context 
 {
-	nnp_transform_2d_with_offset transform_function;
+	const nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
 	const size_t tuple_elements;
@@ -26,13 +26,13 @@ struct __declspec(align(64)) kernel_transform_context
 };
 
 static void compute_kernel_transform(
-	struct kernel_transform_context* context,
-	size_t output_channel,      
-	size_t input_channels_subblock_start,
-	size_t output_channel_range, 
-	size_t input_channels_subblock_size)
+	const struct kernel_transform_context* context,
+	const size_t output_channel,      
+	const size_t input_channels_subblock_start,
+	const size_t output_channel_range, 
+	const size_t input_channels_subblock_size)
 {
-	nnp_transform_2d_with_offset transform_function	= context->transform_function;
+	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
 	const float* kernel										= context->kernel;
 	float* kernel_transform									= context->kernel_transform;
 	const size_t tuple_elements								= context->tuple_elements;
