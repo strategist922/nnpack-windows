@@ -21,21 +21,21 @@ FT8x8   FULL SUCCESS
 
 FT16x16 FULL FAIL
 
-WT8x8	FULL SUCCESS
+WT8x8	  FULL SUCCESS
 
 
 convolution-input-gradient:
 
-FT8x8:	SUCCESSFULL except FT8x8.few_output_channels
+FT8x8   SUCCESSFULL except FT8x8.few_output_channels
 
 FT16x16	FULL FAIL
 
-WT8x8	FULL SUCCESSFULL except WT8x8.few_output_channels
+WT8x8	  SUCCESSFULL except WT8x8.few_output_channels
 
 
 convolution-kernel-gradient:
 
-FT8x8	FULL SUCCESS
+FT8x8   FULL SUCCESS
 
 FT16x16	FULL FAIL
 
