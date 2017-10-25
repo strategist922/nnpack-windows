@@ -23,71 +23,71 @@ Results of the unit tests:
 
 convolution-output:
 
-FT8x8   SUCCESSFULL
+  FT8x8:    passed
 
-FT16x16 FULL FAIL
+  FT16x16:  failed
 
-WT8x8	  SUCCESSFULL
+  WT8x8:    passed
 
 
 convolution-input-gradient:
 
-FT8x8   SUCCESSFULL except FT8x8.few_output_channels
+  FT8x8:    passed except FT8x8.few_output_channels
 
-FT16x16	FULL FAIL
+  FT16x16:  failed
 
-WT8x8	  SUCCESSFULL except WT8x8.few_output_channels
+  WT8x8:    passed except WT8x8.few_output_channels
 
 
 convolution-kernel-gradient:
 
-FT8x8   SUCCESSFULL
+  FT8x8:    passed
 
-FT16x16	FULL FAIL
+  FT16x16:  failed
 
-WT8x8:	DISABLED
+  WT8x8:    disabled
 
 
 convolution-inference:
 
-FAILED
+failed
 
 
 fourier:
 
-FULL SUCCESS
+passed
 
 
 fully-connected-inference:
 
-SUCCESSFULL
+passed
 
 
 fully-coneected:
 
-SUCCESSFULL
+passed
 
 
 max-pooling-output:
 
-SUCCESSFULL
+passed
 
 
 relu-input-gradient:
 
-SUCCESSFULL
+passed
 
 
 sgemm:
 
-SUCCESSFULL
+passed
 
 
 softmax-output:
 
-SUCCESSFULL
+passed
 
 
 winograd:
 
-SUCCESSFULL
+passed
