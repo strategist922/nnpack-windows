@@ -1,5 +1,3 @@
-
-
 # nnpack-windows
 NNPACK for Windows
 
