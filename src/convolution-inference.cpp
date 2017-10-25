@@ -36,7 +36,7 @@ static void compute_kernel_transform(
 	const size_t output_channels_subblock_start, 
 	const size_t input_channels_block_offset,
 	const size_t output_channels_subblock_size,  
-	const size_t /* input_channels_block_increment */)
+	const size_t input_channels_block_increment)
 {
 	const size_t tuple_size					= context->tuple_size;
 	const size_t input_channels             = context->input_channels;
@@ -83,8 +83,10 @@ struct __declspec(align(64)) input_transform_context
 
 static void compute_input_transform(
 	const struct input_transform_context* context,
-	const size_t input_channels_block_offset, const size_t tiles_subblock_start,
-	const size_t /* input_channels_block_range */,  const size_t tiles_subblock_size)
+	const size_t input_channels_block_offset,
+	const size_t tiles_subblock_start,
+	const size_t input_channels_block_range,
+	const size_t tiles_subblock_size)
 {
 	const size_t tuple_size							= context->tuple_size;
 	const size_t tiles_count                        = context->tiles_count;
@@ -278,7 +280,7 @@ struct __declspec(align(64)) kernel_packing_context
 static void compute_kernel_packing(
 	const struct kernel_packing_context* context,
 	const size_t output_channels_subblock_start, const size_t reduction_block_offset,
-	const size_t output_channels_subblock_size,  const size_t /* reduction_block_range */)
+	const size_t output_channels_subblock_size,  const size_t reduction_block_range)
 {
 	const size_t reduction_size        = context->reduction_size;
 	const size_t reduction_block_start = context->reduction_block_start;
@@ -312,7 +314,7 @@ struct __declspec(align(64)) input_packing_context
 static void compute_input_packing(
 	const struct input_packing_context* context,
 	const size_t reduction_block_offset, const size_t output_image_subblock_start,
-	const size_t /* reduction_block_range */,  const size_t output_image_subblock_size)
+	const size_t reduction_block_range,  const size_t output_image_subblock_size)
 {
 	const size_t simd_width                           = context->simd_width;
 	const size_t reduction_block_start                = context->reduction_block_start;
@@ -534,15 +536,14 @@ static enum nnp_status compute_fast_convolution_inference(
 	
 	void* memory_block_input = _aligned_malloc(input_transform_size, 64ull);
 	void* memory_block_output = _aligned_malloc(output_transform_size, 64ull);
+	void* memory_block_kernel = NULL;
 
 	if (memory_block_input == NULL || memory_block_output == NULL)
 		return nnp_status_out_of_memory;
 
 	float* input_transform = static_cast<float*>(memory_block_input);
 	float* output_transform = static_cast<float*>(memory_block_output);
-
-	void* memory_block_kernel = NULL;
-	float* kernel_transform;
+	float* kernel_transform = NULL;
 
 	switch (transform_strategy) 
 	{
@@ -550,15 +551,13 @@ static enum nnp_status compute_fast_convolution_inference(
 		case nnp_convolution_transform_strategy_reuse:
 		{
 			const size_t kernel_transform_size = output_channels * min(input_channels, input_channels_block_max) * transform_tile_size;
-			if (transform_strategy == nnp_convolution_transform_strategy_compute)
-			{
-				memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
 
-				if (memory_block_kernel == NULL)
-					return nnp_status_out_of_memory;
+			memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
 
-				kernel_transform = static_cast<float*>(memory_block_kernel);
-			}
+			if (memory_block_kernel == NULL)
+				return nnp_status_out_of_memory;
+
+			kernel_transform = static_cast<float*>(memory_block_kernel);
 
 			for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) 
 			{
@@ -578,14 +577,15 @@ static enum nnp_status compute_fast_convolution_inference(
 						kernel_size
 					};
 					pthreadpool_compute_2d_tiled(
-						(pthreadpool_function_2d_tiled_t) compute_kernel_transform,
+						(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
 						&kernel_transform_context,
-						output_channels,              input_channels_block_size,
-						output_channels_subblock_max, 1ull);
-					
+						output_channels,
+						input_channels_block_size,
+						output_channels_subblock_max,
+						1ull);
 				} 
-				else 
-					kernel_transform = (float*)kernel + input_channels_block_start * output_channels * tile_elements;
+				/*else 
+					kernel_transform = (float*)kernel + input_channels_block_start * output_channels * tile_elements;*/
 				
 				struct input_transform_context input_transform_context = 
 				{
@@ -604,10 +604,12 @@ static enum nnp_status compute_fast_convolution_inference(
 					output_tile_size
 				};
 				pthreadpool_compute_2d_tiled(
-					(pthreadpool_function_2d_tiled_t) compute_input_transform,
+					(pthreadpool_function_2d_tiled_t)compute_input_transform,
 					&input_transform_context,
-					input_channels_block_size, tiles_count,
-					1ull, tiles_subblock_max);
+					input_channels_block_size,
+					tiles_count,
+					1ull,
+					tiles_subblock_max);
 				
 				for (size_t tuple_index = 0ull; tuple_index < tuple_count; tuple_index++) 
 				{
@@ -651,10 +653,12 @@ static enum nnp_status compute_fast_convolution_inference(
 							full_gemm_function
 						};
 						pthreadpool_compute_2d_tiled(
-							(pthreadpool_function_2d_tiled_t) compute_tuple_multiplication,
+							(pthreadpool_function_2d_tiled_t)compute_tuple_multiplication,
 							&tuple_multiplication_context,
-							tiles_count,     output_channels_block_size,
-							tiles_block_max, output_channels_subblock_max);
+							tiles_count,
+							output_channels_block_size,
+							tiles_block_max,
+							output_channels_subblock_max);
 					}
 				}
 				
@@ -675,10 +679,12 @@ static enum nnp_status compute_fast_convolution_inference(
 				output_tile_size
 			};
 			pthreadpool_compute_2d_tiled(
-				(pthreadpool_function_2d_tiled_t) compute_output_transform,
+				(pthreadpool_function_2d_tiled_t)compute_output_transform,
 				&output_transform_context,
-				output_channels,              tiles_count,
-				output_channels_subblock_max, tiles_subblock_max);	
+				output_channels,
+				tiles_count,
+				output_channels_subblock_max,
+				tiles_subblock_max);
 		}
 		break;
 
@@ -711,8 +717,10 @@ static enum nnp_status compute_fast_convolution_inference(
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
 					&kernel_transform_context,
-					output_channels,              input_channels_block_size,
-					output_channels_subblock_max, 1ull);
+					output_channels,
+					input_channels_block_size,
+					output_channels_subblock_max,
+					1ull);
 			}
 			break;
 		}
@@ -788,12 +796,13 @@ static enum nnp_status compute_gemm_convolution_inference(
 			reduction_block_size
 		};
 		pthreadpool_compute_2d_tiled(
-			(pthreadpool_function_2d_tiled_t) compute_kernel_packing,
+			(pthreadpool_function_2d_tiled_t)compute_kernel_packing,
 			&kernel_packing_context,
-			output_channels,              reduction_block_size,
-			output_channels_subblock_max, 1ull);
+			output_channels,
+			reduction_block_size,
+			output_channels_subblock_max,
+			1ull);
 		
-
 		const struct fxdiv_divisor_size_t kernel_elements_divisor = fxdiv_init_size_t(kernel_size.height * kernel_size.width);
 		const struct fxdiv_divisor_size_t kernel_width_divisor = fxdiv_init_size_t(kernel_size.width);
 		const struct fxdiv_divisor_size_t output_width_divisor = fxdiv_init_size_t(output_size.width);
@@ -821,8 +830,10 @@ static enum nnp_status compute_gemm_convolution_inference(
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_input_packing,
 				&input_packing_context,
-				reduction_block_size, output_image_block_size,
-				1ull, output_image_subblock_max);
+				reduction_block_size,
+				output_image_block_size,
+				1ull,
+				output_image_subblock_max);
 		
 			struct matrix_multiplication_context matrix_multiplication_context = 
 			{
@@ -839,8 +850,10 @@ static enum nnp_status compute_gemm_convolution_inference(
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 				&matrix_multiplication_context,
-				output_channels,           output_image_block_size,
-				output_channels_block_max, output_image_subblock_max);
+				output_channels,
+				output_image_block_size,
+				output_channels_block_max,
+				output_image_subblock_max);
 		}
 	}
 	
@@ -876,7 +889,7 @@ static enum nnp_status compute_direct_convolution_inference(
 	const size_t input_channels,
 	const size_t output_channels,
 	const struct nnp_size image_size,
-	const struct nnp_size /* kernel_size */,
+	const struct nnp_size kernel_size,
 	const float* input,
 	const float* kernel,
 	const float* bias,
@@ -901,7 +914,8 @@ static enum nnp_status compute_direct_convolution_inference(
 	pthreadpool_compute_1d_tiled(
 		(pthreadpool_function_1d_tiled_t)compute_direct_convolution,
 		&direct_convolution_context,
-		output_channels, nnp_hwinfo.conv1x1.nr);
+		output_channels,
+		nnp_hwinfo.conv1x1.nr);
 
 	/* Add bias */
 	for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++)

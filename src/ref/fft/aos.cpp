@@ -1,6 +1,5 @@
 #include <complex>
 #include <complex-ref.h>
-#include <fft-constants.h>
 
 
 void nnp_fft2_aos__ref(	const float* t, size_t t_stride, float* f, size_t f_stride)

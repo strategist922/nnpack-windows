@@ -29,7 +29,7 @@ static void compute_kernel_transform(
 	const struct kernel_transform_context* context,
 	const size_t input_channel, 
 	const size_t output_channels_subblock_start,
-	const size_t /* input_channel_range */, 
+	const size_t input_channel_range, 
 	const size_t output_channels_subblock_size)
 {
 	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
@@ -81,7 +81,7 @@ static void compute_input_transform(
 	const struct input_transform_context* context,
 	const size_t input_channel, 
 	const size_t batch_subblock_start,
-	const size_t /* input_channel_range */, 
+	const size_t input_channel_range, 
 	const size_t batch_subblock_size)
 {
 	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
@@ -137,7 +137,7 @@ static void compute_output_transform(
 	const struct output_transform_context* context,
 	const size_t sample, 
 	const size_t output_channels_subblock_start,
-	const size_t /* sample_range */, 
+	const size_t sample_range, 
 	const size_t output_channels_subblock_size)
 {
 	const nnp_transform_2d_with_bias transform_function	= context->transform_function;

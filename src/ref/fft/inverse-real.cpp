@@ -1,6 +1,5 @@
 #include <complex>
 #include <complex-ref.h>
-#include <fft-constants.h>
 
 /**
  * From

@@ -33,7 +33,7 @@ static void compute_input_transform(
 	const struct input_transform_context* context,
 	const size_t batch_block_offset,
 	const size_t input_channels_subblock_start,
-	const size_t /* batch_block_offset_range */,
+	const size_t batch_block_offset_range,
 	const size_t input_channels_subblock_size)
 {
 	const size_t tuple_elements						= context->tuple_elements;
@@ -81,7 +81,7 @@ static void compute_grad_output_transform(
 	const struct grad_output_transform_context* context,
 	const size_t batch_block_offset,
 	const size_t output_channels_subblock_start,
-	const size_t /* batch_block_offset_range */,
+	const size_t batch_block_offset_range,
 	const size_t output_channels_subblock_size)
 {
 	const size_t tuple_elements						= context->tuple_elements;
@@ -126,7 +126,7 @@ static void compute_grad_kernel_transform(
 	const struct grad_kernel_transform_context* context,
 	const size_t output_channel,
 	const size_t input_channels_subblock_start,
-	const size_t /* output_channel_range */,
+	const size_t output_channel_range,
 	const size_t input_channels_subblock_size)
 {
 	const size_t tuple_elements						= context->tuple_elements;
