@@ -23,7 +23,6 @@ struct __declspec(align(64)) kernel_transform_context
 	const nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
-
 	const size_t tuple_size;
 	const size_t input_channels;
 	const size_t input_channels_block_size;
@@ -38,16 +37,15 @@ static void compute_kernel_transform(
 	const size_t output_channels_subblock_size,  
 	const size_t input_channels_block_increment)
 {
-	const size_t tuple_size					= context->tuple_size;
-	const size_t input_channels             = context->input_channels;
-	const size_t input_channels_block_size  = context->input_channels_block_size;
-	const size_t output_channels            = context->output_channels;
-	const struct nnp_size kernel_size		= context->kernel_size;
-
-	const float* kernel								= context->kernel;
-	float* kernel_transform                         = context->kernel_transform;
-	nnp_transform_2d_with_offset transform_function = context->transform_function;
-
+	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
+	const float* kernel										= context->kernel;
+	float* kernel_transform									= context->kernel_transform;
+	const size_t tuple_size									= context->tuple_size;
+	const size_t input_channels								= context->input_channels;
+	const size_t input_channels_block_size					= context->input_channels_block_size;
+	const size_t output_channels							= context->output_channels;
+	const struct nnp_size kernel_size						= context->kernel_size;
+	
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
@@ -65,10 +63,9 @@ static void compute_kernel_transform(
 
 struct __declspec(align(64)) input_transform_context
 {
+	const nnp_transform_2d_with_offset transform_function;
 	const float* input;
 	float* input_transform;
-	const nnp_transform_2d_with_offset transform_function;
-
 	const size_t tuple_size;
 	const size_t tiles_count;
 	const struct fxdiv_divisor_size_t tiles_x_count;
@@ -88,21 +85,20 @@ static void compute_input_transform(
 	const size_t input_channels_block_range,
 	const size_t tiles_subblock_size)
 {
-	const size_t tuple_size							= context->tuple_size;
-	const size_t tiles_count                        = context->tiles_count;
-	const struct fxdiv_divisor_size_t tiles_x_count	= context->tiles_x_count;
-	const size_t input_channels_block_start         = context->input_channels_block_start;
-	const size_t input_channels_block_size          = context->input_channels_block_size;
-	const struct nnp_size input_size		        = context->input_size;
-	const size_t input_padding_left                 = context->input_padding_left;
-	const size_t input_padding_top                  = context->input_padding_top;
-	const struct nnp_size input_tile				= context->input_tile;
-	const struct nnp_size output_tile		        = context->output_tile;
+	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
+	const float* input										= context->input;
+	float* input_transform									= context->input_transform;
+	const size_t tuple_size									= context->tuple_size;
+	const size_t tiles_count								= context->tiles_count;
+	const struct fxdiv_divisor_size_t tiles_x_count			= context->tiles_x_count;
+	const size_t input_channels_block_start					= context->input_channels_block_start;
+	const size_t input_channels_block_size					= context->input_channels_block_size;
+	const struct nnp_size input_size						= context->input_size;
+	const size_t input_padding_left							= context->input_padding_left;
+	const size_t input_padding_top							= context->input_padding_top;
+	const struct nnp_size input_tile						= context->input_tile;
+	const struct nnp_size output_tile						= context->output_tile;
 	
-	const float* input								= context->input;
-	float* input_transform                          = context->input_transform;
-	const nnp_transform_2d_with_offset transform_function = context->transform_function;
-
 	const size_t input_channel = input_channels_block_start + input_channels_block_offset;
 	for (size_t tiles_subblock_offset = 0ull; tiles_subblock_offset < tiles_subblock_size; tiles_subblock_offset++)
 	{
@@ -140,7 +136,6 @@ struct __declspec(align(64)) output_transform_context
 	float* output;
 	const float* output_transform;
 	const float* bias;
-
 	const size_t tuple_size;
 	const size_t tiles_count;
 	const struct fxdiv_divisor_size_t tiles_x_count;
@@ -152,25 +147,26 @@ struct __declspec(align(64)) output_transform_context
 
 static void compute_output_transform(
 	const struct output_transform_context* context,
-	const size_t output_channels_subblock_start, const size_t tiles_subblock_start,
-	const size_t output_channels_subblock_size,  const size_t tiles_subblock_size)
+	const size_t output_channels_subblock_start,
+	const size_t tiles_subblock_start,
+	const size_t output_channels_subblock_size,
+	const size_t tiles_subblock_size)
 {
-	const size_t tuple_size                           = context->tuple_size;
-	const size_t tiles_count                          = context->tiles_count;
-	const struct fxdiv_divisor_size_t tiles_x_count	  = context->tiles_x_count;
-	const struct fxdiv_divisor_size_t tiles_block_max = context->tiles_block_max;
-	const size_t output_channels                      = context->output_channels;
-	const struct nnp_size output_size                 = context->output_size;
-	const struct nnp_size output_tile                 = context->output_tile;
+	const nnp_transform_2d_with_bias transform_function	= context->transform_function;
+	float* output										= context->output;
+	const float* output_transform						= context->output_transform;
+	const float* bias									= context->bias;
+	const size_t tuple_size								= context->tuple_size;
+	const size_t tiles_count							= context->tiles_count;
+	const struct fxdiv_divisor_size_t tiles_x_count		= context->tiles_x_count;
+	const struct fxdiv_divisor_size_t tiles_block_max	= context->tiles_block_max;
+	const size_t output_channels						= context->output_channels;
+	const struct nnp_size output_size					= context->output_size;
+	const struct nnp_size output_tile					= context->output_tile;
 
 	const size_t tiles_block_start = fxdiv_round_down_size_t(tiles_subblock_start, tiles_block_max);
 	const size_t tiles_block_size = min(tiles_count - tiles_block_start, tiles_block_max.value);
-
-	float* output								  = context->output;
-	const float* output_transform                 = context->output_transform;
-	const float* bias                             = context->bias;
-	const nnp_transform_2d_with_bias transform_function = context->transform_function;
-
+	
 	for (size_t tiles_subblock_offset = 0ull; tiles_subblock_offset < tiles_subblock_size; tiles_subblock_offset++)
 	{
 		const size_t tile = tiles_subblock_start + tiles_subblock_offset;
@@ -217,8 +213,10 @@ struct __declspec(align(64)) tuple_multiplication_context
 
 static void compute_tuple_multiplication(
 	const struct tuple_multiplication_context* context,
-	const size_t tiles_block_start, const size_t output_channels_subblock_start,
-	size_t tiles_block_size,  const size_t output_channels_subblock_size)
+	const size_t tiles_block_start,
+	const size_t output_channels_subblock_start,
+	size_t tiles_block_size,
+	const size_t output_channels_subblock_size)
 {
 	const size_t tuple_elements               =	context->tuple_elements;
 	const size_t tuple_size                   = context->tuple_size;
@@ -279,8 +277,10 @@ struct __declspec(align(64)) kernel_packing_context
 
 static void compute_kernel_packing(
 	const struct kernel_packing_context* context,
-	const size_t output_channels_subblock_start, const size_t reduction_block_offset,
-	const size_t output_channels_subblock_size,  const size_t reduction_block_range)
+	const size_t output_channels_subblock_start,
+	const size_t reduction_block_offset,
+	const size_t output_channels_subblock_size,
+	const size_t reduction_block_range)
 {
 	const size_t reduction_size        = context->reduction_size;
 	const size_t reduction_block_start = context->reduction_block_start;
@@ -297,7 +297,6 @@ struct __declspec(align(64)) input_packing_context
 {
 	const float* input;
 	float* packed_input;
-
 	const size_t simd_width;
 	const size_t reduction_block_start;
 	const size_t reduction_block_size;
@@ -313,23 +312,24 @@ struct __declspec(align(64)) input_packing_context
 
 static void compute_input_packing(
 	const struct input_packing_context* context,
-	const size_t reduction_block_offset, const size_t output_image_subblock_start,
-	const size_t reduction_block_range,  const size_t output_image_subblock_size)
+	const size_t reduction_block_offset,
+	const size_t output_image_subblock_start,
+	const size_t reduction_block_range,
+	const size_t output_image_subblock_size)
 {
-	const size_t simd_width                           = context->simd_width;
-	const size_t reduction_block_start                = context->reduction_block_start;
-	const size_t reduction_block_size                 = context->reduction_block_size;
-	const size_t output_image_block_start             = context->output_image_block_start;
-	const struct nnp_size input_size				  = context->input_size;
-	const size_t input_padding_top                    = context->input_padding_top;
-	const size_t input_padding_left                   = context->input_padding_left;
-	const struct fxdiv_divisor_size_t kernel_elements = context->kernel_elements;
-	const struct fxdiv_divisor_size_t kernel_width    = context->kernel_width;
-	const struct fxdiv_divisor_size_t output_width    = context->output_width;
-	const struct nnp_size output_subsampling          = context->output_subsampling;
-
-	const float* input = context->input;
-	float* packed_input = context->packed_input;
+	const float* input									= context->input;
+	float* packed_input									= context->packed_input;
+	const size_t simd_width								= context->simd_width;
+	const size_t reduction_block_start					= context->reduction_block_start;
+	const size_t reduction_block_size					= context->reduction_block_size;
+	const size_t output_image_block_start				= context->output_image_block_start;
+	const struct nnp_size input_size					= context->input_size;
+	const size_t input_padding_top						= context->input_padding_top;
+	const size_t input_padding_left						= context->input_padding_left;
+	const struct fxdiv_divisor_size_t kernel_elements	= context->kernel_elements;
+	const struct fxdiv_divisor_size_t kernel_width		= context->kernel_width;
+	const struct fxdiv_divisor_size_t output_width		= context->output_width;
+	const struct nnp_size output_subsampling			= context->output_subsampling;
 
 	const size_t output_image_subblock_stride = round_up_by_power_of_2(output_image_subblock_size, simd_width);
 
@@ -363,7 +363,6 @@ struct __declspec(align(64)) matrix_multiplication_context
 	const float* packed_kernel;
 	const float* packed_input;
 	float* output;
-
 	const size_t reduction_block_start;
 	const size_t reduction_block_size;
 	const size_t output_image_size;
@@ -374,20 +373,21 @@ struct __declspec(align(64)) matrix_multiplication_context
 
 static void compute_matrix_multiplication(
 	const struct matrix_multiplication_context* context,
-	const size_t output_channels_block_start, const size_t output_image_subblock_start,
-	size_t output_channels_block_size,  const size_t output_image_subblock_size)
+	const size_t output_channels_block_start,
+	const size_t output_image_subblock_start,
+	size_t output_channels_block_size,
+	const size_t output_image_subblock_size)
 {
-	const size_t reduction_block_start        = context->reduction_block_start;
-	const size_t reduction_block_size         = context->reduction_block_size;
-	const size_t output_image_size            = context->output_image_size;
-	const size_t output_image_block_start     = context->output_image_block_start;
-	const size_t output_image_subblock_max    = context->output_image_subblock_max;
-	const size_t output_channels_subblock_max = context->output_channels_subblock_max;
-
-	const float* packed_kernel = context->packed_kernel + output_channels_block_start * reduction_block_size;
-	const float* packed_input  = context->packed_input + output_image_subblock_start * reduction_block_size;
-	float* output              = context->output + output_channels_block_start * output_image_size + output_image_block_start + output_image_subblock_start;
-
+	const size_t reduction_block_start			= context->reduction_block_start;
+	const size_t reduction_block_size			= context->reduction_block_size;
+	const size_t output_image_size				= context->output_image_size;
+	const size_t output_image_block_start		= context->output_image_block_start;
+	const size_t output_image_subblock_max		= context->output_image_subblock_max;
+	const size_t output_channels_subblock_max	= context->output_channels_subblock_max;
+	const float* packed_kernel					= context->packed_kernel + output_channels_block_start * reduction_block_size;
+	const float* packed_input					= context->packed_input + output_image_subblock_start * reduction_block_size;
+	float* output								= context->output + output_channels_block_start * output_image_size + output_image_block_start + output_image_subblock_start;
+	
 	if (output_image_subblock_size == output_image_subblock_max) 
 	{
 		const nnp_fast_sgemm_function fast_gemm = nnp_hwinfo.sgemm.only_mr_x_nr;
@@ -396,8 +396,11 @@ static void compute_matrix_multiplication(
 			output_channels_block_size -= output_channels_subblock_max;
 
 			fast_gemm(
-				reduction_block_size, reduction_block_start,
-				packed_kernel, packed_input, output,
+				reduction_block_size,
+				reduction_block_start,
+				packed_kernel,
+				packed_input,
+				output,
 				output_image_size);
 
 			packed_kernel += reduction_block_size * output_channels_subblock_max;
@@ -412,9 +415,12 @@ static void compute_matrix_multiplication(
 		output_channels_block_size -= output_channels_subblock_size;
 
 		full_gemm(
-			uint32_t(output_channels_subblock_size), uint32_t(output_image_subblock_size),
-			reduction_block_size, reduction_block_start,
-			packed_kernel, packed_input, output,
+			uint32_t(output_channels_subblock_size),
+			uint32_t(output_image_subblock_size),
+			reduction_block_size,
+			reduction_block_start,
+			packed_kernel,
+			packed_input, output,
 			output_image_size);
 
 		packed_kernel += reduction_block_size * output_channels_subblock_max;
@@ -442,14 +448,13 @@ static void compute_direct_convolution(
 	const size_t output_channels_block_start, 
 	const size_t output_channels_block_size)
 {
-	const size_t image_elements            = context->image_elements;
-	const size_t input_channels            = context->input_channels;
-	const size_t input_channels_block_max  = context->input_channels_block_max;
-	const size_t output_channels_block_max = context->output_channels_block_max;
-
-	const float* input  = context->input;
-	const float* kernel = context->kernel + output_channels_block_start * input_channels;
-	float* output       = context->output + output_channels_block_start * image_elements;
+	const size_t image_elements				= context->image_elements;
+	const size_t input_channels				= context->input_channels;
+	const size_t input_channels_block_max	= context->input_channels_block_max;
+	const size_t output_channels_block_max	= context->output_channels_block_max;
+	const float* input						= context->input;
+	const float* kernel						= context->kernel + output_channels_block_start * input_channels;
+	float* output							= context->output + output_channels_block_start * image_elements;
 
 	memset(output, 0, sizeof(float) * output_channels_block_size * image_elements);
 
@@ -462,8 +467,11 @@ static void compute_direct_convolution(
 			input_channels_unprocessed -= input_channels_block_max;
 
 			fast_conv(
-				input_channels, image_elements,
-				input, kernel, output);
+				input_channels,
+				image_elements,
+				input,
+				kernel,
+				output);
 
 			input  += input_channels_block_max * image_elements;
 			kernel += input_channels_block_max;
@@ -477,9 +485,13 @@ static void compute_direct_convolution(
 		input_channels_unprocessed -= input_channels_block_size;
 
 		full_conv(
-			uint32_t(input_channels_block_size), uint32_t(output_channels_block_size),
-			input_channels, image_elements,
-			input, kernel, output);
+			uint32_t(input_channels_block_size),
+			uint32_t(output_channels_block_size),
+			input_channels,
+			image_elements,
+			input,
+			kernel,
+			output);
 
 		input  += input_channels_block_max * image_elements;
 		kernel += input_channels_block_max;
@@ -589,9 +601,9 @@ static enum nnp_status compute_fast_convolution_inference(
 				
 				struct input_transform_context input_transform_context = 
 				{
+					input_transform_function,
 					input,
 					input_transform,
-					input_transform_function,
 					tuple_size,
 					tiles_count,
 					fxdiv_init_size_t(tiles_x_count),

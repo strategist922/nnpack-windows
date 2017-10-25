@@ -25,7 +25,6 @@
   relu-input-gradient.cpp
   relu-output.cpp
   softmax-output.cpp
-  stdafx.cpp
   exp.cpp
   softmax.cpp
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\nnpack.lib

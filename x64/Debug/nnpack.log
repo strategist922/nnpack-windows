@@ -59,28 +59,28 @@ src\convolution-input-gradient.cpp(132): warning C4324: 'grad_input_transform_co
 src\convolution-input-gradient.cpp(138): warning C4100: 'sample_range': unreferenced formal parameter
 src\convolution-input-gradient.cpp(191): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-inference.cpp
-src\convolution-inference.cpp(32): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(39): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
-src\convolution-inference.cpp(82): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(88): warning C4100: 'input_channels_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(151): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(216): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(278): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(31): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(38): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
+src\convolution-inference.cpp(79): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(85): warning C4100: 'input_channels_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(146): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(212): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(276): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
 src\convolution-inference.cpp(283): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(312): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(311): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
 src\convolution-inference.cpp(317): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(373): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(438): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(504): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(753): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(898): warning C4100: 'activation': unreferenced formal parameter
-src\convolution-inference.cpp(897): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(892): warning C4100: 'kernel_size': unreferenced formal parameter
+src\convolution-inference.cpp(372): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(444): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(516): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(765): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(910): warning C4100: 'activation': unreferenced formal parameter
+src\convolution-inference.cpp(909): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(904): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1048): warning C4701: potentially uninitialized local variable 'tile_size' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1051): warning C4701: potentially uninitialized local variable 'transform_element_size' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1051): warning C4701: potentially uninitialized local variable 'fourier_transform' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1089): warning C4701: potentially uninitialized local variable 'status' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1060): warning C4701: potentially uninitialized local variable 'tile_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1063): warning C4701: potentially uninitialized local variable 'transform_element_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1063): warning C4701: potentially uninitialized local variable 'fourier_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1101): warning C4701: potentially uninitialized local variable 'status' used
 c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4701: potentially uninitialized local variable 'output_transform_function' used
 c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4703: potentially uninitialized local pointer variable 'output_transform_function' used
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib
