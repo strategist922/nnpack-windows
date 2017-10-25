@@ -17,11 +17,11 @@ Results of the unit tests:
 
 convolution-output:
 
-FT8x8   FULL SUCCESS
+FT8x8   SUCCESSFULL
 
 FT16x16 FULL FAIL
 
-WT8x8	  FULL SUCCESS
+WT8x8	  SUCCESSFULL
 
 
 convolution-input-gradient:
@@ -35,7 +35,7 @@ WT8x8	  SUCCESSFULL except WT8x8.few_output_channels
 
 convolution-kernel-gradient:
 
-FT8x8   FULL SUCCESS
+FT8x8   SUCCESSFULL
 
 FT16x16	FULL FAIL
 
@@ -54,34 +54,34 @@ FULL SUCCESS
 
 fully-connected-inference:
 
-FULL SUCCESS
+SUCCESSFULL
 
 
 fully-coneected:
 
-FULL SUCCESS
+SUCCESSFULL
 
 
 max-pooling-output:
 
-FULL SUCCESS
+SUCCESSFULL
 
 
 relu-input-gradient:
 
-FULL SUCCESS
+SUCCESSFULL
 
 
 sgemm:
 
-FULL SUCCESS
+SUCCESSFULL
 
 
 softmax-output:
 
-FULL SUCCESS
+SUCCESSFULL
 
 
 winograd:
 
-FULL SUCCESS
+SUCCESSFULL
