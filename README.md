@@ -17,7 +17,7 @@ Now you can build the repo in VS2017
 
 Results of the unit tests:
 
-###convolution-output:
+### convolution-output:
 
   * FT8x8:    passed
 
@@ -26,7 +26,7 @@ Results of the unit tests:
   * WT8x8:    passed
 
 
-###convolution-input-gradient:
+### convolution-input-gradient:
 
   * FT8x8:    passed except FT8x8.few_output_channels
 
@@ -35,7 +35,7 @@ Results of the unit tests:
   * WT8x8:    passed except WT8x8.few_output_channels
 
 
-###convolution-kernel-gradient:
+### convolution-kernel-gradient:
 
   * FT8x8:    passed
 
@@ -44,46 +44,46 @@ Results of the unit tests:
   * WT8x8:    disabled
 
 
-###convolution-inference:
+### convolution-inference:
 
 failed
 
 
-###fourier:
+### fourier:
 
 passed
 
 
-###fully-connected-inference:
+### fully-connected-inference:
 
 passed
 
 
-###fully-coneected:
+### fully-coneected:
 
 passed
 
 
-###max-pooling-output:
+### max-pooling-output:
 
 passed
 
 
-###relu-input-gradient:
+### relu-input-gradient:
 
 passed
 
 
-###sgemm:
+### sgemm:
 
 passed
 
 
-###softmax-output:
+### softmax-output:
 
 passed
 
 
-###winograd:
+### winograd:
 
 passed
