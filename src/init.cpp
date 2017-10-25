@@ -233,11 +233,11 @@ static void init_hwinfo()
 
 			nnp_hwinfo.sdotxf = sdotxf { 
 				sdotxf_function, 
-				NNP_COUNT_OF(sdotxf_function) };;
+				sizeof(sdotxf_function) / sizeof(sdotxf_function[0]) };;
 
 			nnp_hwinfo.shdotxf = shdotxf { 
 				shdotxf_function, 
-				NNP_COUNT_OF(shdotxf_function) };
+				sizeof(shdotxf_function) / sizeof(shdotxf_function[0]) };
 
 			nnp_hwinfo.conv1x1 = convolution { 
 				nnp_conv1x1_only_2x4__fma3 , 
@@ -252,24 +252,24 @@ static void init_hwinfo()
 				24u };
 
 			nnp_hwinfo.sxgemm = sxgemm { 
-				nnp_s8gemm_only_3x4__fma3, 
-				nnp_s8gemm_upto_3x4__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_s8gemm_only_3x4__fma3,
+				(nnp_full_tuple_gemm_function)nnp_s8gemm_upto_3x4__fma3,
 				3u,
 				4u };
 
 			nnp_hwinfo.cxgemm = cxgemm { 
-				nnp_s4c6gemm_only_2x2__fma3,
-				nnp_s4c6gemm_upto_2x2__fma3,
-				nnp_c8gemm_only_2x2__fma3,
-				nnp_c8gemm_upto_2x2__fma3,
-				nnp_s4c6gemm_conjb_only_2x2__fma3,
-				nnp_s4c6gemm_conjb_upto_2x2__fma3,
-				nnp_c8gemm_conjb_only_2x2__fma3,
-				nnp_c8gemm_conjb_upto_2x2__fma3,
-				nnp_s4c6gemm_conjb_transc_only_2x2__fma3,
-				nnp_s4c6gemm_conjb_transc_upto_2x2__fma3,
-				nnp_c8gemm_conjb_transc_only_2x2__fma3,
-				nnp_c8gemm_conjb_transc_upto_2x2__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_s4c6gemm_only_2x2__fma3,
+				(nnp_full_tuple_gemm_function)nnp_s4c6gemm_upto_2x2__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_c8gemm_only_2x2__fma3,
+				(nnp_full_tuple_gemm_function)nnp_c8gemm_upto_2x2__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_s4c6gemm_conjb_only_2x2__fma3,
+				(nnp_full_tuple_gemm_function)nnp_s4c6gemm_conjb_upto_2x2__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_c8gemm_conjb_only_2x2__fma3,
+				(nnp_full_tuple_gemm_function)nnp_c8gemm_conjb_upto_2x2__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_s4c6gemm_conjb_transc_only_2x2__fma3,
+				(nnp_full_tuple_gemm_function)nnp_s4c6gemm_conjb_transc_upto_2x2__fma3,
+				(nnp_fast_tuple_gemm_function)nnp_c8gemm_conjb_transc_only_2x2__fma3,
+				(nnp_full_tuple_gemm_function)nnp_c8gemm_conjb_transc_upto_2x2__fma3,
 				2u,
 				2u};
 					

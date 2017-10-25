@@ -208,7 +208,6 @@
     <ClInclude Include="include\fft.h" />
     <ClInclude Include="include\fxdiv.h" />
     <ClInclude Include="include\hwinfo.h" />
-    <ClInclude Include="include\macros.h" />
     <ClInclude Include="include\nnpack.h" />
     <ClInclude Include="include\pooling.h" />
     <ClInclude Include="include\pthreadpool.h" />

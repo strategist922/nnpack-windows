@@ -2,13 +2,13 @@
   exp.cpp
 src\x86_64-fma\exp.cpp(101): warning C4245: 'initializing': conversion from 'int' to 'uint32_t', signed/unsigned mismatch
   softmax-output.cpp
-src\softmax-output.cpp(17): warning C4324: 'softmax_context': structure was padded due to alignment specifier
-src\softmax-output.cpp(35): warning C4324: 'inplace_softmax_context': structure was padded due to alignment specifier
+src\softmax-output.cpp(16): warning C4324: 'softmax_context': structure was padded due to alignment specifier
+src\softmax-output.cpp(34): warning C4324: 'inplace_softmax_context': structure was padded due to alignment specifier
   relu-output.cpp
-src\relu-output.cpp(19): warning C4324: 'relu_context': structure was padded due to alignment specifier
-src\relu-output.cpp(38): warning C4324: 'inplace_relu_context': structure was padded due to alignment specifier
+src\relu-output.cpp(18): warning C4324: 'relu_context': structure was padded due to alignment specifier
+src\relu-output.cpp(37): warning C4324: 'inplace_relu_context': structure was padded due to alignment specifier
   relu-input-gradient.cpp
-src\relu-input-gradient.cpp(20): warning C4324: 'relu_context': structure was padded due to alignment specifier
+src\relu-input-gradient.cpp(19): warning C4324: 'relu_context': structure was padded due to alignment specifier
   softmax-output-ref.cpp
   relu-output-ref.cpp
   relu-input-gradient-ref.cpp
@@ -29,9 +29,9 @@ src\relu-input-gradient.cpp(20): warning C4324: 'relu_context': structure was pa
   pooling-output.cpp
   init.cpp
   fully-connected-output.cpp
-src\fully-connected-output.cpp(16): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\fully-connected-output.cpp(54): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\fully-connected-output.cpp(101): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\fully-connected-output.cpp(15): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\fully-connected-output.cpp(53): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\fully-connected-output.cpp(100): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   fully-connected-inference.cpp
 src\fully-connected-inference.cpp(15): warning C4324: 'fully_connected_inference_context': structure was padded due to alignment specifier
   convolution-output.cpp

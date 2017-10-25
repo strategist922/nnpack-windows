@@ -209,8 +209,8 @@ static void compute_matrix_multiplication(
 	const float* grad_output_transform			= context->grad_output_transform + (output_channels_block_start * batch_size + (batch_block_start + batch_subblock_start) * output_channels_block_size) * tuple_elements;
 	const float* kernel_transform				= context->kernel_transform + (output_channels_block_start * input_channels + input_channels_block_start * output_channels_block_size) * tuple_elements;
 	float* grad_input_transform					= context->grad_input_transform + (batch_block_start * input_channels + input_channels_block_start * batch_block_size) * tuple_elements;
-	nnp_fast_sgemm_function fast_gemm			= context->fast_gemm;
-	nnp_full_sgemm_function full_gemm			= context->full_gemm;
+	nnp_fast_tuple_gemm_function fast_gemm		= context->fast_gemm;
+	nnp_full_tuple_gemm_function full_gemm		= context->full_gemm;
 
 	if (batch_subblock_size == batch_subblock_max) 
 		while (input_channels_block_size >= input_channels_subblock_max) 

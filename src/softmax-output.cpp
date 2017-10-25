@@ -1,7 +1,6 @@
 #include <stddef.h>
 
 #include <nnpack.h>
-#include <macros.h>
 #include <utils.h>
 #include <hwinfo.h>
 #include <activations.h>

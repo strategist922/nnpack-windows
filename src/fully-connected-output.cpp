@@ -4,7 +4,6 @@
 #include <utils.h>
 #include <hwinfo.h>
 #include <validation.h>
-#include <macros.h>
 
 
 struct __declspec(align(64)) input_packing_context 

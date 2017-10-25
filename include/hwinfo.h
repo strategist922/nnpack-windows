@@ -11,7 +11,6 @@
 #endif
 
 #include <stdafx.h>
-#include <macros.h>
 
 #define bit_OSXSAVE        (1 << 27)
 #define bit_AVX            (1 << 28)
@@ -63,8 +62,8 @@ typedef void (*nnp_full_sgemm_function)(uint32_t, uint32_t, size_t, size_t, cons
 typedef void (*nnp_fast_conv_function)(size_t, size_t, const float*, const float*, float*);
 typedef void (*nnp_full_conv_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*);
 
-typedef void (*nnp_fast_tuple_gemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
-typedef void (*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
+typedef void (*nnp_fast_tuple_gemm_function)(size_t, size_t, const void*, const void*, void*, size_t);
+typedef void (*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const void*, const void*, void*, size_t);
 
 typedef void (*nnp_sdotxf_function)(const float*, const float*, size_t, float*, size_t);
 typedef void (*nnp_shdotxf_function)(const float*, const void*, size_t, float*, size_t);
