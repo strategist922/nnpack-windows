@@ -65,17 +65,17 @@ TEST(IMPLICIT_GEMM, conv2_with_relu) {
  * AlexNet conv3 layer
  */
 
-//TEST(FT8x8, conv3) {
-//	AlexNet::conv3()
-//		.errorLimit(1.0e-5f)
-//		.testInference(nnp_convolution_algorithm_ft8x8);
-//}
-//
-//TEST(FT8x8, conv3_with_relu) {
-//	AlexNet::conv3()
-//		.errorLimit(1.0e-5f)
-//		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
-//}
+TEST(FT8x8, conv3) {
+	AlexNet::conv3()
+		.errorLimit(1.0e-5f)
+		.testInference(nnp_convolution_algorithm_ft8x8);
+}
+
+TEST(FT8x8, conv3_with_relu) {
+	AlexNet::conv3()
+		.errorLimit(1.0e-5f)
+		.testInference(nnp_convolution_algorithm_ft8x8, nnp_activation_relu);
+}
 
 //TEST(FT16x16, conv3) {
 //	AlexNet::conv3()
