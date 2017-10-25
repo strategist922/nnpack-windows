@@ -67,7 +67,7 @@ passed
 passed
 
 
-### fully-coneected:
+### fully-connected:
 
 passed
 
