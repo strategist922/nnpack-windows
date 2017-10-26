@@ -8,7 +8,7 @@ Open a Phyton command prompt with Administrator rights and type:
   
   pip install --upgrade git+https://github.com/Maratyszcza/PeachPy
 
-Now you're ready to build the repo with VS2017
+Now you're ready for sompiling with VS2017
 
 
 Results of the unit tests:
