@@ -122,7 +122,6 @@ nnp_status nnp_convolution_output(
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
 	const void* activation_parameters);
-
 	
 nnp_status nnp_convolution_input_gradient(
 	nnp_convolution_algorithm algorithm,
@@ -153,7 +152,6 @@ nnp_status nnp_convolution_kernel_gradient(
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
 	const void* activation_parameters);
-
 	
 nnp_status nnp_convolution_inference(
 	nnp_convolution_algorithm algorithm,
@@ -238,7 +236,6 @@ inline nnp_status nnp_convolution_output(
 	const float bias[],
 	float output[])
 {
-
 	return nnp_convolution_output(
 		algorithm,
 		batch_size, input_channels, output_channels,
@@ -246,7 +243,6 @@ inline nnp_status nnp_convolution_output(
 		input, kernel, bias, output,
 		NULL, nnp_activation_identity, NULL);
 }
-
 
 inline nnp_status nnp_convolution_input_gradient(
 	nnp_convolution_algorithm algorithm,
@@ -260,7 +256,6 @@ inline nnp_status nnp_convolution_input_gradient(
 	const float kernel[],
 	float grad_input[])
 {
-
 	return nnp_convolution_input_gradient(
 		algorithm,
 		batch_size, input_channels, output_channels,
@@ -287,7 +282,6 @@ inline nnp_status nnp_convolution_kernel_gradient(
 		input_size, input_padding, kernel_size,
 		input, grad_output, grad_kernel,
 		NULL, nnp_activation_identity, NULL);
-
 }
 
 inline nnp_status nnp_convolution_inference(
