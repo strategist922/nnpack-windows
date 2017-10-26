@@ -2,7 +2,7 @@
 #### port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
 
-Before building the nnpack-windows repo you have to install PeachPY.
+Before building this repo you have to install PeachPY.
 Open a Phyton command prompt with Administrator rights and type:
   
   pip install --upgrade git+https://github.com/Maratyszcza/PeachPy
