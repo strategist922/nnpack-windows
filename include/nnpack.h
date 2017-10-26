@@ -29,13 +29,13 @@ enum nnp_status
 	nnp_status_invalid_input_padding = 12,
 	nnp_status_invalid_kernel_size = 13,
 	nnp_status_invalid_pooling_size = 14,
-    nnp_status_invalid_pooling_stride = 15,
+	nnp_status_invalid_pooling_stride = 15,
 	nnp_status_invalid_algorithm = 16,
 	nnp_status_invalid_transform_strategy = 17,
 	nnp_status_invalid_output_subsampling = 13,
 	nnp_status_invalid_activation = 14,
 	nnp_status_invalid_activation_parameters = 15,
-
+	
 	nnp_status_unsupported_input_size = 20,
 	nnp_status_unsupported_input_stride = 21,
 	nnp_status_unsupported_input_padding = 22,
