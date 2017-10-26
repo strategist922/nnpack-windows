@@ -5,12 +5,12 @@
 
 struct max_pooling_output_context 
 {
-	const size_t channels;
-	const struct nnp_size input_size;
-	const struct nnp_padding input_padding;
-	const struct nnp_size pooling_size;
-	const struct nnp_size pooling_stride;
-	const struct nnp_size output_size;
+	size_t channels;
+	nnp_size input_size;
+	nnp_padding input_padding;
+	nnp_size pooling_size;
+	nnp_size pooling_stride;
+	nnp_size output_size;
 	const float* input;
 	float* output;
 
@@ -18,16 +18,16 @@ struct max_pooling_output_context
 };
 
 static void compute_max_pooling_output(
-	const struct max_pooling_output_context* context,
+	const max_pooling_output_context* context,
 	const size_t sample, 
 	const size_t channel)
 {
-	const size_t channels                  = context->channels;
-	const struct nnp_size input_size       = context->input_size;
-	const struct nnp_padding input_padding = context->input_padding;
-	const struct nnp_size pooling_size     = context->pooling_size;
-	const struct nnp_size pooling_stride   = context->pooling_stride;
-	const struct nnp_size output_size      = context->output_size;
+	const size_t channels           = context->channels;
+	const nnp_size input_size       = context->input_size;
+	const nnp_padding input_padding = context->input_padding;
+	const nnp_size pooling_size     = context->pooling_size;
+	const nnp_size pooling_stride   = context->pooling_stride;
+	const  nnp_size output_size		= context->output_size;
 
 	const float* input = context->input;
 	float* output = context->output;
@@ -54,14 +54,14 @@ static void compute_max_pooling_output(
 void nnp_max_pooling_output__reference(
 	const size_t batch_size,
 	const size_t channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size pooling_size,
-	const struct nnp_size pooling_stride,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size pooling_size,
+	const nnp_size pooling_stride,
 	const float* input,
 	float* output)
 {
-	const struct nnp_size output_size = { divide_round_up(doz(input_padding.left + input_size.width + input_padding.right, pooling_size.width), pooling_stride.width) + 1ull,  divide_round_up(doz(input_padding.top + input_size.height + input_padding.bottom, pooling_size.height), pooling_stride.height) + 1ull };
+	const nnp_size output_size = { divide_round_up(doz(input_padding.left + input_size.width + input_padding.right, pooling_size.width), pooling_stride.width) + 1ull,  divide_round_up(doz(input_padding.top + input_size.height + input_padding.bottom, pooling_size.height), pooling_stride.height) + 1ull };
 	
 	struct max_pooling_output_context max_pooling_output_context = 
 	{

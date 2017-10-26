@@ -21,7 +21,7 @@
 #include <pooling.h>
 
 
-struct hardware_info nnp_hwinfo = {  };
+hardware_info nnp_hwinfo = {  };
 
 struct cpu_info
 {
@@ -280,7 +280,7 @@ static void init_hwinfo()
 	nnp_hwinfo.initialized = true;
 }
 
-enum nnp_status nnp_initialize()
+nnp_status nnp_initialize()
 {
 	init_hwinfo();
 	if (nnp_hwinfo.supported)
@@ -289,7 +289,7 @@ enum nnp_status nnp_initialize()
 		return nnp_status_unsupported_hardware;
 }
 
-enum nnp_status nnp_deinitialize() 
+nnp_status nnp_deinitialize() 
 {
 	return nnp_status_success;
 }

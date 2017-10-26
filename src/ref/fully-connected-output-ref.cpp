@@ -3,17 +3,15 @@
 
 struct fully_connected_output_context 
 {
-	const size_t input_channels;
-	const size_t output_channels;
+	size_t input_channels;
+	size_t output_channels;
 	const float* input_pointer;
 	const float* kernel_pointer;
 	float* output_pointer;
-
-	fully_connected_output_context() = default;
 };
 
 static void compute_fully_connected_output_f32(
-	const struct fully_connected_output_context* context,
+	const fully_connected_output_context* context,
 	const size_t sample, 
 	const size_t output_channel)
 {
@@ -39,7 +37,7 @@ void nnp_fully_connected_output_f32__reference(
 	const float* kernel,
 	float* output)
 {
-	struct fully_connected_output_context fully_connected_output_context = 
+	fully_connected_output_context fully_connected_output_context = 
 	{
 		input_channels,
 		output_channels,

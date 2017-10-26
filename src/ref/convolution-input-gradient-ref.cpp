@@ -3,17 +3,15 @@
 
 struct convolution_input_gradient_context 
 {
-	const size_t input_channels;
-	const size_t output_channels;
-	const struct nnp_size input_size;
-	const struct nnp_padding input_padding;
-	const struct nnp_size kernel_size;
-	const struct nnp_size output_size;
+	size_t input_channels;
+    size_t output_channels;
+	nnp_size input_size;
+	nnp_padding input_padding;
+	nnp_size kernel_size;
+	nnp_size output_size;
 	const float* grad_output_pointer;
 	const float* kernel_pointer;
 	float* grad_input_pointer;
-
-	convolution_input_gradient_context() = default;
 };
 
 static void compute_convolution_input_gradient(
@@ -59,14 +57,14 @@ void nnp_convolution_input_gradient__reference(
 	const size_t batch_size,
 	const size_t input_channels,
 	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* grad_output_pointer,
 	const float* kernel_pointer,
 	float* grad_input_pointer)
 {
-	const struct nnp_size output_size = {input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull, input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull};
+	const nnp_size output_size = {input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull, input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull};
 
 	struct convolution_input_gradient_context convolution_input_gradient_context = 
 	{

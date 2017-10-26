@@ -5,11 +5,11 @@ struct convolution_output_context
 {
 	size_t input_channels;
 	size_t output_channels;
-	struct nnp_size input_size;
-	struct nnp_padding input_padding;
-	struct nnp_size kernel_size;
-	struct nnp_size output_size;
-	struct nnp_size output_subsampling;
+	nnp_size input_size;
+	nnp_padding input_padding;
+	nnp_size kernel_size;
+	nnp_size output_size;
+	nnp_size output_subsampling;
 	const float* input_pointer;
 	const float* kernel_pointer;
 	const float* bias;
@@ -58,16 +58,16 @@ void nnp_convolution_output__reference(
 	const size_t batch_size,
 	const size_t input_channels,
 	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
-	const struct nnp_size output_subsampling,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_subsampling,
 	const float* input_pointer,
 	const float* kernel_pointer,
 	const float* bias,
 	float* output_pointer)
 {
-	const struct nnp_size output_size = {(input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, (input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull};
+	const nnp_size output_size = {(input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, (input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull};
 
 	struct convolution_output_context convolution_output_context = 
 	{

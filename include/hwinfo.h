@@ -32,10 +32,10 @@ struct cache_info
 
 struct cache_hierarchy_info 
 {
-	struct cache_info l1;
-	struct cache_info l2;
-	struct cache_info l3;
-	struct cache_info l4;
+	cache_info l1;
+	cache_info l2;
+	cache_info l3;
+	cache_info l4;
 };
 
 struct cache_blocking_info 
@@ -163,19 +163,19 @@ struct hardware_info
 	bool supported;
 	uint32_t simd_width;
 
-	struct cache_hierarchy_info cache;
-	struct cache_blocking_info blocking;
+	cache_hierarchy_info cache;
+	cache_blocking_info blocking;
 
-	struct transforms transforms;
-	struct activations activations;
-	struct convolution conv1x1;
-	struct sgemm sgemm;
-	struct sxgemm sxgemm;
-	struct cxgemm cxgemm;
-	struct sdotxf sdotxf;
-	struct shdotxf shdotxf;
+	transforms transforms;
+	activations activations;
+	convolution conv1x1;
+	sgemm sgemm;
+	sxgemm sxgemm;
+	cxgemm cxgemm;
+	sdotxf sdotxf;
+	shdotxf shdotxf;
 
-	struct isa_info isa;
+	isa_info isa;
 };
 
-extern struct hardware_info nnp_hwinfo;
+extern hardware_info nnp_hwinfo;
