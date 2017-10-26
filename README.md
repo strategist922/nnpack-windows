@@ -1,4 +1,4 @@
-# NNPACK for Windows 
+#NNPACK for Windows 
 #### port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
 
@@ -8,7 +8,7 @@ Open a Phyton command prompt with Administrator rights and type:
   
   pip install --upgrade git+https://github.com/Maratyszcza/PeachPy
 
-Now you're ready for sompiling with Visual Studio 2017
+Now you're ready for building with Visual Studio 2017
 
 
 Results of the unit tests:
