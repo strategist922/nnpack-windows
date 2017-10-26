@@ -229,7 +229,7 @@ static void compute_tuple_multiplication(
 
 	const float* input_transform  = context->input_transform +	tiles_block_start * input_channels_block_size * tuple_size;
 	const float* kernel_transform = context->kernel_transform +	(output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
-	float* output_transform       = context->output_transform +	(tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
+	float* output_transform = context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
 
 	if (output_channels_subblock_size == output_channels_subblock_max) 
 	{
@@ -255,9 +255,13 @@ static void compute_tuple_multiplication(
 		tiles_block_size -= tiles_subblock_size;
 
 		full_gemm(
-			uint32_t(tiles_subblock_size), uint32_t(output_channels_subblock_size),
-			input_channels_block_size, input_channels_block_start,
-			input_transform, kernel_transform, output_transform,
+			uint32_t(tiles_subblock_size),
+			uint32_t(output_channels_subblock_size),
+			input_channels_block_size,
+			input_channels_block_start,
+			input_transform,
+			kernel_transform,
+			output_transform,
 			output_channels_subblock_size * tuple_elements);
 
 		input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
@@ -596,8 +600,8 @@ static nnp_status compute_fast_convolution_inference(
 						output_channels_subblock_max,
 						1ull);
 				} 
-				/*else 
-					kernel_transform = (float*)kernel + input_channels_block_start * output_channels * tile_elements;*/
+				else 
+					kernel_transform = (float*)kernel + input_channels_block_start * output_channels * tile_elements;
 				
 				input_transform_context input_transform_context = 
 				{
@@ -733,7 +737,6 @@ static nnp_status compute_fast_convolution_inference(
 					output_channels_subblock_max,
 					1ull);
 			}
-			break;
 		}
 		break;
 
@@ -885,7 +888,7 @@ static nnp_status compute_gemm_convolution_inference(
 		{
 			const float bias_value = bias[output_channel];
 			for (size_t index = 0ull; index < output_image_size; index++)
-				relu(output[output_channel * output_image_size + index] += bias_value, 0.0f);
+				output[output_channel * output_image_size + index] = relu(output[output_channel * output_image_size + index] + bias_value, 0.0f);
 		}
 		break;
 	}
@@ -929,11 +932,25 @@ static nnp_status compute_direct_convolution_inference(
 		nnp_hwinfo.conv1x1.nr);
 
 	/* Add bias */
-	for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++)
+	switch (activation) 
 	{
-		const float bias_value = bias[output_channel];
-		for (size_t index = 0ull; index < image_elements; index++)
-			output[output_channel * image_elements + index] += bias_value;
+	case nnp_activation_identity:
+		for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++)
+		{
+			const float bias_value = bias[output_channel];
+			for (size_t index = 0ull; index < image_elements; index++)
+				output[output_channel * image_elements + index] += bias_value;
+		}
+		break;
+
+	case nnp_activation_relu:
+		for (size_t output_channel = 0ull; output_channel < output_channels; output_channel++) 
+		{
+			const float bias_value = bias[output_channel];
+			for (size_t index = 0ull; index < image_elements; index ++) 
+				output[output_channel * image_elements + index] = relu(output[output_channel * image_elements + index] + bias_value, 0.0f);
+		}
+		break;
 	}
 
 	return nnp_status_success;
@@ -972,7 +989,7 @@ nnp_status nnp_convolution_inference(
 			algorithm = nnp_convolution_algorithm_direct;
 		else 
 		{
-			const size_t tile_count_8x8 = divide_round_up(output_size.height, 8ull - kernel_size.height + 1ull) *	divide_round_up(output_size.width, 8ull - kernel_size.width + 1ull);
+			const size_t tile_count_8x8 = divide_round_up(output_size.height, 8ull - kernel_size.height + 1ull) * divide_round_up(output_size.width, 8ull - kernel_size.width + 1ull);
 			const size_t tile_count_16x16 = divide_round_up(output_size.height, 16ull - kernel_size.height + 1ull) * divide_round_up(output_size.width, 16ull - kernel_size.width + 1ull);
 			if (tile_count_8x8 <= 4 * tile_count_16x16) 
 			{
@@ -1002,11 +1019,12 @@ nnp_status nnp_convolution_inference(
 			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.kwt_f6x6_3x3;
+			fourier_transform = false;
 			if (activation == nnp_activation_relu)
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
 			else
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
-			fourier_transform = false;
+			
 		}
 		break;
 
@@ -1015,11 +1033,11 @@ nnp_status nnp_convolution_inference(
 			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
+			fourier_transform = true;
 			if (activation == nnp_activation_relu)
 				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu;
 			else
 				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
-			fourier_transform = true;
 		}
 		break;
 
@@ -1028,11 +1046,11 @@ nnp_status nnp_convolution_inference(
 			tile_size = nnp_size{ 16ull, 16ull };
 			input_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
+			fourier_transform = true;
 			if (activation == nnp_activation_relu)
 				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu;
 			else
 				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
-			fourier_transform = true;
 		}
 		break;
 		
@@ -1060,7 +1078,8 @@ nnp_status nnp_convolution_inference(
 				fourier_transform, transform_strategy, transform_element_size,
 				input_channels, output_channels,
 				tile_size, input_size, input_padding, kernel_size, output_size,
-				input, kernel, bias, output, workspace_buffer, input_transform_function, kernel_transform_function, output_transform_function);
+				input, kernel, bias, output, workspace_buffer,
+				input_transform_function, kernel_transform_function, output_transform_function);
 		}
 		break;
 

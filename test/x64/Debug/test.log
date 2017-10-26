@@ -1,4 +1,4 @@
 ﻿  stdafx.cpp
-  smoke.cc
+  alexnet.cc
   Generating Code...
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\test.exe

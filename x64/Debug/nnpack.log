@@ -66,21 +66,20 @@ src\convolution-inference.cpp(79): warning C4324: 'input_transform_context': str
 src\convolution-inference.cpp(85): warning C4100: 'input_channels_block_range': unreferenced formal parameter
 src\convolution-inference.cpp(146): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
 src\convolution-inference.cpp(212): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(275): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(282): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(309): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(315): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(370): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(443): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(516): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(764): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(909): warning C4100: 'activation': unreferenced formal parameter
-src\convolution-inference.cpp(908): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(903): warning C4100: 'kernel_size': unreferenced formal parameter
+src\convolution-inference.cpp(279): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(286): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(313): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(319): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(374): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(447): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(520): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(767): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(911): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(906): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1056): warning C4701: potentially uninitialized local variable 'tile_size' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1059): warning C4701: potentially uninitialized local variable 'fourier_transform' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1097): warning C4701: potentially uninitialized local variable 'status' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1074): warning C4701: potentially uninitialized local variable 'tile_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1077): warning C4701: potentially uninitialized local variable 'fourier_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1116): warning C4701: potentially uninitialized local variable 'status' used
 c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4701: potentially uninitialized local variable 'output_transform_function' used
 c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4703: potentially uninitialized local pointer variable 'output_transform_function' used
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib
