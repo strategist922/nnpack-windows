@@ -1,5 +1,5 @@
 # NNPACK for Windows 
-### port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
+#### port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
 
 The steps to build the nnpack-windows repo:
@@ -12,8 +12,6 @@ Open a Phyton command prompt with Administrator rights and type:
 
 
 Now you can build the repo in VS2017
-
-
 
 
 Results of the unit tests:
@@ -57,40 +55,12 @@ Results of the unit tests:
   
 
 ### fourier:
-
-passed
-
-
 ### fully-connected-inference:
-
-passed
-
-
 ### fully-connected:
-
-passed
-
-
 ### max-pooling-output:
-
-passed
-
-
 ### relu-input-gradient:
-
-passed
-
-
 ### sgemm:
-
-passed
-
-
 ### softmax-output:
-
-passed
-
-
 ### winograd:
 
-passed
+  * all passed
