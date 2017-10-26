@@ -233,9 +233,9 @@ static void compute_fully_connected_output(
 }
 
 nnp_status nnp_fully_connected_output(
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output)

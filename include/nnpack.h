@@ -105,110 +105,110 @@ nnp_status nnp_deinitialize();
 
 nnp_status nnp_convolution_output(
 	nnp_convolution_algorithm algorithm,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters);
 
 	
 nnp_status nnp_convolution_input_gradient(
 	nnp_convolution_algorithm algorithm,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters);
 
 nnp_status nnp_convolution_kernel_gradient(
-	nnp_convolution_algorithm algorithm,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
+	const nnp_convolution_algorithm algorithm,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters);
 
 	
 nnp_status nnp_convolution_inference(
 	nnp_convolution_algorithm algorithm,
-	nnp_convolution_transform_strategy transform_strategy,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
-	nnp_size output_subsampling,
+	const nnp_convolution_transform_strategy transform_strategy,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_subsampling,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters);
 
 nnp_status nnp_fully_connected_output(
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output);
 
 nnp_status nnp_fully_connected_inference(
-	size_t input_channels,
-	size_t output_channels,
+	const size_t input_channels,
+	const size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output);
 
 nnp_status nnp_max_pooling_output(
-	size_t batch_size,
-	size_t channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size pooling_size,
-	nnp_size pooling_stride,
+	const size_t batch_size,
+	const size_t channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size pooling_size,
+	const nnp_size pooling_stride,
 	const float* input,
 	float* output);
 
 nnp_status nnp_softmax_output(
-	size_t batch_size,
-	size_t channels,
+	const size_t batch_size,
+	const size_t channels,
 	const float* input,
 	float* output);
 
 nnp_status nnp_relu_output(
-	size_t batch_size,
-	size_t channels,
+	const size_t batch_size,
+	const size_t channels,
 	const float* input,
 	float* output,
 	const float negative_slope);
 
 nnp_status nnp_relu_input_gradient(
-	size_t batch_size,
-	size_t channels,
+	const size_t batch_size,
+	const size_t channels,
 	const float* grad_output,
 	const float* input,
 	float* grad_input,

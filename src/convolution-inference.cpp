@@ -32,10 +32,10 @@ struct __declspec(align(64)) kernel_transform_context
 
 static void compute_kernel_transform(
 	const kernel_transform_context* context,
-	size_t output_channels_subblock_start, 
-	size_t input_channels_block_offset,
-	size_t output_channels_subblock_size,  
-	size_t input_channels_block_increment)
+	const size_t output_channels_subblock_start,
+	const size_t input_channels_block_offset,
+	const size_t output_channels_subblock_size,
+	const size_t input_channels_block_increment)
 {
 	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
 	const float* kernel										= context->kernel;
@@ -80,10 +80,10 @@ struct __declspec(align(64)) input_transform_context
 
 static void compute_input_transform(
 	const input_transform_context* context,
-	size_t input_channels_block_offset,
-	size_t tiles_subblock_start,
-	size_t input_channels_block_range,
-	size_t tiles_subblock_size)
+	const size_t input_channels_block_offset,
+	const size_t tiles_subblock_start,
+	const size_t input_channels_block_range,
+	const size_t tiles_subblock_size)
 {
 	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
 	const float* input										= context->input;
@@ -147,10 +147,10 @@ struct __declspec(align(64)) output_transform_context
 
 static void compute_output_transform(
 	const output_transform_context* context,
-	size_t output_channels_subblock_start,
-	size_t tiles_subblock_start,
-	size_t output_channels_subblock_size,
-	size_t tiles_subblock_size)
+	const size_t output_channels_subblock_start,
+	const size_t tiles_subblock_start,
+	const size_t output_channels_subblock_size,
+	const size_t tiles_subblock_size)
 {
 	const nnp_transform_2d_with_bias transform_function	= context->transform_function;
 	float* output										= context->output;
@@ -295,17 +295,17 @@ struct __declspec(align(64)) input_packing_context
 {
 	const float* input;
 	float* packed_input;
-	const size_t simd_width;
-	const size_t reduction_block_start;
-	const size_t reduction_block_size;
-	const size_t output_image_block_start;
-	const nnp_size input_size;
-	const size_t input_padding_top;
-	const size_t input_padding_left;
-	const fxdiv_divisor_size_t kernel_elements;
-	const fxdiv_divisor_size_t kernel_width;
-	const fxdiv_divisor_size_t output_width;
-	const nnp_size output_subsampling;
+	size_t simd_width;
+	size_t reduction_block_start;
+	size_t reduction_block_size;
+	size_t output_image_block_start;
+	nnp_size input_size;
+	size_t input_padding_top;
+	size_t input_padding_left;
+	fxdiv_divisor_size_t kernel_elements;
+	fxdiv_divisor_size_t kernel_width;
+	fxdiv_divisor_size_t output_width;
+	nnp_size output_subsampling;
 };
 
 static void compute_input_packing(
@@ -499,16 +499,16 @@ static void compute_direct_convolution(
 }
 
 static nnp_status compute_fast_convolution_inference(
-	bool fourier_transform,
-	nnp_convolution_transform_strategy transform_strategy,
-	size_t transform_element_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size tile_size,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
-	nnp_size output_size,
+	const bool fourier_transform,
+	const nnp_convolution_transform_strategy transform_strategy,
+	const size_t transform_element_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size tile_size,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_size,
 	const float* input,
 	const float* kernel,
 	const float* bias,
@@ -762,7 +762,7 @@ static nnp_status compute_gemm_convolution_inference(
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation)
+	const nnp_activation activation)
 {
 	nnp_status status = nnp_status_success;
 	const size_t simd_width = nnp_hwinfo.simd_width;
@@ -798,7 +798,7 @@ static nnp_status compute_gemm_convolution_inference(
 		const size_t reduction_block_size = min(reduction_size - reduction_block_start, reduction_block_max);
 
 		/* Pack kernel into memory block */
-		struct kernel_packing_context kernel_packing_context = 
+		kernel_packing_context kernel_packing_context = 
 		{
 			kernel + reduction_block_start,
 			packed_kernel,
@@ -822,7 +822,7 @@ static nnp_status compute_gemm_convolution_inference(
 			const size_t output_image_block_size = min(output_image_size - output_image_block_start, output_image_block_max);
 
 			/* Pack image into L3 block */
-			struct input_packing_context input_packing_context = 
+			input_packing_context input_packing_context = 
 			{
 				input,
 				packed_input,
@@ -846,7 +846,7 @@ static nnp_status compute_gemm_convolution_inference(
 				1ull,
 				output_image_subblock_max);
 		
-			struct matrix_multiplication_context matrix_multiplication_context = 
+			matrix_multiplication_context matrix_multiplication_context = 
 			{
 				packed_kernel,
 				packed_input,
@@ -906,7 +906,7 @@ static nnp_status compute_direct_convolution_inference(
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation)
+	const nnp_activation activation)
 {
 	const size_t image_elements = image_size.height * image_size.width;
 
@@ -941,19 +941,19 @@ static nnp_status compute_direct_convolution_inference(
 
 nnp_status nnp_convolution_inference(
 	nnp_convolution_algorithm algorithm,
-	nnp_convolution_transform_strategy transform_strategy,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
-	nnp_size output_subsampling,
+	const nnp_convolution_transform_strategy transform_strategy,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_subsampling,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters)
 {
 	const nnp_size output_size = { (input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, 

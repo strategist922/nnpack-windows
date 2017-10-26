@@ -459,17 +459,17 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 
 nnp_status nnp_convolution_kernel_gradient(
 	nnp_convolution_algorithm algorithm,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters)
 {
 	const nnp_size output_size = 

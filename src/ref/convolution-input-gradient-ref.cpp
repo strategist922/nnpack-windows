@@ -15,16 +15,16 @@ struct convolution_input_gradient_context
 };
 
 static void compute_convolution_input_gradient(
-	const struct convolution_input_gradient_context* context,
+	const convolution_input_gradient_context* context,
 	const size_t sample, 
 	const size_t input_channel)
 {
 	const size_t input_channels            = context->input_channels;
 	const size_t output_channels           = context->output_channels;
-	const struct nnp_size input_size       = context->input_size;
-	const struct nnp_padding input_padding = context->input_padding;
-	const struct nnp_size kernel_size      = context->kernel_size;
-	const struct nnp_size output_size      = context->output_size;
+	const nnp_size input_size       = context->input_size;
+	const nnp_padding input_padding = context->input_padding;
+	const nnp_size kernel_size      = context->kernel_size;
+	const nnp_size output_size      = context->output_size;
 
 	const float* grad_output = context->grad_output_pointer;
 	const float* kernel = context->kernel_pointer;
@@ -66,7 +66,7 @@ void nnp_convolution_input_gradient__reference(
 {
 	const nnp_size output_size = {input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull, input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull};
 
-	struct convolution_input_gradient_context convolution_input_gradient_context = 
+	convolution_input_gradient_context convolution_input_gradient_context = 
 	{
 		input_channels,
 		output_channels,

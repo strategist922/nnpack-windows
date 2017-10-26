@@ -27,10 +27,10 @@ struct __declspec(align(64)) kernel_transform_context
 
 static void compute_kernel_transform(
 	const kernel_transform_context* context,
-	size_t input_channel, 
-	size_t output_channels_subblock_start,
-	size_t input_channel_range, 
-	size_t output_channels_subblock_size)
+	const size_t input_channel,
+	const size_t output_channels_subblock_start,
+	const size_t input_channel_range,
+	const size_t output_channels_subblock_size)
 {
 	nnp_transform_2d_with_offset transform_function	= context->transform_function;
 	const float* kernel										= context->kernel;
@@ -79,10 +79,10 @@ struct __declspec(align(64)) input_transform_context
 
 static void compute_input_transform(
 	const input_transform_context* context,
-	size_t input_channel, 
-	size_t batch_subblock_start,
-	size_t input_channel_range, 
-	size_t batch_subblock_size)
+	const size_t input_channel,
+	const size_t batch_subblock_start,
+	const size_t input_channel_range,
+	const size_t batch_subblock_size)
 {
 	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
 	const float* input										= context->input;
@@ -135,10 +135,10 @@ struct __declspec(align(64)) output_transform_context
 
 static void compute_output_transform(
 	const output_transform_context* context,
-	size_t sample, 
-	size_t output_channels_subblock_start,
-	size_t sample_range, 
-	size_t output_channels_subblock_size)
+	const size_t sample,
+	const size_t output_channels_subblock_start,
+	const size_t sample_range,
+	const size_t output_channels_subblock_size)
 {
 	const nnp_transform_2d_with_bias transform_function	= context->transform_function;
 	float* output										= context->output;
@@ -189,10 +189,10 @@ struct __declspec(align(64)) matrix_multiplication_context
 
 static void compute_matrix_multiplication(
 	const matrix_multiplication_context* context,
-	size_t output_channels_block_start, 
-	size_t batch_subblock_start,
-	size_t output_channels_block_size, 
-	size_t batch_subblock_size)
+	const size_t output_channels_block_start,
+	const size_t batch_subblock_start,
+	size_t output_channels_block_size,
+	const size_t batch_subblock_size)
 {
 	const size_t tuple_elements						= context->tuple_elements;
 	const size_t batch_block_size					= context->batch_block_size;
@@ -246,16 +246,16 @@ static void compute_matrix_multiplication(
 }
 
 
-static enum nnp_status compute_fast_convolution_output(
-	bool fourier_transform,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size tile_size,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
-	nnp_size output_size,
+static nnp_status compute_fast_convolution_output(
+	const bool fourier_transform,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size tile_size,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_size,
 	const float* input,
 	const float* kernel,
 	const float* bias,
@@ -476,19 +476,19 @@ static enum nnp_status compute_fast_convolution_output(
 }
 
 enum nnp_status nnp_convolution_output(
-	enum nnp_convolution_algorithm algorithm,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
+	nnp_convolution_algorithm algorithm,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters
 	)
 {
@@ -527,7 +527,7 @@ enum nnp_status nnp_convolution_output(
 	}
 
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
-	enum nnp_status status = nnp_status_success;
+	nnp_status status = nnp_status_success;
 	nnp_transform_2d_with_bias output_transform_function;
 	
 	switch (algorithm) 

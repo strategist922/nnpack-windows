@@ -33,12 +33,12 @@ static void compute_grad_relu(
 }
 
 nnp_status nnp_relu_input_gradient(
-	size_t batch_size,
-	size_t channels,
+	const size_t batch_size,
+	const size_t channels,
 	const float* grad_output,
 	const float* input,
 	float* grad_input,
-	float negative_slope)
+	const float negative_slope)
 {
 	nnp_status status = validate_relu_arguments(batch_size, channels);
 	if (status != nnp_status_success)

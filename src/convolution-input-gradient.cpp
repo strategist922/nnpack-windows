@@ -27,10 +27,10 @@ struct __declspec(align(64)) kernel_transform_context
 
 static void compute_kernel_transform(
 	const kernel_transform_context* context,
-	size_t output_channel,      
-	size_t input_channels_subblock_start,
-	size_t output_channel_range, 
-	size_t input_channels_subblock_size)
+	const size_t output_channel,
+	const size_t input_channels_subblock_start,
+	const size_t output_channel_range,
+	const size_t input_channels_subblock_size)
 {
 	nnp_transform_2d_with_offset transform_function			= context->transform_function;
 	const float* kernel										= context->kernel;
@@ -78,10 +78,10 @@ struct __declspec(align(64)) grad_output_transform_context
 
 static void compute_grad_output_transform(
 	const grad_output_transform_context* context,
-	size_t output_channel,
-	size_t batch_subblock_start,
-	size_t output_channel_range,
-	size_t batch_subblock_size)
+	const size_t output_channel,
+	const size_t batch_subblock_start,
+	const size_t output_channel_range,
+	const size_t batch_subblock_size)
 {
 	nnp_transform_2d_with_offset transform_function			= context->transform_function;
 	const float* grad_output								= context->grad_output;
@@ -133,10 +133,10 @@ struct __declspec(align(64)) grad_input_transform_context
 
 static void compute_grad_input_transform(
 	const grad_input_transform_context* context,
-	size_t sample,
-	size_t input_channels_subblock_start,
-	size_t sample_range,
-	size_t input_channels_subblock_size)
+	const size_t sample,
+	const size_t input_channels_subblock_start,
+	const size_t sample_range,
+	const size_t input_channels_subblock_size)
 {
 	nnp_transform_2d_with_offset transform_function			= context->transform_function;
 	float* grad_input										= context->grad_input;
@@ -192,10 +192,10 @@ struct __declspec(align(64)) matrix_multiplication_context
 
 static void compute_matrix_multiplication(
 	const matrix_multiplication_context* context,
-	size_t input_channels_block_start, 
-	size_t batch_subblock_start,
+	const size_t input_channels_block_start,
+	const size_t batch_subblock_start,
 	size_t input_channels_block_size,
-	size_t batch_subblock_size)
+	const size_t batch_subblock_size)
 {
 	const size_t tuple_elements					= context->tuple_elements;
 	const size_t batch_size						= context->batch_size;
@@ -249,16 +249,16 @@ static void compute_matrix_multiplication(
 	}
 }
 
-static enum nnp_status compute_fast_convolution_input_gradient(
-	bool fourier_transform,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size tile_size,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
-	nnp_size output_size,
+static nnp_status compute_fast_convolution_input_gradient(
+	const bool fourier_transform,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size tile_size,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_size,
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
@@ -478,17 +478,17 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 
 nnp_status nnp_convolution_input_gradient(
 	nnp_convolution_algorithm algorithm,
-	size_t batch_size,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters)
 {
 	const nnp_size output_size =

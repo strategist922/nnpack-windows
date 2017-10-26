@@ -19,8 +19,8 @@ struct __declspec(align(64)) relu_context
 
 static void compute_relu_output(
 	const relu_context* context,
-	size_t block_start,
-	size_t block_size)
+	const size_t block_start,
+	const size_t block_size)
 {
 	const nnp_relu_function relu	= context->relu_function;
 	const float* input			    = context->input;
@@ -39,8 +39,8 @@ struct __declspec(align(64)) inplace_relu_context
 
 static void compute_inplace_relu_output(
 	const struct inplace_relu_context* context,
-	size_t block_start,
-	size_t block_size)
+	const size_t block_start,
+	const size_t block_size)
 {
 	const nnp_inplace_relu_function relu = context->relu_function;
 	float* data							 = context->data;
@@ -50,11 +50,11 @@ static void compute_inplace_relu_output(
 }
 
 nnp_status nnp_relu_output(
-	size_t batch_size,
-	size_t channels,
+	const size_t batch_size,
+	const size_t channels,
 	const float* input,
 	float* output,
-	float negative_slope)
+	const float negative_slope)
 {
 	enum nnp_status status = validate_relu_arguments(batch_size, channels);
 	if (status != nnp_status_success) 

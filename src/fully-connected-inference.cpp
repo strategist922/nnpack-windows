@@ -31,8 +31,8 @@ static void compute_fully_connected_inference_f32(
 }
 
 nnp_status nnp_fully_connected_inference(
-	size_t input_channels,
-	size_t output_channels,
+	const size_t input_channels,
+	const size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output)

@@ -137,12 +137,12 @@ static void compute_pooling_output(
 }
 
 nnp_status nnp_max_pooling_output(
-	size_t batch_size,
-	size_t channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size pooling_size,
-	nnp_size pooling_stride,
+	const size_t batch_size,
+	const size_t channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size pooling_size,
+	const nnp_size pooling_stride,
 	const float* input,
 	float* output)
 {

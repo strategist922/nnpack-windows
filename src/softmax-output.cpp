@@ -46,8 +46,8 @@ static void compute_inplace_softmax_output(
 }
 
 nnp_status nnp_softmax_output(
-	size_t batch_size,
-	size_t channels,
+	const size_t batch_size,
+	const size_t channels,
 	const float* input,
 	float* output)
 {
