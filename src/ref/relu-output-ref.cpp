@@ -8,6 +8,8 @@ struct relu_output_context
 	const float* input;
 	float* output;
 	const float negative_slope;
+
+	relu_output_context() = default;
 };
 
 static void compute_relu_output(

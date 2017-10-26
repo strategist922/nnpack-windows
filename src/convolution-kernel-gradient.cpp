@@ -15,22 +15,22 @@
 
 struct __declspec(align(64)) input_transform_context
 {
-	const size_t tuple_elements;
-	const size_t input_elements;
-	const size_t batch_block_size;
-	const size_t input_channels;
-	const size_t input_stride;
-	const uint32_t row_offset;
-	const uint32_t column_offset;
-	const uint32_t row_count;
-	const uint32_t column_count;
+	size_t tuple_elements;
+	size_t input_elements;
+	size_t batch_block_size;
+	size_t input_channels;
+	size_t input_stride;
+	uint32_t row_offset;
+	uint32_t column_offset;
+	uint32_t row_count;
+	uint32_t column_count;
 	const float* input;
 	float* input_transform;
-	const nnp_transform_2d_with_offset transform_function;
+	nnp_transform_2d_with_offset transform_function;
 };
 
 static void compute_input_transform(
-	const struct input_transform_context* context,
+	const input_transform_context* context,
 	const size_t batch_block_offset,
 	const size_t input_channels_subblock_start,
 	const size_t batch_block_offset_range,
@@ -65,20 +65,20 @@ static void compute_input_transform(
 
 struct __declspec(align(64)) grad_output_transform_context
 {
-	const size_t tuple_elements;
-	const size_t output_elements;
-	const size_t batch_block_size;
-	const size_t output_channels;
-	const size_t grad_output_stride;
-	const uint32_t row_count;
-	const uint32_t column_count;
+	size_t tuple_elements;
+	size_t output_elements;
+	size_t batch_block_size;
+	size_t output_channels;
+	size_t grad_output_stride;
+	uint32_t row_count;
+	uint32_t column_count;
 	const float* grad_output;
 	float* grad_output_transform;
-	const nnp_transform_2d_with_offset transform_function;
+	nnp_transform_2d_with_offset transform_function;
 };
 
 static void compute_grad_output_transform(
-	const struct grad_output_transform_context* context,
+	const grad_output_transform_context* context,
 	const size_t batch_block_offset,
 	const size_t output_channels_subblock_start,
 	const size_t batch_block_offset_range,
@@ -112,18 +112,18 @@ static void compute_grad_output_transform(
 
 struct __declspec(align(64)) grad_kernel_transform_context
 {
-	const size_t tuple_elements;
-	const size_t input_channels;
-	const size_t output_channels;
-	const size_t output_channels_block_max;
-	const struct nnp_size kernel_size;
+	size_t tuple_elements;
+	size_t input_channels;
+	size_t output_channels;
+	size_t output_channels_block_max;
+	nnp_size kernel_size;
 	const float* grad_kernel_transform;
 	float* grad_kernel;
-	const nnp_transform_2d_with_offset transform_function;
+	nnp_transform_2d_with_offset transform_function;
 };
 
 static void compute_grad_kernel_transform(
-	const struct grad_kernel_transform_context* context,
+	const grad_kernel_transform_context* context,
 	const size_t output_channel,
 	const size_t input_channels_subblock_start,
 	const size_t output_channel_range,
@@ -133,7 +133,7 @@ static void compute_grad_kernel_transform(
 	const size_t input_channels						= context->input_channels;
 	const size_t output_channels					= context->output_channels;
 	const size_t output_channels_block_max			= context->output_channels_block_max;
-	const struct nnp_size kernel_size				= context->kernel_size;
+	const nnp_size kernel_size						= context->kernel_size;
 	const float* grad_kernel_transform				= context->grad_kernel_transform;
 	float* grad_kernel								= context->grad_kernel;
 	const nnp_transform_2d_with_offset transform	= context->transform_function;
@@ -160,16 +160,16 @@ static void compute_grad_kernel_transform(
 
 struct __declspec(align(64)) matrix_multiplication_context
 {
-	const size_t tuple_elements;
-	const size_t batch_size;
-	const size_t batch_block_size;
-	const size_t batch_block_update;
-	const size_t input_channels;
-	const size_t input_channels_block_start;
-	const size_t input_channels_block_size;
-	const size_t input_channels_subblock_max;
-	const size_t output_channels;
-	const size_t output_channels_subblock_max;
+	size_t tuple_elements;
+	size_t batch_size;
+	size_t batch_block_size;
+	size_t batch_block_update;
+	size_t input_channels;
+	size_t input_channels_block_start;
+	size_t input_channels_block_size;
+	size_t input_channels_subblock_max;
+	size_t output_channels;
+	size_t output_channels_subblock_max;
 	const float* grad_output_transform;
 	const float* input_transform;
 	float* grad_kernel_transform;
@@ -240,25 +240,25 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	const size_t batch_size,
 	const size_t input_channels,
 	const size_t output_channels,
-	const struct nnp_size tile_size,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
-	const struct nnp_size output_size,
+	const nnp_size tile_size,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_size,
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
-	struct nnp_workspace_pointers* workspace_buffer,
-	const nnp_transform_2d_with_offset input_transform_function,
-	const nnp_transform_2d_with_offset grad_output_transform_function,
-	const nnp_transform_2d_with_offset grad_kernel_transform_function)
+	nnp_workspace_pointers* workspace_buffer,
+	nnp_transform_2d_with_offset input_transform_function,
+	nnp_transform_2d_with_offset grad_output_transform_function,
+	nnp_transform_2d_with_offset grad_kernel_transform_function)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = simd_width << 1ull;
 	const size_t tile_elements = tile_size.height * tile_size.width;
 	const size_t tuple_count = tile_elements / tuple_elements;
 
-	const struct nnp_size output_tile = { tile_size.width - kernel_size.width + 1ull, tile_size.height - kernel_size.height + 1ull };
+	const nnp_size output_tile = { tile_size.width - kernel_size.width + 1ull, tile_size.height - kernel_size.height + 1ull };
 
 	/* Calculate cache blocking parameters */
 	const size_t cache_elements_l1 = nnp_hwinfo.blocking.l1 / (tuple_elements * sizeof(float));
@@ -330,7 +330,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 				const size_t batch_block_size = min(batch_size - batch_block_start, batch_block_max);
 
 				/* Input transform */
-				struct input_transform_context input_transform_context = 
+				input_transform_context input_transform_context = 
 				{
 					tuple_elements,
 					input_size.height * input_size.width,
@@ -353,7 +353,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 					1u,
 					input_channels_subblock_max);
 				
-				struct grad_output_transform_context grad_output_transform_context = 
+				grad_output_transform_context grad_output_transform_context = 
 				{
 					tuple_elements,
 					output_size.height * output_size.width,
@@ -380,7 +380,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 					{
 						const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
 
-						struct matrix_multiplication_context matrix_multiplication_context = 
+						matrix_multiplication_context matrix_multiplication_context = 
 						{
 							tuple_elements,
 							batch_size,
@@ -418,7 +418,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 		}
 	}
 	/* Grad kernel transform */
-	struct grad_kernel_transform_context grad_kernel_transform_context = 
+	grad_kernel_transform_context grad_kernel_transform_context = 
 	{
 		tuple_elements,
 		input_channels,
@@ -457,22 +457,22 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	return nnp_status_success;
 }
 
-enum nnp_status nnp_convolution_kernel_gradient(
-	enum nnp_convolution_algorithm algorithm,
-	const size_t batch_size,
-	const size_t input_channels,
-	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
+nnp_status nnp_convolution_kernel_gradient(
+	nnp_convolution_algorithm algorithm,
+	size_t batch_size,
+	size_t input_channels,
+	size_t output_channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size kernel_size,
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
-	struct nnp_workspace_pointers* workspace_buffer,
-	const enum nnp_activation activation,
+	nnp_workspace_pointers* workspace_buffer,
+	nnp_activation activation,
 	const void* activation_parameters)
 {
-	const struct nnp_size output_size = 
+	const nnp_size output_size = 
 	{
 		input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull,
 		input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull
@@ -504,7 +504,7 @@ enum nnp_status nnp_convolution_kernel_gradient(
 	}
 
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
-	enum nnp_status status = nnp_status_success;
+	nnp_status status = nnp_status_success;
 	
 	switch (algorithm) 
 	{

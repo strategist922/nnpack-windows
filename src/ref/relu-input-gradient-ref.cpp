@@ -4,11 +4,11 @@
 
 struct relu_input_gradient_context 
 {
-	const size_t channels;
+	size_t channels;
 	const float* grad_output;
 	const float* input;
 	float* grad_input;
-	const float negative_slope;
+	float negative_slope;
 };
 
 static void compute_relu_input_gradient(

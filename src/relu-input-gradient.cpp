@@ -19,27 +19,28 @@ struct __declspec(align(64)) relu_context
 };
 
 static void compute_grad_relu(
-	const struct relu_context* context,
-	const size_t block_start, const size_t block_size)
+	const relu_context* context,
+	const size_t block_start,
+	const size_t block_size)
 {
-	nnp_grad_relu_function grad_relu = context->grad_relu_function;
-	const float* grad_output         = context->grad_output;
-	const float* input               = context->input;
-	float* grad_input                = context->grad_input;
-	float negative_slope             = context->negative_slope;
+	const nnp_grad_relu_function grad_relu	= context->grad_relu_function;
+	const float* grad_output				= context->grad_output;
+	const float* input						= context->input;
+	float* grad_input						= context->grad_input;
+	const float negative_slope				= context->negative_slope;
 
 	grad_relu(grad_output + block_start, input + block_start, grad_input + block_start, block_size, negative_slope);
 }
 
-enum nnp_status nnp_relu_input_gradient(
-	const size_t batch_size,
-	const size_t channels,
+nnp_status nnp_relu_input_gradient(
+	size_t batch_size,
+	size_t channels,
 	const float* grad_output,
 	const float* input,
 	float* grad_input,
 	float negative_slope)
 {
-	enum nnp_status status = validate_relu_arguments(batch_size, channels);
+	nnp_status status = validate_relu_arguments(batch_size, channels);
 	if (status != nnp_status_success)
 		return status;
 	
@@ -65,7 +66,7 @@ enum nnp_status nnp_relu_input_gradient(
 	
 	elements -= epilogue_elements;
 
-	struct relu_context relu_context = 
+	relu_context relu_context = 
 	{
 		nnp_hwinfo.activations.grad_relu,
 		grad_output,
@@ -74,9 +75,10 @@ enum nnp_status nnp_relu_input_gradient(
 		negative_slope
 	};
 	pthreadpool_compute_1d_tiled(
-		(pthreadpool_function_1d_tiled_t) compute_grad_relu,
+		(pthreadpool_function_1d_tiled_t)compute_grad_relu,
 		&relu_context,
-		elements, round_down(nnp_hwinfo.blocking.l1 / sizeof(float), simd_width));
+		elements,
+		round_down(nnp_hwinfo.blocking.l1 / sizeof(float), simd_width));
 
 	return nnp_status_success;
 }

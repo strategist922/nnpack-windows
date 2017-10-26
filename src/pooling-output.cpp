@@ -19,13 +19,12 @@ struct __declspec(align(64)) pooling_context
 	nnp_pooling_function pooling_function;
 	const float* input_pointer;
 	float* output_pointer;
-
-	const size_t channels;
-	const struct nnp_size input_size;
-	const struct nnp_padding input_padding;
-	const struct nnp_size output_size;
-	const struct nnp_size pooling_size;
-	const struct nnp_size pooling_stride;
+	size_t channels;
+	nnp_size input_size;
+	nnp_padding input_padding;
+	nnp_size output_size;
+	nnp_size pooling_size;
+	nnp_size pooling_stride;
 };
 
 static void compute_max_pooling_forward__generic(
@@ -76,11 +75,11 @@ static void compute_max_pooling_forward_2x2_2x2__avx2(
 	const size_t output_width,
 	const uint32_t stride_height,
 	const uint32_t stride_width,
-	const uint32_t /* pooling_height */,
-	const uint32_t /* pooling_width */)
+	const uint32_t pooling_height,
+	const uint32_t pooling_width)
 {
-	const struct nnp_size input_tile = { 16ull , 2ull };
-	const struct nnp_size output_tile = { 8ull, 1ull };
+	const nnp_size input_tile = { 16ull , 2ull };
+	const nnp_size output_tile = { 8ull, 1ull };
 
 	const float* input = input_pointer;
 	float* output = output_pointer;
@@ -112,15 +111,16 @@ static void compute_max_pooling_forward_2x2_2x2__avx2(
 
 
 static void compute_pooling_output(
-	const struct pooling_context* context,
-	const size_t sample, const size_t channel)
+	const pooling_context* context,
+	size_t sample,
+	size_t channel)
 {
 	const size_t channels                       = context->channels;
-	const struct nnp_size input_size            = context->input_size;
-	const struct nnp_padding input_padding      = context->input_padding;
-	const struct nnp_size output_size           = context->output_size;
-	const struct nnp_size pooling_stride        = context->pooling_stride;
-	const struct nnp_size pooling_size          = context->pooling_size;
+	const nnp_size input_size					= context->input_size;
+	const nnp_padding input_padding				= context->input_padding;
+	const nnp_size output_size					= context->output_size;
+	const nnp_size pooling_stride				= context->pooling_stride;
+	const nnp_size pooling_size					= context->pooling_size;
 	const nnp_pooling_function pooling_function = context->pooling_function;
 
 	const float* input = context->input_pointer;
@@ -136,20 +136,20 @@ static void compute_pooling_output(
 		uint32_t(pooling_size.height), uint32_t(pooling_size.width));
 }
 
-enum nnp_status nnp_max_pooling_output(
-	const size_t batch_size,
-	const size_t channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size pooling_size,
-	const struct nnp_size pooling_stride,
+nnp_status nnp_max_pooling_output(
+	size_t batch_size,
+	size_t channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size pooling_size,
+	nnp_size pooling_stride,
 	const float* input,
 	float* output)
 {
 	
-	const struct nnp_size output_size = { divide_round_up(doz(input_padding.left + input_size.width + input_padding.right, pooling_size.width), pooling_stride.width) + 1ull, divide_round_up(doz(input_padding.top + input_size.height + input_padding.bottom, pooling_size.height), pooling_stride.height) + 1ull };
+	const nnp_size output_size = { divide_round_up(doz(input_padding.left + input_size.width + input_padding.right, pooling_size.width), pooling_stride.width) + 1ull, divide_round_up(doz(input_padding.top + input_size.height + input_padding.bottom, pooling_size.height), pooling_stride.height) + 1ull };
 
-	struct pooling_context pooling_context = 
+	pooling_context pooling_context = 
 	{
 		compute_max_pooling_forward__generic,
 		input,
@@ -165,7 +165,7 @@ enum nnp_status nnp_max_pooling_output(
 	if ((pooling_stride.height == 2ull) && (pooling_stride.width == 2ull) && (pooling_size.height == 2ull) && (pooling_size.width == 2ull)) 
 	    pooling_context.pooling_function = compute_max_pooling_forward_2x2_2x2__avx2;
 	
-	pthreadpool_compute_2d(	(pthreadpool_function_2d_t) compute_pooling_output,
+	pthreadpool_compute_2d((pthreadpool_function_2d_t)compute_pooling_output,
 		&pooling_context,
 		batch_size, channels);
 

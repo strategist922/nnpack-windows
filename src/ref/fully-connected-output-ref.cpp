@@ -8,6 +8,8 @@ struct fully_connected_output_context
 	const float* input_pointer;
 	const float* kernel_pointer;
 	float* output_pointer;
+
+	fully_connected_output_context() = default;
 };
 
 static void compute_fully_connected_output_f32(

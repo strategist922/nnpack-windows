@@ -1,5 +1,3 @@
-#include <stddef.h>
-
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>
@@ -10,14 +8,16 @@ struct __declspec(align(64)) input_packing_context
 {
 	const float* matrix;
 	float* packed_matrix;
-	const size_t input_channels;
-	const size_t outer_subblock_max;
+	size_t input_channels;
+	size_t outer_subblock_max;
 };
 
 static void pack_input_matrix(
-	const struct input_packing_context* context,
-	const size_t outer_block_start, const size_t input_channels_block_start,
-	const size_t outer_block_size, const size_t input_channels_block_size)
+	const input_packing_context* context,
+	const size_t outer_block_start,
+	const size_t input_channels_block_start,
+	const size_t outer_block_size,
+	const size_t input_channels_block_size)
 {
 	const float* matrix             = context->matrix;
 	float* packed_matrix            = context->packed_matrix;
@@ -45,16 +45,17 @@ struct __declspec(align(64)) kernel_packing_context
 	const float* matrix;
 	float* packed_matrix;
 
-	const size_t simd_width;
-	const size_t input_channels;
-	const size_t outer_subblock_max;
-	const size_t input_channels_block_start;
-	const size_t input_channels_block_size;
+	size_t simd_width;
+	size_t input_channels;
+	size_t outer_subblock_max;
+	size_t input_channels_block_start;
+	size_t input_channels_block_size;
 };
 
 static void pack_kernel_matrix(
-	const struct kernel_packing_context* context,
-	const size_t outer_block_start, const size_t outer_block_size)
+	const kernel_packing_context* context,
+	const size_t outer_block_start,
+	const size_t outer_block_size)
 {
 	const float* matrix                     = context->matrix;
 	float* packed_matrix                    = context->packed_matrix;
@@ -86,23 +87,25 @@ struct __declspec(align(64)) matrix_multiplication_context
 	const float* input;
 	const float* kernel;
 	float* output;
-	const size_t input_channels;
-	const size_t output_channels;
+	size_t input_channels;
+	size_t output_channels;
 	size_t batch_block_start;
 	size_t batch_block_size;
 	size_t input_channels_block_start;
 	size_t input_channels_block_size;
-	const size_t output_channels_subblock_max;
-	const size_t batch_subblock_max;
-	const size_t simd_width;
+	size_t output_channels_subblock_max;
+	size_t batch_subblock_max;
+	size_t simd_width;
 	nnp_fast_sgemm_function fast_sgemm_function;
 	nnp_full_sgemm_function full_sgemm_function;
 };
 
 static void compute_matrix_multiplication(
-	const struct matrix_multiplication_context* context,
-	const size_t output_channels_block_start, const size_t batch_subblock_start,
-	const size_t output_channels_block_size,  const size_t batch_subblock_size)
+	const matrix_multiplication_context* context,
+	const size_t output_channels_block_start,
+	const size_t batch_subblock_start,
+	const size_t output_channels_block_size,
+	const size_t batch_subblock_size)
 {
 	const float* input                       = context->input;
 	const float* kernel                      = context->kernel;
@@ -161,7 +164,7 @@ static void compute_fully_connected_output(
 	float* packed_kernel)
 {
 
-	struct input_packing_context input_packing_context = 
+	input_packing_context input_packing_context = 
 	{
 		input,
 		packed_input,
@@ -174,7 +177,7 @@ static void compute_fully_connected_output(
 		batch_size, input_channels,
 		batch_block_max, input_channels_block_max);
 	
-	struct matrix_multiplication_context matrix_multiplication_context = 
+	matrix_multiplication_context matrix_multiplication_context = 
 	{
 		packed_input,
 		packed_kernel,
@@ -196,7 +199,7 @@ static void compute_fully_connected_output(
 	{
 		const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
 
-		struct kernel_packing_context kernel_packing_context = 
+		kernel_packing_context kernel_packing_context = 
 		{
 			kernel,
 			packed_kernel,
@@ -229,16 +232,16 @@ static void compute_fully_connected_output(
 	}
 }
 
-enum nnp_status nnp_fully_connected_output(
-	const size_t batch_size,
-	const size_t input_channels,
-	const size_t output_channels,
+nnp_status nnp_fully_connected_output(
+	size_t batch_size,
+	size_t input_channels,
+	size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output)
 {
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
-	enum nnp_status status = validate_fully_connected_arguments(batch_size, input_channels, output_channels);
+	nnp_status status = validate_fully_connected_arguments(batch_size, input_channels, output_channels);
 	if (status != nnp_status_success)
 		return status;
 	

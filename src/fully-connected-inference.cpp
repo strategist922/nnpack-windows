@@ -8,15 +8,18 @@
 
 struct __declspec(align(64)) fully_connected_inference_context 
 {
-	const size_t input_channels;
+	size_t input_channels;
 	const float* input;
 	const float* kernel;
 	float* output;
+
+	fully_connected_inference_context() = default;
 };
 
 static void compute_fully_connected_inference_f32(
-	const struct fully_connected_inference_context* context,
-	const size_t output_channels_subblock_start, const size_t output_channels_subblock_size)
+	const fully_connected_inference_context* context,
+	const size_t output_channels_subblock_start, 
+	const size_t output_channels_subblock_size)
 {
 	const size_t input_channels      = context->input_channels;
 	const float* input               = context->input;
@@ -27,21 +30,21 @@ static void compute_fully_connected_inference_f32(
 	sdotxf(input, &kernel[output_channels_subblock_start * input_channels],	input_channels, &output[output_channels_subblock_start], input_channels);
 }
 
-enum nnp_status nnp_fully_connected_inference(
-	const size_t input_channels,
-	const size_t output_channels,
+nnp_status nnp_fully_connected_inference(
+	size_t input_channels,
+	size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output)
 {
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
-	enum nnp_status status = validate_fully_connected_arguments(1, input_channels, output_channels);
+	nnp_status status = validate_fully_connected_arguments(1, input_channels, output_channels);
 	if (status != nnp_status_success)
 		return status;
 	
 	/* Do the computation */
 	const size_t output_channels_subblock_max = nnp_hwinfo.sdotxf.fusion;
-	struct fully_connected_inference_context fully_connected_inference_context = 
+	fully_connected_inference_context fully_connected_inference_context = 
 	{
 		input_channels,
 		input,

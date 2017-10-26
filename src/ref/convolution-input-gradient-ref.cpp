@@ -12,6 +12,8 @@ struct convolution_input_gradient_context
 	const float* grad_output_pointer;
 	const float* kernel_pointer;
 	float* grad_input_pointer;
+
+	convolution_input_gradient_context() = default;
 };
 
 static void compute_convolution_input_gradient(

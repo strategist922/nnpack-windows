@@ -64,8 +64,8 @@ static inline uint32_t as_uint32(float input)
 	{
 		float x;
 		uint32_t n;
-		data(uint32_t n) : n(n) {}
-		data(float x) : x(x) {}
+		data(uint32_t y) : n(y) {}
+		data(float z) : x(z) {}
 		
 	} data(input);
 	
@@ -78,8 +78,8 @@ static inline float as_float(uint32_t input)
 	{
 		float x;
 		uint32_t n;
-		data(uint32_t n) : n(n) {}
-		data(float x) : x(x) {}
+		data(uint32_t y) : n(y) {}
+		data(float z) : x(z) {}
 	} data(input);
 	
 	return data.x;
@@ -98,7 +98,7 @@ static inline float ulpf(float x)
 int main() 
 {
 	float max_error = 0.0f;
-	for (uint32_t n = INT32_MIN; n < as_uint32(std::strtof("-0x1.9FE368p+6f", NULL)); n++) {
+	/*for (uint32_t n = INT32_MIN; n < as_uint32(std::strtof("-0x1.9FE368p+6f", NULL)); n++) {
 		const float x = as_float(n);
 		const float ref_y = expf(x);
 		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
@@ -106,7 +106,7 @@ int main()
 		if (error > max_error)
 			max_error = error;
 	}
-	printf("Max error: %.2f ULP\n", max_error);
+	printf("Max error: %.2f ULP\n", max_error);*/
 
 	max_error = 0.0f;
 	for (uint32_t n = 0; n < as_uint32(std::strtof("0x1.62E42Ep+6f", NULL)); n++) {

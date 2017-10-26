@@ -1,3 +1,4 @@
+#include <../include/stdafx.h>
 #include <ppl.h>
 
 #include <pthreadpool.h>

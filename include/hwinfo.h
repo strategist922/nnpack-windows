@@ -10,8 +10,6 @@
 #include <stdbool.h>
 #endif
 
-#include <stdafx.h>
-
 #define bit_OSXSAVE        (1 << 27)
 #define bit_AVX            (1 << 28)
 #define bit_FMA            (1 << 12)
@@ -94,8 +92,6 @@ struct transforms
 	nnp_transform_2d_with_offset owt_f6x6_3x3;
 	nnp_transform_2d_with_bias owt_f6x6_3x3_with_bias;
 	nnp_transform_2d_with_bias owt_f6x6_3x3_with_bias_with_relu;
-
-	
 };
 
 struct activations 

@@ -3,13 +3,13 @@
 
 struct convolution_output_context 
 {
-	const size_t input_channels;
-	const size_t output_channels;
-	const struct nnp_size input_size;
-	const struct nnp_padding input_padding;
-	const struct nnp_size kernel_size;
-	const struct nnp_size output_size;
-	const struct nnp_size output_subsampling;
+	size_t input_channels;
+	size_t output_channels;
+	struct nnp_size input_size;
+	struct nnp_padding input_padding;
+	struct nnp_size kernel_size;
+	struct nnp_size output_size;
+	struct nnp_size output_subsampling;
 	const float* input_pointer;
 	const float* kernel_pointer;
 	const float* bias;

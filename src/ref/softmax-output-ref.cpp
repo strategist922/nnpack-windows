@@ -26,13 +26,13 @@ static inline float vector_sum_expf_minus_c(const size_t length, const float* ar
 
 struct softmax_output_context 
 {
-    const size_t channels;
+    size_t channels;
     const float* input;
     float* output;
 };
 
 static void compute_softmax_output(
-    const struct softmax_output_context* context,
+    struct softmax_output_context* context,
     const size_t sample)
 {
     const size_t channels = context->channels;

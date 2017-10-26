@@ -10,7 +10,6 @@
 #include <stdbool.h>
 #endif
 
-#include <stdafx.h>
 #include <pthreadpool.h>
 
 enum nnp_status 
@@ -100,120 +99,120 @@ struct nnp_workspace_pointers
 	void* output;
 };
 
-enum nnp_status nnp_initialize();
+nnp_status nnp_initialize();
 
-enum nnp_status nnp_deinitialize();
+nnp_status nnp_deinitialize();
 
-enum nnp_status nnp_convolution_output(
-	enum nnp_convolution_algorithm algorithm,
-	const size_t batch_size,
-	const size_t input_channels,
-	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
+nnp_status nnp_convolution_output(
+	nnp_convolution_algorithm algorithm,
+	size_t batch_size,
+	size_t input_channels,
+	size_t output_channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size kernel_size,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
-	const enum nnp_activation activation,
+	nnp_workspace_pointers* workspace_buffer,
+	nnp_activation activation,
 	const void* activation_parameters);
 
 	
-enum nnp_status nnp_convolution_input_gradient(
-	enum nnp_convolution_algorithm algorithm,
-	const size_t batch_size,
-	const size_t input_channels,
-	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
+nnp_status nnp_convolution_input_gradient(
+	nnp_convolution_algorithm algorithm,
+	size_t batch_size,
+	size_t input_channels,
+	size_t output_channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size kernel_size,
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
-	struct nnp_workspace_pointers* workspace_buffer,
-	const enum nnp_activation activation,
+	nnp_workspace_pointers* workspace_buffer,
+	nnp_activation activation,
 	const void* activation_parameters);
 
-enum nnp_status nnp_convolution_kernel_gradient(
-	enum nnp_convolution_algorithm algorithm,
-	const size_t batch_size,
-	const size_t input_channels,
-	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
+nnp_status nnp_convolution_kernel_gradient(
+	nnp_convolution_algorithm algorithm,
+	size_t batch_size,
+	size_t input_channels,
+	size_t output_channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size kernel_size,
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
-	struct nnp_workspace_pointers* workspace_buffer,
-	const enum nnp_activation activation,
+	nnp_workspace_pointers* workspace_buffer,
+	nnp_activation activation,
 	const void* activation_parameters);
 
 	
-enum nnp_status nnp_convolution_inference(
-	enum nnp_convolution_algorithm algorithm,
-	enum nnp_convolution_transform_strategy transform_strategy,
-	const size_t input_channels,
-	const size_t output_channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size kernel_size,
-	const struct nnp_size output_subsampling,
+nnp_status nnp_convolution_inference(
+	nnp_convolution_algorithm algorithm,
+	nnp_convolution_transform_strategy transform_strategy,
+	size_t input_channels,
+	size_t output_channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size kernel_size,
+	nnp_size output_subsampling,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
-	const enum nnp_activation activation,
+	nnp_workspace_pointers* workspace_buffer,
+	nnp_activation activation,
 	const void* activation_parameters);
 
-enum nnp_status nnp_fully_connected_output(
-	const size_t batch_size,
-	const size_t input_channels,
-	const size_t output_channels,
+nnp_status nnp_fully_connected_output(
+	size_t batch_size,
+	size_t input_channels,
+	size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output);
 
-enum nnp_status nnp_fully_connected_inference(
-	const size_t input_channels,
-	const size_t output_channels,
+nnp_status nnp_fully_connected_inference(
+	size_t input_channels,
+	size_t output_channels,
 	const float* input,
 	const float* kernel,
 	float* output);
 
-enum nnp_status nnp_max_pooling_output(
-	const size_t batch_size,
-	const size_t channels,
-	const struct nnp_size input_size,
-	const struct nnp_padding input_padding,
-	const struct nnp_size pooling_size,
-	const struct nnp_size pooling_stride,
+nnp_status nnp_max_pooling_output(
+	size_t batch_size,
+	size_t channels,
+	nnp_size input_size,
+	nnp_padding input_padding,
+	nnp_size pooling_size,
+	nnp_size pooling_stride,
 	const float* input,
 	float* output);
 
-enum nnp_status nnp_softmax_output(
-	const size_t batch_size,
-	const size_t channels,
+nnp_status nnp_softmax_output(
+	size_t batch_size,
+	size_t channels,
 	const float* input,
 	float* output);
 
-enum nnp_status nnp_relu_output(
-	const size_t batch_size,
-	const size_t channels,
+nnp_status nnp_relu_output(
+	size_t batch_size,
+	size_t channels,
 	const float* input,
 	float* output,
-	float negative_slope);
+	const float negative_slope);
 
-enum nnp_status nnp_relu_input_gradient(
-	const size_t batch_size,
-	const size_t channels,
+nnp_status nnp_relu_input_gradient(
+	size_t batch_size,
+	size_t channels,
 	const float* grad_output,
 	const float* input,
 	float* grad_input,
-	float negative_slope);
+	const float negative_slope);
 
 void nnp_fft2_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
 void nnp_fft4_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);

@@ -13,6 +13,8 @@ struct max_pooling_output_context
 	const struct nnp_size output_size;
 	const float* input;
 	float* output;
+
+	max_pooling_output_context() = default;
 };
 
 static void compute_max_pooling_output(

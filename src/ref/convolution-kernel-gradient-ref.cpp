@@ -13,6 +13,8 @@ struct convolution_kernel_gradient_context
 	const float* input_pointer;
 	const float* grad_output_pointer;
 	float* grad_kernel_pointer;
+
+	convolution_kernel_gradient_context() = default;
 };
 
 static void compute_convolution_kernel_gradient(
@@ -66,6 +68,8 @@ struct convolution_kernel_update_context
 	const float* grad_output_pointer;
 	float* kernel_pointer;
 	float scale;
+
+	convolution_kernel_update_context() = default;
 };
 
 void nnp_convolution_kernel_gradient__reference(
