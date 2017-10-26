@@ -56,6 +56,7 @@ Results of the unit tests:
 ### fully-connected:
 ### max-pooling-output:
 ### relu-input-gradient:
+### relu-output
 ### sgemm:
 ### softmax-output:
 ### winograd:
