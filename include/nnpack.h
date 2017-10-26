@@ -12,6 +12,10 @@
 
 #include <pthreadpool.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum nnp_status 
 {
 	nnp_status_success = 0,
@@ -214,6 +218,102 @@ nnp_status nnp_relu_input_gradient(
 	float* grad_input,
 	const float negative_slope);
 
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
+
+
+#ifdef __cplusplus
+// Backward compatible implementations for nnp_convolution_*, if we are in C++ mode.
+inline nnp_status nnp_convolution_output(
+	nnp_convolution_algorithm algorithm,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const float input[],
+	const float kernel[],
+	const float bias[],
+	float output[])
+{
+
+	return nnp_convolution_output(
+		algorithm,
+		batch_size, input_channels, output_channels,
+		input_size, input_padding, kernel_size,
+		input, kernel, bias, output,
+		NULL, nnp_activation_identity, NULL);
+}
+
+
+inline nnp_status nnp_convolution_input_gradient(
+	nnp_convolution_algorithm algorithm,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const float grad_output[],
+	const float kernel[],
+	float grad_input[])
+{
+
+	return nnp_convolution_input_gradient(
+		algorithm,
+		batch_size, input_channels, output_channels,
+		input_size, input_padding, kernel_size,
+		grad_output, kernel, grad_input,
+		NULL, nnp_activation_identity, NULL);
+}
+
+inline nnp_status nnp_convolution_kernel_gradient(
+	nnp_convolution_algorithm algorithm,
+	const size_t batch_size,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const float input[],
+	const float grad_output[],
+	float grad_kernel[])
+{
+	return nnp_convolution_kernel_gradient(
+		algorithm,
+		batch_size, input_channels, output_channels,
+		input_size, input_padding, kernel_size,
+		input, grad_output, grad_kernel,
+		NULL, nnp_activation_identity, NULL);
+
+}
+
+inline nnp_status nnp_convolution_inference(
+	nnp_convolution_algorithm algorithm,
+	const nnp_convolution_transform_strategy transform_strategy,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_subsampling,
+	const float input[],
+	const float kernel[],
+	const float bias[],
+	float output[]) 
+{
+	return nnp_convolution_inference(
+		algorithm, transform_strategy,
+		input_channels, output_channels,
+		input_size, input_padding, kernel_size, output_subsampling,
+		input, kernel, bias, output, NULL, 
+		nnp_activation_identity, NULL);
+}
+#endif // __cplusplus
+
+// These reference function definitions don't belong here. Just for now
 void nnp_fft2_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
 void nnp_fft4_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
 void nnp_fft8_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
