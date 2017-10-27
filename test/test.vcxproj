@@ -179,7 +179,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fourier\x86_64-avx2.cc" />
+    <ClCompile Include="convolution-output\smoke.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,36 +189,6 @@
     <ProjectReference Include="..\nnpack.vcxproj">
       <Project>{f65aa511-bc6e-4cca-a684-accdb72d4e83}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\x64\Release\2d-fourier-16x16.obj" />
-    <Object Include="..\x64\Release\2d-fourier-8x8.obj" />
-    <Object Include="..\x64\Release\2d-winograd-8x8-3x3.obj" />
-    <Object Include="..\x64\Release\avx.obj" />
-    <Object Include="..\x64\Release\avx2.obj" />
-    <Object Include="..\x64\Release\c8gemm.obj" />
-    <Object Include="..\x64\Release\common.obj" />
-    <Object Include="..\x64\Release\complex_soa.obj" />
-    <Object Include="..\x64\Release\complex_soa_perm_to_real.obj" />
-    <Object Include="..\x64\Release\conv1x1.obj" />
-    <Object Include="..\x64\Release\fft-aos.obj" />
-    <Object Include="..\x64\Release\fft-dualreal.obj" />
-    <Object Include="..\x64\Release\fft-real.obj" />
-    <Object Include="..\x64\Release\fft-soa.obj" />
-    <Object Include="..\x64\Release\ifft-dualreal.obj" />
-    <Object Include="..\x64\Release\ifft-real.obj" />
-    <Object Include="..\x64\Release\o6x6k3x3.obj" />
-    <Object Include="..\x64\Release\real_to_complex_soa_perm.obj" />
-    <Object Include="..\x64\Release\relu.obj" />
-    <Object Include="..\x64\Release\s4c6gemm.obj" />
-    <Object Include="..\x64\Release\s8gemm.obj" />
-    <Object Include="..\x64\Release\sdotxf.obj" />
-    <Object Include="..\x64\Release\sgemm.obj" />
-    <Object Include="..\x64\Release\shdotxf.obj" />
-    <Object Include="..\x64\Release\softmax.obj" />
-    <Object Include="..\x64\Release\two_complex_soa_perm_to_two_real_planar.obj" />
-    <Object Include="..\x64\Release\two_real_to_two_complex_soa_perm_planar.obj" />
-    <Object Include="..\x64\Release\winograd-f6k3.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

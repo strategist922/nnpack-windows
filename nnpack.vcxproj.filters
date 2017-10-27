@@ -224,9 +224,6 @@
     <None Include="src\x86_64-fma\relu.py">
       <Filter>x86_64-fma</Filter>
     </None>
-    <None Include="src\x86_64-fma\softmax.py">
-      <Filter>x86_64-fma</Filter>
-    </None>
     <None Include="src\x86_64-fma\winograd-f6k3.py">
       <Filter>x86_64-fma</Filter>
     </None>
@@ -279,6 +276,9 @@
       <Filter>x86_64-fma\winograd</Filter>
     </None>
     <None Include="src\x86_64-fma\exp.py">
+      <Filter>x86_64-fma</Filter>
+    </None>
+    <None Include="src\x86_64-fma\softmax.py">
       <Filter>x86_64-fma</Filter>
     </None>
   </ItemGroup>

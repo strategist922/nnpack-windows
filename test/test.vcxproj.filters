@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{0f62f061-e17f-4d5f-97e7-c5b1ec7b81ee}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -71,94 +68,8 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fourier\x86_64-avx2.cc">
+    <ClCompile Include="convolution-output\smoke.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\x64\Release\2d-fourier-8x8.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\2d-fourier-16x16.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\2d-winograd-8x8-3x3.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\avx.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\avx2.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\c8gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\common.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\complex_soa.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\complex_soa_perm_to_real.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\conv1x1.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\fft-aos.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\fft-dualreal.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\fft-real.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\fft-soa.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\ifft-dualreal.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\ifft-real.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\o6x6k3x3.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\real_to_complex_soa_perm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\s4c6gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\s8gemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\sdotxf.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\sgemm.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\shdotxf.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\two_complex_soa_perm_to_two_real_planar.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\two_real_to_two_complex_soa_perm_planar.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\winograd-f6k3.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\relu.obj">
-      <Filter>Objects</Filter>
-    </Object>
-    <Object Include="..\x64\Release\softmax.obj">
-      <Filter>Objects</Filter>
-    </Object>
   </ItemGroup>
 </Project>

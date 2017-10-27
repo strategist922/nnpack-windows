@@ -118,6 +118,8 @@
     </PostBuildEvent>
     <Lib>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>common.obj;avx.obj;avx2.obj;2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference />
   </ItemDefinitionGroup>
@@ -155,8 +157,10 @@
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <UseProcessorExtensions>AVX2</UseProcessorExtensions>
-      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
       <SDLCheck>true</SDLCheck>
+      <C99Support>true</C99Support>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -169,8 +173,17 @@
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>start call "$(ProjectDir)src\x86_64-fma\build.bat" "$(ProjectDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
+    <ProjectReference />
+    <Lib>
+      <AdditionalDependencies>common.obj;avx.obj;avx2.obj;2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <PreLinkEvent>
+      <Command>start call "$(ProjectDir)src\x86_64-fma\build.bat" "$(ProjectDir)"</Command>
+    </PreLinkEvent>
     <ProjectReference />
   </ItemDefinitionGroup>
   <ItemGroup>

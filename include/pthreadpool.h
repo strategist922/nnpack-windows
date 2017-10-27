@@ -1,5 +1,4 @@
-#ifndef PTHREADPOOL_H
-#define PTHREADPOOL_H
+#pragma once
 
 #include <fxdiv.h>
 #include <utils.h>
@@ -22,14 +21,14 @@ struct compute_2d_context
 {
 	pthreadpool_function_2d_t function;
 	void* argument;
-	const struct fxdiv_divisor_size_t range_j;
+	const fxdiv_divisor_size_t range_j;
 };
 
 struct compute_2d_tiled_context
 {
 	pthreadpool_function_2d_tiled_t function;
 	void* argument;
-	const struct fxdiv_divisor_size_t tile_range_j;
+	const fxdiv_divisor_size_t tile_range_j;
 	const size_t range_i;
 	const size_t range_j;
 	const size_t tile_i;
@@ -61,5 +60,3 @@ void pthreadpool_compute_2d_tiled(
 	const size_t range_j,
 	const size_t tile_i,
 	const size_t tile_j);
-
-#endif /* PTHREADPOOL_H */
