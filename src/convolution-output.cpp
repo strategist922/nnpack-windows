@@ -33,13 +33,13 @@ static void compute_kernel_transform(
 	const size_t output_channels_subblock_size)
 {
 	nnp_transform_2d_with_offset transform_function	= context->transform_function;
-	const float* kernel										= context->kernel;
-	float* kernel_transform									= context->kernel_transform;
-	const size_t tuple_elements								= context->tuple_elements;
-	const size_t output_channels							= context->output_channels;
-	const size_t input_channels								= context->input_channels;
-	const size_t input_channels_block_max					= context->input_channels_block_max;
-	const nnp_size kernel_size								= context->kernel_size;
+	const float* kernel								= context->kernel;
+	float* kernel_transform							= context->kernel_transform;
+	const size_t tuple_elements						= context->tuple_elements;
+	const size_t output_channels					= context->output_channels;
+	const size_t input_channels						= context->input_channels;
+	const size_t input_channels_block_max			= context->input_channels_block_max;
+	const nnp_size kernel_size						= context->kernel_size;
 
 	const size_t input_channels_block_start		= round_down(input_channel, input_channels_block_max);
 	const size_t input_channels_block_size		= min(input_channels - input_channels_block_start, input_channels_block_max);

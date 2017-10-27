@@ -26,6 +26,8 @@ c:\users\dhaen\source\repos\nnpack\x64\release\relu-input-gradient.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\softmax-output-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\relu-output-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\relu-input-gradient-ref.obj
+c:\users\dhaen\appdata\local\temp\irmagent.log
+c:\users\dhaen\appdata\local\microsoft\clr_v4.0\usagelogs\intelremotemonagent2.exe.log
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.lib
 c:\users\dhaen\source\repos\nnpack\x64\release\2d-fourier-16x16.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\2d-fourier-8x8.obj
@@ -58,6 +60,14 @@ c:\users\dhaen\source\repos\nnpack\x64\release\winograd-f6k3.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\cl.command.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\cl.read.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\cl.write.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver-intelremotemonagent-intelremotemonagent2.read.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver-intelremotemonagent-intelremotemonagent2.write.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver-intelremotemonagent.read.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver-intelremotemonagent.read.2.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver.read.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver.read.2.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver.read.6.tlog
+c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\icl-intelremotemonserver.write.2.tlog
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\lib-link.read.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\lib-link.write.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\lib.command.1.tlog

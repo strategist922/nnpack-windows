@@ -240,13 +240,13 @@ static void init_hwinfo()
 			nnp_hwinfo.sdotxf = sdotxf 
 			{ 
 				sdotxf_function, 
-				sizeof(sdotxf_function) / sizeof(sdotxf_function[0]) 
+				8u 
 			};;
 
 			nnp_hwinfo.shdotxf = shdotxf 
 			{ 
 				shdotxf_function, 
-				sizeof(shdotxf_function) / sizeof(shdotxf_function[0]) 
+				8u 
 			};
 
 			nnp_hwinfo.conv1x1 = convolution 

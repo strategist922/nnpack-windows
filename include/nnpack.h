@@ -222,7 +222,6 @@ nnp_status nnp_relu_input_gradient(
 
 
 #ifdef __cplusplus
-// Backward compatible implementations for nnp_convolution_*, if we are in C++ mode.
 inline nnp_status nnp_convolution_output(
 	nnp_convolution_algorithm algorithm,
 	const size_t batch_size,
