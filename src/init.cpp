@@ -251,7 +251,7 @@ static void init_hwinfo()
 
 			nnp_hwinfo.conv1x1 = convolution 
 			{ 
-				nnp_conv1x1_only_2x4__fma3 , 
+				nnp_conv1x1_only_2x4__fma3,				 
 				nnp_conv1x1_upto_2x4__fma3, 
 				2u, 
 				4u 
