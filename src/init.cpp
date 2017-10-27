@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #endif
 
+#include "../include/stdafx.h"
+
 #include <intrin.h>
 
 #include <nnpack.h>
@@ -231,33 +233,44 @@ static void init_hwinfo()
 			nnp_hwinfo.activations.softmax = nnp_softmax__avx2;
 			nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__avx2;
 
-			nnp_hwinfo.sdotxf = sdotxf { 
+			nnp_hwinfo.sdotxf = sdotxf 
+			{ 
 				sdotxf_function, 
-				sizeof(sdotxf_function) / sizeof(sdotxf_function[0]) };;
+				sizeof(sdotxf_function) / sizeof(sdotxf_function[0]) 
+			};;
 
-			nnp_hwinfo.shdotxf = shdotxf { 
+			nnp_hwinfo.shdotxf = shdotxf 
+			{ 
 				shdotxf_function, 
-				sizeof(shdotxf_function) / sizeof(shdotxf_function[0]) };
+				sizeof(shdotxf_function) / sizeof(shdotxf_function[0]) 
+			};
 
-			nnp_hwinfo.conv1x1 = convolution { 
+			nnp_hwinfo.conv1x1 = convolution 
+			{ 
 				nnp_conv1x1_only_2x4__fma3 , 
 				nnp_conv1x1_upto_2x4__fma3, 
 				2u, 
-				4u };
+				4u 
+			};
 
-			nnp_hwinfo.sgemm = sgemm { 
+			nnp_hwinfo.sgemm = sgemm 
+			{ 
 				nnp_sgemm_only_4x24__fma3, 
 				nnp_sgemm_upto_4x24__fma3, 
 				4u, 
-				24u };
+				24u 
+			};
 
-			nnp_hwinfo.sxgemm = sxgemm { 
+			nnp_hwinfo.sxgemm = sxgemm 
+			{ 
 				(nnp_fast_tuple_gemm_function)nnp_s8gemm_only_3x4__fma3,
 				(nnp_full_tuple_gemm_function)nnp_s8gemm_upto_3x4__fma3,
 				3u,
-				4u };
+				4u 
+			};
 
-			nnp_hwinfo.cxgemm = cxgemm { 
+			nnp_hwinfo.cxgemm = cxgemm 
+			{ 
 				(nnp_fast_tuple_gemm_function)nnp_s4c6gemm_only_2x2__fma3,
 				(nnp_full_tuple_gemm_function)nnp_s4c6gemm_upto_2x2__fma3,
 				(nnp_fast_tuple_gemm_function)nnp_c8gemm_only_2x2__fma3,
@@ -271,7 +284,8 @@ static void init_hwinfo()
 				(nnp_fast_tuple_gemm_function)nnp_c8gemm_conjb_transc_only_2x2__fma3,
 				(nnp_full_tuple_gemm_function)nnp_c8gemm_conjb_transc_upto_2x2__fma3,
 				2u,
-				2u};
+				2u
+			};
 					
 			nnp_hwinfo.supported = true;
 		}
