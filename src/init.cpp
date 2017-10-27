@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #endif
 
-#include "../include/stdafx.h"
+#include "../include/stdafx.h" // is this header of any use ???
 
 #include <intrin.h>
 
@@ -40,7 +40,7 @@ static inline uint64_t xgetbv(uint32_t ext_ctrl_reg)
 
 static inline uint32_t __get_cpuid_max(unsigned int __level, unsigned int *__sig)
 {
-	struct cpu_info basic_info;
+	cpu_info basic_info;
 	__cpuid(&basic_info.eax, (int)__level);
 
 	if (__sig)
@@ -58,7 +58,7 @@ static void init_x86_hwinfo()
 	// Under normal environments, just ask the CPU about supported ISA extensions.
 	if (max_base_info >= 1)
 	{
-		struct cpu_info basic_info;
+		cpu_info basic_info;
 		__cpuid(&basic_info.eax, 1);
 		
 
@@ -67,7 +67,7 @@ static void init_x86_hwinfo()
 		// Check that AVX[bit 2] and SSE[bit 1] registers are preserved by OS
 		const bool ymm_regs = (osxsave ? ((xgetbv(0) & 0b110ul) == 0b110ul) : false);
 
-		struct cpu_info structured_info = { 0 };
+		cpu_info structured_info = { 0 };
 		if (max_base_info >= 7)
 			__cpuidex(&structured_info.eax, 7, 0);
 		
@@ -82,7 +82,7 @@ static void init_x86_hwinfo()
 	}
 	
 	// Detect CPU vendor
-	struct cpu_info vendor_info;
+	cpu_info vendor_info;
 	__cpuid(&vendor_info.eax, 0);
 	const uint32_t Auth = UINT32_C(0x68747541), enti = UINT32_C(0x69746E65), cAMD = UINT32_C(0x444D4163);
 	const uint32_t Genu = UINT32_C(0x756E6547), ineI = UINT32_C(0x49656E69), ntel = UINT32_C(0x6C65746E);
@@ -96,7 +96,7 @@ static void init_x86_hwinfo()
 	{
 		for (uint32_t cache_id = 0; ; cache_id++) 
 		{
-			struct cpu_info cpuInfo;
+			cpu_info cpuInfo;
 
 			__cpuidex(&cpuInfo.eax, 4, cache_id);
 			// eax[bits 0-4]: cache type (0 - no more caches, 1 - data, 2 - instruction, 3 - unified)
@@ -125,7 +125,7 @@ static void init_x86_hwinfo()
 					// edx[bit 1]: cache inclusiveness
 					const bool inclusive = !!(cpuInfo.edx & 0x2);
 					
-					const struct cache_info cacheInfo =
+					const cache_info cacheInfo =
 					{
 						sets * associativity * line_partitions * line_size,
 						associativity,
