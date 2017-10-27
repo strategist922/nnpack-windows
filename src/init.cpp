@@ -8,8 +8,6 @@
 #include <stdbool.h>
 #endif
 
-#include "../include/stdafx.h" // is this header of any use ???
-
 #include <intrin.h>
 
 #include <nnpack.h>
