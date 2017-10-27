@@ -1,7 +1,7 @@
 #include <complex-ref.h>
 
 
-void nnp_fft2_aos__ref(	const float* t, size_t t_stride, float* f, size_t f_stride)
+void nnp_fft2_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride)
 {
 	/* Load inputs */
 	std::complex<float> w0 = std::complex<float>(t[0 * t_stride], t[1 * t_stride]);
