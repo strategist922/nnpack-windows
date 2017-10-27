@@ -66,10 +66,10 @@ static void compute_kernel_transform(
 
 struct __declspec(align(64)) input_transform_context
 {
-	nnp_transform_2d_with_offset transform_function;
 	const float* input;
 	float* input_transform;
-
+	nnp_transform_2d_with_offset transform_function;
+	
 	size_t tuple_size;
 	size_t tiles_count;
 	fxdiv_divisor_size_t tiles_x_count;
@@ -278,6 +278,7 @@ struct __declspec(align(64)) kernel_packing_context
 {
 	const float* kernel;
 	float* packed_kernel;
+
 	size_t reduction_size;
 	size_t reduction_block_start;
 	size_t reduction_block_size;
@@ -304,6 +305,7 @@ struct __declspec(align(64)) input_packing_context
 {
 	const float* input;
 	float* packed_input;
+
 	size_t simd_width;
 	size_t reduction_block_start;
 	size_t reduction_block_size;
@@ -624,9 +626,9 @@ static nnp_status compute_fast_convolution_inference(
 		
 		input_transform_context input_transform_context =
 		{
-			input_transform_function,
 			input,
 			input_transform,
+			input_transform_function,
 			tuple_size,
 			tiles_count,
 			fxdiv_init_size_t(tiles_x_count),
