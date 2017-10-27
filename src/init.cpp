@@ -59,7 +59,6 @@ static void init_x86_hwinfo()
 		cpu_info basic_info;
 		__cpuid(&basic_info.eax, 1);
 		
-
 		// OSXSAVE: ecx[bit 27] in basic info
 		const bool osxsave = !!(basic_info.ecx & bit_OSXSAVE);
 		// Check that AVX[bit 2] and SSE[bit 1] registers are preserved by OS
@@ -69,7 +68,8 @@ static void init_x86_hwinfo()
 		if (max_base_info >= 7)
 			__cpuidex(&structured_info.eax, 7, 0);
 		
-		if (ymm_regs) {
+		if (ymm_regs) 
+		{
 			// AVX: ecx[bit 28] in basic info
 			nnp_hwinfo.isa.has_avx = !!(basic_info.ecx & bit_AVX);
 			// FMA3: ecx[bit 12] in basic info
