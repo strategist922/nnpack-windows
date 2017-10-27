@@ -1,21 +1,21 @@
 ﻿  convolution-inference.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-inference.cpp(31): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(38): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
-src\convolution-inference.cpp(79): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(85): warning C4100: 'input_channels_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(146): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(212): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(279): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(286): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(313): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(319): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(374): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(445): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(746): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(890): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(885): warning C4100: 'kernel_size': unreferenced formal parameter
+src\convolution-inference.cpp(34): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(41): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
+src\convolution-inference.cpp(83): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(89): warning C4100: 'input_channels_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(151): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(217): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(284): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(291): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(318): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(324): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(380): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(453): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(754): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(898): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(893): warning C4100: 'kernel_size': unreferenced formal parameter
   convolution-input-gradient.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter

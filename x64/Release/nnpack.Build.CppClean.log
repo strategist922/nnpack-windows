@@ -52,6 +52,7 @@ c:\users\dhaen\source\repos\nnpack\x64\release\s8gemm.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\sdotxf.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\sgemm.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\shdotxf.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\softmaxpy.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\two_complex_soa_perm_to_two_real_planar.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\two_real_to_two_complex_soa_perm_planar.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\winograd-f6k3.obj

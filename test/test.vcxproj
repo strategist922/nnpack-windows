@@ -90,7 +90,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WIN64;NDEBUG;_MT_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointModel>Precise</FloatingPointModel>
       <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)test\testers;$(SolutionDir)googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <Optimization>Full</Optimization>
@@ -107,7 +107,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)src\x86_64-fma\;$(SolutionDir)x64\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)x64\Release\aos.obj;$(SolutionDir)x64\Release\soa.obj;$(SolutionDir)x64\Release\forward-dualreal.obj;$(SolutionDir)x64\Release\forward-real.obj;$(SolutionDir)x64\Release\inverse-real.obj;$(SolutionDir)x64\Release\inverse-dualreal.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference />
   </ItemDefinitionGroup>
@@ -179,7 +179,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-output\smoke.cc" />
+    <ClCompile Include="convolution-inference\alexnet.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

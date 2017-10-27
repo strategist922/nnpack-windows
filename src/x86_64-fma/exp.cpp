@@ -13,9 +13,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <float.h>
-#include <stdlib.h>
 #include <ccomplex>
 #include <limits>
+#include <cstdlib>
 
 __m256 _mm256_exp_ps(__m256 x) 
 {
@@ -95,27 +95,27 @@ static inline float ulpf(float x)
 		return absx;
 }
 
-int main() 
-{
-	float max_error = 0.0f;
-	/*for (uint32_t n = INT32_MIN; n < as_uint32(std::strtof("-0x1.9FE368p+6f", NULL)); n++) {
-		const float x = as_float(n);
-		const float ref_y = expf(x);
-		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
-		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
-		if (error > max_error)
-			max_error = error;
-	}
-	printf("Max error: %.2f ULP\n", max_error);*/
-
-	max_error = 0.0f;
-	for (uint32_t n = 0; n < as_uint32(std::strtof("0x1.62E42Ep+6f", NULL)); n++) {
-		const float x = as_float(n);
-		const float ref_y = expf(x);
-		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
-		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
-		if (error > max_error)
-			max_error = error;
-	}
-	printf("Max error: %.2f ULP\n", max_error);
-}
+//int main() 
+//{
+//	float max_error = 0.0f;
+//	/*for (uint32_t n = INT32_MIN; n < as_uint32(std::strtof("-0x1.9FE368p+6f", NULL)); n++) {
+//		const float x = as_float(n);
+//		const float ref_y = expf(x);
+//		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
+//		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
+//		if (error > max_error)
+//			max_error = error;
+//	}
+//	printf("Max error: %.2f ULP\n", max_error);*/
+//
+//	/*max_error = 0.0f;
+//	for (uint32_t n = 0; n < as_uint32(std::strtof("0x1.62E42Ep+6f", NULL)); n++) {
+//		const float x = as_float(n);
+//		const float ref_y = expf(x);
+//		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
+//		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
+//		if (error > max_error)
+//			max_error = error;
+//	}
+//	printf("Max error: %.2f ULP\n", max_error);*/
+//}

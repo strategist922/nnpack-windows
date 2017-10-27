@@ -114,7 +114,8 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>start call "$(ProjectDir)src\x86_64-fma\build.bat" "$(ProjectDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
       <SubSystem>Windows</SubSystem>
@@ -122,6 +123,9 @@
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference />
+    <PreLinkEvent>
+      <Command>start call "$(ProjectDir)src\x86_64-fma\buildDebug.bat" "$(ProjectDir)"</Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -152,7 +156,7 @@
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <DebugInformationFormat>None</DebugInformationFormat>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -182,7 +186,7 @@
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PreLinkEvent>
-      <Command>start call "$(ProjectDir)src\x86_64-fma\build.bat" "$(ProjectDir)"</Command>
+      <Command>start call "$(ProjectDir)src\x86_64-fma\buildRelease.bat" "$(ProjectDir)"</Command>
     </PreLinkEvent>
     <ProjectReference />
   </ItemDefinitionGroup>

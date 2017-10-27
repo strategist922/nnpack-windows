@@ -7,15 +7,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 #endif
-
 #include <string.h>
+
+#include <fxdiv.h>
 
 #include <nnpack.h>
 #include <utils.h>
+
 #include <hwinfo.h>
 #include <activations.h>
 #include <validation.h>
-#include <fxdiv.h>
+
 
 
 struct __declspec(align(64)) kernel_transform_context 
@@ -23,6 +25,7 @@ struct __declspec(align(64)) kernel_transform_context
 	nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
+
 	size_t tuple_size;
 	size_t input_channels;
 	size_t input_channels_block_size;
@@ -50,7 +53,7 @@ static void compute_kernel_transform(
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform_function(
-			kernel + ((input_channels_block_offset + (output_channel * input_channels)) * kernel_size.width * kernel_size.height),
+			kernel + (input_channels_block_offset + (output_channel * input_channels)) * kernel_size.width * kernel_size.height,
 			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
@@ -66,6 +69,7 @@ struct __declspec(align(64)) input_transform_context
 	nnp_transform_2d_with_offset transform_function;
 	const float* input;
 	float* input_transform;
+
 	size_t tuple_size;
 	size_t tiles_count;
 	fxdiv_divisor_size_t tiles_x_count;
@@ -136,6 +140,7 @@ struct __declspec(align(64)) output_transform_context
 	float* output;
 	const float* output_transform;
 	const float* bias;
+
 	size_t tuple_size;
 	size_t tiles_count;
 	fxdiv_divisor_size_t tiles_x_count;
@@ -365,6 +370,7 @@ struct __declspec(align(64)) matrix_multiplication_context
 	const float* packed_kernel;
 	const float* packed_input;
 	float* output;
+
 	size_t reduction_block_start;
 	size_t reduction_block_size;
 	size_t output_image_size;
@@ -436,10 +442,12 @@ struct __declspec(align(64)) direct_convolution_context
 	const float* input;
 	const float* kernel;
 	float* output;
+
 	size_t image_elements;
 	size_t input_channels;
 	size_t input_channels_block_max;
 	size_t output_channels_block_max;
+
 	nnp_fast_conv_function fast_conv;
 	nnp_full_conv_function full_conv;
 };

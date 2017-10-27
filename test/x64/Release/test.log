@@ -1,5 +1,8 @@
-﻿  smoke.cc
+﻿  alexnet.cc
   stdafx.cpp
   Generating code
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1064): warning C4701: potentially uninitialized local variable 'tile_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1067): warning C4701: potentially uninitialized local variable 'fourier_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1106): warning C4701: potentially uninitialized local variable 'status' used
   Finished generating code
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\test.exe
