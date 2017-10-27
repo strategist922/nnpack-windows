@@ -2,9 +2,6 @@
 
 #include <testers/fourier.h>
 #include <fft-samples.h>
-#include <nnpack.h>
-#include <reference.h>
-#include <fft.h>
 
 	/*
 	 * The tests in this validate the reference Fourier transform implementations.

@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
 #include <testers/fourier.h>
-#include <fft.h>
 #include <nnpack.h>
 /**
  * Test output of complex 1D forward FFT within rows against reference implementation with SOA layout.
