@@ -54,8 +54,6 @@ void nnp_ifft16_dualreal__avx2(const float* f, float* t);
 }
 #endif 
 
-
-// These reference function definitions don't belong here. Just for now
 void nnp_fft2_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
 void nnp_fft4_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
 void nnp_fft8_aos__ref(const float* t, size_t t_stride, float* f, size_t f_stride);
