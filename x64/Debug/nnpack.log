@@ -72,13 +72,13 @@ src\convolution-inference.cpp(313): warning C4324: 'input_packing_context': stru
 src\convolution-inference.cpp(319): warning C4100: 'reduction_block_range': unreferenced formal parameter
 src\convolution-inference.cpp(374): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
 src\convolution-inference.cpp(447): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(736): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(880): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(875): warning C4100: 'kernel_size': unreferenced formal parameter
+src\convolution-inference.cpp(748): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(892): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(887): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1043): warning C4701: potentially uninitialized local variable 'tile_size' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1046): warning C4701: potentially uninitialized local variable 'fourier_transform' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1085): warning C4701: potentially uninitialized local variable 'status' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1055): warning C4701: potentially uninitialized local variable 'tile_size' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1058): warning C4701: potentially uninitialized local variable 'fourier_transform' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1097): warning C4701: potentially uninitialized local variable 'status' used
 c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4701: potentially uninitialized local variable 'output_transform_function' used
 c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(543): warning C4703: potentially uninitialized local pointer variable 'output_transform_function' used
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib

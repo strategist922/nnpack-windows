@@ -266,7 +266,7 @@ static nnp_status compute_fast_convolution_output(
 	const nnp_transform_2d_with_bias output_transform_function)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
-	const size_t tuple_elements = (fourier_transform ? simd_width << 1ull : simd_width);
+	const size_t tuple_elements = (fourier_transform ? simd_width * 2ull : simd_width);
 	const size_t tile_elements = tile_size.height * tile_size.width;
 	const size_t tuple_count = tile_elements / tuple_elements;
 

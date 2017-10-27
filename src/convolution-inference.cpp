@@ -714,10 +714,22 @@ static nnp_status compute_fast_convolution_inference(
 		output_channels_subblock_max,
 		tiles_subblock_max);
 
-	_aligned_free(memory_block_input);
-	_aligned_free(memory_block_output);
-	_aligned_free(memory_block_kernel);
-	
+	if (workspace_buffer == NULL)
+	{
+		_aligned_free(memory_block_kernel);
+		_aligned_free(memory_block_input);
+		_aligned_free(memory_block_output);
+	}
+	else
+	{
+		if (memory_block_kernel != workspace_buffer->kernel || memory_block_input != workspace_buffer->input || memory_block_output != workspace_buffer->output)
+		{
+			_aligned_free(memory_block_kernel);
+			_aligned_free(memory_block_input);
+			_aligned_free(memory_block_output);
+		}
+	}
+
 	return nnp_status_success;
 }
 
