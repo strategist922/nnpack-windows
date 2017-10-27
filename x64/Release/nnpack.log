@@ -18,6 +18,7 @@
   soa.cpp
   fully-connected-output-ref.cpp
   max-pooling-output-ref.cpp
+  Compiling...
   relu-input-gradient-ref.cpp
   relu-output-ref.cpp
   softmax-output-ref.cpp

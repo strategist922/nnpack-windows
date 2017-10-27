@@ -6,7 +6,6 @@
 
 namespace samples 
 {
-
 	#define ToFloat(str) std::strtof(str, NULL)
 
 	namespace fft2 

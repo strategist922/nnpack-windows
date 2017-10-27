@@ -276,13 +276,14 @@ static void init_hwinfo()
 			nnp_hwinfo.supported = true;
 		}
 	}
-
+	
 	nnp_hwinfo.initialized = true;
 }
 
 nnp_status nnp_initialize()
 {
 	init_hwinfo();
+	
 	if (nnp_hwinfo.supported)
 		return nnp_status_success;
 	else

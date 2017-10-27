@@ -528,42 +528,28 @@ enum nnp_status nnp_convolution_output(
 
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
 	nnp_status status = nnp_status_success;
-	nnp_transform_2d_with_bias output_transform_function;
-	
+
 	switch (algorithm) 
 	{
 	case nnp_convolution_algorithm_wt8x8:
 		if (kernel_size.height > 8ull || kernel_size.width > 8ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			if (activation == nnp_activation_relu)
-				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
-			else
-				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
-			status = compute_fast_convolution_output(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3x3, output_transform_function);
+			status = compute_fast_convolution_output(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3x3, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu : nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias));
 		break;
 
 	case nnp_convolution_algorithm_ft8x8:
 		if (kernel_size.height > 8ull || kernel_size.width > 8ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			if (activation == nnp_activation_relu)
-				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu;
-			else
-				output_transform_function = nnp_hwinfo.transforms.ifft8x8_with_bias;
-
-			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, output_transform_function);
+			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu : nnp_hwinfo.transforms.ifft8x8_with_bias));
 		break;
 
 	case nnp_convolution_algorithm_ft16x16:
 		if (kernel_size.height > 16ull || kernel_size.width > 16ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			if (activation == nnp_activation_relu)
-				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu;
-			else
-				output_transform_function = nnp_hwinfo.transforms.ifft16x16_with_bias;
-			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, output_transform_function);
+			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu : nnp_hwinfo.transforms.ifft16x16_with_bias));
 		break;
 
 	default:

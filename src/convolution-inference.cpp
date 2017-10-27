@@ -436,12 +436,10 @@ struct __declspec(align(64)) direct_convolution_context
 	const float* input;
 	const float* kernel;
 	float* output;
-
 	size_t image_elements;
 	size_t input_channels;
 	size_t input_channels_block_max;
 	size_t output_channels_block_max;
-
 	nnp_fast_conv_function fast_conv;
 	nnp_full_conv_function full_conv;
 };
@@ -954,8 +952,11 @@ nnp_status nnp_convolution_inference(
 	const nnp_activation activation,
 	const void* activation_parameters)
 {
-	const nnp_size output_size = { (input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, 
-								   (input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull };
+	const nnp_size output_size = 
+	{ 
+		(input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, 
+		(input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull 
+	};
 
 	if (activation_parameters != NULL)
 		return nnp_status_unsupported_activation_parameters;

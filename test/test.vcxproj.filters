@@ -71,7 +71,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convolution-inference\smoke.cc">
+    <ClCompile Include="fourier\reference.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
