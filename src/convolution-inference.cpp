@@ -996,9 +996,9 @@ nnp_status nnp_convolution_inference(
 		}
 	}
 
+	const size_t transform_element_size = sizeof(float);
 	nnp_status status = nnp_status_success;
 	nnp_size tile_size = nnp_size{ 8ull, 8ull };
-	const size_t transform_element_size = sizeof(float);
 	bool fourier_transform = false;
 	nnp_transform_2d_with_offset input_transform_function = NULL;
 	nnp_transform_2d_with_offset kernel_transform_function = NULL;
@@ -1008,21 +1008,17 @@ nnp_status nnp_convolution_inference(
 	{
 		case nnp_convolution_algorithm_wt8x8:
 		{
-			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.kwt_f6x6_3x3;
-			fourier_transform = false;
 			if (activation == nnp_activation_relu)
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
 			else
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias;
-			
 		}
 		break;
 
 		case nnp_convolution_algorithm_ft8x8:
 		{
-			tile_size = nnp_size{ 8ull, 8ull };
 			input_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			fourier_transform = true;
