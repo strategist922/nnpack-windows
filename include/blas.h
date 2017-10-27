@@ -11,8 +11,7 @@
 #endif
 
 #ifdef __cplusplus  
-extern "C" {  // only need to export C interface if  
-			  // used by C++ source code  
+extern "C" {  // only need to export C interface if used by C++ source code  
 #endif  
 	
 void nnp_sgemm_only_4x24__fma3(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
@@ -51,14 +50,14 @@ void nnp_sdotxf6__avx2(const float* x, const float* y, size_t stride_y, float* s
 void nnp_sdotxf7__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 void nnp_sdotxf8__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 
-void nnp_shdotxf1__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf2__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf3__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf4__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf5__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf6__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf7__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf8__avx2(const float* x, const void* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf1__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf2__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf3__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf4__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf5__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf6__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf7__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf8__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 
 #ifdef __cplusplus  
 }

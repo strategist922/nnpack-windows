@@ -10,10 +10,10 @@
 #include <stdbool.h>
 #endif
 
-#define bit_OSXSAVE        (1 << 27)
-#define bit_AVX            (1 << 28)
-#define bit_FMA            (1 << 12)
-#define bit_AVX2	       0x00000020
+#define bit_OSXSAVE (1 << 27)
+#define bit_AVX		(1 << 28)
+#define bit_FMA		(1 << 12)
+#define bit_AVX2	0x00000020
 
 struct isa_info 
 {
@@ -57,14 +57,15 @@ typedef void (*nnp_transform_2d_with_offset)(const float*, float*, size_t, size_
 typedef void (*nnp_fast_sgemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
 typedef void (*nnp_full_sgemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
 
+
 typedef void (*nnp_fast_conv_function)(size_t, size_t, const float*, const float*, float*);
 typedef void (*nnp_full_conv_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*);
 
-typedef void (*nnp_fast_tuple_gemm_function)(size_t, size_t, const void*, const void*, void*, size_t);
-typedef void (*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const void*, const void*, void*, size_t);
+typedef void (*nnp_fast_tuple_gemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
+typedef void (*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
 
 typedef void (*nnp_sdotxf_function)(const float*, const float*, size_t, float*, size_t);
-typedef void (*nnp_shdotxf_function)(const float*, const void*, size_t, float*, size_t);
+typedef void (*nnp_shdotxf_function)(const float*, const float*, size_t, float*, size_t);
 
 typedef void (*nnp_relu_function)(const float*, float*, size_t, float);
 typedef void (*nnp_inplace_relu_function)(float*, size_t, float);
