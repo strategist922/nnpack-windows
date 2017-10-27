@@ -996,10 +996,10 @@ nnp_status nnp_convolution_inference(
 		}
 	}
 
-	nnp_status status;
-	nnp_size tile_size;
+	nnp_status status = nnp_status_success;
+	nnp_size tile_size = nnp_size{ 8ull, 8ull };
 	const size_t transform_element_size = sizeof(float);
-	bool fourier_transform;
+	bool fourier_transform = false;
 	nnp_transform_2d_with_offset input_transform_function = NULL;
 	nnp_transform_2d_with_offset kernel_transform_function = NULL;
 	nnp_transform_2d_with_bias output_transform_function = NULL;
