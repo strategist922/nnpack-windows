@@ -1,5 +1,4 @@
 ﻿  softmax.cpp
-  exp.cpp
   softmax-output.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
@@ -29,11 +28,11 @@ src\relu-input-gradient.cpp(19): warning C4324: 'relu_context': structure was pa
   convolution-kernel-gradient-ref.cpp
   convolution-input-gradient-ref.cpp
   pthreadpool.cpp
-  Generating Code...
-  Compiling...
   pooling-output.cpp
 src\pooling-output.cpp(79): warning C4100: 'pooling_width': unreferenced formal parameter
 src\pooling-output.cpp(78): warning C4100: 'pooling_height': unreferenced formal parameter
+  Generating Code...
+  Compiling...
   init.cpp
   fully-connected-output.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
@@ -95,13 +94,9 @@ src\convolution-inference.cpp(901): warning C4100: 'workspace_buffer': unreferen
 src\convolution-inference.cpp(896): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
 exp.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-exp.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 two_real_to_two_complex_soa_perm_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 two_complex_soa_perm_to_two_real_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 real_to_complex_soa_perm.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 complex_soa_perm_to_real.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 complex_soa.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-avx2.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-avx.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-common.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib

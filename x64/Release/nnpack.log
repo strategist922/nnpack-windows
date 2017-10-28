@@ -25,7 +25,5 @@
   relu-input-gradient.cpp
   relu-output.cpp
   softmax-output.cpp
-  exp.cpp
   softmax.cpp
-LINK : warning LNK4044: unrecognized option '/favor:INTEL64'; ignored
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\nnpack.lib

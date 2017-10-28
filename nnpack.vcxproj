@@ -119,8 +119,8 @@
     </PostBuildEvent>
     <Lib>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>common.obj;avx.obj;avx2.obj;2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference />
     <PreLinkEvent>
@@ -185,10 +185,9 @@
     </PostBuildEvent>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>common.obj;avx.obj;avx2.obj;2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PreLinkEvent>
       <Command>start call "$(ProjectDir)src\x86_64-fma\buildRelease.bat" "$(ProjectDir)"</Command>
@@ -222,7 +221,6 @@
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
     <ClCompile Include="src\softmax-output.cpp" />
-    <ClCompile Include="src\x86_64-fma\exp.cpp" />
     <ClCompile Include="src\x86_64-fma\softmax.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -251,8 +249,6 @@
     <None Include="src\x86_64-fma\2d-fourier-16x16.py" />
     <None Include="src\x86_64-fma\2d-fourier-8x8.py" />
     <None Include="src\x86_64-fma\2d-winograd-8x8-3x3.py" />
-    <None Include="src\x86_64-fma\blas\avx.py" />
-    <None Include="src\x86_64-fma\blas\avx2.py" />
     <None Include="src\x86_64-fma\blas\c8gemm.py" />
     <None Include="src\x86_64-fma\blas\conv1x1.py" />
     <None Include="src\x86_64-fma\blas\s4c6gemm.py" />

@@ -40,7 +40,7 @@ static void compute_kernel_transform(
 	const size_t output_channels_subblock_size,
 	const size_t input_channels_block_increment)
 {
-	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
+	nnp_transform_2d_with_offset transform_function			= context->transform_function;
 	const float* kernel										= context->kernel;
 	float* kernel_transform									= context->kernel_transform;
 	const size_t tuple_size									= context->tuple_size;

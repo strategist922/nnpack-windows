@@ -17,9 +17,6 @@ cd %source_dir%
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\relu.obj %source_dir%\relu.py
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\softmaxpy.obj %source_dir%\softmax.py
 
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\avx.obj %source_dir%\blas\avx.py
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\avx2.obj %source_dir%\blas\avx2.py
-
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\s8gemm.obj %source_dir%\blas\s8gemm.py
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\c8gemm.obj %source_dir%\blas\c8gemm.py
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\s4c6gemm.obj %source_dir%\blas\s4c6gemm.py
