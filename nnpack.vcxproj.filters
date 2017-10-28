@@ -28,11 +28,11 @@
     <Filter Include="x86_64-fma\fft">
       <UniqueIdentifier>{cbb45e2e-91a7-478f-ab81-2a0417c7c13a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="x86_64-fma\vecmath">
-      <UniqueIdentifier>{d2c83091-d881-470d-9087-4628f0d8b5f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="x86_64-fma\winograd">
       <UniqueIdentifier>{93a9c717-6bb7-4fbc-aa53-830bf5490562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="x86_64-fma\vecmath">
+      <UniqueIdentifier>{2c134976-58e2-431a-8acb-7f8b59918f9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,26 +96,29 @@
     <ClCompile Include="src\ref\softmax-output-ref.cpp">
       <Filter>Source Files\Reference</Filter>
     </ClCompile>
+    <ClCompile Include="src\ref\fft\aos-ref.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\forward-dualreal-ref.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\forward-real-ref.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\inverse-dualreal-ref.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\inverse-real-ref.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fft\soa-ref.cpp">
+      <Filter>Source Files\Reference\fft</Filter>
+    </ClCompile>
     <ClCompile Include="src\x86_64-fma\softmax.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>x86_64-fma</Filter>
     </ClCompile>
-    <ClCompile Include="src\ref\fft\aos.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\fft\forward-dualreal.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\fft\forward-real.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\fft\inverse-dualreal.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\fft\inverse-real.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\fft\soa.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+    <ClCompile Include="src\x86_64-fma\exp.cpp">
+      <Filter>x86_64-fma</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="include\reference.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ref\fft\complex-ref.h">
+      <Filter>Source Files\Reference\fft</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,14 +263,17 @@
     <None Include="src\x86_64-fma\fft\two_real_to_two_complex_soa_perm_planar.py">
       <Filter>x86_64-fma\fft</Filter>
     </None>
-    <None Include="src\x86_64-fma\vecmath\exp.py">
-      <Filter>x86_64-fma\vecmath</Filter>
-    </None>
     <None Include="src\x86_64-fma\winograd\o6x6k3x3.py">
       <Filter>x86_64-fma\winograd</Filter>
     </None>
     <None Include="src\x86_64-fma\softmax.py">
       <Filter>x86_64-fma</Filter>
+    </None>
+    <None Include="src\x86_64-fma\exp.py">
+      <Filter>x86_64-fma</Filter>
+    </None>
+    <None Include="src\x86_64-fma\vecmath\exp.py">
+      <Filter>x86_64-fma\vecmath</Filter>
     </None>
   </ItemGroup>
 </Project>

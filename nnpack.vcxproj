@@ -121,18 +121,15 @@
       </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;softmaxpy.obj;relu.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Lib>
     <ProjectReference />
     <PreLinkEvent>
       <Command>start call "$(ProjectDir)src\x86_64-fma\buildDebug.bat" "$(ProjectDir)"</Command>
     </PreLinkEvent>
     <ProjectReference />
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -191,7 +188,7 @@
     </PostBuildEvent>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj</AdditionalDependencies>
+      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;softmaxpy.obj;relu.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
     </Lib>
     <PreLinkEvent>
@@ -212,12 +209,12 @@
     <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp" />
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp" />
     <ClCompile Include="src\ref\convolution-output-ref.cpp" />
-    <ClCompile Include="src\ref\fft\aos.cpp" />
-    <ClCompile Include="src\ref\fft\forward-dualreal.cpp" />
-    <ClCompile Include="src\ref\fft\forward-real.cpp" />
-    <ClCompile Include="src\ref\fft\inverse-dualreal.cpp" />
-    <ClCompile Include="src\ref\fft\inverse-real.cpp" />
-    <ClCompile Include="src\ref\fft\soa.cpp" />
+    <ClCompile Include="src\ref\fft\aos-ref.cpp" />
+    <ClCompile Include="src\ref\fft\forward-dualreal-ref.cpp" />
+    <ClCompile Include="src\ref\fft\forward-real-ref.cpp" />
+    <ClCompile Include="src\ref\fft\inverse-dualreal-ref.cpp" />
+    <ClCompile Include="src\ref\fft\inverse-real-ref.cpp" />
+    <ClCompile Include="src\ref\fft\soa-ref.cpp" />
     <ClCompile Include="src\ref\fully-connected-output-ref.cpp" />
     <ClCompile Include="src\ref\max-pooling-output-ref.cpp" />
     <ClCompile Include="src\ref\relu-input-gradient-ref.cpp" />
@@ -226,6 +223,7 @@
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
     <ClCompile Include="src\softmax-output.cpp" />
+    <ClCompile Include="src\x86_64-fma\exp.cpp" />
     <ClCompile Include="src\x86_64-fma\softmax.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +245,7 @@
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\validation.h" />
     <ClInclude Include="include\winograd.h" />
+    <ClInclude Include="src\ref\fft\complex-ref.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -262,6 +261,7 @@
     <None Include="src\x86_64-fma\blas\shdotxf.py" />
     <None Include="src\x86_64-fma\block8x8.py" />
     <None Include="src\x86_64-fma\common.py" />
+    <None Include="src\x86_64-fma\exp.py" />
     <None Include="src\x86_64-fma\fft-aos.py" />
     <None Include="src\x86_64-fma\fft-dualreal.py" />
     <None Include="src\x86_64-fma\fft-real.py" />

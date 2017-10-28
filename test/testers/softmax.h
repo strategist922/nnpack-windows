@@ -11,6 +11,7 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
+
 #include <nnpack.h>
 #include <reference.h>
 #include <utils.h>

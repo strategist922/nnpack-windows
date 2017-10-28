@@ -8,8 +8,6 @@ set proc_arch=haswell
 
 cd %source_dir%
 
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\common.obj %source_dir%\common.py
-
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\2d-fourier-8x8.obj %source_dir%\2d-fourier-8x8.py
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\2d-fourier-16x16.obj %source_dir%\2d-fourier-16x16.py
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\2d-winograd-8x8-3x3.obj %source_dir%\2d-winograd-8x8-3x3.py
@@ -35,16 +33,6 @@ cd %source_dir%
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\ifft-real.obj %source_dir%\ifft-real.py
 
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\winograd-f6k3.obj %source_dir%\winograd-f6k3.py
-
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\complex_soa.obj %source_dir%\fft\complex_soa.py
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\complex_soa_perm_to_real.obj %source_dir%\fft\complex_soa_perm_to_real.py
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\real_to_complex_soa_perm.obj %source_dir%\fft\real_to_complex_soa_perm.py
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\two_complex_soa_perm_to_two_real_planar.obj %source_dir%\fft\two_complex_soa_perm_to_two_real_planar.py
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\two_real_to_two_complex_soa_perm_planar.obj %source_dir%\fft\two_real_to_two_complex_soa_perm_planar.py
-
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\exp.obj %source_dir%\vecmath\exp.py
-
-"%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o %output_dir%\o6x6k3x3.obj %source_dir%\winograd\o6x6k3x3.py
 
 endlocal
 exit

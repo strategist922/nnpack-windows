@@ -68,7 +68,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fourier\reference.cc">
+    <ClCompile Include="fourier\x86_64-avx2.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
