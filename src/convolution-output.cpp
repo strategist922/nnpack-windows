@@ -13,11 +13,13 @@
 #include <hwinfo.h>
 #include <validation.h>
 
+
 struct __declspec(align(64)) kernel_transform_context
 {
 	nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
+
 	size_t tuple_elements;
 	size_t output_channels;
 	size_t input_channels;

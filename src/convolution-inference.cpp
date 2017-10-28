@@ -17,8 +17,7 @@
 #include <hwinfo.h>
 #include <activations.h>
 #include <validation.h>
-
-
+#include <vector>
 
 struct __declspec(align(64)) kernel_transform_context 
 {
@@ -48,12 +47,12 @@ static void compute_kernel_transform(
 	const size_t input_channels_block_size					= context->input_channels_block_size;
 	const size_t output_channels							= context->output_channels;
 	const nnp_size kernel_size								= context->kernel_size;
-	
+
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform_function(
-			kernel + (input_channels_block_offset + (output_channel * input_channels)) * kernel_size.width * kernel_size.height,
+			kernel + (input_channels_block_offset + output_channel * input_channels) * kernel_size.width * kernel_size.height,
 			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
@@ -596,7 +595,6 @@ static nnp_status compute_fast_convolution_inference(
 		}
 	}
 
-	
 	float* input_transform = static_cast<float*>(memory_block_input);
 	float* output_transform = static_cast<float*>(memory_block_output);
 	float* kernel_transform = static_cast<float*>(memory_block_kernel);
@@ -725,9 +723,10 @@ static nnp_status compute_fast_convolution_inference(
 
 	if (workspace_buffer == NULL)
 	{
+		_aligned_free(memory_block_kernel);
 		_aligned_free(memory_block_input);
 		_aligned_free(memory_block_output);
-		_aligned_free(memory_block_kernel);
+		
 	}
 	else
 	{

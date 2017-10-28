@@ -11,14 +11,11 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
-#include <functional>
-#include <limits>
-
 #include <fft.h>
 
-#include <gtest\gtest.h>
-
 #include <AlignedAllocator.h>
+
+
 
 class FFTTester {
 public:
@@ -75,7 +72,7 @@ public:
 		
 		std::vector<float> output(2 * fftSize());
 		forward_fft(input, 1, output.data(), 1);
-
+		
 		const float maxError = std::inner_product(output.cbegin(), output.cend(), expectedOutput, 0.0f, [](float x, float y)->float { return std::max<float>(y, x); }, relativeError);
 		ASSERT_LT(maxError, errorLimit());
 	}

@@ -47,13 +47,13 @@ src\fully-connected-inference.cpp(17): warning C4324: 'fully_connected_inference
   convolution-output.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-output.cpp(26): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-output.cpp(32): warning C4100: 'input_channel_range': unreferenced formal parameter
-src\convolution-output.cpp(78): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-output.cpp(84): warning C4100: 'input_channel_range': unreferenced formal parameter
-src\convolution-output.cpp(134): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
-src\convolution-output.cpp(140): warning C4100: 'sample_range': unreferenced formal parameter
-src\convolution-output.cpp(188): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(28): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(34): warning C4100: 'input_channel_range': unreferenced formal parameter
+src\convolution-output.cpp(80): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(86): warning C4100: 'input_channel_range': unreferenced formal parameter
+src\convolution-output.cpp(136): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
+src\convolution-output.cpp(142): warning C4100: 'sample_range': unreferenced formal parameter
+src\convolution-output.cpp(190): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-kernel-gradient.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
@@ -77,26 +77,20 @@ src\convolution-input-gradient.cpp(191): warning C4324: 'matrix_multiplication_c
   convolution-inference.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-inference.cpp(34): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(41): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
-src\convolution-inference.cpp(83): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(89): warning C4100: 'input_channels_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(151): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(217): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(285): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(292): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(320): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(326): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(382): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(455): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(757): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(901): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(896): warning C4100: 'kernel_size': unreferenced formal parameter
+src\convolution-inference.cpp(33): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(40): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
+src\convolution-inference.cpp(82): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(88): warning C4100: 'input_channels_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(150): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(216): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(284): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(291): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(319): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(325): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(381): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(454): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(756): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(900): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(895): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
-exp.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-two_real_to_two_complex_soa_perm_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-two_complex_soa_perm_to_two_real_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-real_to_complex_soa_perm.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-complex_soa_perm_to_real.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-complex_soa.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib
