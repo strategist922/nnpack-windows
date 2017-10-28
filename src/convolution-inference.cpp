@@ -546,9 +546,9 @@ static nnp_status compute_fast_convolution_inference(
 	const size_t tiles_count = tiles_x_count * tiles_y_count;
 
 	/* Calculate cache blocking parameters */
-	const size_t cache_elements_l1 = nnp_hwinfo.blocking.l1 / (tuple_elements * sizeof(float));
-	const size_t cache_elements_l2 = nnp_hwinfo.blocking.l2 / (tuple_elements * sizeof(float));
-	const size_t cache_elements_l3 = nnp_hwinfo.blocking.l3 / (tuple_elements * sizeof(float));
+	const size_t cache_elements_l1 = nnp_hwinfo.blocking.l1 / tuple_size;
+	const size_t cache_elements_l2 = nnp_hwinfo.blocking.l2 / tuple_size;
+	const size_t cache_elements_l3 = nnp_hwinfo.blocking.l3 / tuple_size;
 
 	const size_t tiles_subblock_max = (fourier_transform ? nnp_hwinfo.cxgemm.mr : nnp_hwinfo.sxgemm.mr);
 	const size_t output_channels_subblock_max = (fourier_transform ? nnp_hwinfo.cxgemm.nr : nnp_hwinfo.sxgemm.nr);
@@ -560,46 +560,46 @@ static nnp_status compute_fast_convolution_inference(
 	const size_t transform_tile_size = tile_elements * transform_element_size;
 	const size_t input_transform_size = tiles_count * min(input_channels, input_channels_block_max) * transform_tile_size;
 	const size_t output_transform_size = tiles_count * output_channels * transform_tile_size;
-
-	void* memory_block_kernel = NULL;
-	void* memory_block_input = NULL;
-	void* memory_block_output = NULL;
-
 	const size_t kernel_transform_size = output_channels * min(input_channels, input_channels_block_max) * transform_tile_size;
 
+	void* memory_block_input = NULL;
+	void* memory_block_output = NULL;
+	void* memory_block_kernel = NULL;
+	
 	if (workspace_buffer == NULL)
 	{
-		memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
 		memory_block_input = _aligned_malloc(input_transform_size, 64ull);
 		memory_block_output = _aligned_malloc(output_transform_size, 64ull);
-
-		if (memory_block_kernel == NULL || memory_block_input == NULL || memory_block_output == NULL)
+		memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
+		
+		if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
 			return nnp_status_out_of_memory;
 	}
 	else
 	{
 		if (workspace_buffer->kernel == NULL || workspace_buffer->input == NULL || workspace_buffer->output == NULL)
 		{
-			memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
 			memory_block_input = _aligned_malloc(input_transform_size, 64ull);
 			memory_block_output = _aligned_malloc(output_transform_size, 64ull);
-
-			if (memory_block_kernel == NULL || memory_block_input == NULL || memory_block_output == NULL)
+			memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
+			
+			if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
 				return nnp_status_out_of_memory;
 
 			*workspace_buffer = nnp_workspace_pointers{ memory_block_kernel, memory_block_input, memory_block_output };
 		}
 		else
 		{
-			memory_block_kernel = workspace_buffer->kernel;
 			memory_block_input = workspace_buffer->input;
 			memory_block_output = workspace_buffer->output;
+			memory_block_kernel = workspace_buffer->kernel;
 		}
 	}
 
-	float* kernel_transform = static_cast<float*>(memory_block_kernel);
+	
 	float* input_transform = static_cast<float*>(memory_block_input);
 	float* output_transform = static_cast<float*>(memory_block_output);
+	float* kernel_transform = static_cast<float*>(memory_block_kernel);
 
 	for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max)
 	{
