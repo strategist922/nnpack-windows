@@ -97,7 +97,6 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <C99Support>true</C99Support>
       <Cpp0xSupport>true</Cpp0xSupport>
-      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
@@ -179,7 +178,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-inference\alexnet.cc" />
+    <ClCompile Include="convolution-inference\smoke.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

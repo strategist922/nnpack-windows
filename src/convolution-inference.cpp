@@ -557,7 +557,7 @@ static nnp_status compute_fast_convolution_inference(
 	const size_t tiles_block_max = round_down(cache_elements_l2 / input_channels_block_max, tiles_subblock_max);
 	const size_t output_channels_block_max = round_down(cache_elements_l3 / input_channels_block_max, output_channels_subblock_max);
 
-	const size_t transform_tile_size = tile_elements * sizeof(float);
+	const size_t transform_tile_size = tile_elements * transform_element_size;
 	const size_t input_transform_size = tiles_count * min(input_channels, input_channels_block_max) * transform_tile_size;
 	const size_t output_transform_size = tiles_count * output_channels * transform_tile_size;
 
@@ -610,7 +610,7 @@ static nnp_status compute_fast_convolution_inference(
 			kernel_transform_function,
 			kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
 			kernel_transform,
-			tuple_elements,
+			tuple_size,
 			input_channels,
 			input_channels_block_size,
 			output_channels,
@@ -670,6 +670,7 @@ static nnp_status compute_fast_convolution_inference(
 				fast_gemm_function = nnp_hwinfo.sxgemm.only_mr_x_nr;
 				full_gemm_function = nnp_hwinfo.sxgemm.upto_mr_x_nr;
 			}
+
 			for (size_t output_channels_block_start = 0ull; output_channels_block_start < output_channels; output_channels_block_start += output_channels_block_max)
 			{
 				const size_t output_channels_block_size = min(output_channels - output_channels_block_start, output_channels_block_max);

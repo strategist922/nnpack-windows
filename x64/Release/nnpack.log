@@ -1,65 +1,11 @@
 ﻿  convolution-inference.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-inference.cpp(34): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(41): warning C4100: 'input_channels_block_increment': unreferenced formal parameter
-src\convolution-inference.cpp(83): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(89): warning C4100: 'input_channels_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(151): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(217): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(285): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(292): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(320): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(326): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(382): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(455): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(756): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(900): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(895): warning C4100: 'kernel_size': unreferenced formal parameter
   convolution-input-gradient.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-input-gradient.cpp(26): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-input-gradient.cpp(32): warning C4100: 'output_channel_range': unreferenced formal parameter
-src\convolution-input-gradient.cpp(77): warning C4324: 'grad_output_transform_context': structure was padded due to alignment specifier
-src\convolution-input-gradient.cpp(83): warning C4100: 'output_channel_range': unreferenced formal parameter
-src\convolution-input-gradient.cpp(132): warning C4324: 'grad_input_transform_context': structure was padded due to alignment specifier
-src\convolution-input-gradient.cpp(138): warning C4100: 'sample_range': unreferenced formal parameter
-src\convolution-input-gradient.cpp(191): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-kernel-gradient.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-kernel-gradient.cpp(30): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-kernel-gradient.cpp(36): warning C4100: 'batch_block_offset_range': unreferenced formal parameter
-src\convolution-kernel-gradient.cpp(78): warning C4324: 'grad_output_transform_context': structure was padded due to alignment specifier
-src\convolution-kernel-gradient.cpp(84): warning C4100: 'batch_block_offset_range': unreferenced formal parameter
-src\convolution-kernel-gradient.cpp(123): warning C4324: 'grad_kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-kernel-gradient.cpp(129): warning C4100: 'output_channel_range': unreferenced formal parameter
-src\convolution-kernel-gradient.cpp(178): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   convolution-output.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\convolution-output.cpp(26): warning C4324: 'kernel_transform_context': structure was padded due to alignment specifier
-src\convolution-output.cpp(32): warning C4100: 'input_channel_range': unreferenced formal parameter
-src\convolution-output.cpp(78): warning C4324: 'input_transform_context': structure was padded due to alignment specifier
-src\convolution-output.cpp(84): warning C4100: 'input_channel_range': unreferenced formal parameter
-src\convolution-output.cpp(134): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
-src\convolution-output.cpp(140): warning C4100: 'sample_range': unreferenced formal parameter
-src\convolution-output.cpp(188): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   fully-connected-inference.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\fully-connected-inference.cpp(17): warning C4324: 'fully_connected_inference_context': structure was padded due to alignment specifier
   fully-connected-output.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\fully-connected-output.cpp(13): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\fully-connected-output.cpp(53): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\fully-connected-output.cpp(101): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
   init.cpp
   pooling-output.cpp
-src\pooling-output.cpp(79): warning C4100: 'pooling_width': unreferenced formal parameter
-src\pooling-output.cpp(78): warning C4100: 'pooling_height': unreferenced formal parameter
   pthreadpool.cpp
   convolution-input-gradient-ref.cpp
   convolution-kernel-gradient-ref.cpp
@@ -77,19 +23,9 @@ src\pooling-output.cpp(78): warning C4100: 'pooling_height': unreferenced formal
   relu-output-ref.cpp
   softmax-output-ref.cpp
   relu-input-gradient.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\relu-input-gradient.cpp(19): warning C4324: 'relu_context': structure was padded due to alignment specifier
   relu-output.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\relu-output.cpp(18): warning C4324: 'relu_context': structure was padded due to alignment specifier
-src\relu-output.cpp(38): warning C4324: 'inplace_relu_context': structure was padded due to alignment specifier
   softmax-output.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
-C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
-src\softmax-output.cpp(16): warning C4324: 'softmax_context': structure was padded due to alignment specifier
-src\softmax-output.cpp(34): warning C4324: 'inplace_softmax_context': structure was padded due to alignment specifier
   exp.cpp
   softmax.cpp
+LINK : warning LNK4044: unrecognized option '/favor:INTEL64'; ignored
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\nnpack.lib

@@ -145,7 +145,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>Full</Optimization>
@@ -164,7 +163,11 @@
       <SDLCheck>true</SDLCheck>
       <C99Support>true</C99Support>
       <Cpp0xSupport>true</Cpp0xSupport>
-      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
+      <MSCompatibility>true</MSCompatibility>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PositionIndependentCode>false</PositionIndependentCode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -184,6 +187,8 @@
     <Lib>
       <AdditionalDependencies>common.obj;avx.obj;avx2.obj;2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PreLinkEvent>
       <Command>start call "$(ProjectDir)src\x86_64-fma\buildRelease.bat" "$(ProjectDir)"</Command>

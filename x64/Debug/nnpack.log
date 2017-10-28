@@ -84,19 +84,16 @@ src\convolution-inference.cpp(83): warning C4324: 'input_transform_context': str
 src\convolution-inference.cpp(89): warning C4100: 'input_channels_block_range': unreferenced formal parameter
 src\convolution-inference.cpp(151): warning C4324: 'output_transform_context': structure was padded due to alignment specifier
 src\convolution-inference.cpp(217): warning C4324: 'tuple_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(284): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(291): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(318): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(324): warning C4100: 'reduction_block_range': unreferenced formal parameter
-src\convolution-inference.cpp(380): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(453): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
-src\convolution-inference.cpp(754): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(898): warning C4100: 'workspace_buffer': unreferenced formal parameter
-src\convolution-inference.cpp(893): warning C4100: 'kernel_size': unreferenced formal parameter
+src\convolution-inference.cpp(285): warning C4324: 'kernel_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(292): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(320): warning C4324: 'input_packing_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(326): warning C4100: 'reduction_block_range': unreferenced formal parameter
+src\convolution-inference.cpp(382): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(455): warning C4324: 'direct_convolution_context': structure was padded due to alignment specifier
+src\convolution-inference.cpp(757): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(901): warning C4100: 'workspace_buffer': unreferenced formal parameter
+src\convolution-inference.cpp(896): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1064): warning C4701: potentially uninitialized local variable 'tile_size' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1067): warning C4701: potentially uninitialized local variable 'fourier_transform' used
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(1106): warning C4701: potentially uninitialized local variable 'status' used
 exp.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 exp.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 two_real_to_two_complex_soa_perm_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
