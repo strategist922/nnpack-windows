@@ -1,4 +1,5 @@
-#include <complex-ref.h>
+#include <fft.h>
+#include <../src/ref/fft/complex-ref.h>
 
 
 void nnp_fft2_soa__ref(const float* t, size_t t_stride,	float* f, size_t f_stride)

@@ -96,6 +96,9 @@
     <ClCompile Include="src\ref\softmax-output-ref.cpp">
       <Filter>Source Files\Reference</Filter>
     </ClCompile>
+    <ClCompile Include="src\x86_64-fma\softmax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\ref\fft\aos.cpp">
       <Filter>Source Files\Reference\fft</Filter>
     </ClCompile>
@@ -113,9 +116,6 @@
     </ClCompile>
     <ClCompile Include="src\ref\fft\soa.cpp">
       <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\x86_64-fma\softmax.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +171,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\reference.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\complex-ref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

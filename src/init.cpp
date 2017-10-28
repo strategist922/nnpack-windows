@@ -16,9 +16,7 @@
 #include <transform.h>
 #include <relu.h>
 #include <softmax.h>
-#include <fft.h>
-#include <winograd.h>
-#include <pooling.h>
+
 
 
 hardware_info nnp_hwinfo = {  };

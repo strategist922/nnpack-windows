@@ -15,7 +15,8 @@ public:
 	typedef void              value_type;
 
 	template <class U>
-	struct rebind {
+	struct rebind 
+	{
 		typedef AlignedAllocator<U, Alignment> other;
 	};
 };
@@ -37,50 +38,55 @@ public:
 #endif
 
 	template <class U>
-	struct rebind {
+	struct rebind 
+	{
 		typedef AlignedAllocator<U, Alignment> other;
 	};
 
 public:
-	inline AlignedAllocator() noexcept {
+	inline AlignedAllocator() noexcept 
+	{
 	}
 
 	template <class U>
-	inline AlignedAllocator(const AlignedAllocator<U, Alignment>& other) noexcept {
+	inline AlignedAllocator(const AlignedAllocator<U, Alignment>& other) noexcept 
+	{
 	}
 
-	inline size_type max_size() const noexcept {
+	inline size_type max_size() const noexcept 
+	{
 		return (std::numeric_limits<size_type>::max() - size_type(Alignment)) / sizeof(T);
 	}
 
-	inline pointer address(reference x) const noexcept {
+	inline pointer address(reference x) const noexcept 
+	{
 		return std::addressof(x);
 	}
 
-	inline const_pointer address(const_reference x) const noexcept {
+	inline const_pointer address(const_reference x) const noexcept 
+	{
 		return std::addressof(x);
 	}
 
-	inline pointer allocate(size_type n, typename AlignedAllocator<void, Alignment>::const_pointer hint = 0) {
-		
-		void* memory = nullptr;
-			
-		memory = _aligned_malloc(n * sizeof(T), Alignment);
-				
-		return static_cast<pointer>(memory);
+	inline pointer allocate(size_type n, typename AlignedAllocator<void, Alignment>::const_pointer hint = 0) 
+	{
+		return static_cast<pointer>(_aligned_malloc(n * sizeof(T), Alignment));
 	}
 
-	inline void deallocate(pointer p, size_type n) noexcept {
+	inline void deallocate(pointer p, size_type) noexcept 
+	{
 	    _aligned_free(static_cast<void*>(p));
 	}
 
 	template <class U, class ...Args>
-	inline void construct(U* p, Args&&... args) {
+	inline void construct(U* p, Args&&... args) 
+	{
 		::new(static_cast<void*>(p)) U(std::forward<Args>(args)...);
 	}
 
 	template <class U>
-	inline void destroy(U* p) {
+	inline void destroy(U* p) 
+	{
 		p->~U();
 	}
 };

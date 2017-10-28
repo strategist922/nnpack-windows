@@ -94,8 +94,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN64;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -107,9 +106,12 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseIntelOptimizedHeaders>true</UseIntelOptimizedHeaders>
+      <CheckPointers>Rw</CheckPointers>
+      <CheckDanglingPointers>All</CheckDanglingPointers>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -119,14 +121,18 @@
       </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;o6x6k3x3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;relu.obj;softmaxpy.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;complex_soa.obj;complex_soa_perm_to_real.obj;real_to_complex_soa_perm.obj;two_complex_soa_perm_to_two_real_planar.obj;two_real_to_two_complex_soa_perm_planar.obj;exp.obj;o6x6k3x3.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Lib>
     <ProjectReference />
     <PreLinkEvent>
       <Command>start call "$(ProjectDir)src\x86_64-fma\buildDebug.bat" "$(ProjectDir)"</Command>
     </PreLinkEvent>
     <ProjectReference />
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -153,22 +159,21 @@
       <PreprocessorDefinitions>_WIN64;NDEBUG;_MT;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <DebugInformationFormat>None</DebugInformationFormat>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <OmitFramePointers>false</OmitFramePointers>
+      <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <UseProcessorExtensions>AVX2</UseProcessorExtensions>
       <SDLCheck>true</SDLCheck>
       <C99Support>true</C99Support>
       <Cpp0xSupport>true</Cpp0xSupport>
       <MSCompatibility>true</MSCompatibility>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PositionIndependentCode>false</PositionIndependentCode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -242,7 +247,6 @@
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\validation.h" />
     <ClInclude Include="include\winograd.h" />
-    <ClInclude Include="include\complex-ref.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

@@ -1,4 +1,6 @@
-﻿  stdafx.cpp
-  vgg-a.cc
-  Generating Code...
+﻿  vgg-a.cc
+  stdafx.cpp
+libchkpwrap.lib(chkp_init.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'libchkpwrap.lib(chkp_init.obj)' or at 'C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\vc100.pdb'; linking object as if no debug info
+libchkpwrap.lib(chkpwrap.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'libchkpwrap.lib(chkpwrap.obj)' or at 'C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\vc100.pdb'; linking object as if no debug info
+LIBCMTD.lib(initializers.obj) : warning LNK4098: defaultlib 'libcmt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\test.exe

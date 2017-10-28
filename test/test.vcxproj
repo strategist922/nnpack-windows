@@ -136,6 +136,7 @@
       <SDLCheck>false</SDLCheck>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <Cpp0xSupport>true</Cpp0xSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,7 +179,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-inference\vgg-a.cc" />
+    <ClCompile Include="fourier\reference.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

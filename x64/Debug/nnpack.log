@@ -18,12 +18,6 @@ src\relu-input-gradient.cpp(19): warning C4324: 'relu_context': structure was pa
   relu-input-gradient-ref.cpp
   max-pooling-output-ref.cpp
   fully-connected-output-ref.cpp
-  soa.cpp
-  inverse-real.cpp
-  inverse-dualreal.cpp
-  forward-real.cpp
-  forward-dualreal.cpp
-  aos.cpp
   convolution-output-ref.cpp
   convolution-kernel-gradient-ref.cpp
   convolution-input-gradient-ref.cpp
@@ -31,8 +25,6 @@ src\relu-input-gradient.cpp(19): warning C4324: 'relu_context': structure was pa
   pooling-output.cpp
 src\pooling-output.cpp(79): warning C4100: 'pooling_width': unreferenced formal parameter
 src\pooling-output.cpp(78): warning C4100: 'pooling_height': unreferenced formal parameter
-  Generating Code...
-  Compiling...
   init.cpp
   fully-connected-output.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
@@ -74,6 +66,8 @@ src\convolution-input-gradient.cpp(83): warning C4100: 'output_channel_range': u
 src\convolution-input-gradient.cpp(132): warning C4324: 'grad_input_transform_context': structure was padded due to alignment specifier
 src\convolution-input-gradient.cpp(138): warning C4100: 'sample_range': unreferenced formal parameter
 src\convolution-input-gradient.cpp(191): warning C4324: 'matrix_multiplication_context': structure was padded due to alignment specifier
+  Generating Code...
+  Compiling...
   convolution-inference.cpp
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(93): warning C4100: 'channels': unreferenced formal parameter
 C:\Users\dhaen\Source\Repos\nnpack\include\validation.h(92): warning C4100: 'batch_size': unreferenced formal parameter
@@ -93,4 +87,10 @@ src\convolution-inference.cpp(756): warning C4100: 'workspace_buffer': unreferen
 src\convolution-inference.cpp(900): warning C4100: 'workspace_buffer': unreferenced formal parameter
 src\convolution-inference.cpp(895): warning C4100: 'kernel_size': unreferenced formal parameter
   Generating Code...
+exp.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+two_real_to_two_complex_soa_perm_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+two_complex_soa_perm_to_two_real_planar.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+real_to_complex_soa_perm.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+complex_soa_perm_to_real.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+complex_soa.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib
