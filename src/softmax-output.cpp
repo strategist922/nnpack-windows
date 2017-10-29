@@ -2,10 +2,11 @@
 
 #include <nnpack.h>
 #include <utils.h>
+
 #include <hwinfo.h>
-#include <activations.h>
-#include <validation.h>
 #include <softmax.h>
+#include <validation.h>
+
 
 struct __declspec(align(64)) softmax_context 
 {
@@ -23,7 +24,7 @@ static void compute_softmax_output(const struct softmax_context* context, const 
 	const float* input = context->input;
 	float* output = context->output;
 
-	softmax(channels, input + sample, output + sample);
+	softmax(channels, input + sample * channels, output + sample * channels);
 }
 
 struct __declspec(align(64)) inplace_softmax_context 

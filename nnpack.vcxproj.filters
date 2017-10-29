@@ -114,10 +114,10 @@
     <ClCompile Include="src\ref\fft\soa-ref.cpp">
       <Filter>Source Files\Reference\fft</Filter>
     </ClCompile>
-    <ClCompile Include="src\x86_64-fma\softmax.cpp">
+    <ClCompile Include="src\x86_64-fma\exp.cpp">
       <Filter>x86_64-fma</Filter>
     </ClCompile>
-    <ClCompile Include="src\x86_64-fma\exp.cpp">
+    <ClCompile Include="src\x86_64-fma\softmax.cpp">
       <Filter>x86_64-fma</Filter>
     </ClCompile>
   </ItemGroup>

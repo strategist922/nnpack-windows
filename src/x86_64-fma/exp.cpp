@@ -6,7 +6,8 @@
 
 #define ToFloat(str) std::strtof(str, NULL)
 
-__m256 _mm256_exp_ps(__m256 x) {
+__m256 _mm256_exp_ps(__m256 x) 
+{
 	const __m256 magic_bias = _mm256_set1_ps(ToFloat("0x1.800000p+23f"));
 	const __m256 zero_cutoff = _mm256_set1_ps(ToFloat("-0x1.9FE368p+6f")); /* The smallest x for which expf(x) is non-zero */
 	const __m256 inf_cutoff = _mm256_set1_ps(ToFloat("0x1.62E42Ep+6f")); /* The largest x for which expf(x) is finite */
@@ -46,65 +47,65 @@ __m256 _mm256_exp_ps(__m256 x) {
 	return f;
 }
 
-static inline uint32_t as_uint32(float a) 
-{
-	union data
-	{
-		float x;
-		uint32_t n;
-		data(float y) : x(y) {}
-		data(uint32_t m) : n(m) {}
-	};
-		
-	return data(a).n;
-}
-
-static inline float as_float(uint32_t a) 
-{
-	union data
-	{
-		float x;
-		uint32_t n;
-		data(float y) : x(y) {}
-		data(uint32_t m) : n(m) {}
-	};
-
-	return data(a).x;
-}
-
-static inline float ulpf(float x) 
-{
-	const float absx = fabsf(x);
-
-	if (absx < std::numeric_limits<float>::infinity()) 
-		return as_float(as_uint32(absx) + 1) - absx;
-	else
-		return absx;
-}
-
-int main() 
-{
-	float max_error = 0.0f;
-	for (uint32_t n = INT32_MIN; n < as_uint32(ToFloat("-0x1.9FE368p+6f")); n++) 
-	{
-		const float x = as_float(n);
-		const float ref_y = expf(x);
-		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
-		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
-		if (error > max_error)
-			max_error = error;
-	}
-	printf("Max error: %.2f ULP\n", max_error);
-
-	max_error = 0.0f;
-	for (uint32_t n = 0; n < as_uint32(ToFloat("0x1.62E42Ep+6f")); n++) 
-	{
-		const float x = as_float(n);
-		const float ref_y = expf(x);
-		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
-		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
-		if (error > max_error)
-			max_error = error;
-	}
-	printf("Max error: %.2f ULP\n", max_error);
-}
+//static inline uint32_t as_uint32(float a) 
+//{
+//	union data
+//	{
+//		float x;
+//		uint32_t n;
+//		data(float y) : x(y) {}
+//		data(uint32_t m) : n(m) {}
+//	};
+//		
+//	return data(a).n;
+//}
+//
+//static inline float as_float(uint32_t a) 
+//{
+//	union data
+//	{
+//		float x;
+//		uint32_t n;
+//		data(float y) : x(y) {}
+//		data(uint32_t m) : n(m) {}
+//	};
+//
+//	return data(a).x;
+//}
+//
+//static inline float ulpf(float x) 
+//{
+//	const float absx = fabsf(x);
+//
+//	if (absx < std::numeric_limits<float>::infinity()) 
+//		return as_float(as_uint32(absx) + 1) - absx;
+//	else
+//		return absx;
+//}
+//
+//int main() 
+//{
+//	float max_error = 0.0f;
+//	for (uint32_t n = INT32_MIN; n < as_uint32(ToFloat("-0x1.9FE368p+6f")); n++) 
+//	{
+//		const float x = as_float(n);
+//		const float ref_y = expf(x);
+//		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
+//		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
+//		if (error > max_error)
+//			max_error = error;
+//	}
+//	printf("Max error: %.2f ULP\n", max_error);
+//
+//	max_error = 0.0f;
+//	for (uint32_t n = 0; n < as_uint32(ToFloat("0x1.62E42Ep+6f")); n++) 
+//	{
+//		const float x = as_float(n);
+//		const float ref_y = expf(x);
+//		const float opt_y = _mm_cvtss_f32(_mm256_castps256_ps128(_mm256_exp_ps(_mm256_set1_ps(x))));
+//		const float error = fabsf(ref_y - opt_y) / ulpf(ref_y);
+//		if (error > max_error)
+//			max_error = error;
+//	}
+//	printf("Max error: %.2f ULP\n", max_error);
+//}

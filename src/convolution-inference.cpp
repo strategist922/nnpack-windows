@@ -17,7 +17,7 @@
 #include <hwinfo.h>
 #include <activations.h>
 #include <validation.h>
-#include <vector>
+
 
 struct __declspec(align(64)) kernel_transform_context 
 {
@@ -243,8 +243,11 @@ static void compute_tuple_multiplication(
 			tiles_block_size -= tiles_subblock_max;
 
 			fast_gemm(
-				input_channels_block_size, input_channels_block_start,
-				input_transform, kernel_transform, output_transform,
+				input_channels_block_size,
+				input_channels_block_start,
+				input_transform,
+				kernel_transform,
+				output_transform,
 				output_channels_subblock_size * tuple_elements);
 
 			input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
