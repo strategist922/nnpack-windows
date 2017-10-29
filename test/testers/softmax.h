@@ -95,7 +95,7 @@ public:
 	}
 
 	void testOutput() const {
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(-1.0f, +1.0f), std::mt19937(seed));
 
 		std::vector<float> input(batchSize() * channels());
@@ -122,7 +122,7 @@ public:
 	}
 
 	void testOutputInplace() const {
-		const uint_fast32_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+		const uint_fast32_t seed = uint_fast32_t(std::chrono::system_clock::now().time_since_epoch().count());
 		auto rng = std::bind(std::uniform_real_distribution<float>(-1.0f, +1.0f), std::mt19937(seed));
 
 		std::vector<float> data(batchSize() * channels());

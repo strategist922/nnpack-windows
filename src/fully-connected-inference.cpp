@@ -6,7 +6,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) fully_connected_inference_context 
+struct NNP_CACHE_ALIGN fully_connected_inference_context 
 {
 	size_t input_channels;
 	const float* input;

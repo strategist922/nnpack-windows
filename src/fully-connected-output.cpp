@@ -4,7 +4,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) input_packing_context 
+struct NNP_CACHE_ALIGN input_packing_context 
 {
 	const float* matrix;
 	float* packed_matrix;
@@ -40,7 +40,7 @@ static void pack_input_matrix(
 	}
 }
 
-struct __declspec(align(64)) kernel_packing_context 
+struct NNP_CACHE_ALIGN kernel_packing_context 
 {
 	const float* matrix;
 	float* packed_matrix;
@@ -82,7 +82,7 @@ static void pack_kernel_matrix(
 	}
 }
 
-struct __declspec(align(64)) matrix_multiplication_context 
+struct NNP_CACHE_ALIGN matrix_multiplication_context 
 {
 	const float* input;
 	const float* kernel;

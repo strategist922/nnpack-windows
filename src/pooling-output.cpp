@@ -14,7 +14,7 @@
 #include <utils.h>
 #include <pooling.h>
 
-struct __declspec(align(64)) pooling_context 
+struct NNP_CACHE_ALIGN pooling_context 
 {
 	nnp_pooling_function pooling_function;
 	const float* input_pointer;

@@ -13,7 +13,7 @@
 #include <hwinfo.h>
 #include <validation.h>
 
-struct __declspec(align(64)) input_transform_context
+struct NNP_CACHE_ALIGN input_transform_context
 {
 	size_t tuple_elements;
 	size_t input_elements;
@@ -63,7 +63,7 @@ static void compute_input_transform(
 	}
 }
 
-struct __declspec(align(64)) grad_output_transform_context
+struct NNP_CACHE_ALIGN grad_output_transform_context
 {
 	size_t tuple_elements;
 	size_t output_elements;
@@ -110,7 +110,7 @@ static void compute_grad_output_transform(
 	}
 }
 
-struct __declspec(align(64)) grad_kernel_transform_context
+struct NNP_CACHE_ALIGN grad_kernel_transform_context
 {
 	size_t tuple_elements;
 	size_t input_channels;
@@ -158,7 +158,7 @@ static void compute_grad_kernel_transform(
 	}
 }
 
-struct __declspec(align(64)) matrix_multiplication_context
+struct NNP_CACHE_ALIGN matrix_multiplication_context
 {
 	size_t tuple_elements;
 	size_t batch_size;

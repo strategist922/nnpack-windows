@@ -19,7 +19,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) kernel_transform_context 
+struct NNP_CACHE_ALIGN kernel_transform_context 
 {
 	nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
@@ -63,7 +63,7 @@ static void compute_kernel_transform(
 	}
 }
 
-struct __declspec(align(64)) input_transform_context
+struct NNP_CACHE_ALIGN input_transform_context
 {
 	const float* input;
 	float* input_transform;
@@ -133,7 +133,7 @@ static void compute_input_transform(
 	}
 }
 
-struct __declspec(align(64)) output_transform_context
+struct NNP_CACHE_ALIGN output_transform_context
 {
 	nnp_transform_2d_with_bias transform_function;
 	float* output;
@@ -196,7 +196,7 @@ static void compute_output_transform(
 	}
 }
 
-struct __declspec(align(64)) tuple_multiplication_context
+struct NNP_CACHE_ALIGN tuple_multiplication_context
 {
 	size_t tuple_elements;
 	size_t tuple_size;
@@ -276,7 +276,7 @@ static void compute_tuple_multiplication(
 	}
 }
 
-struct __declspec(align(64)) kernel_packing_context
+struct NNP_CACHE_ALIGN kernel_packing_context
 {
 	const float* kernel;
 	float* packed_kernel;
@@ -303,7 +303,7 @@ static void compute_kernel_packing(
 		packed_kernel[output_channels_subblock_offset] = kernel[output_channels_subblock_offset * reduction_size];
 }
 
-struct __declspec(align(64)) input_packing_context
+struct NNP_CACHE_ALIGN input_packing_context
 {
 	const float* input;
 	float* packed_input;
@@ -369,7 +369,7 @@ static void compute_input_packing(
 	}
 }
 
-struct __declspec(align(64)) matrix_multiplication_context
+struct NNP_CACHE_ALIGN matrix_multiplication_context
 {
 	const float* packed_kernel;
 	const float* packed_input;
@@ -441,7 +441,7 @@ static void compute_matrix_multiplication(
 	}
 }
 
-struct __declspec(align(64)) direct_convolution_context
+struct NNP_CACHE_ALIGN direct_convolution_context
 {
 	const float* input;
 	const float* kernel;

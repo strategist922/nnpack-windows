@@ -13,7 +13,7 @@
 #include <hwinfo.h>
 #include <validation.h>
 
-struct __declspec(align(64)) kernel_transform_context 
+struct NNP_CACHE_ALIGN kernel_transform_context 
 {
 	nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
@@ -60,7 +60,7 @@ static void compute_kernel_transform(
 	}
 }
 
-struct __declspec(align(64)) grad_output_transform_context
+struct NNP_CACHE_ALIGN grad_output_transform_context
 {
 	nnp_transform_2d_with_offset transform_function;
 	const float* grad_output;
@@ -115,7 +115,7 @@ static void compute_grad_output_transform(
 	}
 }
 
-struct __declspec(align(64)) grad_input_transform_context
+struct NNP_CACHE_ALIGN grad_input_transform_context
 {
 	nnp_transform_2d_with_offset transform_function;
 	float* grad_input;
@@ -170,7 +170,7 @@ static void compute_grad_input_transform(
 	}
 }
 
-struct __declspec(align(64)) matrix_multiplication_context
+struct NNP_CACHE_ALIGN matrix_multiplication_context
 {
 	size_t tuple_elements;
 	size_t batch_size;

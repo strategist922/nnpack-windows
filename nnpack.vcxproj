@@ -113,6 +113,7 @@
       <CheckDanglingPointers>All</CheckDanglingPointers>
       <SDLCheck>true</SDLCheck>
       <StringPooling>false</StringPooling>
+      <DisableSpecificWarnings>4100;4324</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

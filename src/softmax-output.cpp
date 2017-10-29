@@ -8,7 +8,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) softmax_context 
+struct NNP_CACHE_ALIGN softmax_context 
 {
 	nnp_softmax_function softmax_function;
 	size_t channels;
@@ -27,7 +27,7 @@ static void compute_softmax_output(const struct softmax_context* context, const 
 	softmax(channels, input + sample * channels, output + sample * channels);
 }
 
-struct __declspec(align(64)) inplace_softmax_context 
+struct NNP_CACHE_ALIGN inplace_softmax_context 
 {
 	nnp_inplace_softmax_function softmax_function;
 	size_t channels;

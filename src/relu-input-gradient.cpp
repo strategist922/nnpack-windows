@@ -9,7 +9,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) relu_context 
+struct NNP_CACHE_ALIGN relu_context 
 {
 	nnp_grad_relu_function grad_relu_function;
 	const float* grad_output;

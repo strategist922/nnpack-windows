@@ -9,7 +9,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) relu_context
+struct NNP_CACHE_ALIGN relu_context
 {
 	nnp_relu_function relu_function;
 	const float* input;
@@ -30,7 +30,7 @@ static void compute_relu_output(
 	relu(input + block_start, output + block_start, block_size, negative_slope);
 }
 
-struct __declspec(align(64)) inplace_relu_context 
+struct NNP_CACHE_ALIGN inplace_relu_context 
 {
 	nnp_inplace_relu_function relu_function;
 	float* data;

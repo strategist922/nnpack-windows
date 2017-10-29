@@ -1,8 +1,5 @@
-﻿  stdafx.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\dhaen\source\repos\nnpack\x64\debug\test.pdb' because it is being used by another process.
+  stdafx.cpp
   imagenet.cc
-c:\users\dhaen\source\repos\nnpack\test\testers\softmax.h(98): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
-c:\users\dhaen\source\repos\nnpack\test\testers\softmax.h(98): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
-c:\users\dhaen\source\repos\nnpack\test\testers\softmax.h(125): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'uint_fast32_t', possible loss of data
-c:\users\dhaen\source\repos\nnpack\test\testers\softmax.h(125): warning C4244: 'initializing': conversion from 'std::chrono::system_clock::rep' to 'const uint_fast32_t', possible loss of data
   Generating Code...
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\test.exe

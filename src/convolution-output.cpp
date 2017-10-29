@@ -14,7 +14,7 @@
 #include <validation.h>
 
 
-struct __declspec(align(64)) kernel_transform_context
+struct NNP_CACHE_ALIGN kernel_transform_context
 {
 	nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
@@ -62,7 +62,7 @@ static void compute_kernel_transform(
 	}
 }
 
-struct __declspec(align(64)) input_transform_context
+struct NNP_CACHE_ALIGN input_transform_context
 {
 	nnp_transform_2d_with_offset transform_function;
 	const float* input;
@@ -118,7 +118,7 @@ static void compute_input_transform(
 	}
 }
 
-struct __declspec(align(64)) output_transform_context
+struct NNP_CACHE_ALIGN output_transform_context
 {
 	nnp_transform_2d_with_bias transform_function;
 	float* output;
@@ -174,7 +174,7 @@ static void compute_output_transform(
 	}
 }
 
-struct __declspec(align(64)) matrix_multiplication_context
+struct NNP_CACHE_ALIGN matrix_multiplication_context
 {
 	size_t tuple_elements;
 	size_t batch_block_size;
