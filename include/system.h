@@ -1,9 +1,14 @@
 #pragma once
 
+#ifdef __cplusplus
+#include <cstddef>
+#include <cstdint>
+#include <cstdbool>
+#else
 #include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
-#include <stdlib.h>
-#include <assert.h>
+#endif
 
 #if defined(__linux__) || defined(__native_client__)
 	#include <time.h>

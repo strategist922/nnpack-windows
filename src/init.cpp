@@ -236,13 +236,13 @@ static void init_hwinfo()
 			nnp_hwinfo.sdotxf = sdotxf 
 			{ 
 				sdotxf_function, 
-				8u 
+				NNP_COUNT_OF(sdotxf_function)
 			};;
 
 			nnp_hwinfo.shdotxf = shdotxf 
 			{ 
 				shdotxf_function, 
-				8u 
+				NNP_COUNT_OF(shdotxf_function)
 			};
 
 			nnp_hwinfo.conv1x1 = convolution 

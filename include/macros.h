@@ -28,6 +28,8 @@
 	#define NNP_BACKEND_X86_64 1
 #elif defined(__ANDROID__) && defined(__mips__)
 	#define NNP_BACKEND_SCALAR 1
+#elif defined(_MSC_VER)
+	#define NNP_BACKEND_WIN64 1
 #else
 	#define NNP_BACKEND_PSIMD 1
 #endif
@@ -43,6 +45,9 @@
 #endif
 #ifndef NNP_BACKEND_X86_64
 	#define NNP_BACKEND_X86_64 0
+#endif
+#ifndef NNP_BACKEND_WIN64
+#define NNP_BACKEND_WIN64 0
 #endif
 
 #if defined(_MSC_VER)
