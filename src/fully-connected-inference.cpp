@@ -3,6 +3,7 @@
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>
+#include <system.h>
 #include <validation.h>
 
 
@@ -12,8 +13,6 @@ struct NNP_CACHE_ALIGN fully_connected_inference_context
 	const float* input;
 	const float* kernel;
 	float* output;
-
-	fully_connected_inference_context() = default;
 };
 
 static void compute_fully_connected_inference_f32(

@@ -1,6 +1,7 @@
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>
+#include <system.h>
 #include <validation.h>
 
 
@@ -264,8 +265,8 @@ nnp_status nnp_fully_connected_output(
 	void* memory_block_input = NULL;
 	void* memory_block_kernel = NULL;
 
-	memory_block_input = _aligned_malloc(packed_input_size, 64ull);
-	memory_block_kernel = _aligned_malloc(packed_kernel_size, 64ull);
+	memory_block_input = allocate_memory(packed_input_size);
+	memory_block_kernel = allocate_memory(packed_kernel_size);
 
 	if (memory_block_input == NULL || memory_block_kernel == NULL)
 		return nnp_status_out_of_memory;
@@ -283,8 +284,8 @@ nnp_status nnp_fully_connected_output(
 		packed_input, packed_kernel);
 
 
-	_aligned_free(memory_block_input);
-	_aligned_free(memory_block_kernel);
+	release_memory(memory_block_input, packed_input_size);
+	release_memory(memory_block_kernel, packed_kernel_size);
 	
 	return status;
 }

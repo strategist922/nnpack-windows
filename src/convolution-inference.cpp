@@ -16,6 +16,7 @@
 
 #include <hwinfo.h>
 #include <activations.h>
+#include <system.h>
 #include <validation.h>
 
 
@@ -567,9 +568,9 @@ static nnp_status compute_fast_convolution_inference(
 	
 	if (workspace_buffer == NULL)
 	{
-		memory_block_input = _aligned_malloc(input_transform_size, 64ull);
-		memory_block_output = _aligned_malloc(output_transform_size, 64ull);
-		memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
+		memory_block_input = allocate_memory(input_transform_size);
+		memory_block_output = allocate_memory(output_transform_size);
+		memory_block_kernel = allocate_memory(kernel_transform_size);
 		
 		if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
 			return nnp_status_out_of_memory;
@@ -578,9 +579,9 @@ static nnp_status compute_fast_convolution_inference(
 	{
 		if (workspace_buffer->kernel == NULL || workspace_buffer->input == NULL || workspace_buffer->output == NULL)
 		{
-			memory_block_input = _aligned_malloc(input_transform_size, 64ull);
-			memory_block_output = _aligned_malloc(output_transform_size, 64ull);
-			memory_block_kernel = _aligned_malloc(kernel_transform_size, 64ull);
+			memory_block_input = allocate_memory(input_transform_size);
+			memory_block_output = allocate_memory(output_transform_size);
+			memory_block_kernel = allocate_memory(kernel_transform_size);
 			
 			if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
 				return nnp_status_out_of_memory;
@@ -723,17 +724,17 @@ static nnp_status compute_fast_convolution_inference(
 
 	if (workspace_buffer == NULL)
 	{
-		_aligned_free(memory_block_kernel);
-		_aligned_free(memory_block_input);
-		_aligned_free(memory_block_output);
+		release_memory(memory_block_input, input_transform_size);
+		release_memory(memory_block_output, output_transform_size);
+		release_memory(memory_block_kernel, kernel_transform_size);
 	}
 	else
 	{
 		if (memory_block_kernel != workspace_buffer->kernel || memory_block_input != workspace_buffer->input || memory_block_output != workspace_buffer->output)
 		{
-			_aligned_free(memory_block_input);
-			_aligned_free(memory_block_output);
-			_aligned_free(memory_block_kernel);
+			release_memory(memory_block_input, input_transform_size);
+			release_memory(memory_block_output, output_transform_size);
+			release_memory(memory_block_kernel, kernel_transform_size);
 		}
 	}
 
@@ -775,8 +776,8 @@ static nnp_status compute_gemm_convolution_inference(
 	const size_t packed_kernel_size = output_channels *	min(reduction_block_max, reduction_size) * sizeof(float);
 	const size_t packed_input_size = min(output_image_block_max, round_up(output_image_size, simd_width)) *	min(reduction_block_max, reduction_size) * sizeof(float);
 
-	void* memory_packed_input = _aligned_malloc(packed_input_size, 64ull);
-	void* memory_packed_kernel = _aligned_malloc(packed_kernel_size, 64ull);
+	void* memory_packed_input = allocate_memory(packed_input_size);
+	void* memory_packed_kernel = allocate_memory(packed_kernel_size);
 		
 	if (memory_packed_kernel == NULL || memory_packed_input == NULL)
 		return nnp_status_out_of_memory;
@@ -881,8 +882,8 @@ static nnp_status compute_gemm_convolution_inference(
 		break;
 	}
 
-	_aligned_free(packed_input);
-	_aligned_free(packed_kernel);
+	release_memory(packed_input, packed_input_size);
+	release_memory(packed_kernel, packed_kernel_size);
 	
 	return status;
 }

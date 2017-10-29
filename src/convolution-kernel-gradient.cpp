@@ -11,6 +11,7 @@
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>
+#include <system.h>
 #include <validation.h>
 
 struct NNP_CACHE_ALIGN input_transform_context
@@ -283,9 +284,9 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 
 	if (workspace_buffer == NULL)
 	{
-		memory_block_grad_kernel = _aligned_malloc(grad_kernel_transform_size, 64ull);
-		memory_block_input = _aligned_malloc(input_transform_size, 64ull);
-		memory_block_grad_output = _aligned_malloc(grad_output_transform_size, 64ull);
+		memory_block_grad_kernel = allocate_memory(grad_kernel_transform_size);
+		memory_block_input = allocate_memory(input_transform_size);
+		memory_block_grad_output = allocate_memory(grad_output_transform_size);
 
 		if (memory_block_grad_kernel == NULL || memory_block_input == NULL || memory_block_grad_output == NULL)
 			return nnp_status_out_of_memory;
@@ -294,9 +295,9 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	{
 		if (workspace_buffer->kernel == NULL || workspace_buffer->input == NULL || workspace_buffer->output == NULL)
 		{
-			memory_block_grad_kernel = _aligned_malloc(grad_kernel_transform_size, 64ull);
-			memory_block_input = _aligned_malloc(input_transform_size, 64ull);
-			memory_block_grad_output = _aligned_malloc(grad_output_transform_size, 64ull);
+			memory_block_grad_kernel = allocate_memory(grad_kernel_transform_size);
+			memory_block_input = allocate_memory(input_transform_size);
+			memory_block_grad_output = allocate_memory(grad_output_transform_size);
 
 			if (memory_block_grad_kernel == NULL || memory_block_input == NULL || memory_block_grad_output == NULL)
 				return nnp_status_out_of_memory;
@@ -440,17 +441,17 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 
 	if (workspace_buffer == NULL)
 	{
-		_aligned_free(memory_block_grad_kernel);
-		_aligned_free(memory_block_input);
-		_aligned_free(memory_block_grad_output);
+		release_memory(memory_block_grad_kernel, grad_kernel_transform_size);
+		release_memory(memory_block_input, input_transform_size);
+		release_memory(memory_block_grad_output, grad_output_transform_size);
 	}
 	else
 	{
 		if (memory_block_grad_kernel != workspace_buffer->kernel || memory_block_input != workspace_buffer->input || memory_block_grad_output != workspace_buffer->output)
 		{
-			_aligned_free(memory_block_grad_kernel);
-			_aligned_free(memory_block_input);
-			_aligned_free(memory_block_grad_output);
+			release_memory(memory_block_grad_kernel, grad_kernel_transform_size);
+			release_memory(memory_block_input, input_transform_size);
+			release_memory(memory_block_grad_output, grad_output_transform_size);
 		}
 	}
 
