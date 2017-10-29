@@ -227,6 +227,7 @@ static void init_hwinfo()
 			nnp_hwinfo.transforms.owt_f6x6_3x3 = (nnp_transform_2d_with_offset)nnp_owt8x8_3x3__avx2;
 			nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_with_bias__avx2;
 			nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_with_bias_with_relu__avx2;
+			
 			nnp_hwinfo.activations.relu = nnp_relu__avx2;
 			nnp_hwinfo.activations.inplace_relu = nnp_inplace_relu__avx2;
 			nnp_hwinfo.activations.grad_relu = nnp_grad_relu__avx2;

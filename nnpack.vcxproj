@@ -106,7 +106,7 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseIntelOptimizedHeaders>true</UseIntelOptimizedHeaders>
       <CheckPointers>Rw</CheckPointers>
@@ -114,6 +114,8 @@
       <SDLCheck>true</SDLCheck>
       <StringPooling>false</StringPooling>
       <DisableSpecificWarnings>4100;4324</DisableSpecificWarnings>
+      <StructMemberAlignment>16Bytes</StructMemberAlignment>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

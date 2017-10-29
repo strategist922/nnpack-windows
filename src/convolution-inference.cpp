@@ -53,7 +53,7 @@ static void compute_kernel_transform(
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform_function(
-			kernel + (input_channels_block_offset + output_channel * input_channels) * kernel_size.width * kernel_size.height,
+			kernel + (output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channels_block_offset * kernel_size.width * kernel_size.height),
 			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
@@ -69,7 +69,7 @@ struct NNP_CACHE_ALIGN input_transform_context
 	const float* input;
 	float* input_transform;
 	nnp_transform_2d_with_offset transform_function;
-	
+
 	size_t tuple_size;
 	size_t tiles_count;
 	fxdiv_divisor_size_t tiles_x_count;
@@ -89,7 +89,7 @@ static void compute_input_transform(
 	const size_t input_channels_block_range,
 	const size_t tiles_subblock_size)
 {
-	const nnp_transform_2d_with_offset transform_function	= context->transform_function;
+	nnp_transform_2d_with_offset transform_function	= context->transform_function;
 	const float* input										= context->input;
 	float* input_transform									= context->input_transform;
 	const size_t tuple_size									= context->tuple_size;
@@ -121,7 +121,7 @@ static void compute_input_transform(
 		const size_t row_count = min(input_size.height - input_y, input_tile.height - row_offset);
 		const size_t column_offset = doz(input_padding_left, output_x);
 		const size_t column_count = min(input_size.width - input_x, input_tile.width - column_offset);
-
+		
 		transform_function(
 			input + (input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x,
 			input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size,

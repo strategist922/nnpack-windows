@@ -96,6 +96,15 @@ struct nnp_padding
 	size_t left;
 };
 
+struct nnp_profile 
+{
+	double total;
+	double input_transform;
+	double kernel_transform;
+	double output_transform;
+	double block_multiplication;
+};
+
 struct nnp_workspace_pointers
 {
 	void* kernel;

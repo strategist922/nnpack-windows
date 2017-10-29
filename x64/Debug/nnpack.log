@@ -28,5 +28,6 @@
   convolution-kernel-gradient.cpp
   convolution-input-gradient.cpp
   convolution-inference.cpp
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(219): warning C4505: 'compute_tuple_multiplication': unreferenced local function has been removed
   Generating Code...
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib
