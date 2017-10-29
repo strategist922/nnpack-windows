@@ -11,8 +11,11 @@
 #include <limits>
 
 #include <nnpack.h>
+#include <macros.h>
 #include <utils.h>
 #include <pooling.h>
+#include <validation.h>
+
 
 struct NNP_CACHE_ALIGN pooling_context 
 {

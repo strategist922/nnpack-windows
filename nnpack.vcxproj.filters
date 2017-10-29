@@ -179,6 +179,12 @@
     <ClInclude Include="src\ref\fft\complex-ref.h">
       <Filter>Source Files\Reference\fft</Filter>
     </ClInclude>
+    <ClInclude Include="include\macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

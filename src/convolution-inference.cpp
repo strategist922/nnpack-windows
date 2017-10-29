@@ -532,9 +532,6 @@ static nnp_status compute_fast_convolution_inference(
 	const nnp_transform_2d_with_offset kernel_transform_function,
 	const nnp_transform_2d_with_bias output_transform_function)
 {
-	if (transform_strategy != nnp_convolution_transform_strategy_compute)
-		return nnp_status_unsupported_transform_strategy;
-
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = (fourier_transform ? simd_width * 2ull : simd_width);
 	const size_t tuple_size = tuple_elements * transform_element_size;
@@ -729,7 +726,6 @@ static nnp_status compute_fast_convolution_inference(
 		_aligned_free(memory_block_kernel);
 		_aligned_free(memory_block_input);
 		_aligned_free(memory_block_output);
-		
 	}
 	else
 	{
@@ -1060,6 +1056,8 @@ nnp_status nnp_convolution_inference(
 		case nnp_convolution_algorithm_ft8x8:
 		case nnp_convolution_algorithm_ft16x16:
 		{
+			if (transform_strategy != nnp_convolution_transform_strategy_compute)
+				return nnp_status_unsupported_transform_strategy;
 			if (max(output_subsampling.height, output_subsampling.width) != 1ull)
 				return nnp_status_unsupported_algorithm;
 			if (kernel_size.height > tile_size.height || kernel_size.width > tile_size.width)

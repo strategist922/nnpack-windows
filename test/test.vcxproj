@@ -179,7 +179,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="softmax-output\imagenet.cc" />
+    <ClCompile Include="convolution-inference\smoke.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

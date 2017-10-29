@@ -235,6 +235,7 @@
     <ClInclude Include="include\fft.h" />
     <ClInclude Include="include\fxdiv.h" />
     <ClInclude Include="include\hwinfo.h" />
+    <ClInclude Include="include\macros.h" />
     <ClInclude Include="include\nnpack.h" />
     <ClInclude Include="include\pooling.h" />
     <ClInclude Include="include\pthreadpool.h" />
@@ -242,6 +243,7 @@
     <ClInclude Include="include\relu.h" />
     <ClInclude Include="include\softmax.h" />
     <ClInclude Include="include\stdafx.h" />
+    <ClInclude Include="include\system.h" />
     <ClInclude Include="include\targetver.h" />
     <ClInclude Include="include\transform.h" />
     <ClInclude Include="include\utils.h" />

@@ -16,8 +16,6 @@
 extern "C" {
 #endif
 
-#define NNP_CACHE_ALIGN __declspec(align(64))
-
 enum nnp_status 
 {
 	nnp_status_success = 0,
