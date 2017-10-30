@@ -232,9 +232,9 @@ static void compute_tuple_multiplication(
 	const size_t output_channels_subblock_max = context->output_channels_subblock_max;
 	const size_t output_channels_block_start  = context->output_channels_block_start;
 
-	const float* input_transform  = context->input_transform +	tiles_block_start * input_channels_block_size * tuple_size;
-	const float* kernel_transform = context->kernel_transform +	(output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
-	float* output_transform = context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
+	const float* input_transform              = context->input_transform + tiles_block_start * input_channels_block_size * tuple_size;
+	const float* kernel_transform             = context->kernel_transform +	(output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
+	float* output_transform                   = context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
 
 	if (output_channels_subblock_size == output_channels_subblock_max) 
 	{

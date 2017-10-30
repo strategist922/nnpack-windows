@@ -120,7 +120,7 @@ inline static void* allocate_memory(size_t memory_size)
 	}
 	return memory_block;
 #elif defined(_MSC_VER)
-	return _aligned_malloc(round_up(memory_size, 64ull), 64ull);
+	return _aligned_malloc(memory_size, 64ull);
 #else
 	void* memory_block = NULL;
 	int allocation_result = posix_memalign(&memory_block, 64, memory_size);
