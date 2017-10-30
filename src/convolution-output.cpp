@@ -266,7 +266,8 @@ static nnp_status compute_fast_convolution_output(
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_transform_2d_with_offset input_transform_function,
 	const nnp_transform_2d_with_offset kernel_transform_function,
-	const nnp_transform_2d_with_bias output_transform_function)
+	const nnp_transform_2d_with_bias output_transform_function,
+	nnp_profile* profile)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = (fourier_transform ? simd_width * 2ull : simd_width);
@@ -330,6 +331,7 @@ static nnp_status compute_fast_convolution_output(
 	float* input_transform = static_cast<float*>(memory_block_input);
 	float* output_transform = static_cast<float*>(memory_block_output);
 	
+	NNP_KERNEL_TRANSFORM_START(profile)
 	kernel_transform_context kernel_transform_contex =
 	{
 		kernel_transform_function,
@@ -348,7 +350,8 @@ static nnp_status compute_fast_convolution_output(
 		output_channels,
 		1ull,
 		output_channels_subblock_max);
-	
+	NNP_KERNEL_TRANSFORM_END(profile)
+
 	for (size_t y = 0ull; y < output_size.height; y += output_tile_size.height) 
 	{
 		const size_t input_y = min(doz(y, input_padding.top), input_size.height);
@@ -359,6 +362,7 @@ static nnp_status compute_fast_convolution_output(
 			const size_t input_x = min(doz(x, input_padding.left), input_size.width);
 			const size_t column_offset = doz(input_padding.left, x);
 
+			NNP_INPUT_TRANSFORM_START(profile)
 			input_transform_context input_transform_ctx =
 			{
 				input_transform_function,
@@ -381,7 +385,9 @@ static nnp_status compute_fast_convolution_output(
 				batch_size,
 				1ull,
 				batch_subblock_max);
-			
+			NNP_INPUT_TRANSFORM_END(profile)
+
+			NNP_BLOCK_MULTIPLICATION_START(profile)
 			for (size_t tuple_index = 0ull; tuple_index < tuple_count; tuple_index++) 
 			{
 				for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) 
@@ -430,7 +436,9 @@ static nnp_status compute_fast_convolution_output(
 					}
 				}
 			}
+			NNP_BLOCK_MULTIPLICATION_END(profile)
 
+			NNP_OUTPUT_TRANSFORM_START(profile)
 			output_transform_context output_transform_contex =
 			{
 				output_transform_function,
@@ -447,7 +455,6 @@ static nnp_status compute_fast_convolution_output(
 				0ull,
 				min(output_tile_size.width, output_size.width - x)
 			};
-				
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_output_transform,
 				&output_transform_contex,
@@ -455,6 +462,7 @@ static nnp_status compute_fast_convolution_output(
 				output_channels,
 				1ull,
 				output_channels_subblock_max);
+			NNP_OUTPUT_TRANSFORM_END(profile)
 		}
 	}
 	
@@ -491,8 +499,8 @@ enum nnp_status nnp_convolution_output(
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters
-	)
+	const void* activation_parameters,
+	nnp_profile* profile)
 {
 	const nnp_size output_size = 
 	{ 
@@ -537,21 +545,21 @@ enum nnp_status nnp_convolution_output(
 		if (kernel_size.height > 8ull || kernel_size.width > 8ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_output(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3x3, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu : nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias));
+			status = compute_fast_convolution_output(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3x3, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu : nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias), profile);
 		break;
 
 	case nnp_convolution_algorithm_ft8x8:
 		if (kernel_size.height > 8ull || kernel_size.width > 8ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu : nnp_hwinfo.transforms.ifft8x8_with_bias));
+			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.ifft8x8_with_bias_with_relu : nnp_hwinfo.transforms.ifft8x8_with_bias), profile);
 		break;
 
 	case nnp_convolution_algorithm_ft16x16:
 		if (kernel_size.height > 16ull || kernel_size.width > 16ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu : nnp_hwinfo.transforms.ifft16x16_with_bias));
+			status = compute_fast_convolution_output(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, input, kernel, bias, output, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, (activation == nnp_activation_relu ? nnp_hwinfo.transforms.ifft16x16_with_bias_with_relu : nnp_hwinfo.transforms.ifft16x16_with_bias), profile);
 		break;
 
 	default:

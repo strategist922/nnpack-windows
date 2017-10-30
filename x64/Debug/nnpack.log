@@ -28,6 +28,27 @@
   convolution-kernel-gradient.cpp
   convolution-input-gradient.cpp
   convolution-inference.cpp
-c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(219): warning C4505: 'compute_tuple_multiplication': unreferenced local function has been removed
   Generating Code...
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(627): warning C4701: potentially uninitialized local variable 'kernel_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(819): warning C4701: potentially uninitialized local variable 'kernel_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(653): warning C4701: potentially uninitialized local variable 'input_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(853): warning C4701: potentially uninitialized local variable 'input_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(707): warning C4701: potentially uninitialized local variable 'block_multiplication_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(875): warning C4701: potentially uninitialized local variable 'block_multiplication_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(901): warning C4701: potentially uninitialized local variable 'output_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(732): warning C4701: potentially uninitialized local variable 'output_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(942): warning C4701: potentially uninitialized local variable 'block_multiplication_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-inference.cpp(966): warning C4701: potentially uninitialized local variable 'output_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-input-gradient.cpp(353): warning C4701: potentially uninitialized local variable 'kernel_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-input-gradient.cpp(388): warning C4701: potentially uninitialized local variable 'output_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-input-gradient.cpp(442): warning C4701: potentially uninitialized local variable 'block_multiplication_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-input-gradient.cpp(467): warning C4701: potentially uninitialized local variable 'input_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-kernel-gradient.cpp(358): warning C4701: potentially uninitialized local variable 'input_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-kernel-gradient.cpp(382): warning C4701: potentially uninitialized local variable 'output_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-kernel-gradient.cpp(425): warning C4701: potentially uninitialized local variable 'block_multiplication_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-kernel-gradient.cpp(450): warning C4701: potentially uninitialized local variable 'kernel_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(353): warning C4701: potentially uninitialized local variable 'kernel_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(388): warning C4701: potentially uninitialized local variable 'input_transform_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(439): warning C4701: potentially uninitialized local variable 'block_multiplication_start' used
+c:\users\dhaen\source\repos\nnpack\src\convolution-output.cpp(465): warning C4701: potentially uninitialized local variable 'output_transform_start' used
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib

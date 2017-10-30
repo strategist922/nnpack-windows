@@ -48,7 +48,7 @@ static void compute_kernel_transform(
 	const size_t input_channels_block_size					= context->input_channels_block_size;
 	const size_t output_channels							= context->output_channels;
 	const nnp_size kernel_size								= context->kernel_size;
-
+	
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
@@ -531,7 +531,8 @@ static nnp_status compute_fast_convolution_inference(
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_transform_2d_with_offset input_transform_function,
 	const nnp_transform_2d_with_offset kernel_transform_function,
-	const nnp_transform_2d_with_bias output_transform_function)
+	const nnp_transform_2d_with_bias output_transform_function,
+	nnp_profile* profile)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = (fourier_transform ? simd_width * 2ull : simd_width);
@@ -603,7 +604,8 @@ static nnp_status compute_fast_convolution_inference(
 	for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max)
 	{
 		const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
-				
+			
+		NNP_KERNEL_TRANSFORM_START(profile)
 		kernel_transform_context kernel_transform_context =
 		{
 			kernel_transform_function,
@@ -622,7 +624,9 @@ static nnp_status compute_fast_convolution_inference(
 			input_channels_block_size,
 			output_channels_subblock_max,
 			1ull);
-		
+		NNP_KERNEL_TRANSFORM_END(profile)
+
+		NNP_INPUT_TRANSFORM_START(profile)
 		input_transform_context input_transform_context =
 		{
 			input,
@@ -646,7 +650,9 @@ static nnp_status compute_fast_convolution_inference(
 			tiles_count,
 			1ull,
 			tiles_subblock_max);
+		NNP_INPUT_TRANSFORM_END(profile)
 
+		NNP_BLOCK_MULTIPLICATION_START(profile)
 		for (size_t tuple_index = 0ull; tuple_index < tuple_count; tuple_index++)
 		{
 			nnp_fast_tuple_gemm_function fast_gemm_function;
@@ -698,8 +704,10 @@ static nnp_status compute_fast_convolution_inference(
 					output_channels_subblock_max);
 			}
 		}
+		NNP_BLOCK_MULTIPLICATION_END(profile)
 	}
 
+	NNP_OUTPUT_TRANSFORM_START(profile)
 	output_transform_context output_transform_context =
 	{
 		output_transform_function,
@@ -721,6 +729,7 @@ static nnp_status compute_fast_convolution_inference(
 		tiles_count,
 		output_channels_subblock_max,
 		tiles_subblock_max);
+	NNP_OUTPUT_TRANSFORM_END(profile)
 
 	if (workspace_buffer == NULL)
 	{
@@ -754,7 +763,8 @@ static nnp_status compute_gemm_convolution_inference(
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	const nnp_activation activation)
+	const nnp_activation activation,
+	nnp_profile* profile)
 {
 	nnp_status status = nnp_status_success;
 	const size_t simd_width = nnp_hwinfo.simd_width;
@@ -790,6 +800,7 @@ static nnp_status compute_gemm_convolution_inference(
 		const size_t reduction_block_size = min(reduction_size - reduction_block_start, reduction_block_max);
 
 		/* Pack kernel into memory block */
+		NNP_KERNEL_TRANSFORM_START(profile)
 		kernel_packing_context kernel_packing_context = 
 		{
 			kernel + reduction_block_start,
@@ -805,7 +816,8 @@ static nnp_status compute_gemm_convolution_inference(
 			reduction_block_size,
 			output_channels_subblock_max,
 			1ull);
-		
+		NNP_KERNEL_TRANSFORM_END(profile)
+
 		const struct fxdiv_divisor_size_t kernel_elements_divisor = fxdiv_init_size_t(kernel_size.height * kernel_size.width);
 		const struct fxdiv_divisor_size_t kernel_width_divisor = fxdiv_init_size_t(kernel_size.width);
 		const struct fxdiv_divisor_size_t output_width_divisor = fxdiv_init_size_t(output_size.width);
@@ -814,6 +826,7 @@ static nnp_status compute_gemm_convolution_inference(
 			const size_t output_image_block_size = min(output_image_size - output_image_block_start, output_image_block_max);
 
 			/* Pack image into L3 block */
+			NNP_INPUT_TRANSFORM_START(profile)
 			input_packing_context input_packing_context = 
 			{
 				input,
@@ -837,7 +850,9 @@ static nnp_status compute_gemm_convolution_inference(
 				output_image_block_size,
 				1ull,
 				output_image_subblock_max);
-		
+			NNP_INPUT_TRANSFORM_END(profile)
+
+			NNP_BLOCK_MULTIPLICATION_START(profile)
 			matrix_multiplication_context matrix_multiplication_context = 
 			{
 				packed_kernel,
@@ -857,10 +872,12 @@ static nnp_status compute_gemm_convolution_inference(
 				output_image_block_size,
 				output_channels_block_max,
 				output_image_subblock_max);
+			NNP_BLOCK_MULTIPLICATION_END(profile)
 		}
 	}
 	
 	/* Add bias */
+	NNP_OUTPUT_TRANSFORM_START(profile)
 	switch (activation) 
 	{
 	case nnp_activation_identity:
@@ -881,6 +898,7 @@ static nnp_status compute_gemm_convolution_inference(
 		}
 		break;
 	}
+	NNP_OUTPUT_TRANSFORM_END(profile)
 
 	release_memory(packed_input, packed_input_size);
 	release_memory(packed_kernel, packed_kernel_size);
@@ -898,10 +916,12 @@ static nnp_status compute_direct_convolution_inference(
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	const nnp_activation activation)
+	const nnp_activation activation,
+	nnp_profile* profile)
 {
 	const size_t image_elements = image_size.height * image_size.width;
 
+	NNP_BLOCK_MULTIPLICATION_START(profile)
 	direct_convolution_context direct_convolution_context = 
 	{
 		input,
@@ -919,8 +939,10 @@ static nnp_status compute_direct_convolution_inference(
 		&direct_convolution_context,
 		output_channels,
 		nnp_hwinfo.conv1x1.nr);
+	NNP_BLOCK_MULTIPLICATION_END(profile)
 
 	/* Add bias */
+	NNP_OUTPUT_TRANSFORM_START(profile)
 	switch (activation) 
 	{
 	case nnp_activation_identity:
@@ -941,6 +963,7 @@ static nnp_status compute_direct_convolution_inference(
 		}
 		break;
 	}
+	NNP_OUTPUT_TRANSFORM_END(profile)
 
 	return nnp_status_success;
 }
@@ -960,7 +983,8 @@ nnp_status nnp_convolution_inference(
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters)
+	const void* activation_parameters,
+	nnp_profile* profile)
 {
 	const nnp_size output_size = 
 	{ 
@@ -1069,7 +1093,7 @@ nnp_status nnp_convolution_inference(
 				input_channels, output_channels,
 				tile_size, input_size, input_padding, kernel_size, output_size,
 				input, kernel, bias, output, workspace_buffer,
-				input_transform_function, kernel_transform_function, output_transform_function);
+				input_transform_function, kernel_transform_function, output_transform_function, profile);
 		}
 		break;
 
@@ -1081,7 +1105,7 @@ nnp_status nnp_convolution_inference(
 			status = compute_gemm_convolution_inference(
 				input_channels, output_channels,
 				input_size, input_padding, kernel_size, output_size, output_subsampling,
-				input, kernel, bias, output, workspace_buffer, activation);
+				input, kernel, bias, output, workspace_buffer, activation, profile);
 		}
 		break;
 
@@ -1098,7 +1122,7 @@ nnp_status nnp_convolution_inference(
 
 			status = compute_direct_convolution_inference(
 				input_channels, output_channels, input_size, kernel_size,
-				input, kernel, bias, output, workspace_buffer, activation);
+				input, kernel, bias, output, workspace_buffer, activation, profile);
 		}
 		break;
 	}

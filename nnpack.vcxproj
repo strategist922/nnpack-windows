@@ -112,10 +112,9 @@
       <CheckPointers>Rw</CheckPointers>
       <CheckDanglingPointers>All</CheckDanglingPointers>
       <SDLCheck>true</SDLCheck>
-      <StringPooling>false</StringPooling>
       <DisableSpecificWarnings>4100;4324</DisableSpecificWarnings>
-      <StructMemberAlignment>16Bytes</StructMemberAlignment>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

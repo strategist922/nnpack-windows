@@ -179,7 +179,7 @@
     <ClInclude Include="testers\winograd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-inference\vgg-a.cc" />
+    <ClCompile Include="convolution-inference\alexnet.cc" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

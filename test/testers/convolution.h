@@ -229,7 +229,7 @@ public:
 				algorithm,
 				batchSize(), inputChannels(), outputChannels(),
 				inputSize(), inputPadding(), kernelSize(),
-				input.data(), kernel.data(), bias.data(), output.data(), NULL, activation, NULL);
+				input.data(), kernel.data(), bias.data(), output.data(), NULL, activation, NULL, NULL);
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceOutput.cbegin(), referenceOutput.cend(), output.cbegin(), 0.0f,
@@ -265,7 +265,7 @@ public:
 				algorithm,
 				batchSize(), inputChannels(), outputChannels(),
 				inputSize(), inputPadding(), kernelSize(),
-				outputGradient.data(), kernel.data(), inputGradient.data(), NULL, activation, NULL);
+				outputGradient.data(), kernel.data(), inputGradient.data(), NULL, activation, NULL, NULL);
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceInputGradient.cbegin(), referenceInputGradient.cend(), inputGradient.cbegin(), 0.0f,
@@ -300,7 +300,7 @@ public:
 				algorithm,
 				batchSize(), inputChannels(), outputChannels(),
 				inputSize(), inputPadding(), kernelSize(),
-				input.data(), outputGradient.data(), kernelGradient.data(), NULL, activation, NULL);
+				input.data(), outputGradient.data(), kernelGradient.data(), NULL, activation, NULL, NULL);
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceKernelGradient.cbegin(), referenceKernelGradient.cend(), kernelGradient.cbegin(), 0.0f,
@@ -352,7 +352,7 @@ public:
 				algorithm, nnp_convolution_transform_strategy_compute,
 				inputChannels(), outputChannels(),
 				inputSize(), inputPadding(), kernelSize(), outputSubsampling(),
-				input.data(), kernel.data(), bias.data(), output.data(), NULL, activation, NULL);
+				input.data(), kernel.data(), bias.data(), output.data(), NULL, activation, NULL, NULL);
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceOutput.cbegin(), referenceOutput.cend(), output.cbegin(), 0.0f,

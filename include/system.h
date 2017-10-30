@@ -19,6 +19,8 @@
 	#include <mach/mach_time.h>
 #elif defined(EMSCRIPTEN)
 	#include <emscripten.h>
+#elif defined(_MSC_VER)
+	#include <chrono>
 #endif
 
 inline static double read_timer() 
@@ -38,9 +40,9 @@ inline static double read_timer()
 #elif defined(EMSCRIPTEN)
 	return emscripten_get_now() * 1.0e-3;
 #elif defined(_MSC_VER)
-	return 0.0;
+	return double(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 #else
-	# Error no implentation
+	#error No implementation available
 #endif
 }
 

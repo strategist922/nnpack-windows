@@ -130,7 +130,8 @@ nnp_status nnp_convolution_output(
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters);
+	const void* activation_parameters,
+	nnp_profile* profile);
 	
 nnp_status nnp_convolution_input_gradient(
 	nnp_convolution_algorithm algorithm,
@@ -145,7 +146,8 @@ nnp_status nnp_convolution_input_gradient(
 	float* grad_input,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters);
+	const void* activation_parameters,
+	nnp_profile* profile);
 
 nnp_status nnp_convolution_kernel_gradient(
 	const nnp_convolution_algorithm algorithm,
@@ -160,7 +162,8 @@ nnp_status nnp_convolution_kernel_gradient(
 	float* grad_kernel,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters);
+	const void* activation_parameters,
+	nnp_profile* profile);
 	
 nnp_status nnp_convolution_inference(
 	nnp_convolution_algorithm algorithm,
@@ -177,7 +180,8 @@ nnp_status nnp_convolution_inference(
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters);
+	const void* activation_parameters,
+	nnp_profile* profile);
 
 nnp_status nnp_fully_connected_output(
 	const size_t batch_size,
@@ -242,14 +246,15 @@ inline nnp_status nnp_convolution_output(
 	const float input[],
 	const float kernel[],
 	const float bias[],
-	float output[])
+	float output[],
+	nnp_profile* profile)
 {
 	return nnp_convolution_output(
 		algorithm,
 		batch_size, input_channels, output_channels,
 		input_size, input_padding, kernel_size,
 		input, kernel, bias, output,
-		NULL, nnp_activation_identity, NULL);
+		NULL, nnp_activation_identity, NULL, profile);
 }
 
 inline nnp_status nnp_convolution_input_gradient(
@@ -262,14 +267,15 @@ inline nnp_status nnp_convolution_input_gradient(
 	const nnp_size kernel_size,
 	const float grad_output[],
 	const float kernel[],
-	float grad_input[])
+	float grad_input[],
+	nnp_profile* profile)
 {
 	return nnp_convolution_input_gradient(
 		algorithm,
 		batch_size, input_channels, output_channels,
 		input_size, input_padding, kernel_size,
 		grad_output, kernel, grad_input,
-		NULL, nnp_activation_identity, NULL);
+		NULL, nnp_activation_identity, NULL, profile);
 }
 
 inline nnp_status nnp_convolution_kernel_gradient(
@@ -282,14 +288,15 @@ inline nnp_status nnp_convolution_kernel_gradient(
 	const nnp_size kernel_size,
 	const float input[],
 	const float grad_output[],
-	float grad_kernel[])
+	float grad_kernel[],
+	nnp_profile* profile)
 {
 	return nnp_convolution_kernel_gradient(
 		algorithm,
 		batch_size, input_channels, output_channels,
 		input_size, input_padding, kernel_size,
 		input, grad_output, grad_kernel,
-		NULL, nnp_activation_identity, NULL);
+		NULL, nnp_activation_identity, NULL, profile);
 }
 
 inline nnp_status nnp_convolution_inference(
@@ -304,13 +311,14 @@ inline nnp_status nnp_convolution_inference(
 	const float input[],
 	const float kernel[],
 	const float bias[],
-	float output[]) 
+	float output[],
+	nnp_profile* profile)
 {
 	return nnp_convolution_inference(
 		algorithm, transform_strategy,
 		input_channels, output_channels,
 		input_size, input_padding, kernel_size, output_subsampling,
 		input, kernel, bias, output, NULL, 
-		nnp_activation_identity, NULL);
+		nnp_activation_identity, NULL, profile);
 }
 #endif // __cplusplus

@@ -266,7 +266,8 @@ static nnp_status compute_fast_convolution_input_gradient(
 	nnp_workspace_pointers* workspace_buffer,
 	nnp_transform_2d_with_offset grad_output_transform_function,
 	nnp_transform_2d_with_offset kernel_transform_function,
-	nnp_transform_2d_with_offset grad_input_transform_function)
+	nnp_transform_2d_with_offset grad_input_transform_function,
+	nnp_profile* profile)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = (fourier_transform ? simd_width * 2ull : simd_width);
@@ -330,6 +331,7 @@ static nnp_status compute_fast_convolution_input_gradient(
 	float* grad_output_transform = static_cast<float*>(memory_block_grad_output);
 	float* grad_input_transform = static_cast<float*>(memory_block_grad_input);
 
+	NNP_KERNEL_TRANSFORM_START(profile)
 	kernel_transform_context kernel_transform_context = 
 	{
 		kernel_transform_function,
@@ -348,7 +350,8 @@ static nnp_status compute_fast_convolution_input_gradient(
 		input_channels,
 		1ull,
 		input_channels_subblock_max);
-	
+	NNP_KERNEL_TRANSFORM_END(profile)
+
 	for (size_t y = 0ull; y < input_size.height; y += grad_input_tile_size.height) 
 	{
 		const size_t grad_output_y = min(doz(y + input_padding.top, kernel_size.height - 1ull), output_size.height);
@@ -358,6 +361,8 @@ static nnp_status compute_fast_convolution_input_gradient(
 		{
 			const size_t grad_output_x = min(doz(x + input_padding.left, kernel_size.width - 1ull), output_size.width);
 			const size_t column_offset = doz(kernel_size.width - 1ull, x + input_padding.left);
+
+			NNP_OUTPUT_TRANSFORM_START(profile)
 			grad_output_transform_context grad_output_transform_context = 
 			{
 				grad_output_transform_function,
@@ -380,7 +385,9 @@ static nnp_status compute_fast_convolution_input_gradient(
 				batch_size,
 				1u,
 				batch_subblock_max);
-			
+			NNP_OUTPUT_TRANSFORM_END(profile)
+
+			NNP_BLOCK_MULTIPLICATION_START(profile)
 			for (size_t tuple_index = 0ull; tuple_index < tuple_count; tuple_index++)
 			{
 				for (size_t output_channels_block_start = 0ull; output_channels_block_start < output_channels; output_channels_block_start += output_channels_block_max) 
@@ -432,7 +439,9 @@ static nnp_status compute_fast_convolution_input_gradient(
 					}
 				}
 			}
-		
+			NNP_BLOCK_MULTIPLICATION_END(profile)
+
+			NNP_INPUT_TRANSFORM_START(profile)
 			grad_input_transform_context grad_input_transform_context = 
 			{
 				grad_input_transform_function,
@@ -455,6 +464,7 @@ static nnp_status compute_fast_convolution_input_gradient(
 				input_channels,
 				1ull,
 				input_channels_subblock_max);
+			NNP_INPUT_TRANSFORM_END(profile)
 		}
 	}
 	
@@ -490,7 +500,8 @@ nnp_status nnp_convolution_input_gradient(
 	float* grad_input,
 	nnp_workspace_pointers* workspace_buffer,
 	const nnp_activation activation,
-	const void* activation_parameters)
+	const void* activation_parameters,
+	nnp_profile* profile)
 {
 	const nnp_size output_size =
 	{
@@ -537,15 +548,15 @@ nnp_status nnp_convolution_input_gradient(
 		if (kernel_size.height != 3ull || kernel_size.width != 3ull)
 			status = nnp_status_unsupported_algorithm;
 		else
-			status = compute_fast_convolution_input_gradient(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3Rx3R, nnp_hwinfo.transforms.owt_f6x6_3x3);
+			status = compute_fast_convolution_input_gradient(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3Rx3R, nnp_hwinfo.transforms.owt_f6x6_3x3, profile);
 		break;
 
 	case nnp_convolution_algorithm_ft8x8:
-		status = compute_fast_convolution_input_gradient(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.ifft8x8_with_offset);
+		status = compute_fast_convolution_input_gradient(true, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.ifft8x8_with_offset, profile);
 		break;
 
 	case nnp_convolution_algorithm_ft16x16:
-		status = compute_fast_convolution_input_gradient(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_offset);
+		status = compute_fast_convolution_input_gradient(true, batch_size, input_channels, output_channels, nnp_size{ 16ull, 16ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_offset, profile);
 	    break;
 
 	default:
