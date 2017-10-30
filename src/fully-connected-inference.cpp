@@ -1,5 +1,3 @@
-#include <stddef.h>
-
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>

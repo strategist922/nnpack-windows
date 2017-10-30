@@ -1,8 +1,5 @@
-#include <stddef.h>
-
 #include <nnpack.h>
 #include <utils.h>
-
 #include <hwinfo.h>
 #include <softmax.h>
 #include <validation.h>

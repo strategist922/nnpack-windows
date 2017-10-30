@@ -53,10 +53,8 @@ static inline uint64_t fxdiv_mulhi_uint64_t(uint64_t a, uint64_t b) {
 	const uint32_t b_lo = (uint32_t) b;
 	const uint32_t b_hi = (uint32_t) (b >> 32);
 
-	const uint64_t t = fxdiv_mulext_uint32_t(a_hi, b_lo) +
-		(uint64_t) fxdiv_mulhi_uint32_t(a_lo, b_lo);
-	return fxdiv_mulext_uint32_t(a_hi, b_hi) + (t >> 32) +
-		((fxdiv_mulext_uint32_t(a_lo, b_hi) + (uint64_t) (uint32_t) t) >> 32);
+	const uint64_t t = fxdiv_mulext_uint32_t(a_hi, b_lo) + (uint64_t) fxdiv_mulhi_uint32_t(a_lo, b_lo);
+	return fxdiv_mulext_uint32_t(a_hi, b_hi) + (t >> 32) + ((fxdiv_mulext_uint32_t(a_lo, b_hi) + (uint64_t) (uint32_t) t) >> 32);
 #endif
 }
 
@@ -70,49 +68,59 @@ static inline size_t fxdiv_mulhi_size_t(size_t a, size_t b) {
 #endif
 }
 
-struct fxdiv_divisor_uint32_t {
+struct fxdiv_divisor_uint32_t 
+{
 	uint32_t value;
 	uint32_t m;
 	uint8_t s1;
 	uint8_t s2;
 };
 
-struct fxdiv_result_uint32_t {
+struct fxdiv_result_uint32_t 
+{
 	uint32_t quotient;
 	uint32_t remainder;
 };
 
-struct fxdiv_divisor_uint64_t {
+struct fxdiv_divisor_uint64_t 
+{
 	uint64_t value;
 	uint64_t m;
 	uint8_t s1;
 	uint8_t s2;
 };
 
-struct fxdiv_result_uint64_t {
+struct fxdiv_result_uint64_t 
+{
 	uint64_t quotient;
 	uint64_t remainder;
 };
 
-struct fxdiv_divisor_size_t {
+struct fxdiv_divisor_size_t 
+{
 	size_t value;
 	size_t m;
 	uint8_t s1;
 	uint8_t s2;
 };
 
-struct fxdiv_result_size_t {
+struct fxdiv_result_size_t 
+{
 	size_t quotient;
 	size_t remainder;
 };
 
-static inline struct fxdiv_divisor_uint32_t fxdiv_init_uint32_t(uint32_t d) {
+static inline struct fxdiv_divisor_uint32_t fxdiv_init_uint32_t(uint32_t d) 
+{
 	struct fxdiv_divisor_uint32_t result = { d };
-	if (d == 1) {
+	if (d == 1) 
+	{
 		result.m = UINT32_C(1);
 		result.s1 = 0;
 		result.s2 = 0;
-	} else {
+	} 
+	else 
+	{
 		#if defined(__OPENCL_VERSION__)
 			const uint32_t l_minus_1 = 31 - clz(d - 1);
 		#elif defined(__CUDA_ARCH__)
@@ -175,13 +183,17 @@ static inline struct fxdiv_divisor_uint32_t fxdiv_init_uint32_t(uint32_t d) {
 	return result;
 }
 
-static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) {
+static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) 
+{
 	struct fxdiv_divisor_uint64_t result = { d };
-	if (d == 1) {
+	if (d == 1) 
+	{
 		result.m = UINT64_C(1);
 		result.s1 = 0;
 		result.s2 = 0;
-	} else {
+	} 
+	else 
+	{
 		#if defined(__OPENCL_VERSION__)
 			const uint32_t nlz_d = clz(d);
 			const uint32_t l_minus_1 = 63 - clz(d - 1);
@@ -198,9 +210,12 @@ static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) {
 			const uint64_t d_minus_1 = d - 1;
 			const uint8_t d_is_power_of_2 = (d & d_minus_1) == 0;
 			unsigned long l_minus_1;
-			if ((uint32_t) (d_minus_1 >> 32) == 0) {
+			if ((uint32_t) (d_minus_1 >> 32) == 0) 
+			{
 				_BitScanReverse(&l_minus_1, (unsigned long) d_minus_1);
-			} else {
+			} 
+			else 
+			{
 				_BitScanReverse(&l_minus_1, (unsigned long) (uint32_t) (d_minus_1 >> 32));
 				l_minus_1 += 32;
 			}
@@ -220,33 +235,38 @@ static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) {
 			uint64_t l_minus_1 = 0;
 			uint32_t x = d_minus_1;
 			uint32_t y = d_minus_1 >> 32;
-			if (y != 0) {
+			if (y != 0) 
+			{
 				l_minus_1 += 32;
 				x = y;
 			}
 			y = x >> 16;
-			if (y != 0) {
+			if (y != 0) 
+			{
 				l_minus_1 += 16;
 				x = y;
 			}
 			y = x >> 8;
-			if (y != 0) {
+			if (y != 0) 
+			{
 				l_minus_1 += 8;
 				x = y;
 			}
 			y = x >> 4;
-			if (y != 0) {
+			if (y != 0) 
+			{
 				l_minus_1 += 4;
 				x = y;
 			}
 			y = x >> 2;
-			if (y != 0) {
+			if (y != 0) 
+			{
 				l_minus_1 += 2;
 				x = y;
 			}
-			if ((x & 2) != 0) {
+			if ((x & 2) != 0) 
 				l_minus_1 += 1;
-			}
+			
 			const uint32_t nlz_d = (l_minus_1 ^ UINT32_C(0x3F)) - d_is_power_of_2;
 		#endif
 		uint64_t u_hi = (UINT64_C(2) << (uint32_t) l_minus_1) - d;
@@ -271,12 +291,12 @@ static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) {
 			uint64_t q1 = u_hi / d_hi;
 			uint64_t r1 = u_hi - q1 * d_hi;
 
-			while ((q1 >> 32) != 0 || fxdiv_mulext_uint32_t((uint32_t) q1, d_lo) > (r1 << 32)) {
+			while ((q1 >> 32) != 0 || fxdiv_mulext_uint32_t((uint32_t) q1, d_lo) > (r1 << 32)) 
+			{
 				q1 -= 1;
 				r1 += d_hi;
-				if ((r1 >> 32) != 0) {
+				if ((r1 >> 32) != 0) 
 					break;
-				}
 			}
 
 			/* Multiply and subtract. */
@@ -286,12 +306,12 @@ static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) {
 			uint64_t q0 = u_hi / d_hi;
 			uint64_t r0 = u_hi - q0 * d_hi;
 
-			while ((q0 >> 32) != 0 || fxdiv_mulext_uint32_t((uint32_t) q0, d_lo) > (r0 << 32)) {
+			while ((q0 >> 32) != 0 || fxdiv_mulext_uint32_t((uint32_t) q0, d_lo) > (r0 << 32)) 
+			{
 				q0 -= 1;
 				r0 += d_hi;
-				if ((r0 >> 32) != 0) {
+				if ((r0 >> 32) != 0) 
 					break;
-				}
 			}
 			const uint64_t q = (q1 << 32) | (uint32_t) q0;
 		#endif
@@ -302,7 +322,8 @@ static inline struct fxdiv_divisor_uint64_t fxdiv_init_uint64_t(uint64_t d) {
 	return result;
 }
 
-static inline struct fxdiv_divisor_size_t fxdiv_init_size_t(size_t d) {
+static inline struct fxdiv_divisor_size_t fxdiv_init_size_t(size_t d) 
+{
 #if SIZE_MAX == UINT32_MAX
 	const struct fxdiv_divisor_uint32_t uint_result = fxdiv_init_uint32_t((uint32_t) d);
 #elif SIZE_MAX == UINT64_MAX
@@ -310,26 +331,30 @@ static inline struct fxdiv_divisor_size_t fxdiv_init_size_t(size_t d) {
 #else
 	#error Unsupported platform
 #endif
-	struct fxdiv_divisor_size_t size_result = {
-		(size_t) uint_result.value,
-		(size_t) uint_result.m,
+	struct fxdiv_divisor_size_t size_result = 
+	{
+		(size_t)uint_result.value,
+		(size_t)uint_result.m,
 		uint_result.s1,
 		uint_result.s2
 	};
 	return size_result;
 }
 
-static inline uint32_t fxdiv_quotient_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t divisor) {
+static inline uint32_t fxdiv_quotient_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t divisor) 
+{
 	const uint32_t t = fxdiv_mulhi_uint32_t(n, divisor.m);
 	return (t + ((n - t) >> divisor.s1)) >> divisor.s2;
 }
 
-static inline uint64_t fxdiv_quotient_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t divisor) {
+static inline uint64_t fxdiv_quotient_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t divisor) 
+{
 	const uint64_t t = fxdiv_mulhi_uint64_t(n, divisor.m);
 	return (t + ((n - t) >> divisor.s1)) >> divisor.s2;
 }
 
-static inline size_t fxdiv_quotient_size_t(size_t n, const struct fxdiv_divisor_size_t divisor) {
+static inline size_t fxdiv_quotient_size_t(size_t n, const struct fxdiv_divisor_size_t divisor) 
+{
 #if SIZE_MAX == UINT32_MAX
 	const struct fxdiv_divisor_uint32_t uint32_divisor = {
 		(uint32_t) divisor.value,
@@ -339,9 +364,10 @@ static inline size_t fxdiv_quotient_size_t(size_t n, const struct fxdiv_divisor_
 	};
 	return fxdiv_quotient_uint32_t((uint32_t) n, uint32_divisor);
 #elif SIZE_MAX == UINT64_MAX
-	const struct fxdiv_divisor_uint64_t uint64_divisor = {
-		(uint64_t) divisor.value,
-		(uint64_t) divisor.m,
+	const struct fxdiv_divisor_uint64_t uint64_divisor = 
+	{
+		(uint64_t)divisor.value,
+		(uint64_t)divisor.m,
 		divisor.s1,
 		divisor.s2
 	};
@@ -351,51 +377,60 @@ static inline size_t fxdiv_quotient_size_t(size_t n, const struct fxdiv_divisor_
 #endif
 }
 
-static inline uint32_t fxdiv_remainder_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t divisor) {
+static inline uint32_t fxdiv_remainder_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t divisor) 
+{
 	const uint32_t quotient = fxdiv_quotient_uint32_t(n, divisor);
 	return n - quotient * divisor.value;
 }
 
-static inline uint64_t fxdiv_remainder_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t divisor) {
+static inline uint64_t fxdiv_remainder_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t divisor) 
+{
 	const uint64_t quotient = fxdiv_quotient_uint64_t(n, divisor);
 	return n - quotient * divisor.value;
 }
 
-static inline size_t fxdiv_remainder_size_t(size_t n, const struct fxdiv_divisor_size_t divisor) {
+static inline size_t fxdiv_remainder_size_t(size_t n, const struct fxdiv_divisor_size_t divisor) 
+{
 	const size_t quotient = fxdiv_quotient_size_t(n, divisor);
 	return n - quotient * divisor.value;
 }
 
-static inline uint32_t fxdiv_round_down_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t granularity) {
+static inline uint32_t fxdiv_round_down_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t granularity) 
+{
 	const uint32_t quotient = fxdiv_quotient_uint32_t(n, granularity);
 	return quotient * granularity.value;
 }
 
-static inline uint64_t fxdiv_round_down_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t granularity) {
+static inline uint64_t fxdiv_round_down_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t granularity) 
+{
 	const uint64_t quotient = fxdiv_quotient_uint64_t(n, granularity);
 	return quotient * granularity.value;
 }
 
-static inline size_t fxdiv_round_down_size_t(size_t n, const struct fxdiv_divisor_size_t granularity) {
+static inline size_t fxdiv_round_down_size_t(size_t n, const struct fxdiv_divisor_size_t granularity) 
+{
 	const size_t quotient = fxdiv_quotient_size_t(n, granularity);
 	return quotient * granularity.value;
 }
 
-static inline struct fxdiv_result_uint32_t fxdiv_divide_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t divisor) {
+static inline struct fxdiv_result_uint32_t fxdiv_divide_uint32_t(uint32_t n, const struct fxdiv_divisor_uint32_t divisor) 
+{
 	const uint32_t quotient = fxdiv_quotient_uint32_t(n, divisor);
 	const uint32_t remainder = n - quotient * divisor.value;
 	struct fxdiv_result_uint32_t result = { quotient, remainder };
 	return result;
 }
 
-static inline struct fxdiv_result_uint64_t fxdiv_divide_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t divisor) {
+static inline struct fxdiv_result_uint64_t fxdiv_divide_uint64_t(uint64_t n, const struct fxdiv_divisor_uint64_t divisor) 
+{
 	const uint64_t quotient = fxdiv_quotient_uint64_t(n, divisor);
 	const uint64_t remainder = n - quotient * divisor.value;
 	struct fxdiv_result_uint64_t result = { quotient, remainder };
 	return result;
 }
 
-static inline struct fxdiv_result_size_t fxdiv_divide_size_t(size_t n, const struct fxdiv_divisor_size_t divisor) {
+static inline struct fxdiv_result_size_t fxdiv_divide_size_t(size_t n, const struct fxdiv_divisor_size_t divisor) 
+{
 	const size_t quotient = fxdiv_quotient_size_t(n, divisor);
 	const size_t remainder = n - quotient * divisor.value;
 	struct fxdiv_result_size_t result = { quotient, remainder };
