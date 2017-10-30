@@ -10,12 +10,12 @@
   convolution-input-gradient-ref.cpp
   convolution-kernel-gradient-ref.cpp
   convolution-output-ref.cpp
-  aos.cpp
-  forward-dualreal.cpp
-  forward-real.cpp
-  inverse-dualreal.cpp
-  inverse-real.cpp
-  soa.cpp
+  aos-ref.cpp
+  forward-dualreal-ref.cpp
+  forward-real-ref.cpp
+  inverse-dualreal-ref.cpp
+  inverse-real-ref.cpp
+  soa-ref.cpp
   fully-connected-output-ref.cpp
   max-pooling-output-ref.cpp
   Compiling...
@@ -25,5 +25,6 @@
   relu-input-gradient.cpp
   relu-output.cpp
   softmax-output.cpp
+  exp.cpp
   softmax.cpp
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\nnpack.lib

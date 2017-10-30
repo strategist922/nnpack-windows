@@ -102,7 +102,8 @@ inline static double read_timer()
 		profile_ptr->block_multiplication += read_timer() - block_multiplication_start; \
 	}
 
-inline static void* allocate_memory(size_t memory_size) 
+
+inline static void* allocate_memory(size_t memory_size)
 {
 #if defined(__linux__)
 	#if !defined(__ANDROID__)
@@ -128,15 +129,14 @@ inline static void* allocate_memory(size_t memory_size)
 #endif
 }
 
-inline static void release_memory(void* memory_block, size_t memory_size) 
+inline static void release_memory(void* memory_block, size_t memory_size) noexcept
 {
 #if defined(__linux__)
 	if (memory_block != NULL) {
 		munmap(memory_block, memory_size);
 	}
 #elif defined(_MSC_VER)
-	if (memory_block != NULL)
-		_aligned_free(memory_block);
+	_aligned_free(memory_block);
 #else
 	free(memory_block);
 #endif

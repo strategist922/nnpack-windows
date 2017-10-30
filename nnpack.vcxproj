@@ -100,21 +100,22 @@
       <PreprocessorDefinitions>_WIN64;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <UseIntelOptimizedHeaders>true</UseIntelOptimizedHeaders>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <CheckPointers>Rw</CheckPointers>
       <CheckDanglingPointers>All</CheckDanglingPointers>
-      <SDLCheck>true</SDLCheck>
-      <DisableSpecificWarnings>4100;4324</DisableSpecificWarnings>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SDLCheck>false</SDLCheck>
+      <DisableSpecificWarnings>4100;4324;4701</DisableSpecificWarnings>
       <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
+      <OmitFramePointers>false</OmitFramePointers>
+      <UnmaskFloatingPointExceptions>CommonTraps</UnmaskFloatingPointExceptions>
+      <DisableFunctionSplitting>true</DisableFunctionSplitting>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -126,6 +127,7 @@
     <Lib>
       <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;softmaxpy.obj;relu.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
     </Lib>
     <ProjectReference />
     <PreLinkEvent>
@@ -133,6 +135,9 @@
     </PreLinkEvent>
     <ProjectReference />
     <ProjectReference />
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

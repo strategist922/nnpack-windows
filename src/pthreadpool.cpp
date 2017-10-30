@@ -1,4 +1,4 @@
-#include <ppl.h>
+//#include <ppl.h>
 
 #include <pthreadpool.h>
 #include <utils.h>
@@ -8,10 +8,12 @@ void pthreadpool_compute_1d(
 	void* argument,
 	const size_t range)
 {
-	concurrency::parallel_for(0ull, range, [=](size_t i) 
+	/*concurrency::parallel_for(0ull, range, [=](size_t i) 
 	{
 		function(argument, i);
-	}, concurrency::static_partitioner());
+	}, concurrency::static_partitioner());*/
+	for (size_t i=0ull; i < range; i++)
+		function(argument, i);
 }
 
 static void compute_1d_tiled(const compute_1d_tiled_context* context, const size_t linear_index)

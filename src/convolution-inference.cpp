@@ -25,7 +25,7 @@ struct NNP_CACHE_ALIGN kernel_transform_context
 	nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
-
+	
 	size_t tuple_size;
 	size_t input_channels;
 	size_t input_channels_block_size;
