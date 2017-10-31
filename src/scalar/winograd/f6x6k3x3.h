@@ -3,11 +3,9 @@
 #include <stdbool.h>
 
 #include <macros.h>
-#if defined (_MSC_VER)
+#if defined(_MSC_VER)
 #include <cstdlib>
 #define ToFloat(str) std::strtof(str, NULL)
-#else
-#define ToFloat(str) str
 #endif
 
 static NNP_INLINE void winograd_f6k3_input_transform(
@@ -133,7 +131,9 @@ static NNP_INLINE void winograd_f6k3_kernel_transform(
 	float w5 = w6 + two_g1;
 	w6 = w6 - two_g1;
 
-	if (rescale_coefficients) {
+	if (rescale_coefficients) 
+	{
+#if defined(_MSC_VER)
 		const float minus_2_over_9 = ToFloat("-0x1.C71C72p-3f");
 		w1 *= minus_2_over_9;
 		w2 *= minus_2_over_9;
@@ -145,6 +145,19 @@ static NNP_INLINE void winograd_f6k3_kernel_transform(
 		const float rcp_180 = ToFloat("0x1.6C16C2p-8f");
 		w5 *= rcp_180;
 		w6 *= rcp_180;
+#else
+		const float minus_2_over_9 = -0x1.C71C72p-3f;
+		w1 *= minus_2_over_9;
+		w2 *= minus_2_over_9;
+
+		const float rcp_90 = 0x1.6C16C2p-7f;
+		w3 *= rcp_90;
+		w4 *= rcp_90;
+
+		const float rcp_180 = 0x1.6C16C2p-8f;
+		w5 *= rcp_180;
+		w6 *= rcp_180;
+#endif
 	}
 
 	*transform0 = g0;

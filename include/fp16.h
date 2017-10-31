@@ -15,6 +15,8 @@
 
 #ifdef _MSC_VER
 #include <intrin.h>
+#include <cstdlib>
+#define ToFloat(str) std::strtof(str, NULL)
 
 uint32_t __inline ctz(uint32_t value)
 {
@@ -186,7 +188,11 @@ static inline float fp16_ieee_to_fp32_value(uint16_t h) {
 	 * operate on denormal inputs, and do not produce denormal results.
 	 */
 	const uint32_t exp_offset = UINT32_C(0xE0) << 23;
+#if defined(_MSC_VER)
+	const float exp_scale = ToFloat("0x1.0p-112f");
+#else
 	const float exp_scale = 0x1.0p-112f;
+#endif
 	const float normalized_value = fp32_from_bits((two_w >> 4) + exp_offset) * exp_scale;
 
 	/*
@@ -241,8 +247,13 @@ static inline float fp16_ieee_to_fp32_value(uint16_t h) {
  * floating-point operations and bitcasts between integer and floating-point variables.
  */
 static inline uint16_t fp16_ieee_from_fp32_value(float f) {
+#if defined(_MSC_VER)
+	const float scale_to_inf = ToFloat("0x1.0p+112f");
+	const float scale_to_zero = ToFloat("0x1.0p-110f");
+#else
 	const float scale_to_inf = 0x1.0p+112f;
 	const float scale_to_zero = 0x1.0p-110f;
+#endif
 	float base = (fabsf(f) * scale_to_inf) * scale_to_zero;
 
 	const uint32_t w = fp32_to_bits(f);
