@@ -199,7 +199,7 @@ static void init_hwinfo()
 	{
 		if (nnp_hwinfo.isa.has_avx2 && nnp_hwinfo.isa.has_fma3) 
 		{
-			nnp_hwinfo.simd_width = 8;
+			nnp_hwinfo.simd_width = 8u;
 			nnp_hwinfo.transforms.fft8x8_with_offset_and_store = (nnp_transform_2d_with_offset)nnp_fft8x8_with_offset_and_store__avx2;
 			nnp_hwinfo.transforms.fft8x8_with_offset_and_stream = (nnp_transform_2d_with_offset)nnp_fft8x8_with_offset_and_stream__avx2;
 			nnp_hwinfo.transforms.ifft8x8_with_offset = (nnp_transform_2d_with_offset)nnp_ifft8x8_with_offset__avx2;

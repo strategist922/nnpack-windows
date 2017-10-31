@@ -212,7 +212,7 @@ static void compute_tuple_multiplication(
 	size_t tiles_block_size,
 	const size_t output_channels_subblock_size)
 {
-	const size_t tuple_elements               =	context->tuple_elements;
+	const size_t tuple_elements               = context->tuple_elements;
 	const size_t tuple_size                   = context->tuple_size;
 	const size_t tiles_subblock_max           = context->tiles_subblock_max;
 	const size_t input_channels_block_size    = context->input_channels_block_size;

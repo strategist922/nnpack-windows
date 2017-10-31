@@ -106,16 +106,10 @@
       <CheckPointers>Rw</CheckPointers>
       <CheckDanglingPointers>All</CheckDanglingPointers>
       <DisableSpecificWarnings>4100;4324;4701</DisableSpecificWarnings>
-      <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
       <UnmaskFloatingPointExceptions>CommonTraps</UnmaskFloatingPointExceptions>
       <DisableFunctionSplitting>true</DisableFunctionSplitting>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,7 +164,6 @@
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <UseProcessorExtensions>AVX2</UseProcessorExtensions>
-      <SDLCheck>true</SDLCheck>
       <C99Support>true</C99Support>
       <Cpp0xSupport>true</Cpp0xSupport>
       <MSCompatibility>true</MSCompatibility>
