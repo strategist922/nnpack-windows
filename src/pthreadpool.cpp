@@ -1,5 +1,6 @@
+#if defined(_MSC_VER)
 #include <ppl.h>
-
+#endif
 #include <pthreadpool.h>
 #include <utils.h>
 
@@ -8,10 +9,15 @@ void pthreadpool_compute_1d(
 	void* argument,
 	const size_t range)
 {
+#if defined(_MSC_VER)
 	concurrency::parallel_for(0ull, range, [=](size_t i) 
 	{
 		function(argument, i);
 	}, concurrency::static_partitioner());
+#else
+	for (size_t i=0ull; i < range; i++)
+		function(argument, i);
+#endif
 }
 
 static void compute_1d_tiled(const compute_1d_tiled_context* context, const size_t linear_index)
