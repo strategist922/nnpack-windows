@@ -120,14 +120,14 @@ static void compute_grad_kernel_transform(
 	const size_t output_channel_range,
 	const size_t input_channels_subblock_size)
 {
-	const size_t tuple_elements						= context->tuple_elements;
-	const size_t input_channels						= context->input_channels;
-	const size_t output_channels					= context->output_channels;
-	const size_t output_channels_block_max			= context->output_channels_block_max;
-	const nnp_size kernel_size						= context->kernel_size;
-	const float* grad_kernel_transform				= context->grad_kernel_transform;
-	float* grad_kernel								= context->grad_kernel;
-	const nnp_transform_2d_with_offset transform	= context->transform_function;
+	const size_t tuple_elements                  = context->tuple_elements;
+	const size_t input_channels                  = context->input_channels;
+	const size_t output_channels                 = context->output_channels;
+	const size_t output_channels_block_max       = context->output_channels_block_max;
+	const nnp_size kernel_size                   = context->kernel_size;
+	const float* grad_kernel_transform           = context->grad_kernel_transform;
+	float* grad_kernel                           = context->grad_kernel;
+	const nnp_transform_2d_with_offset transform = context->transform_function;
 
 	const size_t output_channels_block_start  = round_down(output_channel, output_channels_block_max);
 	const size_t output_channels_block_size   = min(output_channels - output_channels_block_start, output_channels_block_max);
