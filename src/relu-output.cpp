@@ -20,10 +20,10 @@ static void compute_relu_output(
 	const size_t block_start,
 	const size_t block_size)
 {
-	const nnp_relu_function relu	= context->relu_function;
-	const float* input			    = context->input;
-	float* output					= context->output;
-	const float negative_slope		= context->negative_slope;
+	const nnp_relu_function relu = context->relu_function;
+	const float* input           = context->input;
+	float* output                = context->output;
+	const float negative_slope   = context->negative_slope;
 
 	relu(input + block_start, output + block_start, block_size, negative_slope);
 }
@@ -41,7 +41,7 @@ static void compute_inplace_relu_output(
 	const size_t block_size)
 {
 	const nnp_inplace_relu_function relu = context->relu_function;
-	float* data							 = context->data;
+	float* data                          = context->data;
 	const float negative_slope           = context->negative_slope;
 
 	relu(data + block_start, block_size, negative_slope);

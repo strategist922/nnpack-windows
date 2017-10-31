@@ -27,18 +27,18 @@ static void compute_input_transform(
 	const size_t batch_block_offset_range,
 	const size_t input_channels_subblock_size)
 {
-	const size_t tuple_elements						= context->tuple_elements;
-	const size_t input_elements						= context->input_elements;
-	const size_t batch_block_size					= context->batch_block_size;
-	const size_t input_channels						= context->input_channels;
-	const size_t input_stride						= context->input_stride;
-	const uint32_t row_offset						= context->row_offset;
-	const uint32_t column_offset					= context->column_offset;
-	const uint32_t row_count						= context->row_count;
-	const uint32_t column_count						= context->column_count;
-	const float* input								= context->input;
-	float* input_transform							= context->input_transform;
-	const nnp_transform_2d_with_offset transform	= context->transform_function;
+	const size_t tuple_elements                  = context->tuple_elements;
+	const size_t input_elements                  = context->input_elements;
+	const size_t batch_block_size                = context->batch_block_size;
+	const size_t input_channels                  = context->input_channels;
+	const size_t input_stride                    = context->input_stride;
+	const uint32_t row_offset                    = context->row_offset;
+	const uint32_t column_offset                 = context->column_offset;
+	const uint32_t row_count                     = context->row_count;
+	const uint32_t column_count                  = context->column_count;
+	const float* input                           = context->input;
+	float* input_transform                       = context->input_transform;
+	const nnp_transform_2d_with_offset transform = context->transform_function;
 
 	for (size_t input_channels_subblock_offset = 0ull; input_channels_subblock_offset < input_channels_subblock_size; input_channels_subblock_offset++) 
 	{
@@ -75,16 +75,16 @@ static void compute_grad_output_transform(
 	const size_t batch_block_offset_range,
 	const size_t output_channels_subblock_size)
 {
-	const size_t tuple_elements						= context->tuple_elements;
-	const size_t output_elements					= context->output_elements;
-	const size_t batch_block_size					= context->batch_block_size;
-	const size_t output_channels					= context->output_channels;
-	const size_t grad_output_stride					= context->grad_output_stride;
-	const uint32_t row_count						= context->row_count;
-	const uint32_t column_count						= context->column_count;
-	const float* grad_output						= context->grad_output;
-	float* grad_output_transform					= context->grad_output_transform;
-	const nnp_transform_2d_with_offset transform	= context->transform_function;
+	const size_t tuple_elements                  = context->tuple_elements;
+	const size_t output_elements                 = context->output_elements;
+	const size_t batch_block_size                = context->batch_block_size;
+	const size_t output_channels                 = context->output_channels;
+	const size_t grad_output_stride              = context->grad_output_stride;
+	const uint32_t row_count                     = context->row_count;
+	const uint32_t column_count                  = context->column_count;
+	const float* grad_output                     = context->grad_output;
+	float* grad_output_transform                 = context->grad_output_transform;
+	const nnp_transform_2d_with_offset transform = context->transform_function;
 
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
 	{
@@ -175,21 +175,21 @@ static void compute_matrix_multiplication(
 	size_t output_channels_block_size,
 	const size_t input_channels_subblock_size)
 {
-	const size_t tuple_elements						= context->tuple_elements;
-	const size_t batch_size							= context->batch_size;
-	const size_t batch_block_size					= context->batch_block_size;
-	const size_t batch_block_update					= context->batch_block_update;
-	const size_t input_channels						= context->input_channels;
-	const size_t input_channels_block_start			= context->input_channels_block_start;
-	const size_t input_channels_block_size			= context->input_channels_block_size;
-	const size_t input_channels_subblock_max		= context->input_channels_subblock_max;
-	const size_t output_channels					= context->output_channels;
-	const size_t output_channels_subblock_max		= context->output_channels_subblock_max;
-	const float* grad_output_transform				= context->grad_output_transform + output_channels_block_start * batch_block_size * tuple_elements;
-	const float* input_transform					= context->input_transform + (input_channels_block_start + input_channels_subblock_start) * batch_block_size * tuple_elements;
-	float* grad_kernel_transform					= context->grad_kernel_transform + (output_channels_block_start * input_channels + (input_channels_block_start + input_channels_subblock_start) * output_channels_block_size) * tuple_elements;
-	const nnp_fast_tuple_gemm_function fast_gemm	= context->fast_gemm;
-	const nnp_full_tuple_gemm_function full_gemm	= context->full_gemm;
+	const size_t tuple_elements                  = context->tuple_elements;
+	const size_t batch_size                      = context->batch_size;
+	const size_t batch_block_size                = context->batch_block_size;
+	const size_t batch_block_update              = context->batch_block_update;
+	const size_t input_channels                  = context->input_channels;
+	const size_t input_channels_block_start      = context->input_channels_block_start;
+	const size_t input_channels_block_size       = context->input_channels_block_size;
+	const size_t input_channels_subblock_max     = context->input_channels_subblock_max;
+	const size_t output_channels                 = context->output_channels;
+	const size_t output_channels_subblock_max    = context->output_channels_subblock_max;
+	const float* grad_output_transform           = context->grad_output_transform + output_channels_block_start * batch_block_size * tuple_elements;
+	const float* input_transform                 = context->input_transform + (input_channels_block_start + input_channels_subblock_start) * batch_block_size * tuple_elements;
+	float* grad_kernel_transform                 = context->grad_kernel_transform + (output_channels_block_start * input_channels + (input_channels_block_start + input_channels_subblock_start) * output_channels_block_size) * tuple_elements;
+	const nnp_fast_tuple_gemm_function fast_gemm = context->fast_gemm;
+	const nnp_full_tuple_gemm_function full_gemm = context->full_gemm;
 
 	if (input_channels_subblock_size == input_channels_subblock_max) 
 	{

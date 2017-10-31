@@ -109,11 +109,11 @@ static void compute_pooling_output(
 	size_t channel)
 {
 	const size_t channels                       = context->channels;
-	const nnp_size input_size					= context->input_size;
-	const nnp_padding input_padding				= context->input_padding;
-	const nnp_size output_size					= context->output_size;
-	const nnp_size pooling_stride				= context->pooling_stride;
-	const nnp_size pooling_size					= context->pooling_size;
+	const nnp_size input_size                   = context->input_size;
+	const nnp_padding input_padding             = context->input_padding;
+	const nnp_size output_size                  = context->output_size;
+	const nnp_size pooling_stride               = context->pooling_stride;
+	const nnp_size pooling_size                 = context->pooling_size;
 	const nnp_pooling_function pooling_function = context->pooling_function;
 
 	const float* input = context->input_pointer;

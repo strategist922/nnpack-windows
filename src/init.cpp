@@ -538,12 +538,12 @@ static void init_hwinfo()
 		nnp_hwinfo.sdotxf = sdotxf
 		{
 			sdotxf,
-			NNP_COUNT_OF(sdotxf),
+			NNP_COUNT_OF(sdotxf)
 		};
 		nnp_hwinfo.shdotxf = shdotxf
 		{
 			shdotxf,
-			NNP_COUNT_OF(shdotxf),
+			NNP_COUNT_OF(shdotxf)
 		};
 		nnp_hwinfo.conv1x1 = convolution
 		{
@@ -624,12 +624,12 @@ static void init_hwinfo()
 		nnp_hwinfo.sdotxf = sdotxf
 		{
 			sdotxf,
-			NNP_COUNT_OF(sdotxf),
+			NNP_COUNT_OF(sdotxf)
 		};
 		nnp_hwinfo.shdotxf = shdotxf
 		{
 			shdotxf,
-			NNP_COUNT_OF(shdotxf),
+			NNP_COUNT_OF(shdotxf)
 		};
 		nnp_hwinfo.conv1x1 = convolution
 		{

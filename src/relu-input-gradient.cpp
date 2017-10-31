@@ -21,11 +21,11 @@ static void compute_grad_relu(
 	const size_t block_start,
 	const size_t block_size)
 {
-	const nnp_grad_relu_function grad_relu	= context->grad_relu_function;
-	const float* grad_output				= context->grad_output;
-	const float* input						= context->input;
-	float* grad_input						= context->grad_input;
-	const float negative_slope				= context->negative_slope;
+	const nnp_grad_relu_function grad_relu = context->grad_relu_function;
+	const float* grad_output               = context->grad_output;
+	const float* input                     = context->input;
+	float* grad_input                      = context->grad_input;
+	const float negative_slope             = context->negative_slope;
 
 	grad_relu(grad_output + block_start, input + block_start, grad_input + block_start, block_size, negative_slope);
 }
