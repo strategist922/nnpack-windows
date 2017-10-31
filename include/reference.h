@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stddef.h>
-
 #include "pthreadpool.h"
 
 #ifdef __cplusplus

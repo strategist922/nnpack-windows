@@ -1,4 +1,5 @@
 #pragma once
+
 #include <math.h>
 
 static inline float relu(float data, float negative_slope) 

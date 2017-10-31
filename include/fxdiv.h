@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef FXDIV_H
 #define FXDIV_H
 
