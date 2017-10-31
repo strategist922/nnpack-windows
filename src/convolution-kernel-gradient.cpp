@@ -240,9 +240,9 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	const float* grad_output,
 	float* grad_kernel,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_transform_2d_with_offset input_transform_function,
-	nnp_transform_2d_with_offset grad_output_transform_function,
-	nnp_transform_2d_with_offset grad_kernel_transform_function,
+	const nnp_transform_2d_with_offset input_transform_function,
+	const nnp_transform_2d_with_offset grad_output_transform_function,
+	const nnp_transform_2d_with_offset grad_kernel_transform_function,
 	nnp_profile* profile)
 {
 	const size_t simd_width = nnp_hwinfo.simd_width;
