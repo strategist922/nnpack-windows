@@ -34,6 +34,18 @@
     <Filter Include="x86_64-fma\vecmath">
       <UniqueIdentifier>{2c134976-58e2-431a-8acb-7f8b59918f9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scalar">
+      <UniqueIdentifier>{8dd86891-7bed-4c70-9019-0548f6ca5f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scalar\blas">
+      <UniqueIdentifier>{61d22557-9f5e-4a8f-a940-ec1cf7c0e83a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scalar\fft">
+      <UniqueIdentifier>{9019426e-b2b7-4655-827b-d48ac3427e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scalar\winograd">
+      <UniqueIdentifier>{830d2ea0-62a2-49cc-a852-c662cd008fe8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\convolution-inference.cpp">
@@ -120,6 +132,63 @@
     <ClCompile Include="src\x86_64-fma\softmax.cpp">
       <Filter>x86_64-fma</Filter>
     </ClCompile>
+    <ClCompile Include="src\scalar\2d-fourier-8x8.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-fourier-16x16.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-aos.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-dualreal.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-real.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-soa.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\relu.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\softmax.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\winograd-f6k3.cpp">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\cgemm.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\cgemm-conjb.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\conv1x1.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\s2gemm.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\s2gemm-transc.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\sdotxf.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\sgemm.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\shdotxf.cpp">
+      <Filter>Scalar\blas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h">
@@ -183,6 +252,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\butterfly.h">
+      <Filter>Scalar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\fft\aos.h">
+      <Filter>Scalar\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\fft\dualreal.h">
+      <Filter>Scalar\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\fft\real.h">
+      <Filter>Scalar\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\fft\soa.h">
+      <Filter>Scalar\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\winograd\f6x6k3x3.h">
+      <Filter>Scalar\winograd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bitcasts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

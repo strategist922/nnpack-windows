@@ -221,15 +221,36 @@
     <ClCompile Include="src\ref\softmax-output-ref.cpp" />
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
+    <ClCompile Include="src\scalar\2d-fourier-16x16.cpp" />
+    <ClCompile Include="src\scalar\2d-fourier-8x8.cpp" />
+    <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.cpp" />
+    <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.cpp" />
+    <ClCompile Include="src\scalar\blas\cgemm-conjb.cpp" />
+    <ClCompile Include="src\scalar\blas\cgemm.cpp" />
+    <ClCompile Include="src\scalar\blas\conv1x1.cpp" />
+    <ClCompile Include="src\scalar\blas\s2gemm-transc.cpp" />
+    <ClCompile Include="src\scalar\blas\s2gemm.cpp" />
+    <ClCompile Include="src\scalar\blas\sdotxf.cpp" />
+    <ClCompile Include="src\scalar\blas\sgemm.cpp" />
+    <ClCompile Include="src\scalar\blas\shdotxf.cpp" />
+    <ClCompile Include="src\scalar\fft-aos.cpp" />
+    <ClCompile Include="src\scalar\fft-dualreal.cpp" />
+    <ClCompile Include="src\scalar\fft-real.cpp" />
+    <ClCompile Include="src\scalar\fft-soa.cpp" />
+    <ClCompile Include="src\scalar\relu.cpp" />
+    <ClCompile Include="src\scalar\softmax.cpp" />
+    <ClCompile Include="src\scalar\winograd-f6k3.cpp" />
     <ClCompile Include="src\softmax-output.cpp" />
     <ClCompile Include="src\x86_64-fma\exp.cpp" />
     <ClCompile Include="src\x86_64-fma\softmax.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h" />
+    <ClInclude Include="include\bitcasts.h" />
     <ClInclude Include="include\blas.h" />
     <ClInclude Include="include\fft-constants.h" />
     <ClInclude Include="include\fft.h" />
+    <ClInclude Include="include\fp16.h" />
     <ClInclude Include="include\fxdiv.h" />
     <ClInclude Include="include\hwinfo.h" />
     <ClInclude Include="include\macros.h" />
@@ -247,6 +268,12 @@
     <ClInclude Include="include\validation.h" />
     <ClInclude Include="include\winograd.h" />
     <ClInclude Include="src\ref\fft\complex-ref.h" />
+    <ClInclude Include="src\scalar\butterfly.h" />
+    <ClInclude Include="src\scalar\fft\aos.h" />
+    <ClInclude Include="src\scalar\fft\dualreal.h" />
+    <ClInclude Include="src\scalar\fft\real.h" />
+    <ClInclude Include="src\scalar\fft\soa.h" />
+    <ClInclude Include="src\scalar\winograd\f6x6k3x3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

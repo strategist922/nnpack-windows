@@ -41,6 +41,7 @@ static void compute_kernel_transform(
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
+
 		transform_function(
 			kernel + (output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channels_block_offset * kernel_size.width * kernel_size.height),
 			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
@@ -165,6 +166,7 @@ static void compute_output_transform(
 	{
 		const size_t tile = tiles_subblock_start + tiles_subblock_offset;
 		const fxdiv_result_size_t tile_xy = fxdiv_divide_size_t(tile, tiles_x_count);
+
 		const size_t tile_x = tile_xy.remainder;
 		const size_t tile_y = tile_xy.quotient;
 
@@ -807,9 +809,9 @@ static nnp_status compute_gemm_convolution_inference(
 			1ull);
 		NNP_KERNEL_TRANSFORM_END(profile)
 
-		const struct fxdiv_divisor_size_t kernel_elements_divisor = fxdiv_init_size_t(kernel_size.height * kernel_size.width);
-		const struct fxdiv_divisor_size_t kernel_width_divisor = fxdiv_init_size_t(kernel_size.width);
-		const struct fxdiv_divisor_size_t output_width_divisor = fxdiv_init_size_t(output_size.width);
+		const fxdiv_divisor_size_t kernel_elements_divisor = fxdiv_init_size_t(kernel_size.height * kernel_size.width);
+		const fxdiv_divisor_size_t kernel_width_divisor = fxdiv_init_size_t(kernel_size.width);
+		const fxdiv_divisor_size_t output_width_divisor = fxdiv_init_size_t(output_size.width);
 		for (size_t output_image_block_start = 0ull; output_image_block_start < output_image_size; output_image_block_start += output_image_block_max) 
 		{
 			const size_t output_image_block_size = min(output_image_size - output_image_block_start, output_image_block_max);
