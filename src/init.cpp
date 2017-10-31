@@ -1,4 +1,4 @@
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 #include <intrin.h>
 #else
 #include <pthread.h>
@@ -30,6 +30,15 @@ static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
 #include <relu.h>
 #include <softmax.h>
 
+#if defined(NNP_BACKEND_SCALAR)
+#include <../src/scalar/fft/aos.h>
+#include <../src/scalar/fft/soa.h>
+#include <../src/scalar/fft/real.h>
+#include <../src/scalar/fft/dualreal.h>
+#include <../src/scalar/winograd/f6x6k3x3.h>
+
+
+#endif
 
 hardware_info nnp_hwinfo = {  };
 
@@ -41,7 +50,7 @@ struct cpu_info
 	int edx;
 };
 
-#ifndef NNP_BACKEND_WIN64
+#ifndef _MSC_VER
 static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
 #ifndef __native_client__
 /*
@@ -139,7 +148,7 @@ static void init_x86_hwinfo()
 	{
 		cpu_info basic_info;
 
-#if NNP_BACKEND_WIN64
+#ifdef _MSC_VER
 		__cpuid(&basic_info.eax, 1);
 #else
 		__cpuid(1, basic_info.eax, basic_info.ebx, basic_info.ecx, basic_info.edx);
@@ -152,7 +161,7 @@ static void init_x86_hwinfo()
 
 		cpu_info structured_info = { 0 };
 		if (max_base_info >= 7)
-#if NNP_BACKEND_WIN64
+#ifdef _MSC_VER
 			__cpuidex(&structured_info.eax, 7, 0);
 #else
 			__cpuid_count(7, 0, structured_info.eax, structured_info.ebx, structured_info.ecx, structured_info.edx);
@@ -171,7 +180,7 @@ static void init_x86_hwinfo()
 	
 	// Detect CPU vendor
 	cpu_info vendor_info;
-#if NNP_BACKEND_WIN64
+#ifdef _MSC_VER
 	__cpuid(&vendor_info.eax, 0);
 #else
 	__cpuid(0, vendor_info.eax, vendor_info.ebx, vendor_info.ecx, vendor_info.edx);
@@ -189,7 +198,7 @@ static void init_x86_hwinfo()
 		for (uint32_t cache_id = 0; ; cache_id++) 
 		{
 			cpu_info cpuInfo;
-#if NNP_BACKEND_WIN64
+#ifdef _MSC_VER
 			__cpuidex(&cpuInfo.eax, 4, cache_id);
 #else
 			__cpuid_count(4, cache_id, cache_info.eax, cache_info.ebx, cache_info.ecx, cache_info.edx);
@@ -316,7 +325,6 @@ static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf7__avx2,
 	nnp_shdotxf8__avx2
 };
-
 static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf1__avx2,
 	nnp_sdotxf2__avx2,
@@ -328,7 +336,7 @@ static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf8__avx2
 };
 #elif NNP_BACKEND_ARM
-static const nnp_sdotxf_function sdotxf[8] = {
+static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf1__neon,
 	nnp_sdotxf2__neon,
 	nnp_sdotxf3__neon,
@@ -339,7 +347,7 @@ static const nnp_sdotxf_function sdotxf[8] = {
 	nnp_sdotxf8__neon,
 };
 
-static const nnp_shdotxf_function shdotxf[8] = {
+static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf1__psimd,
 	nnp_shdotxf2__psimd,
 	nnp_shdotxf3__psimd,
@@ -350,18 +358,7 @@ static const nnp_shdotxf_function shdotxf[8] = {
 	nnp_shdotxf8__psimd,
 };
 #elif NNP_BACKEND_PSIMD
-static const nnp_sdotxf_function sdotxf[8] = {
-	nnp_sdotxf1__psimd,
-	nnp_sdotxf2__psimd,
-	nnp_sdotxf3__psimd,
-	nnp_sdotxf4__psimd,
-	nnp_sdotxf5__psimd,
-	nnp_sdotxf6__psimd,
-	nnp_sdotxf7__psimd,
-	nnp_sdotxf8__psimd,
-};
-
-static const nnp_shdotxf_function shdotxf[8] = {
+static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf1__psimd,
 	nnp_shdotxf2__psimd,
 	nnp_shdotxf3__psimd,
@@ -371,19 +368,18 @@ static const nnp_shdotxf_function shdotxf[8] = {
 	nnp_shdotxf7__psimd,
 	nnp_shdotxf8__psimd,
 };
-#elif NNP_BACKEND_SCALAR
-static const nnp_sdotxf_function sdotxf[8] = {
-	nnp_sdotxf1__scalar,
-	nnp_sdotxf2__scalar,
-	nnp_sdotxf3__scalar,
-	nnp_sdotxf4__scalar,
-	nnp_sdotxf5__scalar,
-	nnp_sdotxf6__scalar,
-	nnp_sdotxf7__scalar,
-	nnp_sdotxf8__scalar,
+static const nnp_sdotxf_function sdotxf_function[8] = {
+	nnp_sdotxf1__psimd,
+	nnp_sdotxf2__psimd,
+	nnp_sdotxf3__psimd,
+	nnp_sdotxf4__psimd,
+	nnp_sdotxf5__psimd,
+	nnp_sdotxf6__psimd,
+	nnp_sdotxf7__psimd,
+	nnp_sdotxf8__psimd,
 };
-
-static const nnp_shdotxf_function shdotxf[8] = {
+#elif NNP_BACKEND_SCALAR
+static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf1__scalar,
 	nnp_shdotxf2__scalar,
 	nnp_shdotxf3__scalar,
@@ -392,6 +388,16 @@ static const nnp_shdotxf_function shdotxf[8] = {
 	nnp_shdotxf6__scalar,
 	nnp_shdotxf7__scalar,
 	nnp_shdotxf8__scalar,
+};
+static const nnp_sdotxf_function sdotxf_function[8] =  {
+	nnp_sdotxf1__scalar,
+	nnp_sdotxf2__scalar,
+	nnp_sdotxf3__scalar,
+	nnp_sdotxf4__scalar,
+	nnp_sdotxf5__scalar,
+	nnp_sdotxf6__scalar,
+	nnp_sdotxf7__scalar,
+	nnp_sdotxf8__scalar,
 };
 #endif
 
@@ -708,20 +714,21 @@ static void init_hwinfo()
 		nnp_hwinfo.activations.grad_relu = nnp_grad_relu__scalar;
 		nnp_hwinfo.activations.softmax = nnp_softmax__scalar;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__scalar;
+
 		nnp_hwinfo.sdotxf = sdotxf
 		{
-			sdotxf,
-			NNP_COUNT_OF(sdotxf),
+			sdotxf_function,
+			NNP_COUNT_OF(sdotxf_function),
 		};
 		nnp_hwinfo.shdotxf = shdotxf
 		{
-			shdotxf,
-			NNP_COUNT_OF(shdotxf),
+			shdotxf_function,
+			NNP_COUNT_OF(shdotxf_function),
 		};
 		nnp_hwinfo.conv1x1 = convolution
 		{
 			nnp_conv1x1_only_2x4__scalar,
-			upto_mr_x_nr = nnp_conv1x1_upto_2x4__scalar,
+			nnp_conv1x1_upto_2x4__scalar,
 			2,
 			4
 		};
@@ -741,7 +748,7 @@ static void init_hwinfo()
 		};
 		nnp_hwinfo.cxgemm = cxgemm
 		{
-			nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
+			(nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
 			(nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
 			(nnp_fast_tuple_gemm_function)nnp_cgemm_only_2x2__scalar,
 			(nnp_full_tuple_gemm_function)nnp_cgemm_upto_2x2__scalar,
@@ -765,7 +772,7 @@ static void init_hwinfo()
 
 nnp_status nnp_initialize()
 {
-#if NNP_BACKEND_WIN64
+#ifdef _MSC_VER
 	init_hwinfo();
 #else
 	pthread_once(&hwinfo_init_control, &init_hwinfo);

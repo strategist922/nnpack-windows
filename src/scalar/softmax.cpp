@@ -9,8 +9,9 @@
 static float max__scalar(size_t n, const float* v) 
 {
 	float max_v = *v++;
-	while (--n) 
+	while (--n)	{ 
 		max_v = maxf(max_v, *v++);
+	}
 	
 	return max_v;
 }

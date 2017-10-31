@@ -9,6 +9,7 @@ c:\users\dhaen\source\repos\nnpack\x64\debug\s2gemm-transc.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\s2gemm.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\sdotxf.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\sgemm.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\shdotxf.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fft-aos.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fft-dualreal.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fft-real.obj
@@ -45,6 +46,11 @@ c:\users\dhaen\source\repos\nnpack\x64\debug\convolution-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fully-connected-inference.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fully-connected-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\init.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.lib
+c:\users\dhaen\source\repos\nnpack\x64\debug\test.pdb
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.command.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.read.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.write.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\lib-link.read.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\lib-link.write.1.tlog
+c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\lib.command.1.tlog
