@@ -89,14 +89,14 @@ void nnp_sdotxf6__scalar(const float* x, const float* y, size_t stride_y, float*
 void nnp_sdotxf7__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 void nnp_sdotxf8__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 
-void nnp_shdotxf1__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf2__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf3__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf4__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf5__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf6__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf7__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf8__scalar(const float* x, const uint16_t* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf1__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf2__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf3__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf4__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf5__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf6__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf7__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+void nnp_shdotxf8__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 
 #ifdef __cplusplus  
 }

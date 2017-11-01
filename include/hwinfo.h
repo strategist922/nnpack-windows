@@ -56,29 +56,29 @@ struct cache_blocking_info
 #define NNP_COMPLEX_TUPLE_INDEX 1
 
 
-typedef void (__cdecl *nnp_transform_2d)(const float*, float*, size_t, size_t, uint32_t, uint32_t);
-typedef void (__cdecl *nnp_transform_2d_with_bias)(const float*, float*, const float*, size_t, size_t, uint32_t, uint32_t);
-typedef void (__cdecl *nnp_transform_2d_with_offset)(const float*, float*, size_t, size_t, uint32_t, uint32_t, uint32_t, uint32_t);
+typedef void (*nnp_transform_2d)(const float*, float*, size_t, size_t, uint32_t, uint32_t);
+typedef void (*nnp_transform_2d_with_bias)(const float*, float*, const float*, size_t, size_t, uint32_t, uint32_t);
+typedef void (*nnp_transform_2d_with_offset)(const float*, float*, size_t, size_t, uint32_t, uint32_t, uint32_t, uint32_t);
 
-typedef void (__cdecl *nnp_fast_sgemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
-typedef void (__cdecl *nnp_full_sgemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
+typedef void (*nnp_fast_sgemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
+typedef void (*nnp_full_sgemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
 
 
-typedef void (__cdecl *nnp_fast_conv_function)(size_t, size_t, const float*, const float*, float*);
-typedef void (__cdecl *nnp_full_conv_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*);
+typedef void (*nnp_fast_conv_function)(size_t, size_t, const float*, const float*, float*);
+typedef void (*nnp_full_conv_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*);
 
-typedef void (__cdecl *nnp_fast_tuple_gemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
-typedef void (__cdecl *nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
+typedef void (*nnp_fast_tuple_gemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
+typedef void (*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
 
-typedef void (__cdecl *nnp_sdotxf_function)(const float*, const float*, size_t, float*, size_t);
-typedef void (__cdecl *nnp_shdotxf_function)(const float*, const uint16_t*, size_t, float*, size_t);
+typedef void (*nnp_sdotxf_function)(const float*, const float*, size_t, float*, size_t);
+typedef void (*nnp_shdotxf_function)(const float*, const float*, size_t, float*, size_t);
 
-typedef void (__cdecl *nnp_relu_function)(const float*, float*, size_t, float);
-typedef void (__cdecl *nnp_inplace_relu_function)(float*, size_t, float);
-typedef void (__cdecl *nnp_grad_relu_function)(const float*, const float*, float*, size_t, float);
+typedef void (*nnp_relu_function)(const float*, float*, size_t, float);
+typedef void (*nnp_inplace_relu_function)(float*, size_t, float);
+typedef void (*nnp_grad_relu_function)(const float*, const float*, float*, size_t, float);
 
-typedef void (__cdecl *nnp_softmax_function)(size_t, const float*, float*);
-typedef void (__cdecl *nnp_inplace_softmax_function)(size_t, float*);
+typedef void (*nnp_softmax_function)(size_t, const float*, float*);
+typedef void (*nnp_inplace_softmax_function)(size_t, float*);
 
 struct transforms 
 {

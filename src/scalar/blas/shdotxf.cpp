@@ -5,13 +5,13 @@
 
 void nnp_shdotxf1__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0 = 0.0f;
-	const uint16_t* y0 = y;
+	const float* y0 = y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -21,15 +21,15 @@ void nnp_shdotxf1__scalar(
 
 void nnp_shdotxf2__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1;
 	acc0 = acc1 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t* y1 = y0 + stride_y;
+	const float* y0 = y;
+	const float* y1 = y0 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -41,16 +41,16 @@ void nnp_shdotxf2__scalar(
 
 void nnp_shdotxf3__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1, acc2;
 	acc0 = acc1 = acc2 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t* y1 = y0 + stride_y;
-	const uint16_t* y2 = y1 + stride_y;
+	const float* y0 = y;
+	const float* y1 = y0 + stride_y;
+	const float* y2 = y1 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -64,17 +64,17 @@ void nnp_shdotxf3__scalar(
 
 void nnp_shdotxf4__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1, acc2, acc3;
 	acc0 = acc1 = acc2 = acc3 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t* y1 = y0 + stride_y;
-	const uint16_t* y2 = y1 + stride_y;
-	const uint16_t* y3 = y2 + stride_y;
+	const float* y0 = y;
+	const float* y1 = y0 + stride_y;
+	const float* y2 = y1 + stride_y;
+	const float* y3 = y2 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -90,18 +90,18 @@ void nnp_shdotxf4__scalar(
 
 void nnp_shdotxf5__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1, acc2, acc3, acc4;
 	acc0 = acc1 = acc2 = acc3 = acc4 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t* y1 = y0 + stride_y;
-	const uint16_t* y2 = y1 + stride_y;
-	const uint16_t* y3 = y2 + stride_y;
-	const uint16_t* y4 = y3 + stride_y;
+	const float* y0 = y;
+	const float* y1 = y0 + stride_y;
+	const float* y2 = y1 + stride_y;
+	const float* y3 = y2 + stride_y;
+	const float* y4 = y3 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -119,19 +119,19 @@ void nnp_shdotxf5__scalar(
 
 void nnp_shdotxf6__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1, acc2, acc3, acc4, acc5;
 	acc0 = acc1 = acc2 = acc3 = acc4 = acc5 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t* y1 = y0 + stride_y;
-	const uint16_t* y2 = y1 + stride_y;
-	const uint16_t* y3 = y2 + stride_y;
-	const uint16_t* y4 = y3 + stride_y;
-	const uint16_t* y5 = y4 + stride_y;
+	const float* y0 = y;
+	const float* y1 = y0 + stride_y;
+	const float* y2 = y1 + stride_y;
+	const float* y3 = y2 + stride_y;
+	const float* y4 = y3 + stride_y;
+	const float* y5 = y4 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -151,20 +151,20 @@ void nnp_shdotxf6__scalar(
 
 void nnp_shdotxf7__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1, acc2, acc3, acc4, acc5, acc6;
 	acc0 = acc1 = acc2 = acc3 = acc4 = acc5 = acc6 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t*y1 = y0 + stride_y;
-	const uint16_t* y2 = y1 + stride_y;
-	const uint16_t* y3 = y2 + stride_y;
-	const uint16_t* y4 = y3 + stride_y;
-	const uint16_t* y5 = y4 + stride_y;
-	const uint16_t* y6 = y5 + stride_y;
+	const float* y0 = y;
+	const float*y1 = y0 + stride_y;
+	const float* y2 = y1 + stride_y;
+	const float* y3 = y2 + stride_y;
+	const float* y4 = y3 + stride_y;
+	const float* y5 = y4 + stride_y;
+	const float* y6 = y5 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);
@@ -186,21 +186,21 @@ void nnp_shdotxf7__scalar(
 
 void nnp_shdotxf8__scalar(
 	const float* x,
-	const uint16_t* y,
+	const float* y,
 	size_t stride_y,
 	float* sum,
 	size_t n)
 {
 	float acc0, acc1, acc2, acc3, acc4, acc5, acc6, acc7;
 	acc0 = acc1 = acc2 = acc3 = acc4 = acc5 = acc6 = acc7 = 0.0f;
-	const uint16_t* y0 = y;
-	const uint16_t* y1 = y0 + stride_y;
-	const uint16_t* y2 = y1 + stride_y;
-	const uint16_t* y3 = y2 + stride_y;
-	const uint16_t* y4 = y3 + stride_y;
-	const uint16_t* y5 = y4 + stride_y;
-	const uint16_t* y6 = y5 + stride_y;
-	const uint16_t* y7 = y6 + stride_y;
+	const float* y0 = y;
+	const float* y1 = y0 + stride_y;
+	const float* y2 = y1 + stride_y;
+	const float* y3 = y2 + stride_y;
+	const float* y4 = y3 + stride_y;
+	const float* y5 = y4 + stride_y;
+	const float* y6 = y5 + stride_y;
+	const float* y7 = y6 + stride_y;
 	while (n--) {
 		const float vx = *x++;
 		acc0 += vx * fp16_alt_to_fp32_value(*y0++);

@@ -30,16 +30,6 @@ static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
 #include <relu.h>
 #include <softmax.h>
 
-#if defined(NNP_BACKEND_SCALAR)
-#include <../src/scalar/fft/aos.h>
-#include <../src/scalar/fft/soa.h>
-#include <../src/scalar/fft/real.h>
-#include <../src/scalar/fft/dualreal.h>
-#include <../src/scalar/winograd/f6x6k3x3.h>
-
-
-#endif
-
 hardware_info nnp_hwinfo = {  };
 
 struct cpu_info
@@ -543,13 +533,13 @@ static void init_hwinfo()
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
 		nnp_hwinfo.sdotxf = sdotxf
 		{
-			sdotxf,
-			NNP_COUNT_OF(sdotxf)
+			sdotxf_function,
+			NNP_COUNT_OF(sdotxf_function)
 		};
 		nnp_hwinfo.shdotxf = shdotxf
 		{
-			shdotxf,
-			NNP_COUNT_OF(shdotxf)
+			shdotxf_function,
+			NNP_COUNT_OF(shdotxf_function)
 		};
 		nnp_hwinfo.conv1x1 = convolution
 		{
@@ -629,13 +619,13 @@ static void init_hwinfo()
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
 		nnp_hwinfo.sdotxf = sdotxf
 		{
-			sdotxf,
-			NNP_COUNT_OF(sdotxf)
+			sdotxf_function,
+			NNP_COUNT_OF(sdotxf_function)
 		};
 		nnp_hwinfo.shdotxf = shdotxf
 		{
-			shdotxf,
-			NNP_COUNT_OF(shdotxf)
+			shdotxf_function,
+			NNP_COUNT_OF(shdotxf_function)
 		};
 		nnp_hwinfo.conv1x1 = convolution
 		{

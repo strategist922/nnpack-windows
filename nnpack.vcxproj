@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
-    <PreLinkEventUseInBuild>false</PreLinkEventUseInBuild>
+    <PreLinkEventUseInBuild>true</PreLinkEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,6 +112,7 @@
       <DisableFunctionSplitting>true</DisableFunctionSplitting>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
       <SDLCheck>true</SDLCheck>
+      <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -121,14 +122,16 @@
       </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;softmaxpy.obj;relu.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Lib>
     <ProjectReference />
     <PreLinkEvent>
       <Command>start call "$(ProjectDir)src\x86_64-fma\buildDebug.bat" "$(ProjectDir)"</Command>
     </PreLinkEvent>
+    <ProjectReference />
+    <ProjectReference />
     <ProjectReference />
     <ProjectReference />
     <ProjectReference />
@@ -223,25 +226,82 @@
     <ClCompile Include="src\ref\softmax-output-ref.cpp" />
     <ClCompile Include="src\relu-input-gradient.cpp" />
     <ClCompile Include="src\relu-output.cpp" />
-    <ClCompile Include="src\scalar\2d-fourier-16x16.cpp" />
-    <ClCompile Include="src\scalar\2d-fourier-8x8.cpp" />
-    <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.cpp" />
-    <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.cpp" />
-    <ClCompile Include="src\scalar\blas\cgemm-conjb.cpp" />
-    <ClCompile Include="src\scalar\blas\cgemm.cpp" />
-    <ClCompile Include="src\scalar\blas\conv1x1.cpp" />
-    <ClCompile Include="src\scalar\blas\s2gemm-transc.cpp" />
-    <ClCompile Include="src\scalar\blas\s2gemm.cpp" />
-    <ClCompile Include="src\scalar\blas\sdotxf.cpp" />
-    <ClCompile Include="src\scalar\blas\sgemm.cpp" />
-    <ClCompile Include="src\scalar\blas\shdotxf.cpp" />
-    <ClCompile Include="src\scalar\fft-aos.cpp" />
-    <ClCompile Include="src\scalar\fft-dualreal.cpp" />
-    <ClCompile Include="src\scalar\fft-real.cpp" />
-    <ClCompile Include="src\scalar\fft-soa.cpp" />
-    <ClCompile Include="src\scalar\relu.cpp" />
-    <ClCompile Include="src\scalar\softmax.cpp" />
-    <ClCompile Include="src\scalar\winograd-f6k3.cpp" />
+    <ClCompile Include="src\scalar\2d-fourier-16x16.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-fourier-8x8.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\cgemm-conjb.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\cgemm.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\conv1x1.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\s2gemm-transc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\s2gemm.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\sdotxf.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\sgemm.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\blas\shdotxf.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-aos.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-dualreal.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-real.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-soa.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\relu.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\softmax.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\scalar\winograd-f6k3.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\softmax-output.cpp" />
     <ClCompile Include="src\x86_64-fma\exp.cpp" />
     <ClCompile Include="src\x86_64-fma\softmax.cpp" />

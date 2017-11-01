@@ -1,62 +1,6 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(937,5): warning MSB8027: Two or more files with the name of softmax.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\scalar\softmax.cpp, src\x86_64-fma\softmax.cpp.
-  softmax.cpp
+﻿  softmax.cpp
   exp.cpp
   softmax-output.cpp
-  winograd-f6k3.cpp
-  softmax.cpp
-  relu.cpp
-  fft-soa.cpp
-  fft-real.cpp
-src\scalar\fft-real.cpp(17): warning C4101: 'w5r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w1i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w1r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w2i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w6r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w2r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w7i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w7r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w4i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w4r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w3i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w6i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w0r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w5i': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w3r': unreferenced local variable
-src\scalar\fft-real.cpp(17): warning C4101: 'w8r': unreferenced local variable
-  fft-dualreal.cpp
-  fft-aos.cpp
-  shdotxf.cpp
-C:\Users\dhaen\Source\Repos\nnpack\include\fp16.h(272): warning C4244: 'return': conversion from 'uint32_t' to 'uint16_t', possible loss of data
-C:\Users\dhaen\Source\Repos\nnpack\include\fp16.h(397): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-  sgemm.cpp
-  sdotxf.cpp
-  s2gemm.cpp
-  s2gemm-transc.cpp
-  conv1x1.cpp
-  cgemm.cpp
-  cgemm-conjb.cpp
-  cgemm-conjb-transc.cpp
-  2d-winograd-8x8-3x3.cpp
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w6': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w1': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w3': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w4': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w0': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w7': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w5': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(126): warning C4101: 'w2': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w6': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w1': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w3': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w4': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w0': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w7': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w5': unreferenced local variable
-src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w2': unreferenced local variable
-  Generating Code...
-  Compiling...
-  2d-fourier-8x8.cpp
-  2d-fourier-16x16.cpp
   relu-output.cpp
   relu-input-gradient.cpp
   softmax-output-ref.cpp
@@ -74,9 +18,9 @@ src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w2': unreferenced local
   convolution-kernel-gradient-ref.cpp
   convolution-input-gradient-ref.cpp
   pthreadpool.cpp
-  pooling-output.cpp
   Generating Code...
   Compiling...
+  pooling-output.cpp
   init.cpp
   fully-connected-output.cpp
   fully-connected-inference.cpp
@@ -85,5 +29,4 @@ src\scalar\2d-winograd-8x8-3x3.cpp(175): warning C4101: 'w2': unreferenced local
   convolution-input-gradient.cpp
   convolution-inference.cpp
   Generating Code...
-x64\Debug\softmax.obj : warning LNK4042: object specified more than once; extras ignored
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib

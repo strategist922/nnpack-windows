@@ -47,7 +47,13 @@ c:\users\dhaen\source\repos\nnpack\x64\debug\fully-connected-inference.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\fully-connected-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\init.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.lib
-c:\users\dhaen\source\repos\nnpack\x64\debug\test.pdb
+c:\users\dhaen\source\repos\nnpack\x64\debug\c8gemm.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\ifft-dualreal.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\ifft-real.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\max-pooling.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\s4c6gemm.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\s8gemm.obj
+c:\users\dhaen\source\repos\nnpack\x64\debug\softmaxpy.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.command.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.read.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.write.1.tlog

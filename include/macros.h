@@ -10,7 +10,7 @@
 	#define NNP_UNREACHABLE do { } while (0)
 #endif
 
-#define NNP_BACKEND_SCALAR 1
+//#define NNP_BACKEND_SCALAR 1
 
 #if defined(NNP_BACKEND_PSIMD)
 	#if !(NNP_BACKEND_PSIMD)
