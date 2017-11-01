@@ -8,6 +8,7 @@
 #include <utils.h>
 #include <activations.h>
 
+#include <fft.h>
 
 #define BLOCK_SIZE 8
 

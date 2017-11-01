@@ -10,9 +10,49 @@
 #include <stdbool.h>
 #endif
 
+extern void nnp_sgemm_only_4x3__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+extern void nnp_sgemm_upto_4x3__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+extern void nnp_conv1x1_only_2x4__scalar(size_t input_channels, size_t image_size, const float* input, const float* kernel, float* output);
+extern void nnp_conv1x1_upto_2x4__scalar(uint32_t mr, uint32_t nr, size_t input_channels, size_t image_size, const float* input, const float* kernel, float* output);
+
+extern void nnp_s2gemm_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+extern void nnp_s2gemm_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+extern void nnp_s2gemm_transc_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+extern void nnp_s2gemm_transc_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+extern void nnp_cgemm_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+extern void nnp_cgemm_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+extern void nnp_cgemm_conjb_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+extern void nnp_cgemm_conjb_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+extern void nnp_cgemm_conjb_transc_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+extern void nnp_cgemm_conjb_transc_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+extern void nnp_sdotxf1__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf2__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf3__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf4__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf5__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf6__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf7__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_sdotxf8__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+
+extern void nnp_shdotxf1__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf2__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf3__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf4__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf5__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf6__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf7__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+extern void nnp_shdotxf8__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
+
 #ifdef __cplusplus  
 extern "C" {  // only need to export C interface if used by C++ source code  
 #endif  
+
 	
 void nnp_sgemm_only_4x24__fma3(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 void nnp_sgemm_upto_4x24__fma3(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
@@ -59,44 +99,7 @@ void nnp_shdotxf6__avx2(const float* x, const float* y, size_t stride_y, float* 
 void nnp_shdotxf7__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 void nnp_shdotxf8__avx2(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 
-void nnp_sgemm_only_4x3__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-void nnp_sgemm_upto_4x3__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 
-void nnp_conv1x1_only_2x4__scalar(size_t input_channels, size_t image_size, const float* input, const float* kernel, float* output);
-void nnp_conv1x1_upto_2x4__scalar(uint32_t mr, uint32_t nr, size_t input_channels, size_t image_size, const float* input, const float* kernel, float* output);
-
-void nnp_s2gemm_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-void nnp_s2gemm_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-
-void nnp_s2gemm_transc_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-void nnp_s2gemm_transc_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-
-void nnp_cgemm_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-void nnp_cgemm_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-
-void nnp_cgemm_conjb_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-void nnp_cgemm_conjb_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-
-void nnp_cgemm_conjb_transc_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-void nnp_cgemm_conjb_transc_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-
-void nnp_sdotxf1__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf2__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf3__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf4__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf5__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf6__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf7__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_sdotxf8__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-
-void nnp_shdotxf1__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf2__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf3__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf4__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf5__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf6__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf7__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
-void nnp_shdotxf8__scalar(const float* x, const float* y, size_t stride_y, float* sum, size_t n);
 
 #ifdef __cplusplus  
 }
