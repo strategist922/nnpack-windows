@@ -203,6 +203,8 @@ static inline void scalar_ifft16_dualreal(
 		w0i, w1i, w2i, w3i, w4i, w5i, w6i, w7i, w8i, w9i, w10i, w11i, w12i, w13i, w14i, w15i,
 		seq);
 }
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
+

@@ -549,6 +549,9 @@ static inline void scalar_ifft8_aos(
 	*t_lo = w3i;
 	*t_hi = w7i;
 }
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
+
+

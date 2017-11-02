@@ -814,6 +814,8 @@ static inline void scalar_ifft16_soa(
 	t[23] =  w7i;
 	t[31] = w15i;
 }
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
+

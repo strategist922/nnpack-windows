@@ -10,6 +10,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 static inline void scalar_fft8_real(
 	const float* t0,
 	const float* t4,
@@ -232,6 +233,8 @@ static inline void scalar_ifft16_real(
 		w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i,
 		t0, t8, stride_t);
 }
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
+

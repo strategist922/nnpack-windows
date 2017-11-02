@@ -34,3 +34,5 @@ static inline float32x4_t neon_grad_relu_f32(float32x4_t grad_output_data, float
 	return vbslq_f32(negative_mask, vmulq_f32(grad_output_data, negative_slope), grad_output_data);
 }
 #endif
+
+

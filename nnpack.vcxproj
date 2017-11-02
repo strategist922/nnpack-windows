@@ -112,7 +112,7 @@
       <DisableFunctionSplitting>true</DisableFunctionSplitting>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
       <SDLCheck>true</SDLCheck>
-      <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
