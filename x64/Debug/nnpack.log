@@ -1,6 +1,14 @@
-﻿  softmax.cpp
-  exp.cpp
-  softmax-output.cpp
+﻿  softmax-output.cpp
+  winograd-f6k3.cpp
+  softmax.cpp
+  relu.cpp
+  fft-soa.cpp
+  fft-real.cpp
+  fft-dualreal.cpp
+  fft-aos.cpp
+  2d-winograd-8x8-3x3.cpp
+  2d-fourier-8x8.cpp
+  2d-fourier-16x16.cpp
   relu-output.cpp
   relu-input-gradient.cpp
   softmax-output-ref.cpp
@@ -10,6 +18,8 @@
   fully-connected-output-ref.cpp
   soa-ref.cpp
   inverse-real-ref.cpp
+  Generating Code...
+  Compiling...
   inverse-dualreal-ref.cpp
   forward-real-ref.cpp
   forward-dualreal-ref.cpp
@@ -18,8 +28,6 @@
   convolution-kernel-gradient-ref.cpp
   convolution-input-gradient-ref.cpp
   pthreadpool.cpp
-  Generating Code...
-  Compiling...
   pooling-output.cpp
   init.cpp
   fully-connected-output.cpp
@@ -29,4 +37,14 @@
   convolution-input-gradient.cpp
   convolution-inference.cpp
   Generating Code...
+  sgemm.c
+  sdotxf.c
+  s2gemm.c
+  s2gemm-transc.c
+  conv1x1.c
+  cgemm.c
+  cgemm-conjb.c
+  cgemm-conjb-transc.c
+  Generating Code...
+  shdotxf.cpp
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\nnpack.lib

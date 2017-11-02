@@ -4,8 +4,14 @@
 
 #include <macros.h>
 #if defined(_MSC_VER)
-#include <cstdlib>
-#define ToFloat(str) std::strtof(str, NULL)
+#include <stddef.h>
+#include <stdint.h>
+#include <stdlib.h>
+#define ToFloat(str) strtof(str, NULL)
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 static NNP_INLINE void winograd_f6k3_input_transform(
@@ -228,3 +234,7 @@ static NNP_INLINE void winograd_f6k3_output_transform(
 	*output4 = s4;
 	*output5 = s5;
 }
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif

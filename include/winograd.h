@@ -22,7 +22,6 @@ extern "C" {
 	void nnp_iwt_f6k3__scalar(const float d[], float w[]);
 	void nnp_kwt_f6k3__scalar(const float g[], float w[]);
 	void nnp_owt_f6k3__scalar(const float m[], float s[]);
-
 #ifdef __cplusplus
 }
 #endif

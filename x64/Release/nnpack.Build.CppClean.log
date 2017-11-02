@@ -1,11 +1,11 @@
 c:\users\dhaen\source\repos\nnpack\x64\release\max-pooling-output-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\fully-connected-output-ref.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\soa.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\inverse-real.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\inverse-dualreal.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\forward-real.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\forward-dualreal.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\aos.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\soa-ref.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\inverse-real-ref.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\inverse-dualreal-ref.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\forward-real-ref.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\forward-dualreal-ref.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\aos-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\convolution-output-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\convolution-kernel-gradient-ref.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\convolution-input-gradient-ref.obj
@@ -19,6 +19,7 @@ c:\users\dhaen\source\repos\nnpack\x64\release\convolution-kernel-gradient.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\convolution-input-gradient.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\convolution-inference.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\softmax.obj
+c:\users\dhaen\source\repos\nnpack\x64\release\exp.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\softmax-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\relu-output.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\relu-input-gradient.obj
@@ -30,11 +31,7 @@ c:\users\dhaen\source\repos\nnpack\x64\release\2d-fourier-16x16.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\2d-fourier-8x8.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\2d-winograd-8x8-3x3.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\c8gemm.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\common.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\complex_soa.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\complex_soa_perm_to_real.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\conv1x1.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\exp.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\fft-aos.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\fft-dualreal.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\fft-real.obj
@@ -42,8 +39,6 @@ c:\users\dhaen\source\repos\nnpack\x64\release\fft-soa.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\ifft-dualreal.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\ifft-real.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\max-pooling.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\o6x6k3x3.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\real_to_complex_soa_perm.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\relu.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\s4c6gemm.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\s8gemm.obj
@@ -51,8 +46,6 @@ c:\users\dhaen\source\repos\nnpack\x64\release\sdotxf.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\sgemm.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\shdotxf.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\softmaxpy.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\two_complex_soa_perm_to_two_real_planar.obj
-c:\users\dhaen\source\repos\nnpack\x64\release\two_real_to_two_complex_soa_perm_planar.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\winograd-f6k3.obj
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\cl.command.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\release\nnpack.tlog\cl.read.1.tlog

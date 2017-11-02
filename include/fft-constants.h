@@ -1,9 +1,14 @@
 #pragma once
 
+#ifdef __cplusplus
 #include <ccomplex>
 #include <cstdlib>
-
 #define ToFloat(str) std::strtof(str, NULL)
+#else
+#include <stdlib.h>
+#define ToFloat(str) strtof(str, NULL)
+#endif
+
 
 #define SQRT2_OVER_2 ToFloat("0x1.6A09E6p-1f")
 #define SQRT2_OVER_4 ToFloat("0x1.6A09E6p-2f")

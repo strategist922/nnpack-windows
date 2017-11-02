@@ -1,16 +1,22 @@
 #pragma once
 
+#include <stdint.h>
+#include <stddef.h>
+
 #include <fft-constants.h>
 #include <../src/scalar/fft/aos.h>
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 static inline void scalar_fft8_real(
 	const float* t0,
 	const float* t4,
-	size_t stride_t,
+	uint64_t stride_t,
 	uint32_t row_offset, uint32_t row_count,
 	float* f,
-	size_t stride_f)
+	uint64_t stride_f)
 {
 	float w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i;
 	scalar_fft4_aos(t0, t4, stride_t, row_offset, row_count,
@@ -49,10 +55,10 @@ static inline void scalar_fft8_real(
 static inline void scalar_fft16_real(
 	const float* t0,
 	const float* t8,
-	size_t stride_t,
+	uint64_t stride_t,
 	uint32_t row_offset, uint32_t row_count,
 	float* f,
-	size_t stride_f)
+	uint64_t stride_f)
 {
 	float w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i;
 	scalar_fft8_aos(t0, t8, stride_t, row_offset, row_count,
@@ -120,7 +126,7 @@ static inline void scalar_ifft8_real(
 	float f0, float f4, float f1r, float f1i, float f2r, float f2i, float f3r, float f3i,
 	float* t0,
 	float* t4,
-	size_t stride_t)
+	uint64_t stride_t)
 {
 	/* Load inputs and scale */
 	const float scale = 0.5f;
@@ -161,7 +167,7 @@ static inline void scalar_ifft16_real(
 	float f4r, float f4i, float f5r, float f5i, float f6r, float f6i, float f7r, float f7i,
 	float* t0,
 	float* t8,
-	size_t stride_t)
+	uint64_t stride_t)
 {
 	/* Load inputs and scale */
 	const float scale = 0.5f;
@@ -226,3 +232,6 @@ static inline void scalar_ifft16_real(
 		w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i,
 		t0, t8, stride_t);
 }
+#ifdef __cplusplus
+} /* extern "C" */
+#endif

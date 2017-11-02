@@ -3,6 +3,10 @@
 #include <fft-constants.h>
 #include <../src/scalar/butterfly.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 static inline void scalar_fft8_soa(
 	const float* t,
@@ -810,3 +814,6 @@ static inline void scalar_ifft16_soa(
 	t[23] =  w7i;
 	t[31] = w15i;
 }
+#ifdef __cplusplus
+} /* extern "C" */
+#endif

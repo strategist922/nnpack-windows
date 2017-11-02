@@ -128,62 +128,62 @@
     <ClCompile Include="src\x86_64-fma\softmax.cpp">
       <Filter>x86_64-fma</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\2d-fourier-8x8.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\2d-fourier-16x16.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\fft-aos.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\fft-dualreal.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\fft-real.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\fft-soa.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\relu.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\softmax.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\winograd-f6k3.cpp">
-      <Filter>Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scalar\blas\cgemm.cpp">
+    <ClCompile Include="src\scalar\blas\cgemm.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\cgemm-conjb.cpp">
+    <ClCompile Include="src\scalar\blas\cgemm-conjb.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.cpp">
+    <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\conv1x1.cpp">
+    <ClCompile Include="src\scalar\blas\conv1x1.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\s2gemm.cpp">
+    <ClCompile Include="src\scalar\blas\s2gemm.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\s2gemm-transc.cpp">
+    <ClCompile Include="src\scalar\blas\s2gemm-transc.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\sdotxf.cpp">
+    <ClCompile Include="src\scalar\blas\sdotxf.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\sgemm.cpp">
+    <ClCompile Include="src\scalar\blas\sgemm.c">
       <Filter>Scalar\blas</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\blas\shdotxf.cpp">
+    <ClCompile Include="src\scalar\blas\shdotxf.c">
       <Filter>Scalar\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-fourier-8x8.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-fourier-16x16.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-aos.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-dualreal.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-real.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft-soa.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\relu.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\softmax.c">
+      <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\winograd-f6k3.c">
+      <Filter>Scalar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
