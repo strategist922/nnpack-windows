@@ -15,13 +15,15 @@
 #include <bitcasts.h>
 
 #ifdef _MSC_VER
-#include <intrin.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <cstdlib>
-#define ToFloat(str) std::strtof(str, NULL)
-
-//#define ToFloat(str) strtof(str, NULL)
+	#include <intrin.h>
+	#include <stddef.h>
+	#include <stdint.h>
+#ifdef __cplusplus
+	#include <cstdlib>
+	#define ToFloat(str) std::strtof(str, NULL)
+#else
+	#define ToFloat(str) strtof(str, NULL)
+#endif // __cplusplus
 
 static inline uint32_t ctz(uint32_t value)
 {
@@ -52,7 +54,7 @@ static inline uint32_t __builtin_clz(uint32_t value)
 		return 32;
 	}
 }
-#endif
+#endif // _MSC_VER
 
 /*
  * Convert a 16-bit floating-point number in IEEE half-precision format, in bit representation, to
