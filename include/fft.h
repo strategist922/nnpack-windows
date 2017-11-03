@@ -11,11 +11,11 @@
 #endif
 
 
+
 #ifdef __cplusplus  
 extern "C" {  // only need to export C interface if used by C++ source code  
 #endif 
 	/* Reference versions */
-
 	typedef void(*nnp_strided_fft_function)(const float*, size_t, float*, size_t);
 	typedef void(*nnp_fft_function)(const float*, float*);
 

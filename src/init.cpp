@@ -757,6 +757,8 @@ static void init_hwinfo()
 #error Unsupported backend
 #endif
 	}
+
+	nnp_hwinfo.initialized = true;
 }
 
 nnp_status nnp_initialize()

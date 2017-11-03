@@ -201,9 +201,7 @@
     </PreLinkEvent>
     <ProjectReference />
     <ProjectReference />
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\convolution-inference.cpp" />

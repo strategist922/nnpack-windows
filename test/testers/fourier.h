@@ -11,11 +11,14 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
-#include <fft.h>
 
+#include <nnpack.h>
+#include <reference.h>
+#include <utils.h>
+
+#include <gtest\gtest.h>
 #include <AlignedAllocator.h>
-
-
+#include <fft.h>
 
 class FFTTester {
 public:
