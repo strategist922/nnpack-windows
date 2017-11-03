@@ -10,7 +10,6 @@
 #include <stdbool.h>
 #endif
 
-#include "pthreadpool.h"
 
 #ifdef __cplusplus
 extern "C" {

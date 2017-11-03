@@ -1,9 +1,9 @@
 #include <nnpack.h>
 #include <utils.h>
 #include <hwinfo.h>
-#include <system.h>
 #include <validation.h>
-
+#include <system.h>
+#include <macros.h>
 
 struct NNP_CACHE_ALIGN input_packing_context 
 {
@@ -88,15 +88,15 @@ struct NNP_CACHE_ALIGN matrix_multiplication_context
 	const float* input;
 	const float* kernel;
 	float* output;
-	size_t input_channels;
-	size_t output_channels;
+	const size_t input_channels;
+	const size_t output_channels;
 	size_t batch_block_start;
 	size_t batch_block_size;
 	size_t input_channels_block_start;
 	size_t input_channels_block_size;
-	size_t output_channels_subblock_max;
-	size_t batch_subblock_max;
-	size_t simd_width;
+	const size_t output_channels_subblock_max;
+	const size_t batch_subblock_max;
+	const size_t simd_width;
 	nnp_fast_sgemm_function fast_sgemm_function;
 	nnp_full_sgemm_function full_sgemm_function;
 };
@@ -195,7 +195,7 @@ static void compute_fully_connected_output(
 		nnp_hwinfo.sgemm.only_mr_x_nr,
 		nnp_hwinfo.sgemm.upto_mr_x_nr
 	};
-
+	
 	for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) 
 	{
 		const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);

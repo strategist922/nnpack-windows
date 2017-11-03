@@ -68,7 +68,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convolution-output\smoke.cc">
+    <ClCompile Include="fully-connected-output\smoke.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,7 +5,7 @@
 #include <utils.h>
 #include <pooling.h>
 #include <validation.h>
-
+#include <macros.h>
 
 struct NNP_CACHE_ALIGN pooling_context 
 {

@@ -5,7 +5,7 @@
 #include <hwinfo.h>
 #include <activations.h>
 #include <validation.h>
-
+#include <macros.h>
 
 struct NNP_CACHE_ALIGN relu_context 
 {

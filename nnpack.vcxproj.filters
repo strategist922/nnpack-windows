@@ -370,5 +370,11 @@
     <None Include="src\x86_64-fma\vecmath\exp.py">
       <Filter>x86_64-fma\vecmath</Filter>
     </None>
+    <None Include="src\x86_64-fma\buildDebug.bat">
+      <Filter>x86_64-fma</Filter>
+    </None>
+    <None Include="src\x86_64-fma\buildRelease.bat">
+      <Filter>x86_64-fma</Filter>
+    </None>
   </ItemGroup>
 </Project>

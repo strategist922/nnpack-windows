@@ -3,7 +3,7 @@
 #include <hwinfo.h>
 #include <system.h>
 #include <validation.h>
-
+#include <macros.h>
 
 struct NNP_CACHE_ALIGN kernel_transform_context
 {

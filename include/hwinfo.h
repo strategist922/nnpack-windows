@@ -12,14 +12,14 @@
 
 #include <macros.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define bit_OSXSAVE (1 << 27)
 #define bit_AVX		(1 << 28)
 #define bit_FMA		(1 << 12)
 #define bit_AVX2	0x00000020
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct isa_info 
 {
@@ -186,7 +186,6 @@ struct hardware_info
 };
 
 extern hardware_info nnp_hwinfo;
-
 #ifdef __cplusplus
-} /* extern "C" */
+}
 #endif

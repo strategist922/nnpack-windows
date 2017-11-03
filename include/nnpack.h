@@ -16,10 +16,10 @@
 extern "C" {
 #endif
 
-enum nnp_status 
+enum nnp_status
 {
 	nnp_status_success = 0,
-	
+
 	nnp_status_invalid_batch_size = 2,
 	nnp_status_invalid_channels = 3,
 	nnp_status_invalid_input_channels = 4,
@@ -35,7 +35,7 @@ enum nnp_status
 	nnp_status_invalid_output_subsampling = 13,
 	nnp_status_invalid_activation = 14,
 	nnp_status_invalid_activation_parameters = 15,
-	
+
 	nnp_status_unsupported_input_size = 20,
 	nnp_status_unsupported_input_stride = 21,
 	nnp_status_unsupported_input_padding = 22,
@@ -55,13 +55,13 @@ enum nnp_status
 };
 
 
-enum nnp_activation 
+enum nnp_activation
 {
 	nnp_activation_identity = 0,
 	nnp_activation_relu = 1,
 };
 
-enum nnp_convolution_algorithm 
+enum nnp_convolution_algorithm
 {
 	nnp_convolution_algorithm_auto = 0,
 	nnp_convolution_algorithm_ft8x8 = 1,
@@ -71,7 +71,7 @@ enum nnp_convolution_algorithm
 	nnp_convolution_algorithm_direct = 5
 };
 
-enum nnp_convolution_transform_strategy 
+enum nnp_convolution_transform_strategy
 {
 	nnp_convolution_transform_strategy_compute = 1,
 	nnp_convolution_transform_strategy_precompute = 2,
@@ -82,13 +82,13 @@ enum nnp_convolution_transform_strategy
 #define nnp_convolution_transform_strategy_block_based nnp_convolution_transform_strategy_compute
 #define nnp_convolution_transform_strategy_tuple_based nnp_convolution_transform_strategy_compute
 
-struct nnp_size 
+struct nnp_size
 {
 	size_t width;
 	size_t height;
 };
-	
-struct nnp_padding 
+
+struct nnp_padding
 {
 	size_t top;
 	size_t right;
@@ -96,7 +96,7 @@ struct nnp_padding
 	size_t left;
 };
 
-struct nnp_profile 
+struct nnp_profile
 {
 	double total;
 	double input_transform;
@@ -132,7 +132,7 @@ nnp_status nnp_convolution_output(
 	const nnp_activation activation,
 	const void* activation_parameters,
 	nnp_profile* profile);
-	
+
 nnp_status nnp_convolution_input_gradient(
 	nnp_convolution_algorithm algorithm,
 	const size_t batch_size,
@@ -164,7 +164,7 @@ nnp_status nnp_convolution_kernel_gradient(
 	const nnp_activation activation,
 	const void* activation_parameters,
 	nnp_profile* profile);
-	
+
 nnp_status nnp_convolution_inference(
 	nnp_convolution_algorithm algorithm,
 	const nnp_convolution_transform_strategy transform_strategy,
@@ -228,11 +228,9 @@ nnp_status nnp_relu_input_gradient(
 	const float* input,
 	float* grad_input,
 	const float negative_slope);
-
 #ifdef __cplusplus
-} /* extern "C" */
+}
 #endif
-
 
 #ifdef __cplusplus
 inline nnp_status nnp_convolution_output(

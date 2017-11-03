@@ -305,16 +305,6 @@ static void init_static_ios_hwinfo(void)
 
 
 #if NNP_BACKEND_X86_64 || NNP_BACKEND_WIN64
-static const nnp_shdotxf_function shdotxf_function[8] = {
-	nnp_shdotxf1__avx2,
-	nnp_shdotxf2__avx2,
-	nnp_shdotxf3__avx2,
-	nnp_shdotxf4__avx2,
-	nnp_shdotxf5__avx2,
-	nnp_shdotxf6__avx2,
-	nnp_shdotxf7__avx2,
-	nnp_shdotxf8__avx2
-};
 static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf1__avx2,
 	nnp_sdotxf2__avx2,
@@ -324,6 +314,16 @@ static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf6__avx2,
 	nnp_sdotxf7__avx2,
 	nnp_sdotxf8__avx2
+};
+static const nnp_shdotxf_function shdotxf_function[8] = {
+	nnp_shdotxf1__avx2,
+	nnp_shdotxf2__avx2,
+	nnp_shdotxf3__avx2,
+	nnp_shdotxf4__avx2,
+	nnp_shdotxf5__avx2,
+	nnp_shdotxf6__avx2,
+	nnp_shdotxf7__avx2,
+	nnp_shdotxf8__avx2
 };
 #elif NNP_BACKEND_ARM
 static const nnp_sdotxf_function sdotxf_function[8] = {
@@ -336,7 +336,6 @@ static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf7__neon,
 	nnp_sdotxf8__neon,
 };
-
 static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf1__psimd,
 	nnp_shdotxf2__psimd,
@@ -348,16 +347,6 @@ static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf8__psimd,
 };
 #elif NNP_BACKEND_PSIMD
-static const nnp_shdotxf_function shdotxf_function[8] = {
-	nnp_shdotxf1__psimd,
-	nnp_shdotxf2__psimd,
-	nnp_shdotxf3__psimd,
-	nnp_shdotxf4__psimd,
-	nnp_shdotxf5__psimd,
-	nnp_shdotxf6__psimd,
-	nnp_shdotxf7__psimd,
-	nnp_shdotxf8__psimd,
-};
 static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf1__psimd,
 	nnp_sdotxf2__psimd,
@@ -368,7 +357,27 @@ static const nnp_sdotxf_function sdotxf_function[8] = {
 	nnp_sdotxf7__psimd,
 	nnp_sdotxf8__psimd,
 };
+static const nnp_shdotxf_function shdotxf_function[8] = {
+	nnp_shdotxf1__psimd,
+	nnp_shdotxf2__psimd,
+	nnp_shdotxf3__psimd,
+	nnp_shdotxf4__psimd,
+	nnp_shdotxf5__psimd,
+	nnp_shdotxf6__psimd,
+	nnp_shdotxf7__psimd,
+	nnp_shdotxf8__psimd,
+};
 #elif NNP_BACKEND_SCALAR
+static const nnp_sdotxf_function sdotxf_function[8] = {
+	nnp_sdotxf1__scalar,
+	nnp_sdotxf2__scalar,
+	nnp_sdotxf3__scalar,
+	nnp_sdotxf4__scalar,
+	nnp_sdotxf5__scalar,
+	nnp_sdotxf6__scalar,
+	nnp_sdotxf7__scalar,
+	nnp_sdotxf8__scalar,
+};
 static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf1__scalar,
 	nnp_shdotxf2__scalar,
@@ -378,16 +387,6 @@ static const nnp_shdotxf_function shdotxf_function[8] = {
 	nnp_shdotxf6__scalar,
 	nnp_shdotxf7__scalar,
 	nnp_shdotxf8__scalar,
-};
-static const nnp_sdotxf_function sdotxf_function[8] =  {
-	nnp_sdotxf1__scalar,
-	nnp_sdotxf2__scalar,
-	nnp_sdotxf3__scalar,
-	nnp_sdotxf4__scalar,
-	nnp_sdotxf5__scalar,
-	nnp_sdotxf6__scalar,
-	nnp_sdotxf7__scalar,
-	nnp_sdotxf8__scalar,
 };
 #endif
 
@@ -504,7 +503,7 @@ static void init_hwinfo()
 				2u,
 				2u
 			};
-
+			
 			nnp_hwinfo.supported = true;
 		}
 #elif NNP_BACKEND_PSIMD

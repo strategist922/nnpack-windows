@@ -18,10 +18,10 @@
 #include <intrin.h>
 #include <stddef.h>
 #include <stdint.h>
-//#include <cstdlib>
-//#define ToFloat(str) std::strtof(str, NULL)
+#include <cstdlib>
+#define ToFloat(str) std::strtof(str, NULL)
 
-#define ToFloat(str) strtof(str, NULL)
+//#define ToFloat(str) strtof(str, NULL)
 
 static inline uint32_t ctz(uint32_t value)
 {

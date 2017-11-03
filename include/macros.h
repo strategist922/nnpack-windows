@@ -59,11 +59,7 @@
 #define NNP_SIMD_ALIGN NNP_ALIGN(64)
 #define NNP_CACHE_ALIGN NNP_ALIGN(64)
 
-#if defined(_MSC_VER)
-#define NNP_COUNT_OF(_array) (sizeof(_array) / sizeof(_array[0]))
-#else
 #define NNP_COUNT_OF(array) (sizeof(array) / sizeof(0[array]))
-#endif
 
 #if defined(__GNUC__)
 	#define NNP_LIKELY(condition) (__builtin_expect(!!(condition), 1))
