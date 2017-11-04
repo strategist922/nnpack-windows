@@ -138,3 +138,5 @@ void nnp_s2gemm_transc_upto_2x2__scalar(
 		}
 	}
 }
+
+

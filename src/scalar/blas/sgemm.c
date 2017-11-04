@@ -238,3 +238,5 @@ void nnp_sgemm_upto_4x3__scalar(uint32_t mr, uint32_t nr, size_t k, size_t updat
 		}
 	}
 }
+
+

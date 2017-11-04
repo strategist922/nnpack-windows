@@ -219,3 +219,5 @@ void nnp_sdotxf8__scalar(
 	sum[6] = acc6;
 	sum[7] = acc7;
 }
+
+

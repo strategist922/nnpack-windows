@@ -4,9 +4,9 @@
 
 void nnp_s2gemm_only_2x2__scalar(
 	size_t k, size_t update,
-	const float a[1],
-	const float b[1],
-	float c[1],
+	const float* a,
+	const float* b,
+	float* c,
 	size_t row_stride_c)
 {
 	float acc00r, acc01r, acc10r, acc11r;
@@ -62,9 +62,9 @@ void nnp_s2gemm_only_2x2__scalar(
 void nnp_s2gemm_upto_2x2__scalar(
 	uint32_t mr, uint32_t nr,
 	size_t k, size_t update,
-	const float a[1],
-	const float b[1],
-	float c[1],
+	const float* __restrict a,
+	const float* __restrict b,
+	float* __restrict c,
 	size_t row_stride_c)
 {
 	float acc00r, acc01r, acc10r, acc11r;

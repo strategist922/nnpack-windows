@@ -134,3 +134,4 @@ void nnp_conv1x1_upto_2x4__scalar(
 		}
 	} while (--image_size != 0);
 }
+

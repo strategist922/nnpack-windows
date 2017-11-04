@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
-//#include <string.h>
+#include <string.h>
 
 #include <macros.h>
 #include <activations.h>

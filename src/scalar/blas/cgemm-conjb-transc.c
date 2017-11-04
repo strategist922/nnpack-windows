@@ -157,3 +157,4 @@ void nnp_cgemm_conjb_transc_upto_2x2__scalar(
 		}
 	}
 }
+

@@ -182,9 +182,6 @@
     <ClCompile Include="src\scalar\softmax.c">
       <Filter>Scalar</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\winograd-f6k3.c">
-      <Filter>Scalar</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h">
@@ -273,6 +270,9 @@
     </ClInclude>
     <ClInclude Include="include\bitcasts.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\winograd-f6k3.c">
+      <Filter>Scalar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

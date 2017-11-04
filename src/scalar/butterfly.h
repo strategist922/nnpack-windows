@@ -1,6 +1,5 @@
 #pragma once
 
-
 static inline void scalar_swap(float* a, float* b) 
 {
     const float new_a = *b;

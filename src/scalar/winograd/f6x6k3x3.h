@@ -1,8 +1,7 @@
 #pragma once
-
 #include <stdbool.h>
-
 #include <macros.h>
+
 #if defined(_MSC_VER)
 #include <stddef.h>
 #include <stdint.h>
@@ -238,3 +237,4 @@ static NNP_INLINE void winograd_f6k3_output_transform(
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
+

@@ -1,15 +1,11 @@
 #pragma once
-
 #include <stdint.h>
 #include <stddef.h>
+#include <stdlib.h>
+#define ToFloat(str) strtof(str, NULL)
 
-#include <fft-constants.h>
 #include <../src/scalar/fft/aos.h>
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 static inline void scalar_fft8_real(
 	const float* t0,
@@ -29,7 +25,7 @@ static inline void scalar_fft8_real(
 	const float two_h1r = w1i + w3i;
 	const float two_h1i = w3r - w1r;
 
-	const float sqrt2_over_4 = SQRT2_OVER_4;
+	const float sqrt2_over_4 = ToFloat("0x1.6A09E6p-2f");
 	const float h1_plus  = sqrt2_over_4 * (two_h1i + two_h1r);
 	const float h1_minus = sqrt2_over_4 * (two_h1i - two_h1r);
 
@@ -80,12 +76,12 @@ static inline void scalar_fft16_real(
 	const float two_h3r = w3i + w5i;
 	const float two_h3i = w5r - w3r;
 
-	const float sqrt2_over_4 = SQRT2_OVER_4;
+	const float sqrt2_over_4 = ToFloat("0x1.6A09E6p-2f");
 	const float h2_plus  = sqrt2_over_4 * (two_h2i + two_h2r);
 	const float h2_minus = sqrt2_over_4 * (two_h2i - two_h2r);
 
-	const float half_cos_1pi_over_8 = COS_1PI_OVER_8 * 0.5f;
-	const float half_cos_3pi_over_8 = COS_3PI_OVER_8 * 0.5f;
+	const float half_cos_1pi_over_8 = ToFloat("0x1.D906BCp-1f") * 0.5f;
+	const float half_cos_3pi_over_8 = ToFloat("0x1.87DE2Ap-2f") * 0.5f;
 
 	const float f0  =  w0r + w0i;
 	const float f8  =  w0r - w0i;
@@ -152,7 +148,7 @@ static inline void scalar_ifft8_real(
 	const float h1_plus  = h1r + h1i;
 	const float h1_minus = h1r - h1i;
 
-	const float sqrt2_over2 = SQRT2_OVER_2;
+	const float sqrt2_over2 = ToFloat("0x1.6A09E6p-1f");
 	const float w1r =  g1r - sqrt2_over2 * h1_plus;
 	const float w1i =  g1i + sqrt2_over2 * h1_minus;
 	const float w3r =  g1r + sqrt2_over2 * h1_plus;
@@ -201,7 +197,7 @@ static inline void scalar_ifft16_real(
 	const float h2_plus  = h2r + h2i;
 	const float h2_minus = h2r - h2i;
 
-	const float sqrt2_over2 = SQRT2_OVER_2;
+	const float sqrt2_over2 = ToFloat("0x1.6A09E6p-1f");
 	const float w2r =  g2r - sqrt2_over2 * h2_plus;
 	const float w2i =  g2i + sqrt2_over2 * h2_minus;
 	const float w6r =  g2r + sqrt2_over2 * h2_plus;
@@ -217,8 +213,8 @@ static inline void scalar_ifft16_real(
 	const float h3r = f3r - f5r;
 	const float h3i = f3i + f5i;
 
-	const float cos_1pi_over_8 = COS_1PI_OVER_8;
-	const float cos_3pi_over_8 = COS_3PI_OVER_8;
+	const float cos_1pi_over_8 = ToFloat("0x1.D906BCp-1f");
+	const float cos_3pi_over_8 = ToFloat("0x1.87DE2Ap-2f");
 	const float w1r =  g1r - h1i * cos_1pi_over_8 - h1r * cos_3pi_over_8;
 	const float w1i =  g1i + h1r * cos_1pi_over_8 - h1i * cos_3pi_over_8;
 	const float w7r =  g1r + h1i * cos_1pi_over_8 + h1r * cos_3pi_over_8;
@@ -233,8 +229,4 @@ static inline void scalar_ifft16_real(
 		w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i,
 		t0, t8, stride_t);
 }
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 

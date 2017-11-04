@@ -1,14 +1,10 @@
 #pragma once
-
 #include <stdint.h>
 #include <stddef.h>
+#include <stdlib.h>
+#define ToFloat(str) strtof(str, NULL)
 
-#include <fft-constants.h>
 #include <../src/scalar/butterfly.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 
 static inline void scalar_fft4_aos(
@@ -349,7 +345,7 @@ fft8_twiddle:;
 	 *
 	 * (negation of w6i and w7i is merged into the next butterfly)
 	 */
-	const float sqrt2_over_2 = SQRT2_OVER_2;
+	const float sqrt2_over_2 = ToFloat("0x1.6A09E6p-1f");
 	const float new_w5r = sqrt2_over_2 * (w5i + w5r);
 	const float new_w5i = sqrt2_over_2 * (w5i - w5r);
 	const float new_w7r = sqrt2_over_2 * (w7i - w7r);
@@ -476,7 +472,7 @@ static inline void scalar_ifft8_aos(
 	 *
 	 * (negation of w6r and w7r is merged into the next butterfly)
 	 */
-	const float sqrt2_over_2 = SQRT2_OVER_2 * 0.125f;
+	const float sqrt2_over_2 = ToFloat("0x1.6A09E6p-1f") * 0.125f;
 	const float new_w5r = sqrt2_over_2 * (w5r - w5i);
 	const float new_w5i = sqrt2_over_2 * (w5r + w5i);
 	const float minus_new_w7r = sqrt2_over_2 * (w7r + w7i);
@@ -550,8 +546,5 @@ static inline void scalar_ifft8_aos(
 	*t_hi = w7i;
 }
 
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 

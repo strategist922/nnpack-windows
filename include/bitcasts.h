@@ -9,15 +9,16 @@
 #endif
 
 
-static inline float fp32_from_bits(uint32_t w) {
+static inline float fp32_from_bits(const uint32_t w) {
 #if defined(__OPENCL_VERSION__)
 	return as_float(w);
 #elif defined(__CUDA_ARCH__)
 	return __uint_as_float((unsigned int) w);
 #elif defined(__INTEL_COMPILER)
-	return _castu32_f32(x);
+	return _castu32_f32(w);
 #else
-	union {
+	union fp32
+	{
 		uint32_t as_bits;
 		float as_value;
 	} fp32 = { w };
@@ -25,7 +26,7 @@ static inline float fp32_from_bits(uint32_t w) {
 #endif
 }
 
-static inline uint32_t fp32_to_bits(float f) {
+static inline uint32_t fp32_to_bits(const float f) {
 #if defined(__OPENCL_VERSION__)
 	return as_uint(f);
 #elif defined(__CUDA_ARCH__)
