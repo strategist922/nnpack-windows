@@ -1,9 +1,11 @@
 #include <nnpack.h>
-#include <utils.h>
-#include <hwinfo.h>
-#include <system.h>
-#include <validation.h>
 #include <macros.h>
+#include <utils.h>
+#include <system.h>
+
+#include <hwinfo.h>
+#include <validation.h>
+
 
 struct NNP_CACHE_ALIGN kernel_transform_context 
 {
@@ -494,16 +496,30 @@ nnp_status nnp_convolution_input_gradient(
 	const void* activation_parameters,
 	nnp_profile* profile)
 {
+	NNP_TOTAL_START(profile)
+
 	const nnp_size output_size =
 	{
 		input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1ull,
 		input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1ull
 	};
 
-	if (activation != nnp_activation_identity)
-		return nnp_status_unsupported_activation;
-	if (activation_parameters != NULL)
-		return nnp_status_unsupported_activation_parameters;
+	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
+	nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels,	input_size, input_padding, kernel_size, nnp_size { 1ull, 1ull }, activation, activation_parameters);
+	if (status != nnp_status_success) 
+		goto cleanup;
+	
+	if (activation != nnp_activation_identity) 
+	{
+		status = nnp_status_unsupported_activation;
+		goto cleanup;
+	}
+
+	if (activation_parameters != NULL) 
+	{
+		status = nnp_status_unsupported_activation_parameters;
+		goto cleanup;
+	}
 
 	if (algorithm == nnp_convolution_algorithm_auto) 
 	{
@@ -531,15 +547,15 @@ nnp_status nnp_convolution_input_gradient(
 	}
 	
 	/* Choose tiling parameters and transform functions depending on convolution algorithm */
-	nnp_status status = nnp_status_success;
-
 	switch (algorithm) 
 	{
 	case nnp_convolution_algorithm_wt8x8:
 		if (kernel_size.height != 3ull || kernel_size.width != 3ull)
+		{
 			status = nnp_status_unsupported_algorithm;
-		else
-			status = compute_fast_convolution_input_gradient(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3Rx3R, nnp_hwinfo.transforms.owt_f6x6_3x3, profile);
+			goto cleanup;
+		}
+		status = compute_fast_convolution_input_gradient(false, batch_size, input_channels, output_channels, nnp_size{ 8ull, 8ull }, input_size, input_padding, kernel_size, output_size, grad_output, kernel, grad_input, workspace_buffer, nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream, nnp_hwinfo.transforms.kwt_f6x6_3Rx3R, nnp_hwinfo.transforms.owt_f6x6_3x3, profile);
 		break;
 
 	case nnp_convolution_algorithm_ft8x8:
@@ -555,6 +571,8 @@ nnp_status nnp_convolution_input_gradient(
 		break;
 	}
 
+cleanup:
+	NNP_TOTAL_END(profile)
 	return status;
 }
 

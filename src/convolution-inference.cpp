@@ -94,7 +94,6 @@ static void compute_input_transform(
 	const nnp_size input_tile                             = context->input_tile;
 	const nnp_size output_tile                            = context->output_tile;
 	
-	
 	const float* input                                    = context->input;
 	float* input_transform                                = context->input_transform;
 	nnp_transform_2d_with_offset transform_function       = context->transform_function;
@@ -971,31 +970,41 @@ static nnp_status compute_direct_convolution_inference(
 
 nnp_status nnp_convolution_inference(
 	nnp_convolution_algorithm algorithm,
-	nnp_convolution_transform_strategy transform_strategy,
-	size_t input_channels,
-	size_t output_channels,
-	nnp_size input_size,
-	nnp_padding input_padding,
-	nnp_size kernel_size,
-	nnp_size output_subsampling,
+	const nnp_convolution_transform_strategy transform_strategy,
+	const size_t input_channels,
+	const size_t output_channels,
+	const nnp_size input_size,
+	const nnp_padding input_padding,
+	const nnp_size kernel_size,
+	const nnp_size output_subsampling,
 	const float* input,
 	const float* kernel,
 	const float* bias,
 	float* output,
 	nnp_workspace_pointers* workspace_buffer,
-	nnp_activation activation,
+	const nnp_activation activation,
 	const void* activation_parameters,
 	nnp_profile* profile)
 {
-	const nnp_size output_size = 
-	{ 
-		(input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull, 
-		(input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull 
+	NNP_TOTAL_START(profile)
+
+	const nnp_size output_size =
+	{
+		(input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1ull,
+		(input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1ull
 	};
 
-	if (activation_parameters != NULL)
-		return nnp_status_unsupported_activation_parameters;
+	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
+	nnp_status status = validate_convolution_arguments(1, input_channels, output_channels, input_size, input_padding, kernel_size, output_subsampling, activation, activation_parameters);
+	if (status != nnp_status_success)
+		goto cleanup;
 
+	if (activation_parameters != NULL) 
+	{
+		status = nnp_status_unsupported_activation_parameters;
+		goto cleanup;
+	}
+		
 	if (algorithm == nnp_convolution_algorithm_auto) 
 	{
 		if ((max(kernel_size.width, kernel_size.height) > 16ull) || (max(output_subsampling.width, output_subsampling.height) > 1ull))
@@ -1022,7 +1031,6 @@ nnp_status nnp_convolution_inference(
 	}
 
 	const size_t transform_element_size = sizeof(float);
-	nnp_status status = nnp_status_success;
 	nnp_size tile_size = nnp_size{ 8ull, 8ull };
 	bool fourier_transform = false;
 	nnp_transform_2d_with_offset input_transform_function = NULL;
@@ -1072,7 +1080,8 @@ nnp_status nnp_convolution_inference(
 			break;
 
 		default:
-			return nnp_status_invalid_algorithm;
+			status = nnp_status_invalid_algorithm;
+			goto cleanup;
 			break;
 	}
 
@@ -1082,12 +1091,24 @@ nnp_status nnp_convolution_inference(
 		case nnp_convolution_algorithm_ft8x8:
 		case nnp_convolution_algorithm_ft16x16:
 		{
+			if (max(output_subsampling.height, output_subsampling.width) != 1ull) 
+			{
+				status = nnp_status_unsupported_algorithm;
+				goto cleanup;
+			}
+
+			if (kernel_size.height > tile_size.height || kernel_size.width > tile_size.width) 
+			{
+				status = nnp_status_unsupported_algorithm;
+				goto cleanup;
+			}
+
 			if (transform_strategy != nnp_convolution_transform_strategy_compute)
-				return nnp_status_unsupported_transform_strategy;
-			if (max(output_subsampling.height, output_subsampling.width) != 1ull)
-				return nnp_status_unsupported_algorithm;
-			if (kernel_size.height > tile_size.height || kernel_size.width > tile_size.width)
-				return nnp_status_unsupported_algorithm;
+			{
+				status = nnp_status_unsupported_transform_strategy;
+				goto cleanup;
+			}
+			
 
 			status = compute_fast_convolution_inference(
 				fourier_transform, transform_strategy, transform_element_size,
@@ -1101,8 +1122,10 @@ nnp_status nnp_convolution_inference(
 		case nnp_convolution_algorithm_implicit_gemm:
 		{
 			if (transform_strategy != nnp_convolution_transform_strategy_compute)
-				return nnp_status_unsupported_transform_strategy;
-
+			{
+				status = nnp_status_unsupported_transform_strategy;
+				goto cleanup;
+			}
 			status = compute_gemm_convolution_inference(
 				input_channels, output_channels,
 				input_size, input_padding, kernel_size, output_size, output_subsampling,
@@ -1113,13 +1136,22 @@ nnp_status nnp_convolution_inference(
 		case nnp_convolution_algorithm_direct:
 		{
 			if (transform_strategy != nnp_convolution_transform_strategy_compute)
-				return nnp_status_unsupported_transform_strategy;
+			{
+				status = nnp_status_unsupported_transform_strategy;
+				goto cleanup;
+			}
 
 			if (max(output_subsampling.height, output_subsampling.width) != 1ull)
-				return nnp_status_unsupported_algorithm;
+			{
+				status = nnp_status_unsupported_algorithm;
+				goto cleanup;
+			}
 
 			if (max(kernel_size.height, kernel_size.width) != 1ull)
-				return nnp_status_unsupported_algorithm;
+			{
+				status =nnp_status_unsupported_algorithm;
+				goto cleanup;
+			}
 
 			status = compute_direct_convolution_inference(
 				input_channels, output_channels, input_size, kernel_size,
@@ -1128,5 +1160,7 @@ nnp_status nnp_convolution_inference(
 		break;
 	}
 
+cleanup:
+	NNP_TOTAL_END(profile)
 	return status;
 }

@@ -26,66 +26,82 @@ static inline void scalar_fft4_aos(
 	w0r = w0i = w1r = w1i = w2r = w2i = w3r = w3i = 0.0f;
 
 	const uint32_t row_end = row_start + row_count;
-	if (row_start <= 0) {
+	if (row_start <= 0) 
+	{
 		w0r = w2r = *t_lo;
 		t_lo += stride_t;
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
-	if (row_start <= 4 && row_end > 4) {
+	if (row_start <= 4 && row_end > 4) 
+	{
 		w2r = *t_hi;
 		t_hi += stride_t;
 		scalar_butterfly(&w0r, &w2r);
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
 
-	if (row_start <= 1) {
+	if (row_start <= 1) 
+	{
 		w0i = w2i = *t_lo;
 		t_lo += stride_t;
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
-	if (row_start <= 5 && row_end > 5) {
+	if (row_start <= 5 && row_end > 5) 
+	{
 		w2i = *t_hi;
 		t_hi += stride_t;
 		scalar_butterfly(&w0i, &w2i);
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
 
-	if (row_start <= 2) {
+	if (row_start <= 2) 
+	{
 		w1r = w3r = *t_lo;
 		t_lo += stride_t;
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
-	if (row_start <= 6 && row_end > 6) {
+	if (row_start <= 6 && row_end > 6) 
+	{
 		w3r = *t_hi;
 		t_hi += stride_t;
 		scalar_butterfly(&w1r, &w3r);
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
 
-	if (row_start <= 3) {
+	if (row_start <= 3) 
+	{
 		w1i = w3i = *t_lo;
 		t_lo += stride_t;
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}
-	if (row_start <= 7 && row_end > 7) {
+	if (row_start <= 7 && row_end > 7) 
+	{
 		w3i = *t_hi;
 		t_hi += stride_t;
 		scalar_butterfly(&w1i, &w3i);
-		if (--row_count == 0) {
+		if (--row_count == 0) 
+		{
 			goto fft4_twiddle;
 		}
 	}

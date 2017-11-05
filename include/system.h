@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef __cplusplus
+#if defined(__cplusplus) && (__cplusplus >= 201103L)
 #include <cstddef>
 #include <cstdint>
 #include <cstdbool>
@@ -49,7 +49,7 @@ inline static double read_timer()
 #define NNP_TOTAL_START(profile_ptr) \
 	double total_start; \
 	if (profile_ptr != NULL) { \
-		*profile_ptr = (struct nnp_profile) { 0 }; \
+		*profile_ptr = nnp_profile { 0 }; \
 		total_start = read_timer(); \
 	}
 
@@ -129,7 +129,7 @@ inline static void* allocate_memory(size_t memory_size)
 #endif
 }
 
-inline static void release_memory(void* memory_block, size_t memory_size) noexcept
+inline static void release_memory(void* memory_block, size_t memory_size)
 {
 #if defined(__linux__)
 	if (memory_block != NULL) {
