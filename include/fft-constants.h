@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 #include <ccomplex>
 #include <cstdlib>
-#define ToFloat(str) std::strtof(str, NULL)
+#define ToFloat(str) strtof(str, NULL)
 #define COMPLEX_LITERAL_HELPER(real, imag) std::complex<float>(real, imag)
 #else
 #include <stddef.h>

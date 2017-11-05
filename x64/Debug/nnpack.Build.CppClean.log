@@ -49,8 +49,6 @@ c:\users\dhaen\source\repos\nnpack\x64\debug\sgemm.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\shdotxf.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\softmaxpy.obj
 c:\users\dhaen\source\repos\nnpack\x64\debug\winograd-f6k3.obj
-c:\users\dhaen\source\repos\nnpack\x64\debug\test.ilk
-c:\users\dhaen\source\repos\nnpack\x64\debug\test.pdb
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.command.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.read.1.tlog
 c:\users\dhaen\source\repos\nnpack\x64\debug\nnpack.tlog\cl.write.1.tlog

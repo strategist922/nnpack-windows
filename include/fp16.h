@@ -1,9 +1,9 @@
 #pragma once
-#include <stdafx.h>
+
 #ifndef FP16_FP16_H
 #define FP16_FP16_H
 
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
+#if defined(__cplusplus)
 	#include <cstdint>
 	#include <cmath>
 	
@@ -27,7 +27,7 @@
 
 static inline uint32_t ctz(uint32_t value)
 {
-	DWORD trailing_zero = 0;
+	unsigned long  trailing_zero = 0;
 
 	if (_BitScanForward(&trailing_zero, value))
 	{
@@ -42,7 +42,7 @@ static inline uint32_t ctz(uint32_t value)
 
 static inline uint32_t __builtin_clz(uint32_t value)
 {
-	DWORD leading_zero = 0;
+	unsigned long  leading_zero = 0;
 
 	if (_BitScanReverse(&leading_zero, value))
 	{

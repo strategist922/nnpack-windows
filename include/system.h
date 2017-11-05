@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
+#if defined(__cplusplus)
 #include <cstddef>
 #include <cstdint>
 #include <cstdbool>
@@ -49,7 +49,7 @@ inline static double read_timer()
 #define NNP_TOTAL_START(profile_ptr) \
 	double total_start; \
 	if (profile_ptr != NULL) { \
-		*profile_ptr = nnp_profile { 0 }; \
+		*profile_ptr = nnp_profile { 0.0 }; \
 		total_start = read_timer(); \
 	}
 

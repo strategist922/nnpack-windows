@@ -1,4 +1,63 @@
-﻿  stdafx.cpp
-  smoke.cc
-  Generating Code...
+﻿  x86_64-avx2.cc
+c:\users\dhaen\source\repos\nnpack\test\alignedallocator.h(71): warning C4100: 'hint': unreferenced formal parameter
+  c:\users\dhaen\source\repos\nnpack\test\alignedallocator.h(72): note: while compiling class template member function 'float *AlignedAllocator<float,32>::allocate(AlignedAllocator<float,32>::size_type,AlignedAllocator<void,32>::const_pointer)'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(1978): note: see reference to function template instantiation 'float *AlignedAllocator<float,32>::allocate(AlignedAllocator<float,32>::size_type,AlignedAllocator<void,32>::const_pointer)' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\xmemory0(690): note: see reference to class template instantiation 'AlignedAllocator<float,32>' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\xmemory0(880): note: see reference to class template instantiation 'std::_Normal_allocator_traits<_Alloc>' being compiled
+          with
+          [
+              _Alloc=AlignedAllocator<float,32>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(404): note: see reference to class template instantiation 'std::allocator_traits<_Alloc>' being compiled
+          with
+          [
+              _Alloc=AlignedAllocator<float,32>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(450): note: see reference to class template instantiation 'std::_Vec_base_types<_Ty,_Alloc>' being compiled
+          with
+          [
+              _Ty=float,
+              _Alloc=AlignedAllocator<float,32>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(660): note: see reference to class template instantiation 'std::_Vector_alloc<std::_Vec_base_types<_Ty,_Alloc>>' being compiled
+          with
+          [
+              _Ty=float,
+              _Alloc=AlignedAllocator<float,32>
+          ]
+  c:\users\dhaen\source\repos\nnpack\test\testers\fourier.h(406): note: see reference to class template instantiation 'std::vector<float,AlignedAllocator<float,32>>' being compiled
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\numeric(82): warning C4996: 'std::inner_product::_Unchecked_iterators::_Deprecate': Call to 'std::inner_product' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\numeric(82): note: see declaration of 'std::inner_product::_Unchecked_iterators::_Deprecate'
+  c:\users\dhaen\source\repos\nnpack\test\testers\fourier.h(79): note: see reference to function template instantiation '_Ty std::inner_product<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,const float[],float,FFTTester::testForwardAosSamples::<lambda_e56fd1196c040095cbc2de102a04b1a4>,float(__cdecl *)(float,float)>(_InIt1,_InIt1,_InIt2,_Ty,_Fn1,_Fn2)' being compiled
+          with
+          [
+              _Ty=float,
+              _InIt1=std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<float>>>,
+              _InIt2=const float [],
+              _Fn1=FFTTester::testForwardAosSamples::<lambda_e56fd1196c040095cbc2de102a04b1a4>,
+              _Fn2=float (__cdecl *)(float,float)
+          ]
+c:\users\dhaen\source\repos\nnpack\test\alignedallocator.h(52): warning C4100: 'other': unreferenced formal parameter
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(555): note: see reference to function template instantiation 'AlignedAllocator<U,32>::AlignedAllocator<float>(const AlignedAllocator<float,32> &) noexcept' being compiled
+          with
+          [
+              U=std::_Container_proxy
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(555): note: see reference to function template instantiation 'AlignedAllocator<U,32>::AlignedAllocator<float>(const AlignedAllocator<float,32> &) noexcept' being compiled
+          with
+          [
+              U=std::_Container_proxy
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(554): note: while compiling class template member function 'void std::_Vector_alloc<std::_Vec_base_types<_Ty,_Alloc>>::_Free_proxy(void)'
+          with
+          [
+              _Ty=float,
+              _Alloc=AlignedAllocator<float,32>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\vector(506): note: see reference to function template instantiation 'void std::_Vector_alloc<std::_Vec_base_types<_Ty,_Alloc>>::_Free_proxy(void)' being compiled
+          with
+          [
+              _Ty=float,
+              _Alloc=AlignedAllocator<float,32>
+          ]
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Debug\test.exe

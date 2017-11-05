@@ -2,14 +2,14 @@
 #ifndef FXDIV_H
 #define FXDIV_H
 
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
-	#include <cstddef>
-	#include <cstdint>
-	#include <climits>
+#if defined(__cplusplus)
+#include <cstddef>
+#include <cstdint>
+#include <climits>
 #elif !defined(__OPENCL_VERSION__)
-    #include <cstddef>
-    #include <cstdint>
-    #include <climits>
+#include <stddef.h>
+#include <stdint.h>
+#include <limits.h>
 #endif
 
 #if defined(_MSC_VER)

@@ -2,7 +2,7 @@
 #ifndef FP16_BITCASTS_H
 #define FP16_BITCASTS_H
 
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
+#if defined(__cplusplus)/*& (__cplusplus >= 201103L)*/
 	#include <cstdint>
 #elif !defined(__OPENCL_VERSION__)
 	#include <stdint.h>
@@ -34,7 +34,8 @@ static inline uint32_t fp32_to_bits(const float f) {
 #elif defined(__INTEL_COMPILER)
 	return _castf32_u32(f);
 #else
-	union {
+	union fp32
+	{
 		float as_value;
 		uint32_t as_bits;
 	} fp32 = { f };

@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
+#if defined(__cplusplus)
 	#include <cstddef>
 #else
 	#include <stddef.h>
