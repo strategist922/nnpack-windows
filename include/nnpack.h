@@ -189,7 +189,8 @@ nnp_status nnp_fully_connected_output(
 	const size_t output_channels,
 	const float* input,
 	const float* kernel,
-	float* output);
+	float* output,
+	nnp_profile* profile);
 
 nnp_status nnp_fully_connected_inference(
 	const size_t input_channels,

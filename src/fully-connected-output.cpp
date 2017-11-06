@@ -162,9 +162,10 @@ static void compute_fully_connected_output(
 	const float* kernel, 
 	float* output,
 	float* packed_input, 
-	float* packed_kernel)
+	float* packed_kernel,
+	nnp_profile* profile)
 {
-
+	NNP_INPUT_TRANSFORM_START(profile)
 	input_packing_context input_packing_context = 
 	{
 		input,
@@ -177,7 +178,8 @@ static void compute_fully_connected_output(
 		&input_packing_context,
 		batch_size, input_channels,
 		batch_block_max, input_channels_block_max);
-	
+	NNP_INPUT_TRANSFORM_END(profile)
+
 	matrix_multiplication_context matrix_multiplication_context = 
 	{
 		packed_input,
@@ -200,6 +202,7 @@ static void compute_fully_connected_output(
 	{
 		const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
 
+		NNP_KERNEL_TRANSFORM_START(profile)
 		kernel_packing_context kernel_packing_context = 
 		{
 			kernel,
@@ -214,8 +217,9 @@ static void compute_fully_connected_output(
 			(pthreadpool_function_1d_tiled_t)pack_kernel_matrix,
 			&kernel_packing_context,
 			output_channels, output_channels_block_max);
-		
+		NNP_KERNEL_TRANSFORM_END(profile)
 
+		NNP_BLOCK_MULTIPLICATION_START(profile)
 		matrix_multiplication_context.input_channels_block_start = input_channels_block_start;
 		matrix_multiplication_context.input_channels_block_size = input_channels_block_size;
 		for (size_t batch_block_start = 0ull; batch_block_start < batch_size; batch_block_start += batch_block_max) 
@@ -230,6 +234,7 @@ static void compute_fully_connected_output(
 				output_channels,           batch_block_size,
 				output_channels_block_max, batch_subblock_max);
 		}
+		NNP_BLOCK_MULTIPLICATION_END(profile)
 	}
 }
 
@@ -239,8 +244,11 @@ nnp_status nnp_fully_connected_output(
 	const size_t output_channels,
 	const float* input,
 	const float* kernel,
-	float* output)
+	float* output,
+	nnp_profile* profile)
 {
+	NNP_TOTAL_START(profile)
+
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
 	nnp_status status = validate_fully_connected_arguments(batch_size, input_channels, output_channels);
 	if (status != nnp_status_success)
@@ -269,8 +277,11 @@ nnp_status nnp_fully_connected_output(
 	memory_block_kernel = allocate_memory(packed_kernel_size);
 
 	if (memory_block_input == NULL || memory_block_kernel == NULL)
-		return nnp_status_out_of_memory;
-	
+	{
+		status = nnp_status_out_of_memory;
+		goto cleanup;
+	}
+
 	float* packed_input = static_cast<float*>(memory_block_input);
 	float* packed_kernel = static_cast<float*>(memory_block_kernel);
 
@@ -281,11 +292,13 @@ nnp_status nnp_fully_connected_output(
 		input_channels, input_channels_block_max,
 		output_channels, output_channels_block_max, output_channels_subblock_max,
 		input, kernel, output,
-		packed_input, packed_kernel);
+		packed_input, packed_kernel, profile);
 
 
+	
+cleanup:
 	release_memory(memory_block_input, packed_input_size);
 	release_memory(memory_block_kernel, packed_kernel_size);
-	
+	NNP_TOTAL_END(profile)
 	return status;
 }

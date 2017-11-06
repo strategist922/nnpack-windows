@@ -127,7 +127,7 @@ public:
 
 			enum nnp_status status = nnp_fully_connected_output(
 				batchSize(), inputChannels(), outputChannels(),
-				input.data(), kernel.data(), output.data());
+				input.data(), kernel.data(), output.data(), NULL);
 			ASSERT_EQ(nnp_status_success, status);
 
 			const float maxError = std::inner_product(referenceOutput.cbegin(), referenceOutput.cend(), output.cbegin(), 0.0f,
