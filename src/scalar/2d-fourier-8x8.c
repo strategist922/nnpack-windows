@@ -5,14 +5,13 @@
 #include <../src/scalar/fft/soa.h>
 #include <../src/scalar/fft/dualreal.h>
 
+//#include <utils.h>
 #include <activations.h>
-#include <fft.h>
 
 #define BLOCK_SIZE 8
 
-static inline size_t doz(size_t a, size_t b)
-{
-	return a > b ? a - b : 0ull;
+static inline size_t doz(size_t a, size_t b) {
+	return a > b ? a - b : 0;
 }
 
 void nnp_fft8x8_with_offset__scalar(

@@ -1,9 +1,10 @@
 #pragma once
-#include <../src/scalar/butterfly.h>
-
+#include <stdint.h>
+#include <stddef.h>
 #include <stdlib.h>
-#define ToFloat(str) strtof(str, NULL)
 
+#include <fft-constants.h>
+#include <../src/scalar/butterfly.h>
 
 static inline void scalar_fft8_soa(
 	const float* t,
@@ -58,7 +59,7 @@ static inline void scalar_fft8_soa(
 	 *
 	 * (negation of w6i and w7i is merged into the next butterfly)
 	 */
-	const float sqrt2_over_2 = ToFloat("0x1.6A09E6p-1f");
+	const float sqrt2_over_2 = SQRT2_OVER_2;
 	const float new_w5r = sqrt2_over_2 * (w5i + w5r);
 	const float new_w5i = sqrt2_over_2 * (w5i - w5r);
 	const float new_w7r = sqrt2_over_2 * (w7i - w7r);
@@ -183,7 +184,7 @@ static inline void scalar_ifft8_soa(
 	 *
 	 * (negation of w6r and w7r is merged into the next butterfly)
 	 */
-	const float scaled_sqrt2_over_2 = ToFloat("0x1.6A09E6p-1f") * 0.125f;
+	const float scaled_sqrt2_over_2 = SQRT2_OVER_2 * 0.125f;
 	const float new_w5r       = scaled_sqrt2_over_2 * (w5r - w5i);
 	const float new_w5i       = scaled_sqrt2_over_2 * (w5r + w5i);
 	const float minus_new_w7r = scaled_sqrt2_over_2 * (w7r + w7i);
@@ -341,8 +342,8 @@ static inline void scalar_fft16_soa(
 	 * (negation of w12i, w13i, w14i, and w15i is merged into the next butterfly)
 	 */
 	{
-		const float cos_1pi_over_8 = ToFloat("0x1.D906BCp-1f");
-		const float cos_3pi_over_8 = ToFloat("0x1.87DE2Ap-2f");
+		const float cos_1pi_over_8 = COS_1PI_OVER_8;
+		const float cos_3pi_over_8 = COS_3PI_OVER_8;
 		const float new_w9r        = w9r * cos_1pi_over_8 +  w9i * cos_3pi_over_8;
 		const float new_w9i        = w9i * cos_1pi_over_8 -  w9r * cos_3pi_over_8;
 		const float new_w11r       = w11r * cos_3pi_over_8 + w11i * cos_1pi_over_8;
@@ -362,7 +363,7 @@ static inline void scalar_fft16_soa(
 
 		scalar_swap(&w12r, &w12i);
 
-		const float sqrt2_over_2 = ToFloat("0x1.6A09E6p-1f");
+		const float sqrt2_over_2   = SQRT2_OVER_2;
 		const float new_w10r       = sqrt2_over_2 * (w10i + w10r);
 		const float new_w10i       = sqrt2_over_2 * (w10i - w10r);
 		const float new_w14r       = sqrt2_over_2 * (w14i - w14r);
@@ -408,7 +409,7 @@ static inline void scalar_fft16_soa(
 	 * (negation of w6i, w7i, w14i, and w15i is merged into the next butterfly)
 	 */
 	{
-		const float sqrt2_over_2  = ToFloat("0x1.6A09E6p-1f");
+		const float sqrt2_over_2  = SQRT2_OVER_2;
 		const float new_w5r       = sqrt2_over_2 * (w5i + w5r);
 		const float new_w5i       = sqrt2_over_2 * (w5i - w5r);
 		const float new_w7r       = sqrt2_over_2 * (w7i - w7r);
@@ -633,7 +634,7 @@ static inline void scalar_ifft16_soa(
 	 * (negation of w6r, w7r, w14r, and w15r is merged into the next butterfly)
 	 */
 	{
-		const float sqrt2_over_2  = ToFloat("0x1.6A09E6p-1f");
+		const float sqrt2_over_2  = SQRT2_OVER_2;
 		const float new_w5r       = sqrt2_over_2 * (w5r - w5i);
 		const float new_w5i       = sqrt2_over_2 * (w5r + w5i);
 		const float minus_new_w7r = sqrt2_over_2 * (w7r + w7i);
@@ -691,7 +692,7 @@ static inline void scalar_ifft16_soa(
 	 * (negation of w12r, w13r, w14r, and w15r is merged into the next butterfly)
 	 */
 	{
-		const float scaled_sqrt2_over_2 = ToFloat("0x1.6A09E6p-1f") * 0.0625f;
+		const float scaled_sqrt2_over_2 = SQRT2_OVER_2 * 0.0625f;
 		const float new_w10r       = scaled_sqrt2_over_2 * (w10r - w10i);
 		const float new_w10i       = scaled_sqrt2_over_2 * (w10r + w10i);
 		const float minus_new_w14r = scaled_sqrt2_over_2 * (w14r + w14i);
@@ -701,8 +702,8 @@ static inline void scalar_ifft16_soa(
 		w14r = minus_new_w14r;
 		w14i = new_w14i;
 
-		const float scaled_cos_1pi_over_8 = ToFloat("0x1.D906BCp-1f") * 0.0625f;
-		const float scaled_cos_3pi_over_8 = ToFloat("0x1.87DE2Ap-2f") * 0.0625f;
+		const float scaled_cos_1pi_over_8 = COS_1PI_OVER_8 * 0.0625f;
+		const float scaled_cos_3pi_over_8 = COS_3PI_OVER_8 * 0.0625f;
 		const float new_w9r        =  w9r * scaled_cos_1pi_over_8 -  w9i * scaled_cos_3pi_over_8;
 		const float new_w9i        =  w9i * scaled_cos_1pi_over_8 +  w9r * scaled_cos_3pi_over_8;
 		const float new_w11r       = w11r * scaled_cos_3pi_over_8 - w11i * scaled_cos_1pi_over_8;

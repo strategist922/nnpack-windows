@@ -2,31 +2,33 @@
 #include <stddef.h>
 #include <math.h>
 
+#include <utils.h>
 #include <softmax.h>
 
 
 static float max__scalar(size_t n, const float* v) 
 {
-	float max_v = v[0];
-	for (size_t i = 1; i < n; i++)
-		max_v = fmaxf(max_v, v[i]);
-	
+	float max_v = *v++;
+	while (--n) {
+		max_v = maxf(max_v, *v++);
+	}
 	return max_v;
 }
 
 static float sum_exp_minus_c__scalar(size_t n, const float* v, float c) 
 {
 	float sum = 0.0f;
-	for (size_t i = 0; i < n; i++)
-		sum += expf(v[i] - c);
-
+	do {
+		sum += expf(*v++ - c);
+	} while (--n);
 	return sum;
 }
 
 static void scaled_exp_minus_c__scalar(size_t n, const float* x, float* y, float scale, float c) 
 {
-	for (size_t i = 0; i < n; i++)
-		y[i] = scale * expf(x[i] + c);
+	do {
+		*y++ = scale * expf(*x++ - c);
+	} while (--n);
 }
 
 void nnp_softmax__scalar(

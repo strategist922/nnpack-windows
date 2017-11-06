@@ -182,6 +182,21 @@
     <ClCompile Include="src\scalar\softmax.c">
       <Filter>Scalar</Filter>
     </ClCompile>
+    <ClCompile Include="src\scalar\winograd-f6k3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft\aos.h">
+      <Filter>Scalar\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft\real.h">
+      <Filter>Scalar\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft\soa.h">
+      <Filter>Scalar\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\fft\dualreal.h">
+      <Filter>Scalar\fft</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h">
@@ -250,18 +265,6 @@
     <ClInclude Include="src\scalar\butterfly.h">
       <Filter>Scalar</Filter>
     </ClInclude>
-    <ClInclude Include="src\scalar\fft\aos.h">
-      <Filter>Scalar\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scalar\fft\dualreal.h">
-      <Filter>Scalar\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scalar\fft\real.h">
-      <Filter>Scalar\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scalar\fft\soa.h">
-      <Filter>Scalar\fft</Filter>
-    </ClInclude>
     <ClInclude Include="src\scalar\winograd\f6x6k3x3.h">
       <Filter>Scalar\winograd</Filter>
     </ClInclude>
@@ -270,9 +273,6 @@
     </ClInclude>
     <ClInclude Include="include\bitcasts.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scalar\winograd-f6k3.c">
-      <Filter>Scalar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

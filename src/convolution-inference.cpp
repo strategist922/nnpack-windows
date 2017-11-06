@@ -14,7 +14,7 @@
 
 struct NNP_CACHE_ALIGN kernel_transform_context 
 {
-	nnp_transform_2d_with_offset transform_function;
+	const nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
 	
@@ -62,7 +62,7 @@ struct NNP_CACHE_ALIGN input_transform_context
 {
 	const float* input;
 	float* input_transform;
-	nnp_transform_2d_with_offset transform_function;
+	const nnp_transform_2d_with_offset transform_function;
 
 	const size_t tuple_size;
 	const size_t tiles_count;

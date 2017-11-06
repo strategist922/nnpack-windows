@@ -21,6 +21,7 @@
 	#include <emscripten.h>
 #elif defined(_MSC_VER)
 	#include <chrono>
+	#include <malloc.h>
 #endif
 
 inline static double read_timer() 
