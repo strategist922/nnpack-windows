@@ -44,7 +44,7 @@ Results of the unit tests:
 
   * implicit gemm:  passed
   
-  * direct convolution: passed
+  * direct conv:	passed
   
   * FT8x8:          passed
   
