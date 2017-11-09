@@ -24,11 +24,11 @@ Results of the unit tests:
 
 ### convolution-input-gradient:
 
-  * FT8x8:    passed except FT8x8.few_output_channels
+  * FT8x8:    failed
 
   * FT16x16:  failed
 
-  * WT8x8:    passed except WT8x8.few_output_channels
+  * WT8x8:    failed
 
 
 ### convolution-kernel-gradient:
