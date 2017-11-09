@@ -16,7 +16,7 @@ struct NNP_CACHE_ALIGN kernel_transform_context
 {
 	const nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
-	float* kernel_transform;
+	char* kernel_transform;
 	
 	const size_t tuple_size;
 	const size_t input_channels;
@@ -39,7 +39,7 @@ static void compute_kernel_transform(
 	const nnp_size kernel_size                            = context->kernel_size;
 
 	const float* kernel                                   = context->kernel;
-	float* kernel_transform                               = context->kernel_transform;
+	char* kernel_transform                                = context->kernel_transform;
 	const nnp_transform_2d_with_offset transform_function = context->transform_function;
 	
 	for (size_t output_channels_subblock_offset = 0ull; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
@@ -48,7 +48,7 @@ static void compute_kernel_transform(
 
 		transform_function(
 			kernel + (output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channels_block_offset * kernel_size.width * kernel_size.height),
-			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
+			(float*)(kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size),
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
 			uint32_t(kernel_size.height),
@@ -61,7 +61,7 @@ static void compute_kernel_transform(
 struct NNP_CACHE_ALIGN input_transform_context
 {
 	const float* input;
-	float* input_transform;
+	char* input_transform;
 	const nnp_transform_2d_with_offset transform_function;
 
 	const size_t tuple_size;
@@ -95,7 +95,7 @@ static void compute_input_transform(
 	const nnp_size output_tile                            = context->output_tile;
 	
 	const float* input                                    = context->input;
-	float* input_transform                                = context->input_transform;
+	char* input_transform                                 = context->input_transform;
 	const nnp_transform_2d_with_offset transform_function = context->transform_function;
 
 	const size_t input_channel = input_channels_block_start + input_channels_block_offset;
@@ -119,7 +119,7 @@ static void compute_input_transform(
 		
 		transform_function(
 			input + (input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x,
-			input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size,
+			(float*)(input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size),
 			input_size.width,
 			input_channels_block_size * tiles_count * tuple_size,
 			uint32_t(row_count),
@@ -133,7 +133,7 @@ struct NNP_CACHE_ALIGN output_transform_context
 {
 	const nnp_transform_2d_with_bias transform_function;
 	float* output;
-	const float* output_transform;
+	const char* output_transform;
 	const float* bias;
 
 	const size_t tuple_size;
@@ -164,7 +164,7 @@ static void compute_output_transform(
 	const size_t tiles_block_size = min(tiles_count - tiles_block_start, tiles_block_max.value);
 		
 	float* output                                       = context->output;
-	const float* output_transform                       = context->output_transform;
+	const char* output_transform                        = context->output_transform;
 	const float* bias                                   = context->bias;
 	const nnp_transform_2d_with_bias transform_function = context->transform_function;
 
@@ -183,7 +183,7 @@ static void compute_output_transform(
 		{
 			const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 			transform_function(
-				output_transform + (tiles_block_start * output_channels + output_channels_subblock_start * tiles_block_size + ((tiles_subblock_start - tiles_block_start) + tiles_subblock_offset) * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
+				(float*)(output_transform + (tiles_block_start * output_channels + output_channels_subblock_start * tiles_block_size + ((tiles_subblock_start - tiles_block_start) + tiles_subblock_offset) * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size),
 				output + (output_channel * output_size.width * output_size.height) + (output_y * output_size.width) + output_x,
 				bias + output_channel,
 				tiles_count * output_channels * tuple_size,
@@ -205,9 +205,9 @@ struct NNP_CACHE_ALIGN tuple_multiplication_context
 	const size_t output_channels_subblock_max;
 	const size_t output_channels_block_start;
 
-	const float* input_transform;
-	const float* kernel_transform;
-	float* output_transform;
+	const char* input_transform;
+	const char* kernel_transform;
+	char* output_transform;
 
 	const nnp_fast_tuple_gemm_function fast_gemm;
 	const nnp_full_tuple_gemm_function full_gemm;
@@ -229,9 +229,9 @@ static void compute_tuple_multiplication(
 	const size_t output_channels_subblock_max = context->output_channels_subblock_max;
 	const size_t output_channels_block_start  = context->output_channels_block_start;
 
-	const float* input_transform              = context->input_transform + tiles_block_start * input_channels_block_size * tuple_size;
-	const float* kernel_transform             = context->kernel_transform +	(output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
-	float* output_transform                   = context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
+	const char* input_transform               = context->input_transform + tiles_block_start * input_channels_block_size * tuple_size;
+	const char* kernel_transform              = context->kernel_transform +	(output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
+	char* output_transform                    = context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
 
 	if (output_channels_subblock_size == output_channels_subblock_max) 
 	{
@@ -243,9 +243,9 @@ static void compute_tuple_multiplication(
 			fast_gemm(
 				input_channels_block_size,
 				input_channels_block_start,
-				input_transform,
-				kernel_transform,
-				output_transform,
+				(float*)input_transform,
+				(float*)kernel_transform,
+				(float*)output_transform,
 				output_channels_subblock_size * tuple_elements);
 
 			input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
@@ -264,9 +264,9 @@ static void compute_tuple_multiplication(
 			uint32_t(output_channels_subblock_size),
 			input_channels_block_size,
 			input_channels_block_start,
-			input_transform,
-			kernel_transform,
-			output_transform,
+			(float*)input_transform,
+			(float*)kernel_transform,
+			(float*)output_transform,
 			output_channels_subblock_size * tuple_elements);
 
 		input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
@@ -569,9 +569,9 @@ static nnp_status compute_fast_convolution_inference(
 	
 	if (workspace_buffer == NULL)
 	{
+		memory_block_kernel = allocate_memory(kernel_transform_size);
 		memory_block_input = allocate_memory(input_transform_size);
 		memory_block_output = allocate_memory(output_transform_size);
-		memory_block_kernel = allocate_memory(kernel_transform_size);
 		
 		if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
 			return nnp_status_out_of_memory;
@@ -580,9 +580,10 @@ static nnp_status compute_fast_convolution_inference(
 	{
 		if (workspace_buffer->kernel == NULL || workspace_buffer->input == NULL || workspace_buffer->output == NULL)
 		{
+			memory_block_kernel = allocate_memory(kernel_transform_size);
 			memory_block_input = allocate_memory(input_transform_size);
 			memory_block_output = allocate_memory(output_transform_size);
-			memory_block_kernel = allocate_memory(kernel_transform_size);
+			
 			
 			if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
 				return nnp_status_out_of_memory;
@@ -591,15 +592,17 @@ static nnp_status compute_fast_convolution_inference(
 		}
 		else
 		{
+			memory_block_kernel = workspace_buffer->kernel;
 			memory_block_input = workspace_buffer->input;
 			memory_block_output = workspace_buffer->output;
-			memory_block_kernel = workspace_buffer->kernel;
+			
 		}
 	}
 
+	float* kernel_transform = static_cast<float*>(memory_block_kernel);
 	float* input_transform = static_cast<float*>(memory_block_input);
 	float* output_transform = static_cast<float*>(memory_block_output);
-	float* kernel_transform = static_cast<float*>(memory_block_kernel);
+	
 
 	for (size_t input_channels_block_start = 0ull; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max)
 	{
@@ -610,7 +613,7 @@ static nnp_status compute_fast_convolution_inference(
 		{
 			kernel_transform_function,
 			kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
-			kernel_transform,
+			(char*)kernel_transform,
 			tuple_size,
 			input_channels,
 			input_channels_block_size,
@@ -630,7 +633,7 @@ static nnp_status compute_fast_convolution_inference(
 		input_transform_context input_transform_context =
 		{
 			input,
-			input_transform,
+			(char*)input_transform,
 			input_transform_function,
 			tuple_size,
 			tiles_count,
@@ -689,9 +692,9 @@ static nnp_status compute_fast_convolution_inference(
 					output_channels,
 					output_channels_subblock_max,
 					output_channels_block_start,
-					input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
-					kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
-					output_transform + tuple_index * tiles_count * output_channels * tuple_size,
+					(char*)input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
+					(char*)kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
+					(char*)output_transform + tuple_index * tiles_count * output_channels * tuple_size,
 					fast_gemm_function,
 					full_gemm_function
 				};
@@ -712,7 +715,7 @@ static nnp_status compute_fast_convolution_inference(
 	{
 		output_transform_function,
 		output,
-		output_transform,
+		(char*)output_transform,
 		bias,
 		tuple_size,
 		tiles_count,
@@ -733,17 +736,17 @@ static nnp_status compute_fast_convolution_inference(
 
 	if (workspace_buffer == NULL)
 	{
+		release_memory(memory_block_kernel, kernel_transform_size);
 		release_memory(memory_block_input, input_transform_size);
 		release_memory(memory_block_output, output_transform_size);
-		release_memory(memory_block_kernel, kernel_transform_size);
 	}
 	else
 	{
 		if (memory_block_kernel != workspace_buffer->kernel || memory_block_input != workspace_buffer->input || memory_block_output != workspace_buffer->output)
 		{
+			release_memory(memory_block_kernel, kernel_transform_size);
 			release_memory(memory_block_input, input_transform_size);
 			release_memory(memory_block_output, output_transform_size);
-			release_memory(memory_block_kernel, kernel_transform_size);
 		}
 	}
 
