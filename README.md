@@ -13,6 +13,18 @@ Now you're ready for building with Visual Studio 2017
 
 Results of the unit tests:
 
+### convolution-inference:
+
+  * implicit gemm:  passed
+  
+  * direct conv:	passed
+  
+  * FT8x8:          passed
+  
+  * FT16x16:        failed
+  
+  * WT8x8:          passed
+  
 ### convolution-output:
 
   * FT8x8:    passed
@@ -39,20 +51,7 @@ Results of the unit tests:
 
   * WT8x8:    disabled
 
-
-### convolution-inference:
-
-  * implicit gemm:  passed
-  
-  * direct conv:	passed
-  
-  * FT8x8:          passed
-  
-  * FT16x16:        failed
-  
-  * WT8x8:          passed
-  
-
+ 
 ### fourier:
 ### fully-connected-inference:
 ### fully-connected:
