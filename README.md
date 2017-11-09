@@ -46,11 +46,11 @@ Results of the unit tests:
   
   * direct convolution: passed
   
-  * FT8x8:          failed
+  * FT8x8:          passed
   
   * FT16x16:        failed
   
-  * WT8x8:          failed
+  * WT8x8:          passed
   
 
 ### fourier:
