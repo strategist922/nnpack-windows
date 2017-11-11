@@ -47,10 +47,8 @@ static void compute_kernel_transform(
 			kernel_transform + (input_channels_block_start * output_channels + output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements,
 			kernel_size.width,
 			output_channels * input_channels * tuple_elements * sizeof(float),
-			kernel_size.height,
-			kernel_size.width,
-			0,
-			0);
+			kernel_size.height,	kernel_size.width,
+			0, 0);
 	}
 }
 
@@ -103,10 +101,8 @@ static void compute_input_transform(
 			input_transform + (input_channels_block_start * batch_size + batch_subblock_start * input_channels_block_size + input_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements,
 			input_size.width,
 			batch_size * input_channels * tuple_elements * sizeof(float),
-			row_count,
-			column_count,
-			row_offset,
-			column_offset);
+			row_count, column_count,
+			row_offset, column_offset);
 	}
 }
 
@@ -161,8 +157,7 @@ static void compute_output_transform(
 			bias + output_channel,
 			batch_size * output_channels * tuple_elements * sizeof(float),
 			output_size.width,
-			row_count,
-			column_count);
+			row_count, column_count);
 	}
 }
 
@@ -269,7 +264,11 @@ static enum nnp_status compute_fast_convolution_output(
 	const size_t tile_elements = tile_size.height * tile_size.width;
 	const size_t tuple_count = tile_elements / tuple_elements;
 
-	const struct nnp_size output_tile_size = { tile_size.width - kernel_size.width + 1ull, tile_size.height - kernel_size.height + 1 };
+	const struct nnp_size output_tile_size = 
+	{ 
+		tile_size.width - kernel_size.width + 1ull, 
+		tile_size.height - kernel_size.height + 1 
+	};
 
 	/* Calculate cache blocking parameters */
 	const size_t cache_elements_l1 = nnp_hwinfo.blocking.l1 / (tuple_elements * sizeof(float));
@@ -279,7 +278,7 @@ static enum nnp_status compute_fast_convolution_output(
 	const size_t batch_subblock_max           = (fourier_transform ? nnp_hwinfo.cxgemm.mr : nnp_hwinfo.sxgemm.mr);
 	const size_t output_channels_subblock_max = (fourier_transform ? nnp_hwinfo.cxgemm.nr : nnp_hwinfo.sxgemm.nr);
 
-	const size_t input_channels_block_max  =	round_down(cache_elements_l1 / (batch_subblock_max + output_channels_subblock_max), 2);
+	const size_t input_channels_block_max  = round_down(cache_elements_l1 / (batch_subblock_max + output_channels_subblock_max), 2);
 	const size_t batch_block_max           = round_down(cache_elements_l3 / input_channels_block_max, batch_subblock_max);
 	const size_t output_channels_block_max = round_down(cache_elements_l2 / input_channels_block_max, output_channels_subblock_max);
 
@@ -343,7 +342,7 @@ static enum nnp_status compute_fast_convolution_output(
 		&kernel_transform_contex,
 		input_channels,
 		output_channels,
-		1ull,
+		1,
 		output_channels_subblock_max);
 	NNP_KERNEL_TRANSFORM_END(profile)
 
@@ -506,7 +505,7 @@ enum nnp_status nnp_convolution_output(
 	};
 	
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
-	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels,	input_size, input_padding, kernel_size, (struct nnp_size) { 1, 1 }, activation, activation_parameters);
+	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels, input_size, input_padding, kernel_size, (struct nnp_size) { 1, 1 }, activation, activation_parameters);
 	if (status != nnp_status_success) 
 		goto cleanup;
 
@@ -523,7 +522,7 @@ enum nnp_status nnp_convolution_output(
 			algorithm = nnp_convolution_algorithm_ft16x16;
 		else 
 		{
-			const size_t tile_count_8x8 =	divide_round_up(output_size.height, 8 - kernel_size.height + 1) *
+			const size_t tile_count_8x8   =	divide_round_up(output_size.height, 8 - kernel_size.height + 1) *
 											divide_round_up(output_size.width, 8 - kernel_size.width + 1);
 			const size_t tile_count_16x16 =	divide_round_up(output_size.height, 16 - kernel_size.height + 1) *
 											divide_round_up(output_size.width, 16 - kernel_size.width + 1);

@@ -50,17 +50,15 @@ static void compute_kernel_transform(
 			(char*)kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
-			kernel_size.height,
-			kernel_size.width,
-			0, 
-			0);
+			kernel_size.height,	kernel_size.width,
+			0, 0);
 	}
 }
 
 struct NNP_CACHE_ALIGN input_transform_context
 {
 	const float* input;
-	char* input_transform;
+	void* input_transform;
 	const nnp_transform_2d_with_offset transform_function;
 
 	const size_t tuple_size;
@@ -121,10 +119,8 @@ static void compute_input_transform(
 			(char*)input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size,
 			input_size.width,
 			input_channels_block_size * tiles_count * tuple_size,
-			row_count,
-			column_count,
-			row_offset,
-			column_offset);
+			row_count, column_count,
+			row_offset,	column_offset);
 	}
 }
 
@@ -132,7 +128,7 @@ struct NNP_CACHE_ALIGN output_transform_context
 {
 	const nnp_transform_2d_with_bias transform_function;
 	float* output;
-	const char* output_transform;
+	const void* output_transform;
 	const float* bias;
 
 	const size_t tuple_size;
@@ -229,7 +225,7 @@ static void compute_tuple_multiplication(
 	const size_t output_channels_block_start  = context->output_channels_block_start;
 
 	const void* input_transform               = (char*)context->input_transform + tiles_block_start * input_channels_block_size * tuple_size;
-	const void* kernel_transform              = (char*)context->kernel_transform +	(output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
+	const void* kernel_transform              = (char*)context->kernel_transform + (output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
 	void* output_transform                    = (char*)context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
 
 	if (output_channels_subblock_size == output_channels_subblock_max) 

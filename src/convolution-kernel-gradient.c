@@ -49,10 +49,8 @@ static void compute_input_transform(
 			input +	(batch_block_offset * input_channels + input_channel) * input_elements,
 			input_transform + (input_channels_subblock_start * batch_block_size + batch_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements,
 			input_stride, batch_block_size * input_channels * tuple_elements * sizeof(float),
-			row_count,
-			column_count,
-			row_offset,
-			column_offset);
+			row_count, column_count,
+			row_offset,	column_offset);
 	}
 }
 
@@ -96,10 +94,8 @@ static void compute_grad_output_transform(
 			grad_output_transform +	(output_channels_subblock_start * batch_block_size + batch_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements,
 			grad_output_stride,
 			batch_block_size * output_channels * tuple_elements * sizeof(float),
-			row_count,
-			column_count,
-			0,
-			0);
+			row_count, column_count,
+			0, 0);
 	}
 }
 
@@ -144,10 +140,8 @@ static void compute_grad_kernel_transform(
 			grad_kernel + (output_channel * input_channels + input_channel) * kernel_elements,
 			output_channels * input_channels * tuple_elements * sizeof(float),
 			kernel_size.width,
-			kernel_size.height,
-			kernel_size.width,
-			0,
-			0);
+			kernel_size.height,	kernel_size.width,
+			0, 0);
 	}
 }
 
@@ -356,7 +350,7 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 					&input_transform_context,
 					batch_block_size,
 					input_channels,
-					1u,
+					1,
 					input_channels_subblock_max);
 				NNP_INPUT_TRANSFORM_END(profile)
 

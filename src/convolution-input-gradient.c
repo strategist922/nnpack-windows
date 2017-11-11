@@ -47,10 +47,8 @@ static void compute_kernel_transform(
 			kernel_transform + (output_channels_block_start * input_channels + input_channels_subblock_start * output_channels_block_size + output_channels_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements,
 			kernel_size.width,
 			output_channels * input_channels * tuple_elements * sizeof(float),
-			kernel_size.height,
-			kernel_size.width,
-			0,
-			0);
+			kernel_size.height,	kernel_size.width,
+			0, 0);
 	}
 }
 
@@ -103,10 +101,8 @@ static void compute_grad_output_transform(
 			grad_output_transform +	(output_channels_block_start * batch_size + batch_subblock_start * output_channels_block_size + output_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements,
 			output_size.width,
 			batch_size * output_channels * tuple_elements * sizeof(float),
-			row_count,
-			column_count,
-			row_offset,
-			column_offset);
+			row_count, column_count,
+			row_offset,	column_offset);
 	}
 }
 
@@ -160,10 +156,8 @@ static void compute_grad_input_transform(
 			grad_input + ((sample * input_channels) + input_channel) * input_size.width * input_size.height,
 			batch_size * input_channels * tuple_elements * sizeof(float),
 			input_size.width,
-			row_count,
-			column_count,
-			row_offset,
-			column_offset);
+			row_count, column_count,
+			row_offset,	column_offset);
 	}
 }
 
