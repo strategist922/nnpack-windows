@@ -157,7 +157,7 @@ static void compute_grad_input_transform(
 		const size_t input_channel = input_channels_subblock_start + input_channels_subblock_offset;
 		transform_function(
 			grad_input_transform + (batch_block_start * input_channels + input_channels_subblock_start * batch_block_size + batch_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements,
-			grad_input + (sample * input_channels * input_size.width * input_size.height) + (input_channel * input_size.width * input_size.height),
+			grad_input + ((sample * input_channels) + input_channel) * input_size.width * input_size.height,
 			batch_size * input_channels * tuple_elements * sizeof(float),
 			input_size.width,
 			row_count,
@@ -292,8 +292,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 	const size_t input_channels_block_max  = round_down(cache_elements_l2 / output_channels_block_max, input_channels_subblock_max);
 
 	/* Calculate memory footprint and allocate memory */
-	const size_t kernel_transform_size = output_channels * input_channels * tile_elements * sizeof(float);
-	const size_t grad_input_transform_size = batch_size * input_channels * tile_elements * sizeof(float);
+	const size_t kernel_transform_size      = output_channels * input_channels * tile_elements * sizeof(float);
+	const size_t grad_input_transform_size  = batch_size * input_channels * tile_elements * sizeof(float);
 	const size_t grad_output_transform_size = batch_size * output_channels * tile_elements * sizeof(float);
 	
 	void* memory_block_kernel = NULL;
@@ -518,7 +518,7 @@ enum nnp_status nnp_convolution_input_gradient(
 	};
 
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
-	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels,	input_size, input_padding, kernel_size, (struct nnp_size) { 1ull, 1ull }, activation, activation_parameters);
+	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels, input_size, input_padding, kernel_size, (struct nnp_size) { 1ull, 1ull }, activation, activation_parameters);
 	if (status != nnp_status_success) 
 		goto cleanup;
 	

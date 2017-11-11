@@ -244,6 +244,7 @@ void nnp_owt8x8_3x3__scalar(
 	const uint32_t row_end = row_offset + row_count;
 	for (uint32_t row = row_offset; row < row_end; row++) {
 		float s0, s1, s2, s3, s4, s5;
+		
 		winograd_f6k3_output_transform(
 			block[row][0], block[row][1], block[row][2], block[row][3],
 			block[row][4], block[row][5], block[row][6], block[row][7],
@@ -329,6 +330,7 @@ void nnp_owt8x8_3x3_with_bias__scalar(
 	const uint32_t row_end = row_offset + row_count;
 	for (uint32_t row = row_offset; row < row_end; row++) {
 		float s0, s1, s2, s3, s4, s5;
+		
 		winograd_f6k3_output_transform(
 			block[row][0], block[row][1], block[row][2], block[row][3],
 			block[row][4], block[row][5], block[row][6], block[row][7],

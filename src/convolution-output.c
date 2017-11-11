@@ -99,7 +99,7 @@ static void compute_input_transform(
 	{
 		const size_t sample = batch_subblock_start + batch_subblock_offset;
 		transform_function(
-			input + (sample * input_channels * input_size.width * input_size.height) + (input_channel * input_size.width * input_size.height),
+			input + ((sample * input_channels) + input_channel) * input_size.width * input_size.height,
 			input_transform + (input_channels_block_start * batch_size + batch_subblock_start * input_channels_block_size + input_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements,
 			input_size.width,
 			batch_size * input_channels * tuple_elements * sizeof(float),
@@ -157,7 +157,7 @@ static void compute_output_transform(
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform_function(
 			output_transform + (batch_block_start * output_channels + output_channels_subblock_start * batch_block_size + batch_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements,
-			output + (sample * output_channels * output_size.width * output_size.height) + (output_channel * output_size.width * output_size.height),
+			output + ((sample * output_channels) + output_channel) * output_size.width * output_size.height,
 			bias + output_channel,
 			batch_size * output_channels * tuple_elements * sizeof(float),
 			output_size.width,
@@ -174,9 +174,11 @@ struct NNP_CACHE_ALIGN matrix_multiplication_context
 	size_t input_channels_block_size;
 	size_t batch_subblock_max;
 	size_t output_channels_subblock_max;
+	
 	const float* input_transform;
 	const float* kernel_transform;
 	float* output_transform;
+	
 	nnp_fast_tuple_gemm_function fast_gemm;
 	nnp_full_tuple_gemm_function full_gemm;
 };
@@ -194,9 +196,11 @@ static void compute_matrix_multiplication(
 	const size_t input_channels_block_size       = context->input_channels_block_size;
 	const size_t batch_subblock_max              = context->batch_subblock_max;
 	const size_t output_channels_subblock_max    = context->output_channels_subblock_max;
+	
 	const float* input_transform                 = context->input_transform + (batch_subblock_start * input_channels_block_size * tuple_elements);
 	const float* kernel_transform                = context->kernel_transform + (output_channels_block_start * input_channels_block_size * tuple_elements);
 	float* output_transform                      = context->output_transform + (output_channels_block_start * batch_block_size * tuple_elements);
+	
 	const nnp_fast_tuple_gemm_function fast_gemm = context->fast_gemm;
 	const nnp_full_tuple_gemm_function full_gemm = context->full_gemm;
 
@@ -272,26 +276,26 @@ static enum nnp_status compute_fast_convolution_output(
 	const size_t cache_elements_l2 = nnp_hwinfo.blocking.l2 / (tuple_elements * sizeof(float));
 	const size_t cache_elements_l3 = nnp_hwinfo.blocking.l3 / (tuple_elements * sizeof(float));
 
-	const size_t batch_subblock_max = (fourier_transform ? nnp_hwinfo.cxgemm.mr : nnp_hwinfo.sxgemm.mr);
+	const size_t batch_subblock_max           = (fourier_transform ? nnp_hwinfo.cxgemm.mr : nnp_hwinfo.sxgemm.mr);
 	const size_t output_channels_subblock_max = (fourier_transform ? nnp_hwinfo.cxgemm.nr : nnp_hwinfo.sxgemm.nr);
 
-	const size_t input_channels_block_max =	round_down(cache_elements_l1 / (batch_subblock_max + output_channels_subblock_max), 2);
-	const size_t batch_block_max = round_down(cache_elements_l3 / input_channels_block_max, batch_subblock_max);
+	const size_t input_channels_block_max  =	round_down(cache_elements_l1 / (batch_subblock_max + output_channels_subblock_max), 2);
+	const size_t batch_block_max           = round_down(cache_elements_l3 / input_channels_block_max, batch_subblock_max);
 	const size_t output_channels_block_max = round_down(cache_elements_l2 / input_channels_block_max, output_channels_subblock_max);
 
 	/* Calculate memory footprint and allocate memory */
 	const size_t kernel_transform_size = output_channels * input_channels * tile_elements * sizeof(float);
-	const size_t input_transform_size = batch_size * input_channels * tile_elements * sizeof(float);
+	const size_t input_transform_size  = batch_size * input_channels * tile_elements * sizeof(float);
 	const size_t output_transform_size = batch_size * output_channels * tile_elements * sizeof(float);
 	
 	void* memory_block_kernel = NULL;
-	void* memory_block_input = NULL;
+	void* memory_block_input  = NULL;
 	void* memory_block_output = NULL;
 
 	if (workspace_buffer == NULL)
 	{
 		memory_block_kernel = allocate_memory(kernel_transform_size);
-		memory_block_input = allocate_memory(input_transform_size);
+		memory_block_input  = allocate_memory(input_transform_size);
 		memory_block_output = allocate_memory(output_transform_size);
 
 		if (memory_block_kernel == NULL || memory_block_input == NULL || memory_block_output == NULL)
@@ -302,7 +306,7 @@ static enum nnp_status compute_fast_convolution_output(
 		if (workspace_buffer->kernel == NULL || workspace_buffer->input == NULL || workspace_buffer->output == NULL)
 		{
 			memory_block_kernel = allocate_memory(kernel_transform_size);
-			memory_block_input = allocate_memory(input_transform_size);
+			memory_block_input  = allocate_memory(input_transform_size);
 			memory_block_output = allocate_memory(output_transform_size);
 
 			if (memory_block_kernel == NULL || memory_block_input == NULL || memory_block_output == NULL)
@@ -313,13 +317,13 @@ static enum nnp_status compute_fast_convolution_output(
 		else
 		{
 			memory_block_kernel = workspace_buffer->kernel;
-			memory_block_input = workspace_buffer->input;
+			memory_block_input  = workspace_buffer->input;
 			memory_block_output = workspace_buffer->output;
 		}
 	}
 
 	float* kernel_transform = (float*)memory_block_kernel;
-	float* input_transform = (float*)memory_block_input;
+	float* input_transform  = (float*)memory_block_input;
 	float* output_transform = (float*)memory_block_output;
 	
 	NNP_KERNEL_TRANSFORM_START(profile)

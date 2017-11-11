@@ -21,7 +21,7 @@ void nnp_fft8x8_with_offset__scalar(
 	uint32_t row_count, uint32_t column_count,
 	uint32_t row_offset, uint32_t column_offset)
 {
-	const uint32_t simd_width = 1;
+	//const uint32_t simd_width = 1;
 	transform_stride /= sizeof(float);
 
 	float block[BLOCK_SIZE][BLOCK_SIZE];

@@ -187,9 +187,11 @@ static void compute_matrix_multiplication(
 	const size_t input_channels_subblock_max     = context->input_channels_subblock_max;
 	const size_t output_channels                 = context->output_channels;
 	const size_t output_channels_subblock_max    = context->output_channels_subblock_max;
+	
 	const float* grad_output_transform           = context->grad_output_transform + output_channels_block_start * batch_block_size * tuple_elements;
 	const float* input_transform                 = context->input_transform + (input_channels_block_start + input_channels_subblock_start) * batch_block_size * tuple_elements;
 	float* grad_kernel_transform                 = context->grad_kernel_transform + (output_channels_block_start * input_channels + (input_channels_block_start + input_channels_subblock_start) * output_channels_block_size) * tuple_elements;
+	
 	const nnp_fast_tuple_gemm_function fast_gemm = context->fast_gemm;
 	const nnp_full_tuple_gemm_function full_gemm = context->full_gemm;
 
