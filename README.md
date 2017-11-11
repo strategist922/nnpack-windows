@@ -13,33 +13,6 @@ Now you're ready for building with Visual Studio 2017
 
 Results of the unit tests:
 
-### convolution-output:
-
-  * FT8x8:    passed
-
-  * FT16x16:  failed
-
-  * WT8x8:    passed
-
-
-### convolution-input-gradient:
-
-  * FT8x8:    passed except FT8x8.few_output_channels
-
-  * FT16x16:  failed
-
-  * WT8x8:    passed except WT8x8.few_output_channels
-
-
-### convolution-kernel-gradient:
-
-  * FT8x8:    passed
-
-  * FT16x16:  failed
-
-  * WT8x8:    disabled
-
-
 ### convolution-inference:
 
   * implicit gemm:  passed
@@ -52,7 +25,33 @@ Results of the unit tests:
   
   * WT8x8:          passed
   
+### convolution-output:
 
+  * FT8x8:    passed
+
+  * FT16x16:  failed
+
+  * WT8x8:    passed
+
+
+### convolution-input-gradient:
+
+  * FT8x8:    failed
+
+  * FT16x16:  failed
+
+  * WT8x8:    failed
+
+
+### convolution-kernel-gradient:
+
+  * FT8x8:    passed
+
+  * FT16x16:  failed
+
+  * WT8x8:    disabled
+
+ 
 ### fourier:
 ### fully-connected-inference:
 ### fully-connected:
