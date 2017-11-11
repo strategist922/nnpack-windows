@@ -296,8 +296,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 	const size_t grad_input_transform_size  = batch_size * input_channels * tile_elements * sizeof(float);
 	const size_t grad_output_transform_size = batch_size * output_channels * tile_elements * sizeof(float);
 	
-	void* memory_block_kernel = NULL;
-	void* memory_block_grad_input = NULL;
+	void* memory_block_kernel      = NULL;
+	void* memory_block_grad_input  = NULL;
 	void* memory_block_grad_output = NULL;
 
 	if (workspace_buffer == NULL)
@@ -468,7 +468,7 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 				&grad_input_transform_context,
 				batch_size,
 				input_channels,
-				1ull,
+				1,
 				input_channels_subblock_max);
 			NNP_INPUT_TRANSFORM_END(profile)
 		}
@@ -518,7 +518,7 @@ enum nnp_status nnp_convolution_input_gradient(
 	};
 
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
-	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels, input_size, input_padding, kernel_size, (struct nnp_size) { 1ull, 1ull }, activation, activation_parameters);
+	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels, input_size, input_padding, kernel_size, (struct nnp_size) { 1, 1 }, activation, activation_parameters);
 	if (status != nnp_status_success) 
 		goto cleanup;
 	
