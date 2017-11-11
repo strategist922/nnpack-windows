@@ -19,7 +19,7 @@
 	#include <mach/mach_time.h>
 #elif defined(EMSCRIPTEN)
 	#include <emscripten.h>
-#elif defined(_MSC_VER)
+#elif defined(_MSC_VER) && defined(__cplusplus)
 	#include <chrono>
 	#include <malloc.h>
 #endif
@@ -41,16 +41,20 @@ inline static double read_timer()
 #elif defined(EMSCRIPTEN)
 	return emscripten_get_now() * 1.0e-3;
 #elif defined(_MSC_VER)
+	#if defined(__cplusplus)
 	return double(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+	#else
+	return 0.0;
+	#endif
 #else
-	#error No implementation available
+	//#error No implementation available
 #endif
 }
 
 #define NNP_TOTAL_START(profile_ptr) \
 	double total_start; \
 	if (profile_ptr != NULL) { \
-		*profile_ptr = nnp_profile { 0.0 }; \
+		*profile_ptr = (struct nnp_profile) { 0.0 }; \
 		total_start = read_timer(); \
 	}
 
@@ -122,7 +126,7 @@ inline static void* allocate_memory(size_t memory_size)
 	}
 	return memory_block;
 #elif defined(_MSC_VER)
-	return _aligned_malloc(memory_size, 64ull);
+	return _aligned_malloc(memory_size, 64);
 #else
 	void* memory_block = NULL;
 	int allocation_result = posix_memalign(&memory_block, 64, memory_size);

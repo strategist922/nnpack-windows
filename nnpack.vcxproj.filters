@@ -44,66 +44,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\convolution-inference.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\convolution-input-gradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\convolution-kernel-gradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\convolution-output.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fully-connected-inference.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fully-connected-output.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\init.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pooling-output.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pthreadpool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\relu-input-gradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\relu-output.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\softmax-output.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\convolution-output-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\fully-connected-output-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\max-pooling-output-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\relu-input-gradient-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\relu-output-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ref\softmax-output-ref.cpp">
-      <Filter>Source Files\Reference</Filter>
-    </ClCompile>
     <ClCompile Include="src\ref\fft\aos-ref.cpp">
       <Filter>Source Files\Reference\fft</Filter>
     </ClCompile>
@@ -121,12 +61,6 @@
     </ClCompile>
     <ClCompile Include="src\ref\fft\soa-ref.cpp">
       <Filter>Source Files\Reference\fft</Filter>
-    </ClCompile>
-    <ClCompile Include="src\x86_64-fma\exp.cpp">
-      <Filter>x86_64-fma</Filter>
-    </ClCompile>
-    <ClCompile Include="src\x86_64-fma\softmax.cpp">
-      <Filter>x86_64-fma</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\cgemm.c">
       <Filter>Scalar\blas</Filter>
@@ -196,6 +130,72 @@
     </ClCompile>
     <ClCompile Include="src\scalar\winograd-f6k3.c">
       <Filter>Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\convolution-input-gradient-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\convolution-kernel-gradient-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\convolution-output-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\fully-connected-output-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\max-pooling-output-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\relu-input-gradient-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\relu-output-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ref\softmax-output-ref.c">
+      <Filter>Source Files\Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="src\convolution-inference.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\convolution-input-gradient.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\convolution-kernel-gradient.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\convolution-output.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fully-connected-inference.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fully-connected-output.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pooling-output.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\relu-input-gradient.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\relu-output.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\softmax-output.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\x86_64-fma\softmax.c">
+      <Filter>x86_64-fma</Filter>
+    </ClCompile>
+    <ClCompile Include="src\x86_64-fma\exp.c">
+      <Filter>x86_64-fma</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pthreadpool.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

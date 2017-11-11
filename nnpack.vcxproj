@@ -208,31 +208,31 @@
     <ProjectReference />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\convolution-inference.cpp" />
-    <ClCompile Include="src\convolution-input-gradient.cpp" />
-    <ClCompile Include="src\convolution-kernel-gradient.cpp" />
-    <ClCompile Include="src\convolution-output.cpp" />
-    <ClCompile Include="src\fully-connected-inference.cpp" />
-    <ClCompile Include="src\fully-connected-output.cpp" />
-    <ClCompile Include="src\init.cpp" />
-    <ClCompile Include="src\pooling-output.cpp" />
+    <ClCompile Include="src\convolution-inference.c" />
+    <ClCompile Include="src\convolution-input-gradient.c" />
+    <ClCompile Include="src\convolution-kernel-gradient.c" />
+    <ClCompile Include="src\convolution-output.c" />
+    <ClCompile Include="src\fully-connected-inference.c" />
+    <ClCompile Include="src\fully-connected-output.c" />
+    <ClCompile Include="src\init.c" />
+    <ClCompile Include="src\pooling-output.c" />
     <ClCompile Include="src\pthreadpool.cpp" />
-    <ClCompile Include="src\ref\convolution-input-gradient-ref.cpp" />
-    <ClCompile Include="src\ref\convolution-kernel-gradient-ref.cpp" />
-    <ClCompile Include="src\ref\convolution-output-ref.cpp" />
+    <ClCompile Include="src\ref\convolution-input-gradient-ref.c" />
+    <ClCompile Include="src\ref\convolution-kernel-gradient-ref.c" />
+    <ClCompile Include="src\ref\convolution-output-ref.c" />
     <ClCompile Include="src\ref\fft\aos-ref.cpp" />
     <ClCompile Include="src\ref\fft\forward-dualreal-ref.cpp" />
     <ClCompile Include="src\ref\fft\forward-real-ref.cpp" />
     <ClCompile Include="src\ref\fft\inverse-dualreal-ref.cpp" />
     <ClCompile Include="src\ref\fft\inverse-real-ref.cpp" />
     <ClCompile Include="src\ref\fft\soa-ref.cpp" />
-    <ClCompile Include="src\ref\fully-connected-output-ref.cpp" />
-    <ClCompile Include="src\ref\max-pooling-output-ref.cpp" />
-    <ClCompile Include="src\ref\relu-input-gradient-ref.cpp" />
-    <ClCompile Include="src\ref\relu-output-ref.cpp" />
-    <ClCompile Include="src\ref\softmax-output-ref.cpp" />
-    <ClCompile Include="src\relu-input-gradient.cpp" />
-    <ClCompile Include="src\relu-output.cpp" />
+    <ClCompile Include="src\ref\fully-connected-output-ref.c" />
+    <ClCompile Include="src\ref\max-pooling-output-ref.c" />
+    <ClCompile Include="src\ref\relu-input-gradient-ref.c" />
+    <ClCompile Include="src\ref\relu-output-ref.c" />
+    <ClCompile Include="src\ref\softmax-output-ref.c" />
+    <ClCompile Include="src\relu-input-gradient.c" />
+    <ClCompile Include="src\relu-output.c" />
     <ClCompile Include="src\scalar\2d-fourier-16x16.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -309,9 +309,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\softmax-output.cpp" />
-    <ClCompile Include="src\x86_64-fma\exp.cpp" />
-    <ClCompile Include="src\x86_64-fma\softmax.cpp" />
+    <ClCompile Include="src\softmax-output.c" />
+    <ClCompile Include="src\x86_64-fma\exp.c" />
+    <ClCompile Include="src\x86_64-fma\softmax.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\activations.h" />

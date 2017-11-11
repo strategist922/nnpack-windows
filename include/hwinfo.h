@@ -47,9 +47,9 @@ struct cache_blocking_info {
 #define NNP_COMPLEX_TUPLE_INDEX 1
 #endif
 
-typedef void(*nnp_transform_2d)(const char*, char*, size_t, size_t, uint32_t, uint32_t);
-typedef void(*nnp_transform_2d_with_bias)(const char*, char*, const char*, size_t, size_t, uint32_t, uint32_t);
-typedef void(*nnp_transform_2d_with_offset)(const char*, char*, size_t, size_t, uint32_t, uint32_t, uint32_t, uint32_t);
+typedef void(*nnp_transform_2d)(const void*, void*, size_t, size_t, uint32_t, uint32_t);
+typedef void(*nnp_transform_2d_with_bias)(const void*, void*, const void*, size_t, size_t, uint32_t, uint32_t);
+typedef void(*nnp_transform_2d_with_offset)(const void*, void*, size_t, size_t, uint32_t, uint32_t, uint32_t, uint32_t);
 
 typedef void(*nnp_fast_sgemm_function)(size_t, size_t, const float*, const float*, float*, size_t);
 typedef void(*nnp_full_sgemm_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*, size_t);
@@ -57,11 +57,11 @@ typedef void(*nnp_full_sgemm_function)(uint32_t, uint32_t, size_t, size_t, const
 typedef void(*nnp_fast_conv_function)(size_t, size_t, const float*, const float*, float*);
 typedef void(*nnp_full_conv_function)(uint32_t, uint32_t, size_t, size_t, const float*, const float*, float*);
 
-typedef void(*nnp_fast_tuple_gemm_function)(size_t, size_t, const char*, const char*, char*, size_t);
-typedef void(*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const char*, const char*, char*, size_t);
+typedef void(*nnp_fast_tuple_gemm_function)(size_t, size_t, const void*, const void*, void*, size_t);
+typedef void(*nnp_full_tuple_gemm_function)(uint32_t, uint32_t, size_t, size_t, const void*, const void*, void*, size_t);
 
 typedef void(*nnp_sdotxf_function)(const float*, const float*, size_t, float*, size_t);
-typedef void(*nnp_shdotxf_function)(const float*, const char*, size_t, float*, size_t);
+typedef void(*nnp_shdotxf_function)(const float*, const void*, size_t, float*, size_t);
 
 typedef void(*nnp_relu_function)(const float*, float*, size_t, float);
 typedef void(*nnp_inplace_relu_function)(float*, size_t, float);

@@ -1,30 +1,30 @@
-﻿  convolution-inference.cpp
-  convolution-input-gradient.cpp
-  convolution-kernel-gradient.cpp
-  convolution-output.cpp
-  fully-connected-inference.cpp
-  fully-connected-output.cpp
-  init.cpp
-  pooling-output.cpp
+﻿  convolution-inference.c
+  convolution-input-gradient.c
+  convolution-kernel-gradient.c
+  convolution-output.c
+  fully-connected-inference.c
+  fully-connected-output.c
+  init.c
+  pooling-output.c
+  convolution-input-gradient-ref.c
+  convolution-kernel-gradient-ref.c
+  convolution-output-ref.c
+  fully-connected-output-ref.c
+  max-pooling-output-ref.c
+  relu-input-gradient-ref.c
+  relu-output-ref.c
+  softmax-output-ref.c
+  relu-input-gradient.c
+  relu-output.c
+  softmax-output.c
+  exp.c
+  Compiling...
+  softmax.c
   pthreadpool.cpp
-  convolution-input-gradient-ref.cpp
-  convolution-kernel-gradient-ref.cpp
-  convolution-output-ref.cpp
   aos-ref.cpp
   forward-dualreal-ref.cpp
   forward-real-ref.cpp
   inverse-dualreal-ref.cpp
   inverse-real-ref.cpp
   soa-ref.cpp
-  fully-connected-output-ref.cpp
-  max-pooling-output-ref.cpp
-  Compiling...
-  relu-input-gradient-ref.cpp
-  relu-output-ref.cpp
-  softmax-output-ref.cpp
-  relu-input-gradient.cpp
-  relu-output.cpp
-  softmax-output.cpp
-  exp.cpp
-  softmax.cpp
   nnpack.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\nnpack.lib
