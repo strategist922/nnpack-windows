@@ -5,6 +5,7 @@
 #include <validation.h>
 #include <macros.h>
 
+
 struct NNP_CACHE_ALIGN kernel_transform_context
 {
 	nnp_transform_2d_with_offset transform_function;

@@ -2,7 +2,6 @@
 #include <macros.h>
 #include <utils.h>
 #include <system.h>
-
 #include <hwinfo.h>
 #include <validation.h>
 

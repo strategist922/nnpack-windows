@@ -182,9 +182,6 @@
     <ClCompile Include="src\scalar\softmax.c">
       <Filter>Scalar</Filter>
     </ClCompile>
-    <ClCompile Include="src\scalar\winograd-f6k3.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\scalar\fft\aos.h">
       <Filter>Scalar\fft</Filter>
     </ClCompile>
@@ -196,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="src\scalar\fft\dualreal.h">
       <Filter>Scalar\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scalar\winograd-f6k3.c">
+      <Filter>Scalar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

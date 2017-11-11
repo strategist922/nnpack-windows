@@ -5,6 +5,7 @@
 #include <validation.h>
 #include <macros.h>
 
+
 struct NNP_CACHE_ALIGN softmax_context 
 {
 	nnp_softmax_function softmax_function;

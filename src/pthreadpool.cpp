@@ -16,7 +16,7 @@ void pthreadpool_compute_1d(
 		function(argument, i);
 	}, concurrency::static_partitioner());
 #else
-	#pragma omp for  
+	#pragma omp parallel for  
 	for (size_t i=0ull; i < range; i++)
 		function(argument, i);
 #endif

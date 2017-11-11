@@ -6,7 +6,6 @@
 #include <macros.h>
 #include <utils.h>
 #include <system.h>
-
 #include <hwinfo.h>
 #include <validation.h>
 #include <activations.h>
@@ -47,7 +46,7 @@ static void compute_kernel_transform(
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 
 		transform_function(
-			(char*)(kernel + (output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channels_block_offset * kernel_size.width * kernel_size.height)),
+			(char*)(kernel + ((output_channel * input_channels) + input_channels_block_offset) * kernel_size.width * kernel_size.height),
 			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,

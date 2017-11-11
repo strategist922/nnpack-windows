@@ -4,6 +4,7 @@
 #include <validation.h>
 #include <macros.h>
 
+
 struct NNP_CACHE_ALIGN fully_connected_inference_context 
 {
 	size_t input_channels;
