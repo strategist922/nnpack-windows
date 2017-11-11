@@ -1,41 +1,38 @@
 #pragma once
 
 #ifdef __cplusplus
+#include <cstddef>
+#include <cstdint>
 #include <ccomplex>
-#include <cstdlib>
-#define ToFloat(str) std::strtof(str, NULL)
 #define COMPLEX_LITERAL_HELPER(real, imag) std::complex<float>(real, imag)
 #else
 #include <stddef.h>
-#include <stdlib.h>
 #include <stdint.h>
 #include <complex.h>
-#define ToFloat(str) strtof(str, NULL)
 #define COMPLEX_LITERAL_HELPER(real, imag) (real + imag##i)
 #endif
 
 
-#define SQRT2_OVER_2 ToFloat("0x1.6A09E6p-1f")
-#define SQRT2_OVER_4 ToFloat("0x1.6A09E6p-2f")
+#define SQRT2_OVER_2 0.707106769084930f          // 0x1.6A09E6p-1f
+#define SQRT2_OVER_4 0.353553384542465f          // 0x1.6A09E6p-2f
 
 #define COS__0PI_OVER_32 1.0f
-#define COS__1PI_OVER_32 ToFloat("0x1.FD88DAp-1f")
-#define COS__2PI_OVER_32 ToFloat("0x1.F6297Cp-1f")
-#define COS__3PI_OVER_32 ToFloat("0x1.E9F416p-1f")
-#define COS__4PI_OVER_32 ToFloat("0x1.D906BCp-1f")
-#define COS__5PI_OVER_32 ToFloat("0x1.C38B30p-1f")
-#define COS__6PI_OVER_32 ToFloat("0x1.A9B662p-1f")
-#define COS__7PI_OVER_32 ToFloat("0x1.8BC806p-1f")
+#define COS__1PI_OVER_32 0.995184719562531f      // 0x1.FD88DAp-1f
+#define COS__2PI_OVER_32 0.980785250663757f      // 0x1.F6297Cp-1f
+#define COS__3PI_OVER_32 0.956940352916718f      // 0x1.E9F416p-1f
+#define COS__4PI_OVER_32 0.923879504203796f      // 0x1.D906BCp-1f
+#define COS__5PI_OVER_32 0.881921291351318f      // 0x1.C38B30p-1f
+#define COS__6PI_OVER_32 0.831469595432281f      // 0x1.A9B662p-1f
+#define COS__7PI_OVER_32 0.773010432720184f      // 0x1.8BC806p-1f
 #define COS__8PI_OVER_32 SQRT2_OVER_2
-#define COS__9PI_OVER_32 ToFloat("0x1.44CF32p-1f")
-#define COS_10PI_OVER_32 ToFloat("0x1.1C73B4p-1f")
-#define COS_11PI_OVER_32 ToFloat("0x1.E2B5D4p-2f")
-#define COS_12PI_OVER_32 ToFloat("0x1.87DE2Ap-2f")
-#define COS_13PI_OVER_32 ToFloat("0x1.294062p-2f")
-#define COS_14PI_OVER_32 ToFloat("0x1.8F8B84p-3f")
-#define COS_15PI_OVER_32 ToFloat("0x1.917A6Cp-4f")
+#define COS__9PI_OVER_32 0.634393274784088f      // 0x1.44CF32p-1f
+#define COS_10PI_OVER_32 0.555570244789124f      // 0x1.1C73B4p-1f
+#define COS_11PI_OVER_32 0.471396744251251f      // 0x1.E2B5D4p-2f
+#define COS_12PI_OVER_32 0.382683426141739f      // 0x1.87DE2Ap-2f
+#define COS_13PI_OVER_32 0.290284663438797f      // 0x1.294062p-2f
+#define COS_14PI_OVER_32 0.195090323686600f      // 0x1.8F8B84p-3f
+#define COS_15PI_OVER_32 0.0980171412229538f     // 0x1.917A6Cp-4f
 #define COS_16PI_OVER_32 0.0f
-
 #define COS_17PI_OVER_32 -COS_15PI_OVER_32
 #define COS_18PI_OVER_32 -COS_14PI_OVER_32
 #define COS_19PI_OVER_32 -COS_13PI_OVER_32
@@ -152,7 +149,6 @@
 
 #define SIN_0PI_OVER_2 0.0f
 #define SIN_1PI_OVER_2 1.0f
-
 
 #define COMPLEX_LITERAL(real, imag) COMPLEX_LITERAL_HELPER(real, imag)
 

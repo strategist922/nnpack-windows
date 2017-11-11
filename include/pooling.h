@@ -3,11 +3,9 @@
 #if defined(__cplusplus)
 #include <cstddef>
 #include <cstdint>
-#include <cstdbool>
 #else
 #include <stddef.h>
 #include <stdint.h>
-#include <stdbool.h>
 #endif
 
 
