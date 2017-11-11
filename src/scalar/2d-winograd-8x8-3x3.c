@@ -15,7 +15,7 @@
 void nnp_iwt8x8_3x3_with_offset__scalar(
 	const float* data,
 	float* transform,
-	uint64_t data_stride, uint64_t transform_stride,
+	size_t data_stride, size_t transform_stride,
 	uint32_t row_count, uint32_t column_count,
 	uint32_t row_offset, uint32_t column_offset)
 {

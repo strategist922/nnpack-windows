@@ -10,7 +10,7 @@
 static inline void scalar_fft4_aos(
 	const float* t_lo,
 	const float* t_hi,
-	uint64_t stride_t,
+	size_t stride_t,
 	uint32_t row_start, uint32_t row_count,
 	float* f0r,
 	float* f0i,
@@ -124,7 +124,7 @@ static inline void scalar_ifft4_aos(
 	float w0r, float w0i, float w1r, float w1i, float w2r, float w2i, float w3r, float w3i,
 	float* t0,
 	float* t2,
-	uint64_t stride_t)
+	size_t stride_t)
 {
 	/* Bit reversal */
 	scalar_swap(&w1r, &w2r);
@@ -183,7 +183,7 @@ static inline void scalar_ifft4_aos(
 static inline void scalar_fft8_aos(
 	const float* t_lo,
 	const float* t_hi,
-	uint64_t stride_t,
+	size_t stride_t,
 	uint32_t row_start, uint32_t row_count,
 	float* f0r,
 	float* f0i,
@@ -420,7 +420,7 @@ static inline void scalar_ifft8_aos(
 	float w4r, float w4i, float w5r, float w5i, float w6r, float w6i, float w7r, float w7i,
 	float* t_lo,
 	float* t_hi,
-	uint64_t stride_t)
+	size_t stride_t)
 {
 	/* Bit reversal */
 	scalar_swap(&w1r, &w4r);

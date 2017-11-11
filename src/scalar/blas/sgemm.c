@@ -76,7 +76,8 @@ void nnp_sgemm_upto_4x3__scalar(uint32_t mr, uint32_t nr, size_t k, size_t updat
 	acc00 = acc01 = acc02 = acc10 = acc11 = acc12 = acc20 = acc21 = acc22 = acc30 = acc31 = acc32 = 0.0f;
 	do {
 		float b0, b1, b2;
-		
+		b0 = b1 = b2 = 0.0f;
+
 		b0 = *b++;
 		if (nr > 1) {
 			b1 = *b++;

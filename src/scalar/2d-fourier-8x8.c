@@ -17,7 +17,7 @@ static inline size_t doz(size_t a, size_t b) {
 void nnp_fft8x8_with_offset__scalar(
 	const float* data,
 	float* transform,
-	uint64_t data_stride, uint64_t transform_stride,
+	size_t data_stride, size_t transform_stride,
 	uint32_t row_count, uint32_t column_count,
 	uint32_t row_offset, uint32_t column_offset)
 {
@@ -124,7 +124,7 @@ void nnp_fft8x8_with_offset__scalar(
 void nnp_ifft8x8_with_offset__scalar(
 	const float* transform,
 	float* data,
-	uint64_t transform_stride, uint64_t data_stride,
+	size_t transform_stride, size_t data_stride,
 	uint32_t row_count, uint32_t column_count,
 	uint32_t row_offset, uint32_t column_offset)
 {
@@ -218,7 +218,7 @@ void nnp_ifft8x8_with_bias__scalar(
 	const float* transform,
 	float* data,
 	const float* bias,
-	uint64_t transform_stride, uint64_t data_stride,
+	size_t transform_stride, size_t data_stride,
 	uint32_t row_count, uint32_t column_count)
 {
 	transform_stride /= sizeof(float);
@@ -313,7 +313,7 @@ void nnp_ifft8x8_with_bias_with_relu__scalar(
 	const float* transform,
 	float* data,
 	const float* bias,
-	uint64_t transform_stride, uint64_t data_stride,
+	size_t transform_stride, size_t data_stride,
 	uint32_t row_count, uint32_t column_count)
 {
 	transform_stride /= sizeof(float);

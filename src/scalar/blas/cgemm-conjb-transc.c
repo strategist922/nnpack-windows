@@ -4,9 +4,9 @@
 
 void nnp_cgemm_conjb_transc_only_2x2__scalar(
 	size_t k, size_t update,
-	const float a[1],
-	const float b[1],
-	float c[1],
+	const float* a,
+	const float* b,
+	float* c,
 	size_t row_stride_c)
 {
 	float acc00r, acc01r, acc10r, acc11r;
@@ -71,9 +71,9 @@ void nnp_cgemm_conjb_transc_only_2x2__scalar(
 void nnp_cgemm_conjb_transc_upto_2x2__scalar(
 	uint32_t mr, uint32_t nr,
 	size_t k, size_t update,
-	const float a[1],
-	const float b[1],
-	float c[1],
+	const float* a,
+	const float* b,
+	float* c,
 	size_t row_stride_c)
 {
 	float acc00r, acc01r, acc10r, acc11r;
@@ -86,6 +86,7 @@ void nnp_cgemm_conjb_transc_upto_2x2__scalar(
 		a += 2;
 
 		float a1r, a1i;
+		a1r = a1i = 0.0f;
 		if (mr > 1) {
 			a1r = a[0];
 			a1i = a[1];
