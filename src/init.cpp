@@ -1,33 +1,32 @@
 #ifdef _MSC_VER
-#include <intrin.h>
+	#include <intrin.h>
 
-#define bit_OSXSAVE     (1 << 27)
-#define bit_AVX         (1 << 28)
-#define bit_FMA         (1 << 12)
-#ifndef bit_AVX2
-#define bit_AVX2        0x00000020
-#endif
+	#define bit_OSXSAVE     (1 << 27)
+	#define bit_AVX         (1 << 28)
+	#define bit_FMA         (1 << 12)
+	#ifndef bit_AVX2
+		#define bit_AVX2    0x00000020
+	#endif
 #else
-#include <pthread.h>
+	#include <pthread.h>
 
-static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
+	static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
 #endif
 
 #if defined(__i386__) || defined(__x86_64__)
+	#include <cpuid.h>
+	#ifndef bit_AVX2
+		#define bit_AVX2 0x00000020
+	#endif
 
-#include <cpuid.h>
-#ifndef bit_AVX2
-#define bit_AVX2 0x00000020
-#endif
-
-#if __native_client__
-#define NNP_NACL_CODE_BUNDLE_SIZE 32
-#include <irt.h>
-#endif
+	#if __native_client__
+		#define NNP_NACL_CODE_BUNDLE_SIZE 32
+		#include <irt.h>
+	#endif
 #endif
 
 #if defined(__ANDROID__) && defined(__arm__)
-#include <cpu-features.h>
+	#include <cpu-features.h>
 #endif
 
 #include <nnpack.h>
@@ -48,33 +47,31 @@ struct cpu_info
 };
 
 #ifndef _MSC_VER
-static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
-#ifndef __native_client__
-/*
-* This instruction may be not supported by Native Client validator, make sure it doesn't appear in the binary
-*/
-static inline uint64_t xgetbv(uint32_t ext_ctrl_reg) {
-	uint32_t lo, hi;
-	asm(".byte 0x0F, 0x01, 0xD0" : "=a" (lo), "=d" (hi) : "c" (ext_ctrl_reg));
-	return (((uint64_t)hi) << 32) | (uint64_t)lo;
-}
-#endif
+	static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
+	#ifndef __native_client__
+		/*
+		* This instruction may be not supported by Native Client validator, make sure it doesn't appear in the binary
+		*/
+		static inline uint64_t xgetbv(uint32_t ext_ctrl_reg) {
+			uint32_t lo, hi;
+			asm(".byte 0x0F, 0x01, 0xD0" : "=a" (lo), "=d" (hi) : "c" (ext_ctrl_reg));
+			return (((uint64_t)hi) << 32) | (uint64_t)lo;
+		}
+	#endif
 #else
-static inline uint64_t xgetbv(uint32_t ext_ctrl_reg)
-{
-	return _xgetbv(ext_ctrl_reg);
-}
+	static inline uint64_t xgetbv(uint32_t ext_ctrl_reg) {
+		return _xgetbv(ext_ctrl_reg);
+	}
 
-static inline uint32_t __get_cpuid_max(unsigned int __level, unsigned int *__sig)
-{
-	cpu_info basic_info;
-	__cpuid(&basic_info.eax, (int)__level);
+	static inline uint32_t __get_cpuid_max(unsigned int __level, unsigned int *__sig) {
+		cpu_info basic_info;
+		__cpuid(&basic_info.eax, (int)__level);
 
-	if (__sig)
-		*__sig = (unsigned int)basic_info.ebx;
+		if (__sig)
+			*__sig = (unsigned int)basic_info.ebx;
 
-	return (uint32_t)basic_info.eax;
-}
+		return (uint32_t)basic_info.eax;
+	}
 #endif
 
 
