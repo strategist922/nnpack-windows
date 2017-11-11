@@ -16,12 +16,16 @@
 
 #ifdef _MSC_VER
 	#include <intrin.h>
-	#include <stddef.h>
-	#include <stdint.h>
 #ifdef __cplusplus
+	#include <cstddef>
 	#include <cstdlib>
+	
 	#define ToFloat(str) std::strtof(str, NULL)
 #else
+	#include <stddef.h>
+	#include <stdint.h>
+	#include <stdlib.h>
+
 	#define ToFloat(str) strtof(str, NULL)
 #endif // __cplusplus
 

@@ -2,7 +2,7 @@
 #ifndef FP16_BITCASTS_H
 #define FP16_BITCASTS_H
 
-#if defined(__cplusplus)/*& (__cplusplus >= 201103L)*/
+#if defined(__cplusplus)
 	#include <cstdint>
 #elif !defined(__OPENCL_VERSION__)
 	#include <stdint.h>

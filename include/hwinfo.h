@@ -14,32 +14,32 @@
 extern "C" {
 #endif
 
-	struct isa_info {
-		bool has_avx;
-		bool has_fma3;
-		bool has_avx2;
-	};
+struct isa_info {
+	bool has_avx;
+	bool has_fma3;
+	bool has_avx2;
+};
 
-	struct cache_info {
-		uint32_t size;
-		uint32_t associativity;
-		uint32_t threads;
-		bool inclusive;
-	};
+struct cache_info {
+	uint32_t size;
+	uint32_t associativity;
+	uint32_t threads;
+	bool inclusive;
+};
 
-	struct cache_hierarchy_info {
-		struct cache_info l1;
-		struct cache_info l2;
-		struct cache_info l3;
-		struct cache_info l4;
-	};
+struct cache_hierarchy_info {
+	struct cache_info l1;
+	struct cache_info l2;
+	struct cache_info l3;
+	struct cache_info l4;
+};
 
-	struct cache_blocking_info {
-		size_t l1;
-		size_t l2;
-		size_t l3;
-		size_t l4;
-	};
+struct cache_blocking_info {
+	size_t l1;
+	size_t l2;
+	size_t l3;
+	size_t l4;
+};
 
 #if NNP_BACKEND_SCALAR
 #define NNP_COMPLEX_TUPLE_INDEX 2
