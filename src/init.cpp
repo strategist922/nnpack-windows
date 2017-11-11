@@ -9,8 +9,6 @@
 	#endif
 #else
 	#include <pthread.h>
-
-	static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
 #endif
 
 #if defined(__i386__) || defined(__x86_64__)
@@ -38,8 +36,7 @@
 
 hardware_info nnp_hwinfo = {  };
 
-struct cpu_info
-{
+struct cpu_info {
 	int eax;
 	int ebx;
 	int ecx;
@@ -75,8 +72,7 @@ struct cpu_info
 #endif
 
 
-static void init_x86_hwinfo() 
-{
+static void init_x86_hwinfo() {
 	const uint32_t max_base_info = __get_cpuid_max(0, NULL);
 	const uint32_t max_extended_info = __get_cpuid_max(0x80000000, NULL);
 #ifdef __native_client__
@@ -138,8 +134,7 @@ static void init_x86_hwinfo()
 	}
 #else
 	// Under normal environments, just ask the CPU about supported ISA extensions.
-	if (max_base_info >= 1)
-	{
+	if (max_base_info >= 1)	{
 		cpu_info basic_info;
 
 #ifdef _MSC_VER
@@ -161,8 +156,7 @@ static void init_x86_hwinfo()
 			__cpuid_count(7, 0, structured_info.eax, structured_info.ebx, structured_info.ecx, structured_info.edx);
 #endif
 		
-		if (ymm_regs) 
-		{
+		if (ymm_regs) {
 			// AVX: ecx[bit 28] in basic info
 			nnp_hwinfo.isa.has_avx = !!(basic_info.ecx & bit_AVX);
 			// FMA3: ecx[bit 12] in basic info
@@ -187,10 +181,8 @@ static void init_x86_hwinfo()
 	const bool is_via = !((vendor_info.ebx ^ Cent) | (vendor_info.edx ^ aurH) | (vendor_info.ecx ^ auls));
 
 	// Detect cache
-	if (max_base_info >= 4)
-	{
-		for (uint32_t cache_id = 0; ; cache_id++) 
-		{
+	if (max_base_info >= 4)	{
+		for (uint32_t cache_id = 0; ; cache_id++) {
 			cpu_info cpuInfo;
 #ifdef _MSC_VER
 			__cpuidex(&cpuInfo.eax, 4, cache_id);
@@ -201,10 +193,8 @@ static void init_x86_hwinfo()
 			const uint32_t type = cpuInfo.eax & 0x1F;
 			if (type == 0) 
 				break;
-			else 
-			{
-				if ((type == 1) || (type == 3))
-				{
+			else {
+				if ((type == 1) || (type == 3))	{
 					// eax[bits 5-7]: cache level (starts at 1)
 					const uint32_t level = (cpuInfo.eax >> 5) & 0x7;
 					// eax[bits 14-25]: number of IDs for logical processors sharing the cache - 1
@@ -223,16 +213,14 @@ static void init_x86_hwinfo()
 					// edx[bit 1]: cache inclusiveness
 					const bool inclusive = !!(cpuInfo.edx & 0x2);
 					
-					const cache_info cacheInfo =
-					{
+					const cache_info cacheInfo = {
 						sets * associativity * line_partitions * line_size,
 						associativity,
 						threads,
 						inclusive
 					};
 
-					switch (level)
-					{
+					switch (level) {
 					case 1:
 						nnp_hwinfo.cache.l1 = cacheInfo;
 						break;
@@ -254,51 +242,43 @@ static void init_x86_hwinfo()
 }
 
 #if !(defined(__x86_64__) || defined(__i386__) || defined(_MSC_VER)) || defined(__ANDROID__)
-static void init_static_hwinfo(void) 
-{
-	nnp_hwinfo.cache.l1 = cache_info
-	{
+static void init_static_hwinfo(void) {
+	nnp_hwinfo.cache.l1 = cache_info {
 		16 * 1024,
 		4,
 		1,
-		true
+		true 
 	};
-	nnp_hwinfo.cache.l2 = cache_info
-	{
+	nnp_hwinfo.cache.l2 = cache_info {
 		128 * 1024,
 		4,
 		1,
-		true
+		true 
 	};
-	nnp_hwinfo.cache.l3 = cache_info
-	{
+	nnp_hwinfo.cache.l3 = cache_info {
 		2 * 1024 * 1024,
 		8,
 		1,
-		true
+		true 
 	};
 }
 #endif
 
 #if !defined(__i386__) && !defined(__x86_64__) && !defined(_MSC_VER) && defined(__APPLE__) 
-static void init_static_ios_hwinfo(void) 
-{
-	nnp_hwinfo.cache.l1 = cache_info 
-	{
+static void init_static_ios_hwinfo(void) {
+	nnp_hwinfo.cache.l1 = cache_info {
 		1 * 32 * 1024,
 		1,
 		1,
 		false
 	};
-	nnp_hwinfo.cache.l2 = cache_info
-	{
+	nnp_hwinfo.cache.l2 = cache_info {
 		1024 * 1024,
 		1,
 		1,
 		false
 	};
-	nnp_hwinfo.cache.l3 = cache_info
-	{
+	nnp_hwinfo.cache.l3 = cache_info {
 		2 * 1024 * 1024,
 		8,
 		1,
@@ -395,8 +375,7 @@ static void init_static_ios_hwinfo(void)
 	#endif
 #endif /* !NNP_INFERENCE_ONLY */
 
-static void init_hwinfo() 
-{
+static void init_hwinfo() {
 	init_x86_hwinfo();
 	
 	// Compute high-level cache blocking parameters
@@ -405,8 +384,7 @@ static void init_hwinfo()
 	if (nnp_hwinfo.cache.l1.threads > 1) 
 		nnp_hwinfo.blocking.l1 /= nnp_hwinfo.cache.l1.threads;
 	
-	if (nnp_hwinfo.cache.l2.size != 0) 
-	{
+	if (nnp_hwinfo.cache.l2.size != 0) {
 		nnp_hwinfo.blocking.l2 = nnp_hwinfo.cache.l2.size;
 		if (nnp_hwinfo.cache.l2.inclusive)
 			nnp_hwinfo.blocking.l2 -= nnp_hwinfo.cache.l1.size;
@@ -415,8 +393,7 @@ static void init_hwinfo()
 			nnp_hwinfo.blocking.l2 /= nnp_hwinfo.cache.l2.threads;
 	}
 
-	if (nnp_hwinfo.cache.l3.size != 0) 
-	{
+	if (nnp_hwinfo.cache.l3.size != 0) {
 		nnp_hwinfo.blocking.l3 = nnp_hwinfo.cache.l3.size;
 		if (nnp_hwinfo.cache.l3.inclusive)
 			nnp_hwinfo.blocking.l3 -= nnp_hwinfo.cache.l2.size;
@@ -424,11 +401,9 @@ static void init_hwinfo()
 
 	nnp_hwinfo.blocking.l4 = nnp_hwinfo.cache.l4.size;
 
-	if (nnp_hwinfo.cache.l1.size && nnp_hwinfo.cache.l2.size && nnp_hwinfo.cache.l3.size)
-	{
+	if (nnp_hwinfo.cache.l1.size && nnp_hwinfo.cache.l2.size && nnp_hwinfo.cache.l3.size) {
 #if NNP_BACKEND_X86_64 || NNP_BACKEND_WIN64
-		if (nnp_hwinfo.isa.has_avx2 && nnp_hwinfo.isa.has_fma3)
-		{
+		if (nnp_hwinfo.isa.has_avx2 && nnp_hwinfo.isa.has_fma3)	{
 			nnp_hwinfo.simd_width = 8;
 			nnp_hwinfo.transforms.fft8x8_with_offset_and_store = (nnp_transform_2d_with_offset)nnp_fft8x8_with_offset_and_store__avx2;
 			nnp_hwinfo.transforms.fft8x8_with_offset_and_stream = (nnp_transform_2d_with_offset)nnp_fft8x8_with_offset_and_stream__avx2;
@@ -460,44 +435,38 @@ static void init_hwinfo()
 			nnp_hwinfo.activations.softmax = nnp_softmax__avx2;
 			nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__avx2;
 
-			nnp_hwinfo.sdotxf = sdotxf
-			{
+			nnp_hwinfo.sdotxf = sdotxf {
 				sdotxf_function,
 				NNP_COUNT_OF(sdotxf_function)
 			};;
 
-			nnp_hwinfo.shdotxf = shdotxf
-			{
+			nnp_hwinfo.shdotxf = shdotxf {
 				shdotxf_function,
 				NNP_COUNT_OF(shdotxf_function)
 			};
 #endif /* !NNP_INFERENCE_ONLY */
-			nnp_hwinfo.conv1x1 = convolution
-			{
+			nnp_hwinfo.conv1x1 = convolution {
 				nnp_conv1x1_only_2x4__fma3,
 				nnp_conv1x1_upto_2x4__fma3,
 				2,
 				4
 			};
 
-			nnp_hwinfo.sgemm = sgemm
-			{
+			nnp_hwinfo.sgemm = sgemm {
 				nnp_sgemm_only_4x24__fma3,
 				nnp_sgemm_upto_4x24__fma3,
 				4,
 				24
 			};
 
-			nnp_hwinfo.sxgemm = sxgemm
-			{
+			nnp_hwinfo.sxgemm = sxgemm {
 				(nnp_fast_tuple_gemm_function)nnp_s8gemm_only_3x4__fma3,
 				(nnp_full_tuple_gemm_function)nnp_s8gemm_upto_3x4__fma3,
 				3,
 				4
 			};
 
-			nnp_hwinfo.cxgemm = cxgemm
-			{
+			nnp_hwinfo.cxgemm = cxgemm {
 #if !NNP_INFERENCE_ONLY
 				(nnp_fast_tuple_gemm_function)nnp_s4c6gemm_only_2x2__fma3,
 				(nnp_full_tuple_gemm_function)nnp_s4c6gemm_upto_2x2__fma3,
@@ -551,40 +520,34 @@ static void init_hwinfo()
 		nnp_hwinfo.activations.grad_relu = nnp_grad_relu__psimd;
 		nnp_hwinfo.activations.softmax = nnp_softmax__psimd;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
-		nnp_hwinfo.sdotxf = sdotxf
-		{
+		nnp_hwinfo.sdotxf = sdotxf {
 			sdotxf_function,
 			NNP_COUNT_OF(sdotxf_function)
 		};
-		nnp_hwinfo.shdotxf = shdotxf
-		{
+		nnp_hwinfo.shdotxf = shdotxf {
 			shdotxf_function,
 			NNP_COUNT_OF(shdotxf_function)
 		};
 #endif /* !NNP_INFERENCE_ONLY */
-		nnp_hwinfo.conv1x1 = convolution
-		{
+		nnp_hwinfo.conv1x1 = convolution {
 			nnp_conv1x1_only_2x4__psimd,
 			nnp_conv1x1_upto_2x4__psimd,
 			2,
 			4
 		};
-		nnp_hwinfo.sgemm = sgemm
-		{
+		nnp_hwinfo.sgemm = sgemm {
 			nnp_sgemm_only_4x8__psimd,
 			nnp_sgemm_upto_4x8__psimd,
 			4,
 			8
 		};
-		nnp_hwinfo.sxgemm = sxgemm
-		{
+		nnp_hwinfo.sxgemm = sxgemm {
 			(nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__psimd,
 			(nnp_full_tuple_gemm_function)nnp_s4gemm_upto_3x4__psimd,
 			3,
 			4
 		};
-		nnp_hwinfo.cxgemm = cxgemm
-		{
+		nnp_hwinfo.cxgemm = cxgemm {
 #if !NNP_INFERENCE_ONLY
 			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_only_2x2__psimd,
 			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_upto_2x2__psimd,
@@ -636,8 +599,7 @@ static void init_hwinfo()
 #endif /* !NNP_INFERENCE_ONLY */
 		nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_with_bias__neon;
 		nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_with_bias_with_relu__neon;
-		if (has_fp16)
-		{
+		if (has_fp16) {
 			nnp_hwinfo.transforms.iwt_f6x6_3x3_fp16_with_offset = (nnp_transform_2d_with_offset)nnp_iwt8x8_3x3_fp16_with_offset__neonhp;
 			nnp_hwinfo.transforms.kwt_f6x6_3x3_fp16 = (nnp_transform_2d_with_offset)nnp_kwt8x8_3x3_fp16__neonhp;
 			nnp_hwinfo.transforms.owt_f6x6_3x3_fp16_with_bias = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_fp16_with_bias__neonhp;
@@ -649,50 +611,42 @@ static void init_hwinfo()
 		nnp_hwinfo.activations.grad_relu = nnp_grad_relu__neon;
 		nnp_hwinfo.activations.softmax = nnp_softmax__psimd;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
-		nnp_hwinfo.sdotxf = sdotxf
-		{
+		nnp_hwinfo.sdotxf = sdotxf {
 			sdotxf_function,
 			NNP_COUNT_OF(sdotxf_function)
 		};
-		nnp_hwinfo.shdotxf = shdotxf
-		{
+		nnp_hwinfo.shdotxf = shdotxf {
 			shdotxf_function,
 			NNP_COUNT_OF(shdotxf_function)
 		};
 #endif /* !NNP_INFERENCE_ONLY */
-		nnp_hwinfo.conv1x1 = convolution
-		{
+		nnp_hwinfo.conv1x1 = convolution {
 			nnp_conv1x1_only_2x4__neon,
 			nnp_conv1x1_upto_2x4__neon,
 			2,
 			4
 		};
-		nnp_hwinfo.sgemm = sgemm)
-		{
+		nnp_hwinfo.sgemm = sgemm) {
 		nnp_sgemm_only_4x12__neon,
 			nnp_sgemm_upto_4x12__neon,
 			4,
 			12
 		};
-		nnp_hwinfo.sxgemm = sxgemm
-		{
+		nnp_hwinfo.sxgemm = sxgemm {
 			(nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__neon,
 			(nnp_full_tuple_gemm_function)nnp_s4gemm_upto_3x4__neon,
 			3,
 			4
 		};
-		if (has_fp16)
-		{
-			nnp_hwinfo.hxgemm = hxgemm
-			{
+		if (has_fp16) {
+			nnp_hwinfo.hxgemm = hxgemm {
 				(nnp_fast_tuple_gemm_function)nnp_h4gemm_only_3x4__neonhp,
 				(nnp_full_tuple_gemm_function)nnp_h4gemm_upto_3x4__neonhp,
 				3,
 				4
 			};
 		}
-		nnp_hwinfo.cxgemm = cxgemm
-		{
+		nnp_hwinfo.cxgemm = cxgemm {
 #if !NNP_INFERENCE_ONLY
 			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_only_2x2__neon,
 			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_upto_2x2__neon,
@@ -749,41 +703,34 @@ static void init_hwinfo()
 		nnp_hwinfo.activations.softmax = nnp_softmax__scalar;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__scalar;
 
-		nnp_hwinfo.sdotxf = sdotxf
-		{
+		nnp_hwinfo.sdotxf = sdotxf {
 			sdotxf_function,
 			NNP_COUNT_OF(sdotxf_function),
 		};
-		nnp_hwinfo.shdotxf = shdotxf
-		{
+		nnp_hwinfo.shdotxf = shdotxf {
 			shdotxf_function,
 			NNP_COUNT_OF(shdotxf_function),
 		};
 #endif /* !NNP_INFERENCE_ONLY */
-
-		nnp_hwinfo.conv1x1 = convolution
-		{
+		nnp_hwinfo.conv1x1 = convolution {
 			nnp_conv1x1_only_2x4__scalar,
 			nnp_conv1x1_upto_2x4__scalar,
 			2,
 			4
 		};
-		nnp_hwinfo.sgemm = sgemm
-		{
+		nnp_hwinfo.sgemm = sgemm {
 			nnp_sgemm_only_4x3__scalar,
 			nnp_sgemm_upto_4x3__scalar,
 			4,
 			3
 		};
-		nnp_hwinfo.sxgemm = sxgemm
-		{
+		nnp_hwinfo.sxgemm = sxgemm {
 			(nnp_fast_tuple_gemm_function)nnp_sgemm_only_4x3__scalar,
 			(nnp_full_tuple_gemm_function)nnp_sgemm_upto_4x3__scalar,
 			4,
 			3
 		};
-		nnp_hwinfo.cxgemm = cxgemm
-		{
+		nnp_hwinfo.cxgemm = cxgemm {
 #if !NNP_CONVOLUTION_ONLY
 			(nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
 			(nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
@@ -812,8 +759,7 @@ static void init_hwinfo()
 	nnp_hwinfo.initialized = true;
 }
 
-nnp_status nnp_initialize()
-{
+nnp_status nnp_initialize() {
 #ifdef _MSC_VER
 	init_hwinfo();
 #else
@@ -826,7 +772,6 @@ nnp_status nnp_initialize()
 		return nnp_status_unsupported_hardware;
 }
 
-nnp_status nnp_deinitialize() 
-{
+nnp_status nnp_deinitialize() {
 	return nnp_status_success;
 }
