@@ -158,16 +158,14 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>Full</Optimization>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_MT;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <DebugInformationFormat>None</DebugInformationFormat>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Precise</FloatingPointModel>
+      <FloatingPointModel>Strict</FloatingPointModel>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <UseProcessorExtensions>AVX2</UseProcessorExtensions>
       <C99Support>true</C99Support>
@@ -175,9 +173,12 @@
       <MSCompatibility>true</MSCompatibility>
       <PositionIndependentCode>false</PositionIndependentCode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <AdditionalOptions>/favor:INTEL64 %(AdditionalOptions)</AdditionalOptions>
       <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
+      <FlushDenormalResultsToZero>true</FlushDenormalResultsToZero>
+      <UseIntelOptimizedHeaders>true</UseIntelOptimizedHeaders>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <UnmaskFloatingPointExceptions>CommonTraps</UnmaskFloatingPointExceptions>
+      <DisableFunctionSplitting>true</DisableFunctionSplitting>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,6 +198,7 @@
     <Lib>
       <AdditionalDependencies>2d-fourier-8x8.obj;2d-fourier-16x16.obj;2d-winograd-8x8-3x3.obj;max-pooling.obj;softmaxpy.obj;relu.obj;c8gemm.obj;s4c6gemm.obj;s8gemm.obj;sgemm.obj;conv1x1.obj;sdotxf.obj;shdotxf.obj;fft-soa.obj;fft-aos.obj;fft-real.obj;fft-dualreal.obj;ifft-real.obj;ifft-dualreal.obj;winograd-f6k3.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
     </Lib>
     <PreLinkEvent>
       <Command>start call "$(ProjectDir)src\x86_64-fma\buildRelease.bat" "$(ProjectDir)"</Command>

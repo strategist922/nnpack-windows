@@ -1,5 +1,12 @@
 #ifdef _MSC_VER
 #include <intrin.h>
+
+#define bit_OSXSAVE     (1 << 27)
+#define bit_AVX         (1 << 28)
+#define bit_FMA         (1 << 12)
+#ifndef bit_AVX2
+#define bit_AVX2        0x00000020
+#endif
 #else
 #include <pthread.h>
 

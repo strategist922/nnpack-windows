@@ -1,13 +1,16 @@
 #pragma once
-#include <stdbool.h>
-#include <macros.h>
 
-#if defined(_MSC_VER)
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
+
+#if defined(_MSC_VER)
 #include <stdlib.h>
 #define ToFloat(str) strtof(str, NULL)
 #endif
+
+#include <macros.h>
+
 
 #ifdef __cplusplus
 extern "C" {

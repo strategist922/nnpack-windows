@@ -1,7 +1,7 @@
 #pragma once
+
 #include <stdint.h>
 #include <stddef.h>
-#include <stdlib.h>
 
 #include <fft-constants.h>
 #include <../src/scalar/fft/aos.h>

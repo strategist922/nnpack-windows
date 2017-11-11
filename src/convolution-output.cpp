@@ -42,8 +42,8 @@ static void compute_kernel_transform(
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform_function(
-			kernel + (input_channel + (output_channel * input_channels)) * kernel_size.width * kernel_size.height,
-			kernel_transform + (input_channels_block_start * output_channels + output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements,
+			(char*)(kernel + (input_channel + (output_channel * input_channels)) * kernel_size.width * kernel_size.height),
+			(char*)(kernel_transform + (input_channels_block_start * output_channels + output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements),
 			kernel_size.width,
 			output_channels * input_channels * tuple_elements * sizeof(float),
 			uint32_t(kernel_size.height),
@@ -98,8 +98,8 @@ static void compute_input_transform(
 	{
 		const size_t sample = batch_subblock_start + batch_subblock_offset;
 		transform_function(
-			input + (sample * input_channels * input_size.width * input_size.height) + (input_channel * input_size.width * input_size.height),
-			input_transform + (input_channels_block_start * batch_size + batch_subblock_start * input_channels_block_size + input_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements,
+			(char*)(input + (sample * input_channels * input_size.width * input_size.height) + (input_channel * input_size.width * input_size.height)),
+			(char*)(input_transform + (input_channels_block_start * batch_size + batch_subblock_start * input_channels_block_size + input_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements),
 			input_size.width,
 			batch_size * input_channels * tuple_elements * sizeof(float),
 			uint32_t(row_count),
@@ -155,9 +155,9 @@ static void compute_output_transform(
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform_function(
-			output_transform + (batch_block_start * output_channels + output_channels_subblock_start * batch_block_size + batch_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements,
-			output + (sample * output_channels * output_size.width * output_size.height) + (output_channel * output_size.width * output_size.height),
-			bias + output_channel,
+			(char*)(output_transform + (batch_block_start * output_channels + output_channels_subblock_start * batch_block_size + batch_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements),
+			(char*)(output + (sample * output_channels * output_size.width * output_size.height) + (output_channel * output_size.width * output_size.height)),
+			(char*)(bias + output_channel),
 			batch_size * output_channels * tuple_elements * sizeof(float),
 			output_size.width,
 			uint32_t(row_count),
@@ -208,9 +208,9 @@ static void compute_matrix_multiplication(
 			fast_gemm(
 				input_channels_block_size, 
 				input_channels_block_start,
-				input_transform,
-				kernel_transform,
-				output_transform + (batch_subblock_start * output_channels_subblock_max * tuple_elements),
+				(char*)input_transform,
+				(char*)kernel_transform,
+				(char*)(output_transform + (batch_subblock_start * output_channels_subblock_max * tuple_elements)),
 				output_channels_subblock_max * tuple_elements);
 
 			kernel_transform += input_channels_block_size * output_channels_subblock_max * tuple_elements;
@@ -228,9 +228,9 @@ static void compute_matrix_multiplication(
 			uint32_t(output_channels_subblock_size),
 			input_channels_block_size,
 			input_channels_block_start,
-			input_transform,
-			kernel_transform,
-			output_transform + (batch_subblock_start * output_channels_subblock_size * tuple_elements),
+			(char*)input_transform,
+			(char*)kernel_transform,
+			(char*)(output_transform + (batch_subblock_start * output_channels_subblock_size * tuple_elements)),
 			output_channels_subblock_size * tuple_elements);
 
 		kernel_transform += input_channels_block_size * output_channels_subblock_max * tuple_elements;

@@ -46,8 +46,8 @@ static void compute_input_transform(
 	{
 		const size_t input_channel = input_channels_subblock_start + input_channels_subblock_offset;
 		transform(
-			input +	(batch_block_offset * input_channels + input_channel) * input_elements,
-			input_transform + (input_channels_subblock_start * batch_block_size + batch_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements,
+			(char*)(input +	(batch_block_offset * input_channels + input_channel) * input_elements),
+			(char*)(input_transform + (input_channels_subblock_start * batch_block_size + batch_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements),
 			input_stride, batch_block_size * input_channels * tuple_elements * sizeof(float),
 			row_count,
 			column_count,
@@ -92,8 +92,8 @@ static void compute_grad_output_transform(
 	{
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 		transform(
-			grad_output + (batch_block_offset * output_channels + output_channel) * output_elements,
-			grad_output_transform +	(output_channels_subblock_start * batch_block_size + batch_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements,
+			(char*)(grad_output + (batch_block_offset * output_channels + output_channel) * output_elements),
+			(char*)(grad_output_transform +	(output_channels_subblock_start * batch_block_size + batch_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_elements),
 			grad_output_stride,
 			batch_block_size * output_channels * tuple_elements * sizeof(float),
 			row_count,
@@ -140,8 +140,8 @@ static void compute_grad_kernel_transform(
 	{
 		const size_t input_channel = input_channels_subblock_start + input_channels_subblock_offset;
 		transform(
-			grad_kernel_transform +	(output_channels_block_start * input_channels + input_channels_subblock_start * output_channels_block_size + output_channels_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements,
-			grad_kernel + (output_channel * input_channels + input_channel) * kernel_elements,
+			(char*)(grad_kernel_transform +	(output_channels_block_start * input_channels + input_channels_subblock_start * output_channels_block_size + output_channels_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements),
+			(char*)(grad_kernel + (output_channel * input_channels + input_channel) * kernel_elements),
 			output_channels * input_channels * tuple_elements * sizeof(float),
 			kernel_size.width,
 			uint32_t(kernel_size.height),
@@ -201,9 +201,9 @@ static void compute_matrix_multiplication(
 
 			fast_gemm(
 				batch_block_size, batch_block_update,
-				input_transform,
-				grad_output_transform,
-				grad_kernel_transform,
+				(char*)input_transform,
+				(char*)grad_output_transform,
+				(char*)grad_kernel_transform,
 				input_channels_subblock_size * tuple_elements);
 
 			grad_output_transform += output_channels_subblock_max * batch_block_size * tuple_elements;
@@ -219,9 +219,9 @@ static void compute_matrix_multiplication(
 		full_gemm(
 			uint32_t(input_channels_subblock_size), uint32_t(output_channels_subblock_size),
 			batch_block_size, batch_block_update,
-			input_transform,
-			grad_output_transform,
-			grad_kernel_transform,
+			(char*)input_transform,
+			(char*)grad_output_transform,
+			(char*)grad_kernel_transform,
 			input_channels_subblock_size * tuple_elements);
 
 		grad_output_transform += output_channels_subblock_max * batch_block_size * tuple_elements;

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <../src/scalar/fft/soa.h>
 
 

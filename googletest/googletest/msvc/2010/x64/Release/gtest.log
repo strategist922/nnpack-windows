@@ -1,2 +1,1 @@
-﻿  gtest-all.cc
-  gtest.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\gtest.lib
+﻿C:\Users\dhaen\Source\Repos\nnpack\googletest\googletest\msvc\2010\gtest.vcxproj : error MSB4057: The target "Deploy" does not exist in the project.

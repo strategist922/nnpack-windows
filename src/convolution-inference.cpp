@@ -47,8 +47,8 @@ static void compute_kernel_transform(
 		const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 
 		transform_function(
-			kernel + (output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channels_block_offset * kernel_size.width * kernel_size.height),
-			(float*)(kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size),
+			(char*)(kernel + (output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channels_block_offset * kernel_size.width * kernel_size.height)),
+			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
 			uint32_t(kernel_size.height),
@@ -118,8 +118,8 @@ static void compute_input_transform(
 		const size_t column_count = min(input_size.width - input_x, input_tile.width - column_offset);
 		
 		transform_function(
-			input + (input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x,
-			(float*)(input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size),
+			(char*)(input + (input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x),
+			input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size,
 			input_size.width,
 			input_channels_block_size * tiles_count * tuple_size,
 			uint32_t(row_count),
@@ -183,9 +183,9 @@ static void compute_output_transform(
 		{
 			const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 			transform_function(
-				(float*)(output_transform + (tiles_block_start * output_channels + output_channels_subblock_start * tiles_block_size + ((tiles_subblock_start - tiles_block_start) + tiles_subblock_offset) * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size),
-				output + (output_channel * output_size.width * output_size.height) + (output_y * output_size.width) + output_x,
-				bias + output_channel,
+				output_transform + (tiles_block_start * output_channels + output_channels_subblock_start * tiles_block_size + ((tiles_subblock_start - tiles_block_start) + tiles_subblock_offset) * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
+				(char*)(output + (output_channel * output_size.width * output_size.height) + (output_y * output_size.width) + output_x),
+				(char*)(bias + output_channel),
 				tiles_count * output_channels * tuple_size,
 				output_size.width,
 				uint32_t(min(output_tile.height, output_size.height - output_y)),
@@ -243,9 +243,9 @@ static void compute_tuple_multiplication(
 			fast_gemm(
 				input_channels_block_size,
 				input_channels_block_start,
-				(float*)input_transform,
-				(float*)kernel_transform,
-				(float*)output_transform,
+				input_transform,
+				kernel_transform,
+				output_transform,
 				output_channels_subblock_size * tuple_elements);
 
 			input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
@@ -264,9 +264,9 @@ static void compute_tuple_multiplication(
 			uint32_t(output_channels_subblock_size),
 			input_channels_block_size,
 			input_channels_block_start,
-			(float*)input_transform,
-			(float*)kernel_transform,
-			(float*)output_transform,
+			input_transform,
+			kernel_transform,
+			output_transform,
 			output_channels_subblock_size * tuple_elements);
 
 		input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
