@@ -1077,7 +1077,6 @@ enum nnp_status nnp_convolution_inference(
 		default:
 			status = nnp_status_invalid_algorithm;
 			goto cleanup;
-			break;
 	}
 
 	switch (algorithm) 

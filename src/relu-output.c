@@ -31,7 +31,7 @@ static void compute_relu_output(
 
 struct NNP_CACHE_ALIGN inplace_relu_context 
 {
-	nnp_inplace_relu_function relu_function;
+	const nnp_inplace_relu_function relu_function;
 	float* data;
 	float negative_slope;
 };

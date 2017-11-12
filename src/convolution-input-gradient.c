@@ -567,7 +567,6 @@ enum nnp_status nnp_convolution_input_gradient(
 
 	default:
 		status = nnp_status_invalid_algorithm;
-		break;
 	}
 
 cleanup:
