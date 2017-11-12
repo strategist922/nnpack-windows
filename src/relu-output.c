@@ -10,10 +10,10 @@
 
 struct NNP_CACHE_ALIGN relu_context
 {
-	nnp_relu_function relu_function;
+	const nnp_relu_function relu_function;
 	const float* input;
 	float* output;
-	float negative_slope;
+	const float negative_slope;
 };
 
 static void compute_relu_output(

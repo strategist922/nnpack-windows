@@ -20,7 +20,7 @@ extern "C" {
 			function(argument, i);
 		}, concurrency::static_partitioner());
 #else
-#pragma omp parallel for  
+		#pragma omp parallel for  
 		for (size_t i = 0; i < range; i++)
 			function(argument, i);
 #endif
@@ -31,6 +31,7 @@ extern "C" {
 		const size_t tile_index = linear_index;
 		const size_t index = tile_index * context->tile;
 		const size_t tile = min(context->tile, context->range - index);
+
 		context->function(context->argument, index, tile);
 	}
 
@@ -41,6 +42,7 @@ extern "C" {
 		const size_t tile)
 	{
 		const size_t tile_range = divide_round_up(range, tile);
+
 		struct compute_1d_tiled_context context =
 		{
 			function,
@@ -48,6 +50,7 @@ extern "C" {
 			range,
 			tile
 		};
+
 		pthreadpool_compute_1d((pthreadpool_function_1d_t)compute_1d_tiled, &context, tile_range);
 	}
 
@@ -55,6 +58,7 @@ extern "C" {
 	{
 		const struct fxdiv_divisor_size_t range_j = context->range_j;
 		const struct fxdiv_result_size_t index = fxdiv_divide_size_t(linear_index, range_j);
+
 		context->function(context->argument, index.quotient, index.remainder);
 	}
 
@@ -84,6 +88,7 @@ extern "C" {
 		const size_t index_j = tile_index.remainder * max_tile_j;
 		const size_t tile_i = min(max_tile_i, context->range_i - index_i);
 		const size_t tile_j = min(max_tile_j, context->range_j - index_j);
+
 		context->function(context->argument, index_i, index_j, tile_i, tile_j);
 	}
 

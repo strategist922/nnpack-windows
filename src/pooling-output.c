@@ -12,12 +12,12 @@ struct NNP_CACHE_ALIGN pooling_context
 	nnp_pooling_function pooling_function;
 	const float* input_pointer;
 	float* output_pointer;
-	size_t channels;
-	struct nnp_size input_size;
-	struct nnp_padding input_padding;
-	struct nnp_size output_size;
-	struct nnp_size pooling_size;
-	struct nnp_size pooling_stride;
+	const size_t channels;
+	const struct nnp_size input_size;
+	const struct nnp_padding input_padding;
+	const struct nnp_size output_size;
+	const struct nnp_size pooling_size;
+	const struct nnp_size pooling_stride;
 };
 
 static void compute_max_pooling_forward__generic(
@@ -71,23 +71,23 @@ static void compute_max_pooling_forward_2x2_2x2__avx2(
 	const uint32_t pooling_height,
 	const uint32_t pooling_width)
 {
-	const struct nnp_size input_tile = { 16 , 2 };
+	const struct nnp_size input_tile  = { 16 , 2 };
 	const struct nnp_size output_tile = { 8, 1 };
 
 	const float* input = input_pointer;
-	float* output = output_pointer;
+	float* output      = output_pointer;
 
 	for (size_t y = 0; y < output_height; y += output_tile.height) 
 	{
-		const size_t input_y = min(doz(y * stride_height, padding_top), input_height);
+		const size_t input_y          = min(doz(y * stride_height, padding_top), input_height);
 		const size_t input_row_offset = doz(padding_top, y);
-		const size_t input_row_count = min(input_tile.height, doz(input_height, input_y));
+		const size_t input_row_count  = min(input_tile.height, doz(input_height, input_y));
 		const size_t output_row_count = min(output_tile.height, output_height - y);
 		for (size_t x = 0; x < output_width; x += output_tile.width) 
 		{
 			const size_t input_x = min(doz(x * stride_width, padding_left), input_width);
 			const size_t input_column_offset = doz(padding_left, x);
-			const size_t input_column_count = min(input_tile.width, doz(input_width, input_x));
+			const size_t input_column_count  = min(input_tile.width, doz(input_width, input_x));
 			const size_t output_column_count = min(output_tile.width, output_width - x);
 			nnp_maxpool_2x2_2x2__avx2(
 				input + input_y * input_width + input_x,
@@ -105,8 +105,8 @@ static void compute_max_pooling_forward_2x2_2x2__avx2(
 
 static void compute_pooling_output(
 	const struct pooling_context* context,
-	size_t sample,
-	size_t channel)
+	const size_t sample,
+	const size_t channel)
 {
 	const size_t channels                       = context->channels;
 	const struct nnp_size input_size            = context->input_size;
@@ -115,13 +115,12 @@ static void compute_pooling_output(
 	const struct nnp_size pooling_stride        = context->pooling_stride;
 	const struct nnp_size pooling_size          = context->pooling_size;
 	const nnp_pooling_function pooling_function = context->pooling_function;
-
-	const float* input = context->input_pointer;
-	float* output = context->output_pointer;
+	const float* input                          = context->input_pointer;
+	float* output                               = context->output_pointer;
 
 	pooling_function(
 		input + (sample * channels * input_size.height * input_size.width) + (channel * input_size.height * input_size.width),
-		output + (sample * channels * output_size.height * output_size.width) + (channel * output_size.height * output_size.width),
+		output + ((sample * channels) + channel) * output_size.height * output_size.width,
 		input_size.height, input_size.width,
 		input_padding.top, input_padding.left,
 		output_size.height, output_size.width,

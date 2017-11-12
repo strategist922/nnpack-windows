@@ -8,8 +8,8 @@
 
 struct NNP_CACHE_ALIGN softmax_context 
 {
-	nnp_softmax_function softmax_function;
-	size_t channels;
+	const nnp_softmax_function softmax_function;
+	const size_t channels;
 	const float* input;
 	float* output;
 };
@@ -27,8 +27,8 @@ static void compute_softmax_output(const struct softmax_context* context, const 
 
 struct NNP_CACHE_ALIGN inplace_softmax_context 
 {
-	nnp_inplace_softmax_function softmax_function;
-	size_t channels;
+	const nnp_inplace_softmax_function softmax_function;
+	const size_t channels;
 	float* data;
 };
 

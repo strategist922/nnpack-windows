@@ -10,7 +10,7 @@
 
 struct NNP_CACHE_ALIGN relu_context 
 {
-	nnp_grad_relu_function grad_relu_function;
+	const nnp_grad_relu_function grad_relu_function;
 	const float* grad_output;
 	const float* input;
 	float* grad_input;

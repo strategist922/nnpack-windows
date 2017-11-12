@@ -156,7 +156,7 @@ static void compute_output_transform(
 	const struct nnp_size output_tile                   = context->output_tile;
 
 	const size_t tiles_block_start = fxdiv_round_down_size_t(tiles_subblock_start, tiles_block_max);
-	const size_t tiles_block_size = min(tiles_count - tiles_block_start, tiles_block_max.value);
+	const size_t tiles_block_size  = min(tiles_count - tiles_block_start, tiles_block_max.value);
 		
 	float* output                                       = context->output;
 	const void* output_transform                        = context->output_transform;
@@ -783,7 +783,7 @@ static enum nnp_status compute_gemm_convolution_inference(
 	const size_t output_image_block_max    = round_down(cache_elements_l3 / reduction_block_max, output_image_subblock_max);
 
 	const size_t packed_kernel_size = output_channels *	min(reduction_block_max, reduction_size) * sizeof(float);
-	const size_t packed_input_size  = min(output_image_block_max, round_up(output_image_size, simd_width)) *	min(reduction_block_max, reduction_size) * sizeof(float);
+	const size_t packed_input_size  = min(output_image_block_max, round_up(output_image_size, simd_width)) * min(reduction_block_max, reduction_size) * sizeof(float);
 
 	void* memory_packed_input  = allocate_memory(packed_input_size);
 	void* memory_packed_kernel = allocate_memory(packed_kernel_size);
