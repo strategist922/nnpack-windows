@@ -350,7 +350,7 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 		&kernel_transform_context,
 		output_channels,
 		input_channels,
-		1ull,
+		1,
 		input_channels_subblock_max);
 	NNP_KERNEL_TRANSFORM_END(profile)
 
@@ -534,7 +534,7 @@ enum nnp_status nnp_convolution_input_gradient(
 			algorithm = nnp_convolution_algorithm_ft16x16;
 		else 
 		{
-			const size_t tile_count_8x8	=	divide_round_up(input_size.height, 8 - kernel_size.height + 1) * 
+			const size_t tile_count_8x8	  = divide_round_up(input_size.height, 8 - kernel_size.height + 1) * 
 											divide_round_up(input_size.width, 8 - kernel_size.width + 1);
 
 			const size_t tile_count_16x16 =	divide_round_up(input_size.height, 16 - kernel_size.height + 1) *
