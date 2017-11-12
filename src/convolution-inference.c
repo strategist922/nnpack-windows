@@ -120,7 +120,7 @@ static void compute_input_transform(
 			input_size.width,
 			input_channels_block_size * tiles_count * tuple_size,
 			row_count, column_count,
-			row_offset,	column_offset);
+			row_offset, column_offset);
 	}
 }
 
@@ -774,10 +774,10 @@ static enum nnp_status compute_gemm_convolution_inference(
 	const size_t cache_elements_l3 = nnp_hwinfo.blocking.l3 / sizeof(float);
 
 	const size_t output_channels_subblock_max = nnp_hwinfo.sgemm.mr;
-	const size_t output_image_subblock_max = nnp_hwinfo.sgemm.nr;
+	const size_t output_image_subblock_max    = nnp_hwinfo.sgemm.nr;
 
-	const size_t reduction_size    = input_channels * kernel_size.height * kernel_size.width;
-	const size_t output_image_size = output_size.height * output_size.width;
+	const size_t reduction_size            = input_channels * kernel_size.height * kernel_size.width;
+	const size_t output_image_size         = output_size.height * output_size.width;
 	const size_t reduction_block_max       = round_down(cache_elements_l1 / (output_channels_subblock_max + output_image_subblock_max), 2);
 	const size_t output_channels_block_max = round_down(cache_elements_l2 / reduction_block_max, output_channels_subblock_max);
 	const size_t output_image_block_max    = round_down(cache_elements_l3 / reduction_block_max, output_image_subblock_max);
@@ -1036,7 +1036,7 @@ enum nnp_status nnp_convolution_inference(
 	{
 		case nnp_convolution_algorithm_wt8x8:
 		{
-			input_transform_function = nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream;
+			input_transform_function  = nnp_hwinfo.transforms.iwt_f6x6_3x3_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.kwt_f6x6_3x3;
 			if (activation == nnp_activation_relu)
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_with_bias_with_relu;
@@ -1047,7 +1047,7 @@ enum nnp_status nnp_convolution_inference(
 
 		case nnp_convolution_algorithm_ft8x8:
 		{
-			input_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
+			input_transform_function  = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft8x8_with_offset_and_stream;
 			fourier_transform = true;
 			if (activation == nnp_activation_relu)
@@ -1060,7 +1060,7 @@ enum nnp_status nnp_convolution_inference(
 		case nnp_convolution_algorithm_ft16x16:
 		{
 			tile_size = (struct nnp_size) { 16, 16 };
-			input_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
+			input_transform_function  = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			fourier_transform = true;
 			if (activation == nnp_activation_relu)
