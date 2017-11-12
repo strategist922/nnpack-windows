@@ -1,6 +1,3 @@
-#include <pthreadpool.h>
-#include <utils.h>
-
 #if defined(_MSC_VER) && defined(__cplusplus)
 	#include <ppl.h>
 #endif
@@ -8,6 +5,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+	#include <pthreadpool.h>
+	#include <utils.h>
+
 
 	void pthreadpool_compute_1d(
 		pthreadpool_function_1d_t function,
