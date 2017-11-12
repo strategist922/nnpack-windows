@@ -520,34 +520,34 @@ static void init_hwinfo() {
 		nnp_hwinfo.activations.grad_relu = nnp_grad_relu__psimd;
 		nnp_hwinfo.activations.softmax = nnp_softmax__psimd;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
-		nnp_hwinfo.sdotxf = sdotxf {
+		nnp_hwinfo.sdotxf = (struct sdotxf) {
 			sdotxf_function,
 			NNP_COUNT_OF(sdotxf_function)
 		};
-		nnp_hwinfo.shdotxf = shdotxf {
+		nnp_hwinfo.shdotxf = (struct shdotxf) {
 			shdotxf_function,
 			NNP_COUNT_OF(shdotxf_function)
 		};
 #endif /* !NNP_INFERENCE_ONLY */
-		nnp_hwinfo.conv1x1 = convolution {
+		nnp_hwinfo.conv1x1 = (struct convolution) {
 			nnp_conv1x1_only_2x4__psimd,
 			nnp_conv1x1_upto_2x4__psimd,
 			2,
 			4
 		};
-		nnp_hwinfo.sgemm = sgemm {
+		nnp_hwinfo.sgemm = (struct sgemm) {
 			nnp_sgemm_only_4x8__psimd,
 			nnp_sgemm_upto_4x8__psimd,
 			4,
 			8
 		};
-		nnp_hwinfo.sxgemm = sxgemm {
+		nnp_hwinfo.sxgemm = (struct sxgemm) {
 			(nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__psimd,
 			(nnp_full_tuple_gemm_function)nnp_s4gemm_upto_3x4__psimd,
 			3,
 			4
 		};
-		nnp_hwinfo.cxgemm = cxgemm {
+		nnp_hwinfo.cxgemm = (struct cxgemm) {
 #if !NNP_INFERENCE_ONLY
 			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_only_2x2__psimd,
 			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_upto_2x2__psimd,
@@ -611,42 +611,42 @@ static void init_hwinfo() {
 		nnp_hwinfo.activations.grad_relu = nnp_grad_relu__neon;
 		nnp_hwinfo.activations.softmax = nnp_softmax__psimd;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
-		nnp_hwinfo.sdotxf = sdotxf {
+		nnp_hwinfo.sdotxf = (struct sdotxf) {
 			sdotxf_function,
 			NNP_COUNT_OF(sdotxf_function)
 		};
-		nnp_hwinfo.shdotxf = shdotxf {
+		nnp_hwinfo.shdotxf = (struct shdotxf) {
 			shdotxf_function,
 			NNP_COUNT_OF(shdotxf_function)
 		};
 #endif /* !NNP_INFERENCE_ONLY */
-		nnp_hwinfo.conv1x1 = convolution {
+		nnp_hwinfo.conv1x1 = (struct convolution) {
 			nnp_conv1x1_only_2x4__neon,
 			nnp_conv1x1_upto_2x4__neon,
 			2,
 			4
 		};
-		nnp_hwinfo.sgemm = sgemm) {
+		nnp_hwinfo.sgemm = (struct sgemm) {
 		nnp_sgemm_only_4x12__neon,
 			nnp_sgemm_upto_4x12__neon,
 			4,
 			12
 		};
-		nnp_hwinfo.sxgemm = sxgemm {
+		nnp_hwinfo.sxgemm = (struct sxgemm) {
 			(nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__neon,
 			(nnp_full_tuple_gemm_function)nnp_s4gemm_upto_3x4__neon,
 			3,
 			4
 		};
 		if (has_fp16) {
-			nnp_hwinfo.hxgemm = hxgemm {
+			nnp_hwinfo.hxgemm = (struct hxgemm) {
 				(nnp_fast_tuple_gemm_function)nnp_h4gemm_only_3x4__neonhp,
 				(nnp_full_tuple_gemm_function)nnp_h4gemm_upto_3x4__neonhp,
 				3,
 				4
 			};
 		}
-		nnp_hwinfo.cxgemm = cxgemm {
+		nnp_hwinfo.cxgemm = (struct cxgemm) {
 #if !NNP_INFERENCE_ONLY
 			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_only_2x2__neon,
 			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_upto_2x2__neon,
@@ -703,34 +703,34 @@ static void init_hwinfo() {
 		nnp_hwinfo.activations.softmax = nnp_softmax__scalar;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__scalar;
 
-		nnp_hwinfo.sdotxf = sdotxf {
+		nnp_hwinfo.sdotxf = (struct sdotxf) {
 			sdotxf_function,
 			NNP_COUNT_OF(sdotxf_function),
 		};
-		nnp_hwinfo.shdotxf = shdotxf {
+		nnp_hwinfo.shdotxf = (struct shdotxf) {
 			shdotxf_function,
 			NNP_COUNT_OF(shdotxf_function),
 		};
 #endif /* !NNP_INFERENCE_ONLY */
-		nnp_hwinfo.conv1x1 = convolution {
+		nnp_hwinfo.conv1x1 = (struct convolution) {
 			nnp_conv1x1_only_2x4__scalar,
 			nnp_conv1x1_upto_2x4__scalar,
 			2,
 			4
 		};
-		nnp_hwinfo.sgemm = sgemm {
+		nnp_hwinfo.sgemm = (struct sgemm) {
 			nnp_sgemm_only_4x3__scalar,
 			nnp_sgemm_upto_4x3__scalar,
 			4,
 			3
 		};
-		nnp_hwinfo.sxgemm = sxgemm {
+		nnp_hwinfo.sxgemm = (struct sxgemm) {
 			(nnp_fast_tuple_gemm_function)nnp_sgemm_only_4x3__scalar,
 			(nnp_full_tuple_gemm_function)nnp_sgemm_upto_4x3__scalar,
 			4,
 			3
 		};
-		nnp_hwinfo.cxgemm = cxgemm {
+		nnp_hwinfo.cxgemm = (struct cxgemm) {
 #if !NNP_CONVOLUTION_ONLY
 			(nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
 			(nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
