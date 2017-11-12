@@ -1,3 +1,13 @@
+#if defined(__cplusplus)
+#include <cstdbool>
+#include <cstdint>
+#include <cstddef>
+#else
+#include <stdbool.h>
+#include <stdint.h>
+#include <stddef.h>
+#endif
+
 #include <nnpack.h>
 #include <macros.h>
 #include <utils.h>
@@ -26,15 +36,16 @@ static void compute_kernel_transform(
 	const size_t output_channel_range,
 	const size_t input_channels_subblock_size)
 {
-	const nnp_transform_2d_with_offset transform_function = context->transform_function;
-	const float* kernel                                   = context->kernel;
-	float* kernel_transform                               = context->kernel_transform;
 	const size_t tuple_elements                           = context->tuple_elements;
 	const size_t input_channels                           = context->input_channels;
 	const size_t output_channels                          = context->output_channels;
 	const size_t output_channels_block_max                = context->output_channels_block_max;
 	const struct nnp_size kernel_size                     = context->kernel_size;
-	
+
+	const float* kernel                                   = context->kernel;
+	float* kernel_transform                               = context->kernel_transform;
+	const nnp_transform_2d_with_offset transform_function = context->transform_function;
+
 	const size_t output_channels_block_start  = round_down(output_channel, output_channels_block_max);
 	const size_t output_channels_block_size   = min(output_channels - output_channels_block_start, output_channels_block_max);
 	const size_t output_channels_block_offset = output_channel - output_channels_block_start;
@@ -76,9 +87,6 @@ static void compute_grad_output_transform(
 	const size_t output_channel_range,
 	const size_t batch_subblock_size)
 {
-	const nnp_transform_2d_with_offset transform_function = context->transform_function;
-	const float* grad_output                              = context->grad_output;
-	float* grad_output_transform                          = context->grad_output_transform;
 	const size_t tuple_elements                           = context->tuple_elements;
 	const size_t batch_size                               = context->batch_size;
 	const size_t output_channels                          = context->output_channels;
@@ -89,6 +97,10 @@ static void compute_grad_output_transform(
 	const size_t column_offset                            = context->column_offset;
 	const size_t column_count                             = context->column_count;
 
+	const float* grad_output                              = context->grad_output;
+	float* grad_output_transform                          = context->grad_output_transform;
+	const nnp_transform_2d_with_offset transform_function = context->transform_function;
+
 	const size_t output_channels_block_start  = round_down(output_channel, output_channels_block_max);
 	const size_t output_channels_block_size   = min(output_channels - output_channels_block_start, output_channels_block_max);
 	const size_t output_channels_block_offset = output_channel - output_channels_block_start;
@@ -97,7 +109,7 @@ static void compute_grad_output_transform(
 	{
 		const size_t sample = batch_subblock_start + batch_subblock_offset;
 		transform_function(
-			grad_output + (sample * output_channels * output_size.width * output_size.height) + (output_channel * output_size.width * output_size.height),
+			grad_output + ((sample * output_channels) + output_channel) * output_size.width * output_size.height,
 			grad_output_transform +	(output_channels_block_start * batch_size + batch_subblock_start * output_channels_block_size + output_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements,
 			output_size.width,
 			batch_size * output_channels * tuple_elements * sizeof(float),
