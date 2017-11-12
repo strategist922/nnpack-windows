@@ -9,11 +9,11 @@
 #endif
 
 #include <nnpack.h>
-#include <macros.h>
-#include <utils.h>
-#include <system.h>
-#include <hwinfo.h>
-#include <validation.h>
+#include <nnpack/macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/system.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/validation.h>
 
 
 struct NNP_CACHE_ALIGN kernel_transform_context 

@@ -1,6 +1,6 @@
 #include <stddef.h>
 
-#include <fp16.h>
+#include <nnpack/fp16.h>
 
 
 void nnp_shdotxf1__scalar(

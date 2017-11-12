@@ -13,12 +13,12 @@
 #include <numeric>
 
 #include <nnpack.h>
-#include <reference.h>
-#include <utils.h>
+#include <nnpack/reference.h>
+#include <nnpack/utils.h>
 
 #include <gtest\gtest.h>
 #include <AlignedAllocator.h>
-#include <fft.h>
+#include <nnpack/fft.h>
 
 class FFTTester {
 public:

@@ -3,8 +3,8 @@
 #include <math.h>
 
 #include <nnpack.h>
-#include <utils.h>
-#include <hwinfo.h>
+#include <nnpack/utils.h>
+#include <nnpack/hwinfo.h>
 
 static inline enum nnp_status validate_convolution_arguments(
 	size_t batch_size, size_t input_channels, size_t output_channels,

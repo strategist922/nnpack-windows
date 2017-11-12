@@ -1,14 +1,14 @@
 #include <string.h>
 
-#include <fxdiv.h>
+#include <nnpack/fxdiv.h>
 
 #include <nnpack.h>
-#include <macros.h>
-#include <utils.h>
-#include <system.h>
-#include <hwinfo.h>
-#include <validation.h>
-#include <activations.h>
+#include <nnpack/macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/system.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/validation.h>
+#include <nnpack/activations.h>
 
 
 struct NNP_CACHE_ALIGN kernel_transform_context 

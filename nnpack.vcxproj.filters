@@ -9,12 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Source Files\Reference">
-      <UniqueIdentifier>{d3884015-d0af-4f5d-9574-bd74ba49b2cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Reference\fft">
-      <UniqueIdentifier>{33f47aaf-093d-44be-b48d-ec1cf921bafb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="x86_64-fma">
       <UniqueIdentifier>{475822c6-7f05-49d9-9bc7-463cfc99e657}</UniqueIdentifier>
     </Filter>
@@ -42,25 +36,31 @@
     <Filter Include="Scalar\winograd">
       <UniqueIdentifier>{830d2ea0-62a2-49cc-a852-c662cd008fe8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Reference">
+      <UniqueIdentifier>{d3884015-d0af-4f5d-9574-bd74ba49b2cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reference\fft">
+      <UniqueIdentifier>{33f47aaf-093d-44be-b48d-ec1cf921bafb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ref\fft\aos-ref.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+      <Filter>Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\forward-dualreal-ref.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+      <Filter>Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\forward-real-ref.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+      <Filter>Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\inverse-dualreal-ref.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+      <Filter>Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\inverse-real-ref.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+      <Filter>Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\soa-ref.cpp">
-      <Filter>Source Files\Reference\fft</Filter>
+      <Filter>Reference\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\cgemm.c">
       <Filter>Scalar\blas</Filter>
@@ -132,28 +132,28 @@
       <Filter>Scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-input-gradient-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-output-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fully-connected-output-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\max-pooling-output-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\relu-input-gradient-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\relu-output-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\softmax-output-ref.c">
-      <Filter>Source Files\Reference</Filter>
+      <Filter>Reference</Filter>
     </ClCompile>
     <ClCompile Include="src\convolution-inference.c">
       <Filter>Source Files</Filter>
@@ -199,68 +199,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\activations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\blas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fft.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fft-constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fxdiv.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\hwinfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\nnpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\pooling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\pthreadpool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\relu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\softmax.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\validation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\winograd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\reference.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ref\fft\complex-ref.h">
-      <Filter>Source Files\Reference\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="include\macros.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\system.h">
-      <Filter>Header Files</Filter>
+      <Filter>Reference\fft</Filter>
     </ClInclude>
     <ClInclude Include="src\scalar\butterfly.h">
       <Filter>Scalar</Filter>
@@ -268,10 +211,67 @@
     <ClInclude Include="src\scalar\winograd\f6x6k3x3.h">
       <Filter>Scalar\winograd</Filter>
     </ClInclude>
-    <ClInclude Include="include\fp16.h">
+    <ClInclude Include="include\nnpack\activations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\bitcasts.h">
+    <ClInclude Include="include\nnpack\bitcasts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\blas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\fft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\fft-constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\fp16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\fxdiv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\hwinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\pooling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\pthreadpool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\reference.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\relu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\softmax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\validation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\winograd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

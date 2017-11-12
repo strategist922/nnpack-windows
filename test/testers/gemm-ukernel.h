@@ -10,7 +10,7 @@
 #include <functional>
 #include <algorithm>
 
-#include <hwinfo.h>
+#include <nnpack/hwinfo.h>
 
 #include <AlignedAllocator.h>
 

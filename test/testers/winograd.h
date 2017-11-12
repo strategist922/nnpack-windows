@@ -13,9 +13,9 @@
 #include <numeric>
 
 #include <nnpack.h>
-#include <../../include/winograd.h>
-#include <transform.h>
-#include <hwinfo.h>
+#include <nnpack/winograd.h>
+#include <nnpack/transform.h>
+#include <nnpack/hwinfo.h>
 
 #include <gtest\gtest.h>
 

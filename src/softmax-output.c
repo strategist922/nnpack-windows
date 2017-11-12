@@ -1,9 +1,9 @@
 #include <nnpack.h>
-#include <utils.h>
-#include <hwinfo.h>
-#include <softmax.h>
-#include <validation.h>
-#include <macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/softmax.h>
+#include <nnpack/validation.h>
+#include <nnpack/macros.h>
 
 
 struct NNP_CACHE_ALIGN softmax_context 

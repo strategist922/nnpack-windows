@@ -9,7 +9,7 @@
 #define ToFloat(str) strtof(str, NULL)
 #endif
 
-#include <macros.h>
+#include <nnpack/macros.h>
 
 
 #ifdef __cplusplus

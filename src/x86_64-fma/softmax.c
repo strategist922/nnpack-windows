@@ -2,8 +2,8 @@
 #include <stddef.h>
 #include <math.h>
 
-#include <utils.h>
-#include <softmax.h>
+#include <nnpack/utils.h>
+#include <nnpack/softmax.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,9 +1,9 @@
 #include <nnpack.h>
-#include <utils.h>
-#include <hwinfo.h>
-#include <system.h>
-#include <validation.h>
-#include <macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/system.h>
+#include <nnpack/validation.h>
+#include <nnpack/macros.h>
 
 
 struct NNP_CACHE_ALIGN kernel_transform_context

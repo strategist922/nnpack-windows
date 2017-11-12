@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <nnpack.h>
-#include <hwinfo.h>
+#include <nnpack/hwinfo.h>
 
 #include <testers/convolution.h>
 

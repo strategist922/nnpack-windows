@@ -1,8 +1,8 @@
 #include <nnpack.h>
-#include <utils.h>
-#include <hwinfo.h>
-#include <validation.h>
-#include <macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/validation.h>
+#include <nnpack/macros.h>
 
 
 struct NNP_CACHE_ALIGN fully_connected_inference_context 

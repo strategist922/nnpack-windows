@@ -1,11 +1,11 @@
 #include <math.h>
 
 #include <nnpack.h>
-#include <macros.h>
-#include <utils.h>
-#include <pooling.h>
-#include <validation.h>
-#include <macros.h>
+#include <nnpack/macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/pooling.h>
+#include <nnpack/validation.h>
+#include <nnpack/macros.h>
 
 struct NNP_CACHE_ALIGN pooling_context 
 {

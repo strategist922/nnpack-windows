@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #endif
 
-#include <macros.h>
+#include <nnpack/macros.h>
 
 #ifdef __cplusplus
 extern "C" {

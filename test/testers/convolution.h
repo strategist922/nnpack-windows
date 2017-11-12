@@ -13,7 +13,7 @@
 #include <numeric>
 
 #include <nnpack.h>
-#include <reference.h>
+#include <nnpack/reference.h>
 
 #include <relu.h>
 

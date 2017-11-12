@@ -5,8 +5,8 @@
 #include <../src/scalar/fft/soa.h>
 #include <../src/scalar/fft/dualreal.h>
 
-//#include <utils.h>
-#include <activations.h>
+//#include <nnpack/utils.h>
+#include <nnpack/activations.h>
 
 #define BLOCK_SIZE 16
 

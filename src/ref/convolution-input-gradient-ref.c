@@ -1,5 +1,5 @@
 #include <nnpack.h>
-#include <reference.h>
+#include <nnpack/reference.h>
 
 struct convolution_input_gradient_context 
 {

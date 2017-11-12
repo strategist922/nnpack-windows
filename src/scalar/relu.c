@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#include <activations.h>
+#include <nnpack/activations.h>
 
 void nnp_relu__scalar(
 	const float* input,

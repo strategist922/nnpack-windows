@@ -1,11 +1,11 @@
 #include <assert.h>
 
 #include <nnpack.h>
-#include <utils.h>
-#include <hwinfo.h>
-#include <activations.h>
-#include <validation.h>
-#include <macros.h>
+#include <nnpack/utils.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/activations.h>
+#include <nnpack/validation.h>
+#include <nnpack/macros.h>
 
 
 struct NNP_CACHE_ALIGN relu_context

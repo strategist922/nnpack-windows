@@ -2,8 +2,8 @@
 #include <stddef.h>
 #include <math.h>
 
-#include <utils.h>
-#include <softmax.h>
+#include <nnpack/utils.h>
+#include <nnpack/softmax.h>
 
 
 static float max__scalar(size_t n, const float* v) 

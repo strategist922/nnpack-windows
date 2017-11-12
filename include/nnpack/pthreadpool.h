@@ -12,8 +12,8 @@
 extern "C" {
 #endif
 
-	#include <fxdiv.h>
-	#include <utils.h>
+	#include <nnpack/fxdiv.h>
+	#include <nnpack/utils.h>
 
 	typedef void(*pthreadpool_function_1d_t)(void*, const size_t);
 	typedef void(*pthreadpool_function_1d_tiled_t)(void*, const size_t, const size_t);

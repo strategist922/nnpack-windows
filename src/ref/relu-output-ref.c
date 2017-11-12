@@ -1,6 +1,6 @@
 #include <nnpack.h>
-#include <reference.h>
-#include <activations.h>
+#include <nnpack/reference.h>
+#include <nnpack/activations.h>
 
 struct relu_output_context 
 {

@@ -6,8 +6,8 @@
 extern "C" {
 #endif
 
-	#include <pthreadpool.h>
-	#include <utils.h>
+	#include <nnpack/pthreadpool.h>
+	#include <nnpack/utils.h>
 
 
 	void pthreadpool_compute_1d(

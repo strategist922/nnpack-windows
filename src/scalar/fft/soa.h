@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#include <fft-constants.h>
+#include <nnpack/fft-constants.h>
 #include <../src/scalar/butterfly.h>
 
 static inline void scalar_fft8_soa(

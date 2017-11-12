@@ -2,8 +2,8 @@
 #include <math.h>
 
 #include <nnpack.h>
-#include <reference.h>
-#include <activations.h>
+#include <nnpack/reference.h>
+#include <nnpack/activations.h>
 
 
 static inline float vector_maxf(const size_t length, const float* array) 

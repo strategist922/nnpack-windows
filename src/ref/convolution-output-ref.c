@@ -1,5 +1,5 @@
 #include <nnpack.h>
-#include <reference.h>
+#include <nnpack/reference.h>
 
 struct convolution_output_context 
 {

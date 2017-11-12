@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-//#include <transform.h>
+#include <nnpack/transform.h>
 #include <nnpack.h>
 
 #include <testers/convolution.h>

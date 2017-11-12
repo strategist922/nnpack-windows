@@ -1,6 +1,6 @@
 #pragma once
 #include <ccomplex>
-#include <fft-constants.h>
+#include <nnpack/fft-constants.h>
 
 inline static void butterflyfc(std::complex<float>* a, std::complex<float>* b)
 {

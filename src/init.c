@@ -28,11 +28,11 @@
 #endif
 
 #include <nnpack.h>
-#include <hwinfo.h>
-#include <blas.h>
-#include <transform.h>
-#include <relu.h>
-#include <softmax.h>
+#include <nnpack/hwinfo.h>
+#include <nnpack/blas.h>
+#include <nnpack/transform.h>
+#include <nnpack/relu.h>
+#include <nnpack/softmax.h>
 
 struct hardware_info nnp_hwinfo = { 0 };
 
