@@ -1,4 +1,5 @@
 ﻿  smoke.cc
+  stdafx.cpp
   Generating code
   Finished generating code
   test.vcxproj -> C:\Users\dhaen\Source\Repos\nnpack\x64\Release\test.exe

@@ -12,7 +12,7 @@
 	#include <math.h>
 #endif
 
-#include <bitcasts.h>
+#include <nnpack/bitcasts.h>
 
 #ifdef _MSC_VER
 	#include <intrin.h>
