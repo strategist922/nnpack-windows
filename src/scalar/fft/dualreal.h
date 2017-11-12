@@ -1,6 +1,6 @@
 #pragma once
 
-#include <../src/scalar/fft/soa.h>
+#include <scalar/fft/soa.h>
 
 
 static inline void scalar_fft8_dualreal(

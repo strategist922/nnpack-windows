@@ -1,4 +1,4 @@
-#include <../src/scalar/fft/soa.h>
+#include <scalar/fft/soa.h>
 
 
 void nnp_fft8_soa__scalar(

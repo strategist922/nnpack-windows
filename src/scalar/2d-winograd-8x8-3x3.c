@@ -5,7 +5,7 @@
 #include <nnpack/macros.h>
 #include <nnpack/activations.h>
 
-#include <../src/scalar/winograd/f6x6k3x3.h>
+#include <scalar/winograd/f6x6k3x3.h>
 
 
 #define BLOCK_SIZE 8

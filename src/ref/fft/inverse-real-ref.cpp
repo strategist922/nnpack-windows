@@ -1,5 +1,5 @@
 #include <nnpack/fft.h>
-#include <../src/ref/fft/complex-ref.h>
+#include <ref/fft/complex-ref.h>
 
 /**
  * From

@@ -1,4 +1,4 @@
-#include <../src/scalar/fft/dualreal.h>
+#include <scalar/fft/dualreal.h>
 
 
 void nnp_fft8_dualreal__scalar(

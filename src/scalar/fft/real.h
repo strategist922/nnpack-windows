@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 #include <nnpack/fft-constants.h>
-#include <../src/scalar/fft/aos.h>
+#include <scalar/fft/aos.h>
 
 
 static inline void scalar_fft8_real(

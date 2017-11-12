@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 #include <nnpack/fft-constants.h>
-#include <../src/scalar/butterfly.h>
+#include <scalar/butterfly.h>
 
 
 static inline void scalar_fft4_aos(

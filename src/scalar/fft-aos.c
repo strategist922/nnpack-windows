@@ -1,4 +1,4 @@
-#include <../src/scalar/fft/aos.h>
+#include <scalar/fft/aos.h>
 
 
 void nnp_fft4_aos__scalar(

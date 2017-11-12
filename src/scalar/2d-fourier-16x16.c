@@ -1,9 +1,9 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#include <../src/scalar/fft/real.h>
-#include <../src/scalar/fft/soa.h>
-#include <../src/scalar/fft/dualreal.h>
+#include <scalar/fft/real.h>
+#include <scalar/fft/soa.h>
+#include <scalar/fft/dualreal.h>
 
 //#include <nnpack/utils.h>
 #include <nnpack/activations.h>

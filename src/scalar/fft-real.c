@@ -1,4 +1,4 @@
-#include <../src/scalar/fft/real.h>
+#include <scalar/fft/real.h>
 
 
 void nnp_fft8_real__scalar(

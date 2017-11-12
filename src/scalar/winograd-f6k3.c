@@ -1,4 +1,4 @@
-#include <../src/scalar/winograd/f6x6k3x3.h>
+#include <scalar/winograd/f6x6k3x3.h>
 
 
 void nnp_iwt_f6k3__scalar(

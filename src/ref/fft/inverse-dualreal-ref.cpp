@@ -1,5 +1,5 @@
 #include <nnpack/fft.h>
-#include <../src/ref/fft/complex-ref.h>
+#include <ref/fft/complex-ref.h>
 
 
 void nnp_ifft8_dualreal__ref(const float* f, float* t) 
