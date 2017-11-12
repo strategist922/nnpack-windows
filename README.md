@@ -1,4 +1,4 @@
-# NNPACK for Windows 
+# NNPACK for Windows (AVX2 backend)
 #### port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
 
