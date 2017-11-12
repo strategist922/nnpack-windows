@@ -8,15 +8,15 @@
 
 struct NNP_CACHE_ALIGN kernel_transform_context
 {
-	nnp_transform_2d_with_offset transform_function;
+	const nnp_transform_2d_with_offset transform_function;
 	const float* kernel;
 	float* kernel_transform;
 
-	size_t tuple_elements;
-	size_t output_channels;
-	size_t input_channels;
-	size_t input_channels_block_max;
-	struct nnp_size kernel_size;
+	const size_t tuple_elements;
+	const size_t output_channels;
+    const size_t input_channels;
+	const size_t input_channels_block_max;
+	const struct nnp_size kernel_size;
 };
 
 static void compute_kernel_transform(
@@ -54,19 +54,19 @@ static void compute_kernel_transform(
 
 struct NNP_CACHE_ALIGN input_transform_context
 {
-	nnp_transform_2d_with_offset transform_function;
+	const nnp_transform_2d_with_offset transform_function;
 	const float* input;
 	float* input_transform;
 
-	size_t tuple_elements;
-	size_t batch_size;
-	size_t input_channels;
-	size_t input_channels_block_max;
-	struct nnp_size input_size;
-	size_t row_offset;
-	size_t row_count;
-	size_t column_offset;
-	size_t column_count;
+	const size_t tuple_elements;
+	const size_t batch_size;
+	const size_t input_channels;
+	const size_t input_channels_block_max;
+	const struct nnp_size input_size;
+	const size_t row_offset;
+	const size_t row_count;
+	const size_t column_offset;
+	const size_t column_count;
 };
 
 static void compute_input_transform(
@@ -108,19 +108,19 @@ static void compute_input_transform(
 
 struct NNP_CACHE_ALIGN output_transform_context
 {
-	nnp_transform_2d_with_bias transform_function;
+	const nnp_transform_2d_with_bias transform_function;
 	float* output;
 	const float* output_transform;
 	const float* bias;
-	size_t tuple_elements;
-	size_t output_channels;
-	size_t batch_size;
-	size_t batch_block_max;
-	struct nnp_size output_size;
-	size_t row_offset;
-	size_t row_count;
-	size_t column_offset;
-	size_t column_count;
+	const size_t tuple_elements;
+	const size_t output_channels;
+	const size_t batch_size;
+	const size_t batch_block_max;
+	const struct nnp_size output_size;
+	const size_t row_offset;
+	const size_t row_count;
+	const size_t column_offset;
+	const size_t column_count;
 };
 
 static void compute_output_transform(
@@ -163,12 +163,12 @@ static void compute_output_transform(
 
 struct NNP_CACHE_ALIGN matrix_multiplication_context
 {
-	size_t tuple_elements;
-	size_t batch_block_size;
-	size_t input_channels_block_start;
-	size_t input_channels_block_size;
-	size_t batch_subblock_max;
-	size_t output_channels_subblock_max;
+	const size_t tuple_elements;
+	const size_t batch_block_size;
+	const size_t input_channels_block_start;
+	const size_t input_channels_block_size;
+	const size_t batch_subblock_max;
+	const size_t output_channels_subblock_max;
 	
 	const float* input_transform;
 	const float* kernel_transform;
@@ -238,7 +238,6 @@ static void compute_matrix_multiplication(
 	}
 }
 
-
 static enum nnp_status compute_fast_convolution_output(
 	const bool fourier_transform,
 	const size_t batch_size,
@@ -266,7 +265,7 @@ static enum nnp_status compute_fast_convolution_output(
 
 	const struct nnp_size output_tile_size = 
 	{ 
-		tile_size.width - kernel_size.width + 1ull, 
+		tile_size.width - kernel_size.width + 1, 
 		tile_size.height - kernel_size.height + 1 
 	};
 
@@ -340,10 +339,8 @@ static enum nnp_status compute_fast_convolution_output(
 	pthreadpool_compute_2d_tiled(
 		(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
 		&kernel_transform_contex,
-		input_channels,
-		output_channels,
-		1,
-		output_channels_subblock_max);
+		input_channels,	output_channels,
+		1, output_channels_subblock_max);
 	NNP_KERNEL_TRANSFORM_END(profile)
 
 	for (size_t y = 0; y < output_size.height; y += output_tile_size.height) 
@@ -375,10 +372,8 @@ static enum nnp_status compute_fast_convolution_output(
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_input_transform,
 				&input_transform_ctx,
-				input_channels,
-				batch_size,
-				1,
-				batch_subblock_max);
+				input_channels, batch_size,
+				1, batch_subblock_max);
 			NNP_INPUT_TRANSFORM_END(profile)
 
 			NNP_BLOCK_MULTIPLICATION_START(profile)
@@ -423,10 +418,8 @@ static enum nnp_status compute_fast_convolution_output(
 						pthreadpool_compute_2d_tiled(
 							(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 							&matrix_multiplication_contex,
-							output_channels,
-							batch_block_size,
-							output_channels_block_max,
-							batch_subblock_max);
+							output_channels, batch_block_size,
+							output_channels_block_max, batch_subblock_max);
 					}
 				}
 			}
@@ -452,10 +445,8 @@ static enum nnp_status compute_fast_convolution_output(
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_output_transform,
 				&output_transform_contex,
-				batch_size,
-				output_channels,
-				1,
-				output_channels_subblock_max);
+				batch_size, output_channels,
+				1, output_channels_subblock_max);
 			NNP_OUTPUT_TRANSFORM_END(profile)
 		}
 	}

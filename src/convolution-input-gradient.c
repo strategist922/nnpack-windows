@@ -348,10 +348,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 	pthreadpool_compute_2d_tiled(
 		(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
 		&kernel_transform_context,
-		output_channels,
-		input_channels,
-		1,
-		input_channels_subblock_max);
+		output_channels, input_channels,
+		1, input_channels_subblock_max);
 	NNP_KERNEL_TRANSFORM_END(profile)
 
 	for (size_t y = 0; y < input_size.height; y += grad_input_tile_size.height) 
@@ -383,10 +381,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_grad_output_transform,
 				&grad_output_transform_context,
-				output_channels,
-				batch_size,
-				1,
-				batch_subblock_max);
+				output_channels, batch_size,
+				1, batch_subblock_max);
 			NNP_OUTPUT_TRANSFORM_END(profile)
 
 			NNP_BLOCK_MULTIPLICATION_START(profile)
@@ -432,10 +428,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 						pthreadpool_compute_2d_tiled(
 							(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 							&matrix_multiplication_context,
-							input_channels,
-							batch_block_size,
-							input_channels_block_max,
-							batch_subblock_max);
+							input_channels,	batch_block_size,
+							input_channels_block_max, batch_subblock_max);
 					}
 				}
 			}
@@ -460,10 +454,8 @@ static enum nnp_status compute_fast_convolution_input_gradient(
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_grad_input_transform,
 				&grad_input_transform_context,
-				batch_size,
-				input_channels,
-				1,
-				input_channels_subblock_max);
+				batch_size, input_channels,
+				1, input_channels_subblock_max);
 			NNP_INPUT_TRANSFORM_END(profile)
 		}
 	}

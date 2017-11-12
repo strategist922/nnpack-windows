@@ -157,9 +157,11 @@ struct NNP_CACHE_ALIGN matrix_multiplication_context
 	const size_t input_channels_subblock_max;
 	const size_t output_channels;
 	const size_t output_channels_subblock_max;
+	
 	const float* grad_output_transform;
 	const float* input_transform;
 	float* grad_kernel_transform;
+	
 	nnp_fast_tuple_gemm_function fast_gemm;
 	nnp_full_tuple_gemm_function full_gemm;
 };
@@ -348,10 +350,8 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_input_transform,
 					&input_transform_context,
-					batch_block_size,
-					input_channels,
-					1,
-					input_channels_subblock_max);
+					batch_block_size, input_channels,
+					1, input_channels_subblock_max);
 				NNP_INPUT_TRANSFORM_END(profile)
 
 				/* Grad output transform */
@@ -372,10 +372,8 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_grad_output_transform,
 					&grad_output_transform_context,
-					batch_block_size,
-					output_channels,
-					1,
-					output_channels_subblock_max);
+					batch_block_size, output_channels,
+					1, output_channels_subblock_max);
 				NNP_OUTPUT_TRANSFORM_END(profile)
 
 				NNP_BLOCK_MULTIPLICATION_START(profile)
@@ -413,10 +411,8 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 						pthreadpool_compute_2d_tiled(
 							(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 							&matrix_multiplication_context,
-							output_channels,
-							input_channels_block_size,
-							output_channels_block_max,
-							input_channels_subblock_max);
+							output_channels, input_channels_block_size,
+							output_channels_block_max, input_channels_subblock_max);
 					}
 				}
 				NNP_BLOCK_MULTIPLICATION_END(profile)
@@ -440,10 +436,8 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	pthreadpool_compute_2d_tiled(
 		(pthreadpool_function_2d_tiled_t)compute_grad_kernel_transform,
 		&grad_kernel_transform_context,
-		output_channels,
-		input_channels,
-		1,
-		input_channels_subblock_max);
+		output_channels, input_channels,
+		1, input_channels_subblock_max);
 	NNP_KERNEL_TRANSFORM_END(profile)
 
 	if (workspace_buffer == NULL)
