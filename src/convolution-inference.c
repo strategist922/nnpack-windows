@@ -603,9 +603,9 @@ static enum nnp_status compute_fast_convolution_inference(
 		}
 	}
 
-	float* kernel_transform = (float*)memory_block_kernel;
-	float* input_transform  = (float*)memory_block_input;
-	float* output_transform = (float*)memory_block_output;
+	char* kernel_transform = (char*)memory_block_kernel;
+	char* input_transform  = (char*)memory_block_input;
+	char* output_transform = (char*)memory_block_output;
 	
 
 	for (size_t input_channels_block_start = 0; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max)
@@ -617,7 +617,7 @@ static enum nnp_status compute_fast_convolution_inference(
 		{
 			kernel_transform_function,
 			kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
-			(char*)kernel_transform,
+			kernel_transform,
 			tuple_size,
 			input_channels,
 			input_channels_block_size,
@@ -635,7 +635,7 @@ static enum nnp_status compute_fast_convolution_inference(
 		struct input_transform_context input_transform_context =
 		{
 			input,
-			(char*)input_transform,
+			input_transform,
 			input_transform_function,
 			tuple_size,
 			tiles_count,
@@ -692,9 +692,9 @@ static enum nnp_status compute_fast_convolution_inference(
 					output_channels,
 					output_channels_subblock_max,
 					output_channels_block_start,
-					(char*)input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
-					(char*)kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
-					(char*)output_transform + tuple_index * tiles_count * output_channels * tuple_size,
+					input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
+					kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
+					output_transform + tuple_index * tiles_count * output_channels * tuple_size,
 					fast_gemm_function,
 					full_gemm_function
 				};
@@ -713,7 +713,7 @@ static enum nnp_status compute_fast_convolution_inference(
 	{
 		output_transform_function,
 		output,
-		(char*)output_transform,
+		output_transform,
 		bias,
 		tuple_size,
 		tiles_count,
