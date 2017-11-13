@@ -123,14 +123,6 @@ IF(NOT TARGET psimd)
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/psimd-download")
 ENDIF()
 
-IF(NOT TARGET pthreadpool)
-  CONFIGURE_FILE(cmake/DownloadPThreadPool.cmake "${CMAKE_BINARY_DIR}/pthreadpool-download/CMakeLists.txt")
-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pthreadpool-download")
-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pthreadpool-download")
-ENDIF()
-
 IF(NOT TARGET gtest)
   CONFIGURE_FILE(cmake/DownloadGoogleTest.cmake "${CMAKE_BINARY_DIR}/googletest-download/CMakeLists.txt")
   EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
@@ -331,23 +323,6 @@ SET_TARGET_PROPERTIES(nnpack PROPERTIES PUBLIC_HEADER include/nnpack.h)
 
 ADD_LIBRARY(nnpack_reference_layers ${NNPACK_REFERENCE_LAYERS_SRCS})
 TARGET_INCLUDE_DIRECTORIES(nnpack_reference_layers PUBLIC include)
-
-# ---[ Configure pthreadpool
-IF(NOT TARGET pthreadpool)
-  SET(PTHREADPOOL_BUILD_TESTS OFF CACHE BOOL "")
-  SET(PTHREADPOOL_BUILD_BENCHMARKS OFF CACHE BOOL "")
-  ADD_SUBDIRECTORY(
-    "${CONFU_DEPENDENCIES_SOURCE_DIR}/pthreadpool"
-    "${CONFU_DEPENDENCIES_BINARY_DIR}/pthreadpool")
-ENDIF()
-IF(NNPACK_CUSTOM_THREADPOOL)
-  # Depend on pthreadpool interface, but not on implementation.
-  # This is used when NNPACK user (e.g. Caffe2) provides its own threadpool implementation.
-  TARGET_LINK_LIBRARIES(nnpack PUBLIC pthreadpool_interface)
-ELSE()
-  TARGET_LINK_LIBRARIES(nnpack PUBLIC pthreadpool)
-ENDIF()
-TARGET_LINK_LIBRARIES(nnpack_reference_layers PUBLIC pthreadpool)
 
 # ---[ Configure FXdiv
 IF(NOT TARGET fxdiv)
