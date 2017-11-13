@@ -43,7 +43,7 @@ def main(args):
 
     with build.options(source_dir="src", macros=macros,
             deps={
-                (build.deps.pthreadpool, build.deps.fxdiv, build.deps.fp16): any,
+                (build.deps.fxdiv, build.deps.fp16): any,
                 build.deps.psimd: backend == "psimd" or backend == "arm",
             },
             extra_include_dirs={
@@ -54,6 +54,7 @@ def main(args):
         nnpack_objects = [
             build.cc("init.c"),
             build.cc("convolution-inference.c"),
+            build.cxx("pthreadpool.cpp")
         ]
         if not options.convolution_only:
             # Fully-connected, pooling, Softmax, ReLU layers
@@ -207,23 +208,23 @@ def main(args):
                 ]
 
         reference_layer_objects = [
-            build.cc("ref/convolution-output.c"),
-            build.cc("ref/convolution-input-gradient.c"),
-            build.cc("ref/convolution-kernel.c"),
-            build.cc("ref/fully-connected-output.c"),
-            build.cc("ref/max-pooling-output.c"),
-            build.cc("ref/softmax-output.c"),
-            build.cc("ref/relu-output.c"),
-            build.cc("ref/relu-input-gradient.c"),
+            build.cc("ref/convolution-output-ref.c"),
+            build.cc("ref/convolution-input-gradient-ref.c"),
+            build.cc("ref/convolution-kernel-gradient-ref.c"),
+            build.cc("ref/fully-connected-output-ref.c"),
+            build.cc("ref/max-pooling-output-ref.c"),
+            build.cc("ref/softmax-output-ref.c"),
+            build.cc("ref/relu-output-ref.c"),
+            build.cc("ref/relu-input-gradient-ref.c"),
         ]
 
         reference_fft_objects = [
-            build.cc("ref/fft/aos.c"),
-            build.cc("ref/fft/soa.c"),
-            build.cc("ref/fft/forward-real.c"),
-            build.cc("ref/fft/forward-dualreal.c"),
-            build.cc("ref/fft/inverse-real.c"),
-            build.cc("ref/fft/inverse-dualreal.c"),
+            build.cxx("ref/fft/aos-ref.cpp"),
+            build.cxx("ref/fft/soa-ref.cpp"),
+            build.cxx("ref/fft/forward-real-ref.cpp"),
+            build.cxx("ref/fft/forward-dualreal-ref.cpp"),
+            build.cxx("ref/fft/inverse-real-ref.cpp"),
+            build.cxx("ref/fft/inverse-dualreal-ref.cpp"),
         ]
 
         if backend == "x86_64":

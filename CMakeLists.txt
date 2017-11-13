@@ -22,6 +22,7 @@ ENDIF()
 IF(NOT MSVC)
   SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+  SET(CMAKE_CPP_FLAGS "${CMAKE_CPP_FLAGS} -std=gnu++11")
 ENDIF()
 
 IF(NOT CMAKE_SYSTEM_PROCESSOR)
@@ -123,6 +124,14 @@ IF(NOT TARGET psimd)
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/psimd-download")
 ENDIF()
 
+IF(NOT TARGET pthreadpool)
+  CONFIGURE_FILE(cmake/DownloadPThreadPool.cmake "${CMAKE_BINARY_DIR}/pthreadpool-download/CMakeLists.txt")
+  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pthreadpool-download")
+  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pthreadpool-download")
+ENDIF()
+
 IF(NOT TARGET gtest)
   CONFIGURE_FILE(cmake/DownloadGoogleTest.cmake "${CMAKE_BINARY_DIR}/googletest-download/CMakeLists.txt")
   EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
@@ -133,9 +142,9 @@ ENDIF()
 
 # ---[ NNPACK library
 SET(NNPACK_SRCS
-  src/threadpool.cpp
+  src/pthreadpool.cpp
   src/init.c
-    src/convolution-inference.c
+  src/convolution-inference.c
   src/convolution-input-gradient.c
   src/convolution-kernel-gradient.c
   src/convolution-output.c
