@@ -38,7 +38,7 @@ static void compute_kernel_transform(
 	const struct nnp_size kernel_size                     = context->kernel_size;
 
 	const float* kernel                                   = context->kernel;
-	void* kernel_transform                                = context->kernel_transform;
+	char* kernel_transform                                = (char*)context->kernel_transform;
 	const nnp_transform_2d_with_offset transform_function = context->transform_function;
 	
 	for (size_t output_channels_subblock_offset = 0; output_channels_subblock_offset < output_channels_subblock_size; output_channels_subblock_offset++) 
@@ -47,7 +47,7 @@ static void compute_kernel_transform(
 
 		transform_function(
 			kernel + ((output_channel * input_channels) + input_channels_block_offset) * kernel_size.width * kernel_size.height,
-			(char*)kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
+			kernel_transform + (output_channels_subblock_start * input_channels_block_size + input_channels_block_offset * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 			kernel_size.width,
 			input_channels_block_size * output_channels * tuple_size,
 			kernel_size.height,	kernel_size.width,
@@ -92,7 +92,7 @@ static void compute_input_transform(
 	const struct nnp_size output_tile                     = context->output_tile;
 	
 	const float* input                                    = context->input;
-	void* input_transform                                 = context->input_transform;
+	char* input_transform                                 = (char*)context->input_transform;
 	const nnp_transform_2d_with_offset transform_function = context->transform_function;
 
 	const size_t input_channel = input_channels_block_start + input_channels_block_offset;
@@ -116,7 +116,7 @@ static void compute_input_transform(
 		
 		transform_function(
 			input + (input_channel * input_size.width * input_size.height) + (input_y * input_size.width) + input_x,
-			(char*)input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size,
+			input_transform + (tiles_subblock_start * input_channels_block_size + input_channels_block_offset * tiles_subblock_size + tiles_subblock_offset) * tuple_size,
 			input_size.width,
 			input_channels_block_size * tiles_count * tuple_size,
 			row_count, column_count,
@@ -159,7 +159,7 @@ static void compute_output_transform(
 	const size_t tiles_block_size  = min(tiles_count - tiles_block_start, tiles_block_max.value);
 		
 	float* output                                       = context->output;
-	const void* output_transform                        = context->output_transform;
+	const char* output_transform                        = (char*)context->output_transform;
 	const float* bias                                   = context->bias;
 	const nnp_transform_2d_with_bias transform_function = context->transform_function;
 
@@ -178,7 +178,7 @@ static void compute_output_transform(
 		{
 			const size_t output_channel = output_channels_subblock_start + output_channels_subblock_offset;
 			transform_function(
-				(char*)output_transform + (tiles_block_start * output_channels + output_channels_subblock_start * tiles_block_size + ((tiles_subblock_start - tiles_block_start) + tiles_subblock_offset) * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
+				output_transform + (tiles_block_start * output_channels + output_channels_subblock_start * tiles_block_size + ((tiles_subblock_start - tiles_block_start) + tiles_subblock_offset) * output_channels_subblock_size + output_channels_subblock_offset) * tuple_size,
 				output + (output_channel * output_size.width * output_size.height) + (output_y * output_size.width) + output_x,
 				bias + output_channel,
 				tiles_count * output_channels * tuple_size,
@@ -224,9 +224,9 @@ static void compute_tuple_multiplication(
 	const size_t output_channels_subblock_max = context->output_channels_subblock_max;
 	const size_t output_channels_block_start  = context->output_channels_block_start;
 
-	const void* input_transform               = (char*)context->input_transform + tiles_block_start * input_channels_block_size * tuple_size;
-	const void* kernel_transform              = (char*)context->kernel_transform + (output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
-	void* output_transform                    = (char*)context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
+	const char* input_transform               = (char*)context->input_transform + tiles_block_start * input_channels_block_size * tuple_size;
+	const char* kernel_transform              = (char*)context->kernel_transform + (output_channels_block_start + output_channels_subblock_start) * input_channels_block_size * tuple_size;
+	char* output_transform                    = (char*)context->output_transform + (tiles_block_start * output_channels + (output_channels_block_start + output_channels_subblock_start) * tiles_block_size) * tuple_size;
 
 	if (output_channels_subblock_size == output_channels_subblock_max) 
 	{
@@ -243,8 +243,8 @@ static void compute_tuple_multiplication(
 				output_transform,
 				output_channels_subblock_size * tuple_elements);
 
-			(char*)input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
-			(char*)output_transform += tiles_subblock_max * output_channels_subblock_size * tuple_size;
+			input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
+			output_transform += tiles_subblock_max * output_channels_subblock_size * tuple_size;
 		}
 	}
 
@@ -264,8 +264,8 @@ static void compute_tuple_multiplication(
 			output_transform,
 			output_channels_subblock_size * tuple_elements);
 
-		(char*)input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
-		(char*)output_transform += tiles_subblock_max * output_channels_subblock_size * tuple_size;
+		input_transform  += tiles_subblock_max * input_channels_block_size * tuple_size;
+		output_transform += tiles_subblock_max * output_channels_subblock_size * tuple_size;
 	}
 }
 
