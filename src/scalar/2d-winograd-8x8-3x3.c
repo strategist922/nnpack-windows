@@ -122,7 +122,6 @@ void nnp_kwt8x8_3x3__scalar(
 	float block[KERNEL_SIZE][BLOCK_SIZE];
 
 	for (uint32_t row = 0; row < KERNEL_SIZE; row++) {
-		//float w0, w1, w2, w3, w4, w5, w6, w7;
 		winograd_f6k3_kernel_transform(
 			g[0],
 			g[1],
@@ -171,7 +170,6 @@ void nnp_kwt8x8_3Rx3R__scalar(
 	float block[KERNEL_SIZE][BLOCK_SIZE];
 
 	for (uint32_t row = 0; row < KERNEL_SIZE; row++) {
-		//float w0, w1, w2, w3, w4, w5, w6, w7;
 		winograd_f6k3_kernel_transform(
 			g[2],
 			g[1],
