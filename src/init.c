@@ -1,4 +1,4 @@
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 	#include <intrin.h>
 
 	#define bit_OSXSAVE     (1 << 27)
