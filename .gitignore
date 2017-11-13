@@ -1,9 +1,53 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+
+
+# Ninja files
+
+build.ninja
+
+
+
+# Build objects and artifacts
+
+deps/
+
+build/
+
+bin/
+
+lib/
+
+out/
+
+obj/
+
+libs/
+
+x64/
+
+Debug/
+
+*.pyc
+
+*.pyo
+
+
+
+# System files
+
+.DS_Store
+
+.DS_Store?
+
+._*
+
+.Spotlight-V100
+
+.Trashes
+
+ehthumbs.db
+
+Thumbs.db
 
 /.vs/nnpack/v15
 /googletest/googletest/msvc/2010/.vs/gtest/v15
 /googletest/googletest/msvc/2010/x64/Release/gtest.tlog
-/x64
-/Debug
