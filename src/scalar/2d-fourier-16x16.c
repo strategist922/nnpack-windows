@@ -5,14 +5,11 @@
 #include <scalar/fft/soa.h>
 #include <scalar/fft/dualreal.h>
 
-//#include <nnpack/utils.h>
+#include <nnpack/utils.h>
 #include <nnpack/activations.h>
 
 #define BLOCK_SIZE 16
 
-static inline size_t doz(size_t a, size_t b) {
-	return a > b ? a - b : 0;
-}
 
 void nnp_fft16x16_with_offset__scalar(
 	const float* data,
@@ -21,7 +18,6 @@ void nnp_fft16x16_with_offset__scalar(
 	uint32_t row_count, uint32_t column_count,
 	uint32_t row_offset, uint32_t column_offset)
 {
-	//const uint32_t simd_width = 1;
 	transform_stride /= sizeof(float);
 
 	float block[BLOCK_SIZE][BLOCK_SIZE];

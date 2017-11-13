@@ -14,7 +14,6 @@ void nnp_fft16_real__scalar(
 	const float* t,
 	float* f)
 {
-	//float w0r, w8r, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i;
 	scalar_fft16_real(
 		t, t + 8, 1, 0, 16,
 		f, 1);

@@ -1,13 +1,3 @@
-#if defined(__cplusplus)
-#include <cstdbool>
-#include <cstdint>
-#include <cstddef>
-#else
-#include <stdbool.h>
-#include <stdint.h>
-#include <stddef.h>
-#endif
-
 #include <nnpack.h>
 #include <nnpack/macros.h>
 #include <nnpack/utils.h>
