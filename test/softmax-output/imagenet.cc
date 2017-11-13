@@ -120,9 +120,5 @@ int main(int argc, char* argv[]) {
 	//setenv("TERM", "xterm-256color", 0);
 	::testing::InitGoogleTest(&argc, argv);
 	
-	int ret = RUN_ALL_TESTS();
-
-	std::getwchar();
-
-	return ret;
+	return RUN_ALL_TESTS();
 }

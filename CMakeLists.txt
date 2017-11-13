@@ -143,8 +143,7 @@ ENDIF()
 SET(NNPACK_SRCS
   src/threadpool.cpp
   src/init.c
-  
-  src/convolution-inference.c
+    src/convolution-inference.c
   src/convolution-input-gradient.c
   src/convolution-kernel-gradient.c
   src/convolution-output.c
@@ -168,10 +167,10 @@ SET(NNPACK_REFERENCE_LAYERS_SRCS
 SET(NNPACK_REFERENCE_FFT_SRCS
   src/ref/fft/aos-ref.cpp
   src/ref/fft/soa-ref.cpp
-  src/ref/fft/forward-real.cpp
-  src/ref/fft/forward-dualreal.cpp
-  src/ref/fft/inverse-real.cpp
-  src/ref/fft/inverse-dualreal.cpp)
+  src/ref/fft/forward-real-ref.cpp
+  src/ref/fft/forward-dualreal-ref.cpp
+  src/ref/fft/inverse-real-ref.cpp
+  src/ref/fft/inverse-dualreal-ref.cpp)
 
 IF(NNPACK_BACKEND STREQUAL "x86-64")
   SET(NNPACK_BACKEND_SRCS

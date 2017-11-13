@@ -185,9 +185,6 @@ int main(int argc, char* argv[]) {
 	assert(init_status == nnp_status_success);
 	//setenv("TERM", "xterm-256color", 0);
 	::testing::InitGoogleTest(&argc, argv);
-	int ret = RUN_ALL_TESTS();
-
-	getwchar();
-
-	return ret;
+	
+	return RUN_ALL_TESTS();
 }
