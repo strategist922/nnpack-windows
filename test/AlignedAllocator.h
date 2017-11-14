@@ -70,11 +70,11 @@ public:
 
 	inline pointer allocate(size_type n, typename AlignedAllocator<void, Alignment>::const_pointer hint = 0) {
 
-#if defined(__MSC_VER)
+#if defined(_MSC_VER)
 		return static_cast<pointer>(_aligned_malloc(n * sizeof(T), Alignment));
 #else
 
-#if defined(__ANDROID__)
+#if defined(__ANDROID__) 
 
 		void* memory = memalign(Alignment, n * sizeof(T));
 
@@ -94,7 +94,7 @@ public:
 
 		if (posix_memalign(&memory, Alignment, n * sizeof(T)) != 0) {
 #endif
-#if !defined(__GNUC__) || defined(__EXCEPTIONS)
+#if !defined(__GNUC__) && !defined(__MSC_VER) || defined(__EXCEPTIONS)
 
 			throw std::bad_alloc();
 
@@ -103,8 +103,9 @@ public:
 		}
 
 #endif
-
+#if !defined(_MSC_VER)
 		return static_cast<pointer>(memory);
+#endif
 #endif
 
 	}
