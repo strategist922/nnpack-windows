@@ -69,47 +69,28 @@ public:
 	}
 
 	inline pointer allocate(size_type n, typename AlignedAllocator<void, Alignment>::const_pointer hint = 0) {
-
-#if defined(_MSC_VER)
-		return static_cast<pointer>(_aligned_malloc(n * sizeof(T), Alignment));
-#else
-
-#if defined(__ANDROID__) 
-
+#if defined(__ANDROID__)
 		void* memory = memalign(Alignment, n * sizeof(T));
-
 		if (memory == 0) {
-
 #if !defined(__GNUC__) || defined(__EXCEPTIONS)
-
 			throw std::bad_alloc();
-
 #endif
-
 		}
-
 #else
 		void* memory = nullptr;
 
-
+#if defined(_MSC_VER)
+		memory = static_cast<pointer>(_aligned_malloc(n * sizeof(T), Alignment));
+#else
 		if (posix_memalign(&memory, Alignment, n * sizeof(T)) != 0) {
-#endif
-#if !defined(__GNUC__) && !defined(__MSC_VER) || defined(__EXCEPTIONS)
-
+#if !defined(__GNUC__) || defined(__EXCEPTIONS)
 			throw std::bad_alloc();
-
 #endif
-
 		}
-
 #endif
-#if !defined(_MSC_VER)
+#endif
 		return static_cast<pointer>(memory);
-#endif
-#endif
-
 	}
-
 
 
 	inline void deallocate(pointer p, size_type n) noexcept {
