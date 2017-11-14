@@ -29,7 +29,7 @@ inline static double read_timer()
 #if defined(__linux__) || defined(__native_client__)
 	struct timespec ts;
 	int result = clock_gettime(CLOCK_MONOTONIC, &ts);
-	assert(result == 0);
+
 	return ((double) ts.tv_sec) + ((double) ts.tv_nsec) * 1.0e-9;
 #elif defined(__MACH__)
 	static mach_timebase_info_data_t timebase_info;

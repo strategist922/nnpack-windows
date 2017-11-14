@@ -326,7 +326,7 @@ def main(args):
 
     # Build test for layers. Link to the library.
     with build.options(source_dir="test", include_dirs="test", deps={
-                (build, build.deps.pthreadpool, build.deps.googletest.core, build.deps.fp16): any,
+                (build, build.deps.googletest.core, build.deps.fp16): any,
                 "rt": build.target.is_linux
             }):
 
@@ -411,36 +411,6 @@ def main(args):
                 reference_layer_objects + [build.cxx("softmax-output/smoke.cc")])
             build.unittest("softmax-output-imagenet-test",
                 reference_layer_objects + [build.cxx("softmax-output/imagenet.cc")])
-
-    # Build benchmarking utilities
-    if not options.inference_only:
-        with build.options(source_dir="bench", extra_include_dirs="bench", macros=export_macros, deps={
-                (build, build.deps.pthreadpool): all,
-                "rt": build.target.is_linux}):
-
-            support_objects = [build.cc("median.c")]
-            if build.target.is_x86_64:
-                support_objects += [build.peachpy("memread.py")]
-            else:
-                support_objects += [build.cc("memread.c")]
-            if build.target.is_linux and build.target.is_x86_64:
-                support_objects += [build.cc("perf_counter.c")]
-
-            build.executable("transform-benchmark",
-                [build.cc("transform.c")] + support_objects)
-
-            build.executable("convolution-benchmark",
-                [build.cc("convolution.c")] + support_objects)
-
-            if not options.convolution_only:
-                build.executable("fully-connected-benchmark",
-                    [build.cc("fully-connected.c")] + support_objects)
-
-                build.executable("pooling-benchmark",
-                    [build.cc("pooling.c")] + support_objects)
-
-                build.executable("relu-benchmark",
-                    [build.cc("relu.c")] + support_objects)
 
     return build
 

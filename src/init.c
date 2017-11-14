@@ -137,7 +137,7 @@ static void init_x86_hwinfo() {
 	if (max_base_info >= 1)	{
 		struct cpu_info basic_info;
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 		__cpuid(&basic_info.eax, 1);
 #else
 		__cpuid(1, basic_info.eax, basic_info.ebx, basic_info.ecx, basic_info.edx);
@@ -150,7 +150,7 @@ static void init_x86_hwinfo() {
 
 		struct cpu_info structured_info = { 0 };
 		if (max_base_info >= 7)
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 			__cpuidex(&structured_info.eax, 7, 0);
 #else
 			__cpuid_count(7, 0, structured_info.eax, structured_info.ebx, structured_info.ecx, structured_info.edx);
@@ -168,7 +168,7 @@ static void init_x86_hwinfo() {
 	
 	// Detect CPU vendor
 	struct cpu_info vendor_info;
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 	__cpuid(&vendor_info.eax, 0);
 #else
 	__cpuid(0, vendor_info.eax, vendor_info.ebx, vendor_info.ecx, vendor_info.edx);
@@ -183,57 +183,59 @@ static void init_x86_hwinfo() {
 	// Detect cache
 	if (max_base_info >= 4)	{
 		for (uint32_t cache_id = 0; ; cache_id++) {
-			struct cpu_info cpuInfo;
-#ifdef _MSC_VER
-			__cpuidex(&cpuInfo.eax, 4, cache_id);
+			struct cpu_info cache_info;
+#if defined(_MSC_VER)
+			__cpuidex(&cache_info.eax, 4, cache_id);
 #else
 			__cpuid_count(4, cache_id, cache_info.eax, cache_info.ebx, cache_info.ecx, cache_info.edx);
 #endif
-			// eax[bits 0-4]: cache type (0 - no more caches, 1 - data, 2 - instruction, 3 - unified)
-			const uint32_t type = cpuInfo.eax & 0x1F;
-			if (type == 0) 
+			/* eax[bits 0-4]: cache type (0 - no more caches, 1 - data, 2 - instruction, 3 - unified) */
+			const uint32_t type = cache_info.eax & 0x1F;
+			if (type == 0)
+			{
 				break;
-			else {
-				if ((type == 1) || (type == 3))	{
-					// eax[bits 5-7]: cache level (starts at 1)
-					const uint32_t level = (cpuInfo.eax >> 5) & 0x7;
-					// eax[bits 14-25]: number of IDs for logical processors sharing the cache - 1
-					const uint32_t threads = ((cpuInfo.eax >> 14) & 0xFFF) + 1;
-					// eax[bits 26-31]: number of IDs for processor cores in the physical package - 1
-					const uint32_t cores = (cpuInfo.eax >> 26) + 1;
+			}
+			else if ((type == 1) || (type == 3))
+			{
+				/* eax[bits 5-7]: cache level (starts at 1) */
+				const uint32_t level = (cache_info.eax >> 5) & 0x7;
+				/* eax[bits 14-25]: number of IDs for logical processors sharing the cache - 1 */
+				const uint32_t threads = ((cache_info.eax >> 14) & 0xFFF) + 1;
+				/* eax[bits 26-31]: number of IDs for processor cores in the physical package - 1 */
+				const uint32_t cores = (cache_info.eax >> 26) + 1;
 
-					// ebx[bits 0-11]: line size - 1
-					const uint32_t line_size = (cpuInfo.ebx & 0xFFF) + 1;
-					// ebx[bits 12-21]: line_partitions - 1
-					const uint32_t line_partitions = ((cpuInfo.ebx >> 12) & 0x3FF) + 1;
-					// ebx[bits 22-31]: associativity - 1
-					const uint32_t associativity = (cpuInfo.ebx >> 22) + 1;
-					// ecx: number of sets - 1
-					const uint32_t sets = cpuInfo.ecx + 1;
-					// edx[bit 1]: cache inclusiveness
-					const bool inclusive = !!(cpuInfo.edx & 0x2);
-					
-					const struct cache_info cacheInfo = {
-						sets * associativity * line_partitions * line_size,
-						associativity,
-						threads,
-						inclusive
-					};
+				/* ebx[bits 0-11]: line size - 1 */
+				const uint32_t line_size = (cache_info.ebx & 0xFFF) + 1;
+				/* ebx[bits 12-21]: line_partitions - 1 */
+				const uint32_t line_partitions = ((cache_info.ebx >> 12) & 0x3FF) + 1;
+				/* ebx[bits 22-31]: associativity - 1 */
+				const uint32_t associativity = (cache_info.ebx >> 22) + 1;
+				/* ecx: number of sets - 1 */
+				const uint32_t sets = cache_info.ecx + 1;
+				/* edx[bit 1]: cache inclusiveness */
+				const bool inclusive = !!(cache_info.edx & 0x2);
 
-					switch (level) {
-					case 1:
-						nnp_hwinfo.cache.l1 = cacheInfo;
-						break;
-					case 2:
-						nnp_hwinfo.cache.l2 = cacheInfo;
-						break;
-					case 3:
-						nnp_hwinfo.cache.l3 = cacheInfo;
-						break;
-					case 4:
-						nnp_hwinfo.cache.l4 = cacheInfo;
-						break;
-					}
+				const struct cache_info cache_info = {
+					sets * associativity * line_partitions * line_size,
+					associativity,
+					threads,
+					inclusive};
+
+				struct cpu_info cpuInfo;
+
+				switch (level) {
+				case 1:
+					nnp_hwinfo.cache.l1 = cache_info;
+					break;
+				case 2:
+					nnp_hwinfo.cache.l2 = cache_info;
+					break;
+				case 3:
+					nnp_hwinfo.cache.l3 = cache_info;
+					break;
+				case 4:
+					nnp_hwinfo.cache.l4 = cache_info;
+					break;
 				}
 			}
 		}
