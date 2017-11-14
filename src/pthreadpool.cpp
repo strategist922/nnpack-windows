@@ -1,13 +1,14 @@
-#if defined(_MSC_VER) && defined(__cplusplus)
+#if defined(_MSC_VER)
 	#include <ppl.h>
 #else
-	#include <future>  // NOLINT
-	#include <thread>  // NOLINT
+	#include <future>
+	#include <thread>
 	#include <limits>
 	#include <string>
 	#include <type_traits>
 	#include <vector>
 
+	/* BEGIN: The following templated code come from tiny dnn */
 	struct blocked_range {
 		typedef size_t const_iterator;
 		blocked_range(size_t begin, size_t end) : begin_(begin), end_(end) {}
@@ -85,6 +86,7 @@
 	inline void for_i(T size, Func f, size_t grainsize = 100) {
 		for_i(true, size, f, grainsize);
 	}
+	/* END: The following templated code come from tiny dnn */
 #endif
 
 
@@ -100,7 +102,7 @@ extern "C" {
 		void* argument,
 		const size_t range)
 	{
-#if defined(_MSC_VER) && defined(__cplusplus)
+#if defined(_MSC_VER)
 		concurrency::parallel_for(0ull, range, [=](size_t i)
 		{
 			function(argument, i);
