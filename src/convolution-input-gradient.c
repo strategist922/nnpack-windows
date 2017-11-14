@@ -2,6 +2,7 @@
 #include <nnpack/macros.h>
 #include <nnpack/utils.h>
 #include <nnpack/system.h>
+
 #include <nnpack/hwinfo.h>
 #include <nnpack/validation.h>
 
