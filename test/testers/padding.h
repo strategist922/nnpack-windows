@@ -10,7 +10,6 @@
 #include <functional>
 #include <algorithm>
 
-#include <gtest/gtest.h>
 
 
 class Padded2DTransformTester {

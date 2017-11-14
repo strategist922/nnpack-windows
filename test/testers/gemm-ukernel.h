@@ -14,7 +14,6 @@
 
 #include <AlignedAllocator.h>
 
-#include <gtest\gtest.h>
 
 class GemmMicroKernelTester {
 public:

@@ -15,9 +15,7 @@
 #include <nnpack.h>
 #include <nnpack/reference.h>
 
-#include <relu.h>
-
-#include <gtest\gtest.h>
+#include <testers/relu.h>
 
 class ConvolutionTester {
 public:

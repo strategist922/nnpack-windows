@@ -12,8 +12,6 @@
 #include <algorithm>
 #include <numeric>
 
-#include <gtest\gtest.h>
-
 #include <nnpack.h>
 #include <nnpack/reference.h>
 #include <nnpack/utils.h>

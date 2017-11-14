@@ -167,8 +167,6 @@
     <ClInclude Include="models\alexnet.h" />
     <ClInclude Include="models\overfeat-fast.h" />
     <ClInclude Include="models\vgg-a.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="testers\convolution.h" />
     <ClInclude Include="testers\fourier.h" />
     <ClInclude Include="testers\fully-connected.h" />
