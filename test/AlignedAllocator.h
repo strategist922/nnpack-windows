@@ -68,14 +68,57 @@ public:
 		return std::addressof(x);
 	}
 
-	inline pointer allocate(size_type n, typename AlignedAllocator<void, Alignment>::const_pointer hint = 0) 
-	{
+	inline pointer allocate(size_type n, typename AlignedAllocator<void, Alignment>::const_pointer hint = 0) {
+
+#if defined(__MSC_VER)
 		return static_cast<pointer>(_aligned_malloc(n * sizeof(T), Alignment));
+#else
+
+#if defined(__ANDROID__)
+
+		void* memory = memalign(Alignment, n * sizeof(T));
+
+		if (memory == 0) {
+
+#if !defined(__GNUC__) || defined(__EXCEPTIONS)
+
+			throw std::bad_alloc();
+
+#endif
+
+		}
+
+#else
+		void* memory = nullptr;
+
+
+		if (posix_memalign(&memory, Alignment, n * sizeof(T)) != 0) {
+#endif
+#if !defined(__GNUC__) || defined(__EXCEPTIONS)
+
+			throw std::bad_alloc();
+
+#endif
+
+		}
+
+#endif
+
+		return static_cast<pointer>(memory);
+#endif
+
 	}
 
-	inline void deallocate(pointer p, size_type) noexcept 
-	{
-	    _aligned_free(static_cast<void*>(p));
+
+
+	inline void deallocate(pointer p, size_type n) noexcept {
+
+#if defined(__MSC_VER)
+		_aligned_free(static_cast<void*>(p));
+#else
+		free(static_cast<void*>(p));
+#endif
+
 	}
 
 	template <class U, class ...Args>
