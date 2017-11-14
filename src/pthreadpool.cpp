@@ -6,6 +6,7 @@
 	#include <limits>
 	#include <string>
 	#include <type_traits>
+	#include <vector>
 
 	struct blocked_range {
 		typedef size_t const_iterator;
