@@ -36,11 +36,11 @@ Results of the unit tests:
 
 ### convolution-input-gradient:
 
-  * FT8x8:    failed
+  * FT8x8:    passed
 
   * FT16x16:  failed
 
-  * WT8x8:    failed
+  * WT8x8:    passed
 
 
 ### convolution-kernel-gradient:
