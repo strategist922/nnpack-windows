@@ -100,7 +100,7 @@ static void compute_grad_output_transform(
 	{
 		const size_t sample = batch_subblock_start + batch_subblock_offset;
 		transform_function(
-			grad_output + ((sample * output_channels) + output_channel) * output_size.width * output_size.height,
+			grad_output + (((sample * output_channels) + output_channel) * output_size.width * output_size.height),
 			grad_output_transform +	(output_channels_block_start * batch_size + batch_subblock_start * output_channels_block_size + output_channels_block_offset * batch_subblock_size + batch_subblock_offset) * tuple_elements,
 			output_size.width,
 			batch_size * output_channels * tuple_elements * sizeof(float),
@@ -156,7 +156,7 @@ static void compute_grad_input_transform(
 		const size_t input_channel = input_channels_subblock_start + input_channels_subblock_offset;
 		transform_function(
 			grad_input_transform + (batch_block_start * input_channels + input_channels_subblock_start * batch_block_size + batch_block_offset * input_channels_subblock_size + input_channels_subblock_offset) * tuple_elements,
-			grad_input + ((sample * input_channels) + input_channel) * input_size.width * input_size.height,
+			grad_input + (((sample * input_channels) + input_channel) * input_size.width * input_size.height),
 			batch_size * input_channels * tuple_elements * sizeof(float),
 			input_size.width,
 			row_count, column_count,
