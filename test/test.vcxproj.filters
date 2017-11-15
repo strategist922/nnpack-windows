@@ -59,7 +59,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-input-gradient\smoke.cc">
+    <ClCompile Include="convolution-input-gradient\vgg-a.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

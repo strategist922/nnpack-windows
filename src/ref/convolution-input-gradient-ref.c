@@ -44,7 +44,7 @@ static void compute_convolution_input_gradient(
 						{
 							const size_t t = x - j + input_padding.left;
 							if (t < output_size.width) 
-								v += grad_output[(sample * output_channels * output_size.width * output_size.height) + (output_channel * output_size.width * output_size.height) + (s * output_size.width) + t] * kernel[(output_channel * input_channel * kernel_size.width * kernel_size.height) + (input_channel * kernel_size.width * kernel_size.height) + (i * kernel_size.width) +j];
+								v += grad_output[(sample * output_channels * output_size.width * output_size.height) + (output_channel * output_size.width * output_size.height) + (s * output_size.width) + t] * kernel[(output_channel * input_channels * kernel_size.width * kernel_size.height) + (input_channel * kernel_size.width * kernel_size.height) + (i * kernel_size.width) +j];
 						}
 				}
 			
