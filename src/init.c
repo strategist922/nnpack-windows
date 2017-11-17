@@ -34,7 +34,7 @@
 #include <nnpack/relu.h>
 #include <nnpack/softmax.h>
 
-struct hardware_info nnp_hwinfo = { 0 };
+struct hardware_info nnp_hwinfo = { false };
 
 struct cpu_info {
 	int eax;

@@ -186,7 +186,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-input-gradient\vgg-a.cc" />
+    <ClCompile Include="convolution-inference\smoke.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

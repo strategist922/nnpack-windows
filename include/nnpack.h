@@ -201,7 +201,8 @@ enum nnp_status nnp_convolution_output(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	const void* activation_parameters,
 	struct nnp_profile* profile);
@@ -217,7 +218,8 @@ enum nnp_status nnp_convolution_input_gradient(
 	const float* grad_output,
 	const float* kernel,
 	float* grad_input,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	const void* activation_parameters,
 	struct nnp_profile* profile);
@@ -233,7 +235,8 @@ enum nnp_status nnp_convolution_kernel_gradient(
 	const float* input,
 	const float* grad_output,
 	float* grad_kernel,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	const void* activation_parameters,
 	struct nnp_profile* profile);
@@ -251,7 +254,8 @@ enum nnp_status nnp_convolution_inference(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	const void* activation_parameters,
 	struct nnp_profile* profile);
@@ -326,7 +330,7 @@ inline nnp_status nnp_convolution_output(
 		batch_size, input_channels, output_channels,
 		input_size, input_padding, kernel_size,
 		input, kernel, bias, output,
-		NULL, nnp_activation_identity, NULL, profile);
+		NULL, NULL, nnp_activation_identity, NULL, profile);
 }
 
 inline nnp_status nnp_convolution_input_gradient(
@@ -347,7 +351,7 @@ inline nnp_status nnp_convolution_input_gradient(
 		batch_size, input_channels, output_channels,
 		input_size, input_padding, kernel_size,
 		grad_output, kernel, grad_input,
-		NULL, nnp_activation_identity, NULL, profile);
+		NULL, NULL, nnp_activation_identity, NULL, profile);
 }
 
 inline nnp_status nnp_convolution_kernel_gradient(
@@ -368,7 +372,7 @@ inline nnp_status nnp_convolution_kernel_gradient(
 		batch_size, input_channels, output_channels,
 		input_size, input_padding, kernel_size,
 		input, grad_output, grad_kernel,
-		NULL, nnp_activation_identity, NULL, profile);
+		NULL, NULL, nnp_activation_identity, NULL, profile);
 }
 
 inline nnp_status nnp_convolution_inference(
@@ -390,7 +394,7 @@ inline nnp_status nnp_convolution_inference(
 		algorithm, transform_strategy,
 		input_channels, output_channels,
 		input_size, input_padding, kernel_size, output_subsampling,
-		input, kernel, bias, output, NULL, 
+		input, kernel, bias, output, NULL, NULL,
 		nnp_activation_identity, NULL, profile);
 }
 #endif // __cplusplus

@@ -523,12 +523,16 @@ static enum nnp_status compute_fast_convolution_inference(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const nnp_transform_2d_with_offset input_transform_function,
 	const nnp_transform_2d_with_offset kernel_transform_function,
 	const nnp_transform_2d_with_bias output_transform_function,
 	struct nnp_profile* profile)
 {
+	void* memory_block = NULL;
+	size_t memory_size = 0;
+
 	const size_t simd_width = nnp_hwinfo.simd_width;
 	const size_t tuple_elements = (fourier_transform ? simd_width * 2 : simd_width);
 	const size_t tuple_size = tuple_elements * transform_element_size;
@@ -562,50 +566,30 @@ static enum nnp_status compute_fast_convolution_inference(
 	const size_t output_transform_size = tiles_count * output_channels * transform_tile_size;
 	const size_t kernel_transform_size = output_channels * min(input_channels, input_channels_block_max) * transform_tile_size;
 
-	void* memory_block_input  = NULL;
-	void* memory_block_output = NULL;
-	void* memory_block_kernel = NULL;
-	
-	if (workspace_buffer == NULL)
-	{
-		memory_block_kernel = allocate_memory(kernel_transform_size);
-		memory_block_input  = allocate_memory(input_transform_size);
-		memory_block_output = allocate_memory(output_transform_size);
-		
-		if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
-			return nnp_status_out_of_memory;
-	}
-	else
-	{
-		if (workspace_buffer->kernel == NULL || workspace_buffer->input == NULL || workspace_buffer->output == NULL)
-		{
-			memory_block_kernel = allocate_memory(kernel_transform_size);
-			memory_block_input  = allocate_memory(input_transform_size);
-			memory_block_output = allocate_memory(output_transform_size);
-			
-			
-			if (memory_block_input == NULL || memory_block_output == NULL || memory_block_kernel == NULL)
+	memory_size = input_transform_size + output_transform_size + kernel_transform_size;
+
+	if (workspace_buffer == NULL) {
+		if (workspace_size == NULL) {
+			memory_block = allocate_memory(memory_size);
+			if (memory_block == NULL) {
 				return nnp_status_out_of_memory;
-
-			*workspace_buffer = (struct nnp_workspace_pointers)
-			{ 
-				memory_block_kernel, 
-				memory_block_input, 
-				memory_block_output 
-			};
+			}
 		}
-		else
-		{
-			memory_block_kernel = workspace_buffer->kernel;
-			memory_block_input  = workspace_buffer->input;
-			memory_block_output = workspace_buffer->output;
-			
+		else {
+			*workspace_size = memory_size;
+			return nnp_status_success;
 		}
 	}
+	else {
+		if (*workspace_size < memory_size) {
+			return nnp_status_insufficient_buffer;
+		}
+		memory_block = workspace_buffer;
+	}
 
-	char* kernel_transform = (char*)memory_block_kernel;
-	char* input_transform  = (char*)memory_block_input;
-	char* output_transform = (char*)memory_block_output;
+	char* input_transform = (char*)memory_block;
+	char* output_transform = (char*)memory_block + input_transform_size;
+	char* kernel_transform = (char*)memory_block + input_transform_size + output_transform_size;
 	
 
 	for (size_t input_channels_block_start = 0; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max)
@@ -730,22 +714,9 @@ static enum nnp_status compute_fast_convolution_inference(
 		output_channels_subblock_max, tiles_subblock_max);
 	NNP_OUTPUT_TRANSFORM_END(profile)
 
-	if (workspace_buffer == NULL)
-	{
-		release_memory(memory_block_kernel, kernel_transform_size);
-		release_memory(memory_block_input, input_transform_size);
-		release_memory(memory_block_output, output_transform_size);
+	if (memory_block != workspace_buffer) {
+		release_memory(memory_block, memory_size);
 	}
-	else
-	{
-		if (memory_block_kernel != workspace_buffer->kernel || memory_block_input != workspace_buffer->input || memory_block_output != workspace_buffer->output)
-		{
-			release_memory(memory_block_kernel, kernel_transform_size);
-			release_memory(memory_block_input, input_transform_size);
-			release_memory(memory_block_output, output_transform_size);
-		}
-	}
-
 	return nnp_status_success;
 }
 
@@ -761,10 +732,13 @@ static enum nnp_status compute_gemm_convolution_inference(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	struct nnp_profile* profile)
 {
+	void* memory_block = NULL;
+
 	enum nnp_status status = nnp_status_success;
 	const size_t simd_width = nnp_hwinfo.simd_width;
 
@@ -784,15 +758,29 @@ static enum nnp_status compute_gemm_convolution_inference(
 
 	const size_t packed_kernel_size = output_channels *	min(reduction_block_max, reduction_size) * sizeof(float);
 	const size_t packed_input_size  = min(output_image_block_max, round_up(output_image_size, simd_width)) * min(reduction_block_max, reduction_size) * sizeof(float);
+	const size_t memory_size = packed_kernel_size + packed_input_size;
 
-	void* memory_packed_input  = allocate_memory(packed_input_size);
-	void* memory_packed_kernel = allocate_memory(packed_kernel_size);
-		
-	if (memory_packed_kernel == NULL || memory_packed_input == NULL)
-		return nnp_status_out_of_memory;
+	if (workspace_buffer == NULL) {
+		if (workspace_size == NULL) {
+			memory_block = allocate_memory(memory_size);
+			if (memory_block == NULL) {
+				return nnp_status_out_of_memory;
+			}
+		}
+		else {
+			*workspace_size = memory_size;
+			return nnp_status_success;
+		}
+	}
+	else {
+		if (*workspace_size < memory_size) {
+			return nnp_status_insufficient_buffer;
+		}
+		memory_block = workspace_buffer;
+	}
 
-	float* packed_input  = (float*)memory_packed_input;
-	float* packed_kernel = (float*)memory_packed_kernel;
+	float* packed_input = (float*)memory_block;
+	float* packed_kernel = (float*)((char*)memory_block + packed_input_size);
 
 	for (size_t reduction_block_start = 0; reduction_block_start < reduction_size; reduction_block_start += reduction_block_max) 
 	{
@@ -893,9 +881,9 @@ static enum nnp_status compute_gemm_convolution_inference(
 	}
 	NNP_OUTPUT_TRANSFORM_END(profile)
 
-	release_memory(packed_input, packed_input_size);
-	release_memory(packed_kernel, packed_kernel_size);
-	
+	if (memory_block != workspace_buffer) {
+		release_memory(memory_block, memory_size);
+	}
 	return status;
 }
 
@@ -908,7 +896,8 @@ static enum nnp_status compute_direct_convolution_inference(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	struct nnp_profile* profile)
 {
@@ -974,7 +963,8 @@ enum nnp_status nnp_convolution_inference(
 	const float* kernel,
 	const float* bias,
 	float* output,
-	struct nnp_workspace_pointers* workspace_buffer,
+	void* workspace_buffer,
+	size_t* workspace_size,
 	const enum nnp_activation activation,
 	const void* activation_parameters,
 	struct nnp_profile* profile)
@@ -1108,7 +1098,7 @@ enum nnp_status nnp_convolution_inference(
 				fourier_transform, transform_strategy, transform_element_size,
 				input_channels, output_channels,
 				tile_size, input_size, input_padding, kernel_size, output_size,
-				input, kernel, bias, output, workspace_buffer,
+				input, kernel, bias, output, workspace_buffer, workspace_size,
 				input_transform_function, kernel_transform_function, output_transform_function, profile);
 		}
 		break;
@@ -1123,7 +1113,7 @@ enum nnp_status nnp_convolution_inference(
 			status = compute_gemm_convolution_inference(
 				input_channels, output_channels,
 				input_size, input_padding, kernel_size, output_size, output_subsampling,
-				input, kernel, bias, output, workspace_buffer, activation, profile);
+				input, kernel, bias, output, workspace_buffer, workspace_size, activation, profile);
 		}
 		break;
 
@@ -1149,7 +1139,7 @@ enum nnp_status nnp_convolution_inference(
 
 			status = compute_direct_convolution_inference(
 				input_channels, output_channels, input_size, kernel_size,
-				input, kernel, bias, output, workspace_buffer, activation, profile);
+				input, kernel, bias, output, workspace_buffer, workspace_size, activation, profile);
 		}
 		break;
 	}
