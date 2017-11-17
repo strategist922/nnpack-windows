@@ -179,12 +179,6 @@ struct nnp_profile {
 	double block_multiplication;
 };
 
-struct nnp_workspace_pointers {
-	void* kernel;
-	void* input;
-	void* output;
-};
-
 enum nnp_status nnp_initialize();
 
 enum nnp_status nnp_deinitialize();
