@@ -32,7 +32,7 @@ static void compute_max_pooling_output(
 	for (size_t y = 0ull; y < output_size.height; y++) 
 		for (size_t x = 0ull; x < output_size.width; x++) 
 		{
-			float v = -INFINITY; // std::numeric_limits<float>::infinity();
+			float v = -INFINITY;
 			for (size_t i = 0ull; i < pooling_size.height; i++) 
 			{
 				const size_t s = y * pooling_stride.height + i - input_padding.top;
