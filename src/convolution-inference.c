@@ -601,27 +601,33 @@ static enum nnp_status compute_fast_convolution_inference(
 		{
 			const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
 
-			NNP_KERNEL_TRANSFORM_START(profile)
-				struct kernel_transform_context kernel_transform_context =
-			{
-				kernel_transform_function,
-				kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
-				kernel_transform,
-				tuple_size,
-				input_channels,
-				input_channels_block_size,
-				output_channels,
-				kernel_size
-			};
-			pthreadpool_compute_2d_tiled(
-				(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
-				&kernel_transform_context,
-				output_channels, input_channels_block_size,
-				output_channels_subblock_max, 1);
-			NNP_KERNEL_TRANSFORM_END(profile)
 
-				NNP_INPUT_TRANSFORM_START(profile)
-				struct input_transform_context input_transform_context =
+			if (transform_strategy == nnp_convolution_transform_strategy_compute) {
+				NNP_KERNEL_TRANSFORM_START(profile)
+				struct kernel_transform_context kernel_transform_context =
+				{
+					kernel_transform_function,
+					kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
+					kernel_transform,
+					tuple_size,
+					input_channels,
+					input_channels_block_size,
+					output_channels,
+					kernel_size
+				};
+				pthreadpool_compute_2d_tiled(
+					(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
+					&kernel_transform_context,
+					output_channels, input_channels_block_size,
+					output_channels_subblock_max, 1);
+				NNP_KERNEL_TRANSFORM_END(profile)
+			}
+			else {
+				kernel_transform = (char*)kernel + input_channels_block_start * output_channels * transform_tile_size;
+			}
+
+			NNP_INPUT_TRANSFORM_START(profile)
+			struct input_transform_context input_transform_context =
 			{
 				input,
 				input_transform,
@@ -644,61 +650,61 @@ static enum nnp_status compute_fast_convolution_inference(
 				1, tiles_subblock_max);
 			NNP_INPUT_TRANSFORM_END(profile)
 
-				NNP_BLOCK_MULTIPLICATION_START(profile)
-				for (size_t tuple_index = 0; tuple_index < tuple_count; tuple_index++)
+			NNP_BLOCK_MULTIPLICATION_START(profile)
+			for (size_t tuple_index = 0; tuple_index < tuple_count; tuple_index++)
+			{
+				nnp_fast_tuple_gemm_function fast_gemm_function;
+				nnp_full_tuple_gemm_function full_gemm_function;
+				if (fourier_transform)
 				{
-					nnp_fast_tuple_gemm_function fast_gemm_function;
-					nnp_full_tuple_gemm_function full_gemm_function;
-					if (fourier_transform)
+					if (tuple_index < NNP_COMPLEX_TUPLE_INDEX)
 					{
-						if (tuple_index < NNP_COMPLEX_TUPLE_INDEX)
-						{
-							fast_gemm_function = nnp_hwinfo.cxgemm.s4cX_conjb_only_mr_x_nr;
-							full_gemm_function = nnp_hwinfo.cxgemm.s4cX_conjb_upto_mr_x_nr;
-						}
-						else
-						{
-							fast_gemm_function = nnp_hwinfo.cxgemm.cX_conjb_only_mr_x_nr;
-							full_gemm_function = nnp_hwinfo.cxgemm.cX_conjb_upto_mr_x_nr;
-						}
+						fast_gemm_function = nnp_hwinfo.cxgemm.s4cX_conjb_only_mr_x_nr;
+						full_gemm_function = nnp_hwinfo.cxgemm.s4cX_conjb_upto_mr_x_nr;
 					}
 					else
 					{
-						fast_gemm_function = nnp_hwinfo.sxgemm.only_mr_x_nr;
-						full_gemm_function = nnp_hwinfo.sxgemm.upto_mr_x_nr;
-					}
-
-					for (size_t output_channels_block_start = 0; output_channels_block_start < output_channels; output_channels_block_start += output_channels_block_max)
-					{
-						const size_t output_channels_block_size = min(output_channels - output_channels_block_start, output_channels_block_max);
-						struct tuple_multiplication_context tuple_multiplication_context =
-						{
-							tuple_elements,
-							tuple_size,
-							tiles_subblock_max,
-							input_channels_block_size,
-							input_channels_block_start,
-							output_channels,
-							output_channels_subblock_max,
-							output_channels_block_start,
-							input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
-							kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
-							output_transform + tuple_index * tiles_count * output_channels * tuple_size,
-							fast_gemm_function,
-							full_gemm_function
-						};
-						pthreadpool_compute_2d_tiled(
-							(pthreadpool_function_2d_tiled_t)compute_tuple_multiplication,
-							&tuple_multiplication_context,
-							tiles_count, output_channels_block_size,
-							tiles_block_max, output_channels_subblock_max);
+						fast_gemm_function = nnp_hwinfo.cxgemm.cX_conjb_only_mr_x_nr;
+						full_gemm_function = nnp_hwinfo.cxgemm.cX_conjb_upto_mr_x_nr;
 					}
 				}
+				else
+				{
+					fast_gemm_function = nnp_hwinfo.sxgemm.only_mr_x_nr;
+					full_gemm_function = nnp_hwinfo.sxgemm.upto_mr_x_nr;
+				}
+
+				for (size_t output_channels_block_start = 0; output_channels_block_start < output_channels; output_channels_block_start += output_channels_block_max)
+				{
+					const size_t output_channels_block_size = min(output_channels - output_channels_block_start, output_channels_block_max);
+					struct tuple_multiplication_context tuple_multiplication_context =
+					{
+						tuple_elements,
+						tuple_size,
+						tiles_subblock_max,
+						input_channels_block_size,
+						input_channels_block_start,
+						output_channels,
+						output_channels_subblock_max,
+						output_channels_block_start,
+						input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
+						kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
+						output_transform + tuple_index * tiles_count * output_channels * tuple_size,
+						fast_gemm_function,
+						full_gemm_function
+					};
+					pthreadpool_compute_2d_tiled(
+						(pthreadpool_function_2d_tiled_t)compute_tuple_multiplication,
+						&tuple_multiplication_context,
+						tiles_count, output_channels_block_size,
+						tiles_block_max, output_channels_subblock_max);
+				}
+			}
 			NNP_BLOCK_MULTIPLICATION_END(profile)
 		}
 
 		NNP_OUTPUT_TRANSFORM_START(profile)
-			struct output_transform_context output_transform_context =
+		struct output_transform_context output_transform_context =
 		{
 			output_transform_function,
 			output,
