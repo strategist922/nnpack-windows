@@ -622,7 +622,7 @@ static enum nnp_status compute_fast_convolution_inference(
 				NNP_KERNEL_TRANSFORM_END(profile)
 			}
 			else {
-				kernel_transform = (char*)kernel + input_channels_block_start * output_channels * transform_tile_size;
+				kernel_transform = (char*)(kernel + input_channels_block_start * output_channels * transform_tile_size);
 			}
 
 			NNP_INPUT_TRANSFORM_START(profile)
