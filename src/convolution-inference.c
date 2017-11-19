@@ -600,8 +600,7 @@ static enum nnp_status compute_fast_convolution_inference(
 		for (size_t input_channels_block_start = 0; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max)
 		{
 			const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
-
-
+			
 			if (transform_strategy == nnp_convolution_transform_strategy_compute) {
 				NNP_KERNEL_TRANSFORM_START(profile)
 				struct kernel_transform_context kernel_transform_context =
