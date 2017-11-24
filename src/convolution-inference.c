@@ -565,31 +565,36 @@ static enum nnp_status compute_fast_convolution_inference(
 	const size_t input_transform_size  = tiles_count * min(input_channels, input_channels_block_max) * transform_tile_size;
 	const size_t output_transform_size = tiles_count * output_channels * transform_tile_size;
 	
-	switch (transform_strategy) {
+	switch (transform_strategy) 
+	{
 	case nnp_convolution_transform_strategy_compute:
 	case nnp_convolution_transform_strategy_reuse:
 	{
 		memory_size = input_transform_size + output_transform_size;
 		const size_t kernel_transform_size = output_channels * min(input_channels, input_channels_block_max) * transform_tile_size;
-		if (transform_strategy == nnp_convolution_transform_strategy_compute) {
+		if (transform_strategy == nnp_convolution_transform_strategy_compute) 
 			memory_size += kernel_transform_size;
-		}
-		if (workspace_buffer == NULL) {
-			if (workspace_size == NULL) {
+		
+		if (workspace_buffer == NULL) 
+		{
+			if (workspace_size == NULL) 
+			{
 				memory_block = allocate_memory(memory_size);
-				if (memory_block == NULL) {
+				if (memory_block == NULL) 
 					return nnp_status_out_of_memory;
-				}
+				
 			}
-			else {
+			else 
+			{
 				*workspace_size = memory_size;
 				return nnp_status_success;
 			}
 		}
-		else {
-			if (*workspace_size < memory_size) {
+		else 
+		{
+			if (*workspace_size < memory_size)
 				return nnp_status_insufficient_buffer;
-			}
+
 			memory_block = workspace_buffer;
 		}
 
@@ -601,7 +606,8 @@ static enum nnp_status compute_fast_convolution_inference(
 		{
 			const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
 			
-			if (transform_strategy == nnp_convolution_transform_strategy_compute) {
+			if (transform_strategy == nnp_convolution_transform_strategy_compute) 
+			{
 				NNP_KERNEL_TRANSFORM_START(profile)
 				struct kernel_transform_context kernel_transform_context =
 				{
@@ -621,10 +627,9 @@ static enum nnp_status compute_fast_convolution_inference(
 					output_channels_subblock_max, 1);
 				NNP_KERNEL_TRANSFORM_END(profile)
 			}
-			else {
+			else
 				kernel_transform = (char*)(kernel + input_channels_block_start * output_channels * transform_tile_size);
-			}
-
+			
 			NNP_INPUT_TRANSFORM_START(profile)
 			struct input_transform_context input_transform_context =
 			{
@@ -729,22 +734,26 @@ static enum nnp_status compute_fast_convolution_inference(
 	case nnp_convolution_transform_strategy_precompute:
 	{
 		const size_t kernel_transform_size = output_channels * input_channels * transform_tile_size;
-		if (workspace_buffer == NULL) {
+		if (workspace_buffer == NULL) 
+		{
 			*workspace_size = kernel_transform_size;
 			return nnp_status_success;
 		}
-		else {
-			if (*workspace_size < kernel_transform_size) {
+		else 
+		{
+			if (*workspace_size < kernel_transform_size)
 				return nnp_status_insufficient_buffer;
-			}
+			
 			memory_block = workspace_buffer;
 		}
 
-		for (size_t input_channels_block_start = 0; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) {
+		for (size_t input_channels_block_start = 0; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) 
+		{
 			const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
 
 			NNP_KERNEL_TRANSFORM_START(profile)
-				struct kernel_transform_context kernel_transform_context = {
+			struct kernel_transform_context kernel_transform_context = 
+			{
 				kernel_transform_function,
 				kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
 				(char*)workspace_buffer + input_channels_block_start * output_channels * transform_tile_size,
@@ -768,9 +777,9 @@ static enum nnp_status compute_fast_convolution_inference(
 		return nnp_status_invalid_transform_strategy;
 	}
 		
-	if (memory_block != workspace_buffer) {
+	if (memory_block != workspace_buffer)
 		release_memory(memory_block, memory_size);
-	}
+
 	return nnp_status_success;
 }
 

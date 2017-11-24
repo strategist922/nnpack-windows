@@ -290,22 +290,26 @@ static enum nnp_status compute_fast_convolution_output(
 	const size_t output_transform_size = batch_size * output_channels * tile_elements * sizeof(float);
 	const size_t memory_size = kernel_transform_size + input_transform_size + output_transform_size;
 
-	if (workspace_buffer == NULL) {
-		if (workspace_size == NULL) {
+	if (workspace_buffer == NULL) 
+	{
+		if (workspace_size == NULL) 
+		{
 			memory_block = allocate_memory(memory_size);
-			if (memory_block == NULL) {
+
+			if (memory_block == NULL)
 				return nnp_status_out_of_memory;
-			}
 		}
-		else {
+		else 
+		{
 			*workspace_size = memory_size;
 			return nnp_status_success;
 		}
 	}
-	else {
-		if (*workspace_size < memory_size) {
+	else 
+	{
+		if (*workspace_size < memory_size)
 			return nnp_status_insufficient_buffer;
-		}
+
 		memory_block = workspace_buffer;
 	}
 
@@ -440,9 +444,9 @@ static enum nnp_status compute_fast_convolution_output(
 		}
 	}
 	
-	if (memory_block != workspace_buffer) {
+	if (memory_block != workspace_buffer)
 		release_memory(memory_block, memory_size);
-	}
+
 	return nnp_status_success;
 }
 

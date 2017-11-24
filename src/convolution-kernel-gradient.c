@@ -277,22 +277,26 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	const size_t grad_output_transform_size = min(batch_size, batch_block_max) * output_channels * tile_elements * sizeof(float);
 	const size_t memory_size = input_transform_size + grad_output_transform_size + grad_kernel_transform_size;
 
-	if (workspace_buffer == NULL) {
-		if (workspace_size == NULL) {
+	if (workspace_buffer == NULL) 
+	{
+		if (workspace_size == NULL) 
+		{
 			memory_block = allocate_memory(memory_size);
-			if (memory_block == NULL) {
+
+			if (memory_block == NULL) 
 				return nnp_status_out_of_memory;
-			}
 		}
-		else {
+		else
+		{
 			*workspace_size = memory_size;
 			return nnp_status_success;
 		}
 	}
-	else {
-		if (*workspace_size < memory_size) {
+	else 
+	{
+		if (*workspace_size < memory_size)
 			return nnp_status_insufficient_buffer;
-		}
+
 		memory_block = workspace_buffer;
 	}
 
@@ -425,9 +429,9 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 		1, input_channels_subblock_max);
 	NNP_KERNEL_TRANSFORM_END(profile)
 
-	if (memory_block != workspace_buffer) {
+	if (memory_block != workspace_buffer)
 		release_memory(memory_block, memory_size);
-	}
+
 	return nnp_status_success;
 }
 
