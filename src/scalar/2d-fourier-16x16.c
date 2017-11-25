@@ -164,7 +164,7 @@ void nnp_fft16x16_with_offset__scalar(
 		transform += transform_stride;	
 	}
 }
-
+#if !NNP_INFERENCE_ONLY
 void nnp_ifft16x16_with_offset__scalar(
 	const float* transform,
 	float* data,
@@ -313,6 +313,7 @@ void nnp_ifft16x16_with_offset__scalar(
 		}
 	}
 }
+#endif /* !NNP_INFERENCE_ONLY */
 
 void nnp_ifft16x16_with_bias__scalar(
 	const float* transform,

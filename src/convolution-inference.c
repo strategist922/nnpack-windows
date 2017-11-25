@@ -1082,7 +1082,7 @@ enum nnp_status nnp_convolution_inference(
 	}
 
 	const size_t transform_element_size = sizeof(float);
-	struct nnp_size tile_size = (struct nnp_size) { .width = 8, .height = 8 };
+	struct nnp_size tile_size =  { .width = 8, .height = 8 };
 	bool fourier_transform = false;
 	nnp_transform_2d_with_offset input_transform_function  = NULL;
 	nnp_transform_2d_with_offset kernel_transform_function = NULL;

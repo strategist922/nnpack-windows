@@ -157,6 +157,7 @@ void nnp_kwt8x8_3x3__scalar(
 	}
 }
 
+#if !NNP_INFERENCE_ONLY
 void nnp_kwt8x8_3Rx3R__scalar(
 	const float* g,
 	float* transform,
@@ -283,6 +284,7 @@ void nnp_owt8x8_3x3__scalar(
 		}
 	}
 }
+#endif /* !NNP_INFERENCE_ONLY */
 
 void nnp_owt8x8_3x3_with_bias__scalar(
 	const float* transform,
