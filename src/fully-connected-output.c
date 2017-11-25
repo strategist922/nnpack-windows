@@ -168,10 +168,10 @@ static void compute_fully_connected_output(
 	NNP_INPUT_TRANSFORM_START(profile)
 	struct input_packing_context input_packing_context = 
 	{
-		input,
-		packed_input,
-		input_channels,
-		batch_subblock_max
+		.matrix = input,
+		.packed_matrix = packed_input,
+		.input_channels = input_channels,
+		.outer_subblock_max = batch_subblock_max
 	};
 	pthreadpool_compute_2d_tiled(
 		(pthreadpool_function_2d_tiled_t)pack_input_matrix,
@@ -182,22 +182,17 @@ static void compute_fully_connected_output(
 
 	struct matrix_multiplication_context matrix_multiplication_context = 
 	{
-		packed_input,
-		packed_kernel,
-		output,
-		input_channels,
-		output_channels,
-		0,
-		0,
-		0,
-		0,
-		output_channels_subblock_max,
-		batch_subblock_max,
-		simd_width,
-		nnp_hwinfo.sgemm.only_mr_x_nr,
-		nnp_hwinfo.sgemm.upto_mr_x_nr
+		.input = packed_input,
+		.kernel = packed_kernel,
+		.output = output,
+		.input_channels = input_channels,
+		.output_channels = output_channels,
+		.output_channels_subblock_max = output_channels_subblock_max,
+		.batch_subblock_max = batch_subblock_max,
+		.simd_width = simd_width,
+		.fast_sgemm_function = nnp_hwinfo.sgemm.only_mr_x_nr,
+		.full_sgemm_function = nnp_hwinfo.sgemm.upto_mr_x_nr
 	};
-	
 	for (size_t input_channels_block_start = 0; input_channels_block_start < input_channels; input_channels_block_start += input_channels_block_max) 
 	{
 		const size_t input_channels_block_size = min(input_channels - input_channels_block_start, input_channels_block_max);
@@ -205,13 +200,13 @@ static void compute_fully_connected_output(
 		NNP_KERNEL_TRANSFORM_START(profile)
 		struct kernel_packing_context kernel_packing_context = 
 		{
-			kernel,
-			packed_kernel,
-			simd_width,
-			input_channels,
-			output_channels_subblock_max,
-			input_channels_block_start,
-			input_channels_block_size
+			.matrix = kernel,
+			.packed_matrix = packed_kernel,
+			.simd_width = simd_width,
+			.input_channels = input_channels,
+			.outer_subblock_max = output_channels_subblock_max,
+			.input_channels_block_start = input_channels_block_start,
+			.input_channels_block_size = input_channels_block_size
 		};
 		pthreadpool_compute_1d_tiled(
 			(pthreadpool_function_1d_tiled_t)pack_kernel_matrix,

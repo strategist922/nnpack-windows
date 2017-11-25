@@ -541,8 +541,8 @@ static enum nnp_status compute_fast_convolution_inference(
 
 	const struct nnp_size output_tile_size = 
 	{ 
-		tile_size.width - kernel_size.width + 1, 
-		tile_size.height - kernel_size.height + 1 
+		.width = tile_size.width - kernel_size.width + 1, 
+		.height = tile_size.height - kernel_size.height + 1 
 	};
 
 	const size_t tiles_y_count = divide_round_up(output_size.height, output_tile_size.height);
@@ -611,14 +611,14 @@ static enum nnp_status compute_fast_convolution_inference(
 				NNP_KERNEL_TRANSFORM_START(profile)
 				struct kernel_transform_context kernel_transform_context =
 				{
-					kernel_transform_function,
-					kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
-					kernel_transform,
-					tuple_size,
-					input_channels,
-					input_channels_block_size,
-					output_channels,
-					kernel_size
+					.transform_function = kernel_transform_function,
+					.kernel = kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
+					.kernel_transform = kernel_transform,
+					.tuple_size = tuple_size,
+					.input_channels = input_channels,
+					.input_channels_block_size = input_channels_block_size,
+					.output_channels = output_channels,
+					.kernel_size = kernel_size
 				};
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
@@ -633,19 +633,19 @@ static enum nnp_status compute_fast_convolution_inference(
 			NNP_INPUT_TRANSFORM_START(profile)
 			struct input_transform_context input_transform_context =
 			{
-				input,
-				input_transform,
-				input_transform_function,
-				tuple_size,
-				tiles_count,
-				fxdiv_init_size_t(tiles_x_count),
-				input_channels_block_start,
-				input_channels_block_size,
-				input_size,
-				input_padding.left,
-				input_padding.top,
-				tile_size,
-				output_tile_size
+				.input = input,
+				.input_transform = input_transform,
+				.transform_function = input_transform_function,
+				.tuple_size = tuple_size,
+				.tiles_count = tiles_count,
+				.tiles_x_count = fxdiv_init_size_t(tiles_x_count),
+				.input_channels_block_start = input_channels_block_start,
+				.input_channels_block_size = input_channels_block_size,
+				.input_size = input_size,
+				.input_padding_left = input_padding.left,
+				.input_padding_top = input_padding.top,
+				.input_tile = tile_size,
+				.output_tile = output_tile_size
 			};
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_input_transform,
@@ -683,19 +683,19 @@ static enum nnp_status compute_fast_convolution_inference(
 					const size_t output_channels_block_size = min(output_channels - output_channels_block_start, output_channels_block_max);
 					struct tuple_multiplication_context tuple_multiplication_context =
 					{
-						tuple_elements,
-						tuple_size,
-						tiles_subblock_max,
-						input_channels_block_size,
-						input_channels_block_start,
-						output_channels,
-						output_channels_subblock_max,
-						output_channels_block_start,
-						input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
-						kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
-						output_transform + tuple_index * tiles_count * output_channels * tuple_size,
-						fast_gemm_function,
-						full_gemm_function
+						.tuple_elements = tuple_elements,
+						.tuple_size = tuple_size,
+						.tiles_subblock_max = tiles_subblock_max,
+						.input_channels_block_size = input_channels_block_size,
+						.input_channels_block_start = input_channels_block_start,
+						.output_channels = output_channels,
+						.output_channels_subblock_max = output_channels_subblock_max,
+						.output_channels_block_start = output_channels_block_start,
+						.input_transform = input_transform + tuple_index * tiles_count * input_channels_block_size * tuple_size,
+						.kernel_transform = kernel_transform + tuple_index * output_channels * input_channels_block_size * tuple_size,
+						.output_transform = output_transform + tuple_index * tiles_count * output_channels * tuple_size,
+						.fast_gemm = fast_gemm_function,
+						.full_gemm = full_gemm_function
 					};
 					pthreadpool_compute_2d_tiled(
 						(pthreadpool_function_2d_tiled_t)compute_tuple_multiplication,
@@ -710,17 +710,17 @@ static enum nnp_status compute_fast_convolution_inference(
 		NNP_OUTPUT_TRANSFORM_START(profile)
 		struct output_transform_context output_transform_context =
 		{
-			output_transform_function,
-			output,
-			output_transform,
-			bias,
-			tuple_size,
-			tiles_count,
-			fxdiv_init_size_t(tiles_x_count),
-			fxdiv_init_size_t(tiles_block_max),
-			output_channels,
-			output_size,
-			output_tile_size
+			.transform_function = output_transform_function,
+			.output = output,
+			.output_transform = output_transform,
+			.bias = bias,
+			.tuple_size = tuple_size,
+			.tiles_count = tiles_count,
+			.tiles_x_count = fxdiv_init_size_t(tiles_x_count),
+			.tiles_block_max = fxdiv_init_size_t(tiles_block_max),
+			.output_channels = output_channels,
+			.output_size = output_size,
+			.output_tile = output_tile_size
 		};
 		pthreadpool_compute_2d_tiled(
 			(pthreadpool_function_2d_tiled_t)compute_output_transform,
@@ -754,14 +754,14 @@ static enum nnp_status compute_fast_convolution_inference(
 			NNP_KERNEL_TRANSFORM_START(profile)
 			struct kernel_transform_context kernel_transform_context = 
 			{
-				kernel_transform_function,
-				kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
-				(char*)workspace_buffer + input_channels_block_start * output_channels * transform_tile_size,
-				tuple_size,
-				input_channels,
-				input_channels_block_size,
-				output_channels,
-				kernel_size
+				.transform_function = kernel_transform_function,
+				.kernel = kernel + input_channels_block_start * kernel_size.height * kernel_size.width,
+				.kernel_transform = (char*)workspace_buffer + input_channels_block_start * output_channels * transform_tile_size,
+				.tuple_size = tuple_size,
+				.input_channels = input_channels,
+				.input_channels_block_size = input_channels_block_size,
+				.output_channels = output_channels,
+				.kernel_size = kernel_size
 			};
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_kernel_transform,
@@ -823,22 +823,25 @@ static enum nnp_status compute_gemm_convolution_inference(
 	const size_t packed_input_size  = min(output_image_block_max, round_up(output_image_size, simd_width)) * min(reduction_block_max, reduction_size) * sizeof(float);
 	const size_t memory_size = packed_kernel_size + packed_input_size;
 
-	if (workspace_buffer == NULL) {
-		if (workspace_size == NULL) {
+	if (workspace_buffer == NULL) 
+	{
+		if (workspace_size == NULL) 
+		{
 			memory_block = allocate_memory(memory_size);
-			if (memory_block == NULL) {
+			if (memory_block == NULL) 
 				return nnp_status_out_of_memory;
-			}
 		}
-		else {
+		else 
+		{
 			*workspace_size = memory_size;
 			return nnp_status_success;
 		}
 	}
-	else {
-		if (*workspace_size < memory_size) {
+	else 
+	{
+		if (*workspace_size < memory_size)
 			return nnp_status_insufficient_buffer;
-		}
+
 		memory_block = workspace_buffer;
 	}
 
@@ -853,11 +856,11 @@ static enum nnp_status compute_gemm_convolution_inference(
 		NNP_KERNEL_TRANSFORM_START(profile)
 		struct kernel_packing_context kernel_packing_context = 
 		{
-			kernel + reduction_block_start,
-			packed_kernel,
-			reduction_size,
-			reduction_block_start,
-			reduction_block_size
+			.kernel = kernel + reduction_block_start,
+			.packed_kernel = packed_kernel,
+			.reduction_size = reduction_size,
+			.reduction_block_start = reduction_block_start,
+			.reduction_block_size = reduction_block_size
 		};
 		pthreadpool_compute_2d_tiled(
 			(pthreadpool_function_2d_tiled_t)compute_kernel_packing,
@@ -877,19 +880,19 @@ static enum nnp_status compute_gemm_convolution_inference(
 			NNP_INPUT_TRANSFORM_START(profile)
 			struct input_packing_context input_packing_context = 
 			{
-				input,
-				packed_input,
-				simd_width,
-				reduction_block_start,
-				reduction_block_size,
-				output_image_block_start,
-				input_size,
-				input_padding.top,
-				input_padding.left,
-				kernel_elements_divisor,
-				kernel_width_divisor,
-				output_width_divisor,
-				output_subsampling
+				.input = input,
+				.packed_input = packed_input,
+				.simd_width = simd_width,
+				.reduction_block_start = reduction_block_start,
+				.reduction_block_size = reduction_block_size,
+				.output_image_block_start = output_image_block_start,
+				.input_size = input_size,
+				.input_padding_top = input_padding.top,
+				.input_padding_left = input_padding.left,
+				.kernel_elements = kernel_elements_divisor,
+				.kernel_width = kernel_width_divisor,
+				.output_width = output_width_divisor,
+				.output_subsampling = output_subsampling
 			};
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_input_packing,
@@ -901,15 +904,15 @@ static enum nnp_status compute_gemm_convolution_inference(
 			NNP_BLOCK_MULTIPLICATION_START(profile)
 			struct matrix_multiplication_context matrix_multiplication_context = 
 			{
-				packed_kernel,
-				packed_input,
-				output,
-				reduction_block_start,
-				reduction_block_size,
-				output_image_size,
-				output_image_block_start,
-				output_image_subblock_max,
-				output_channels_subblock_max
+				.packed_kernel = packed_kernel,
+				.packed_input = packed_input,
+				.output = output,
+				.reduction_block_start = reduction_block_start,
+				.reduction_block_size = reduction_block_size,
+				.output_image_size = output_image_size,
+				.output_image_block_start = output_image_block_start,
+				.output_image_subblock_max = output_image_subblock_max,
+				.output_channels_subblock_max = output_channels_subblock_max
 			};
 			pthreadpool_compute_2d_tiled(
 				(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
@@ -944,9 +947,9 @@ static enum nnp_status compute_gemm_convolution_inference(
 	}
 	NNP_OUTPUT_TRANSFORM_END(profile)
 
-	if (memory_block != workspace_buffer) {
+	if (memory_block != workspace_buffer)
 		release_memory(memory_block, memory_size);
-	}
+
 	return status;
 }
 
@@ -969,15 +972,15 @@ static enum nnp_status compute_direct_convolution_inference(
 	NNP_BLOCK_MULTIPLICATION_START(profile)
 	struct direct_convolution_context direct_convolution_context = 
 	{
-		input,
-		kernel,
-		output,
-		image_elements,
-		input_channels,
-		nnp_hwinfo.conv1x1.mr,
-		nnp_hwinfo.conv1x1.nr,
-		nnp_hwinfo.conv1x1.only_mr_x_nr,
-		nnp_hwinfo.conv1x1.upto_mr_x_nr
+		.input = input,
+		.kernel = kernel,
+		.output = output,
+		.image_elements = image_elements,
+		.input_channels = input_channels,
+		.input_channels_block_max = nnp_hwinfo.conv1x1.mr,
+		.output_channels_block_max = nnp_hwinfo.conv1x1.nr,
+		.fast_conv = nnp_hwinfo.conv1x1.only_mr_x_nr,
+		.full_conv = nnp_hwinfo.conv1x1.upto_mr_x_nr
 	};
 	pthreadpool_compute_1d_tiled(
 		(pthreadpool_function_1d_tiled_t)compute_direct_convolution,
@@ -1039,15 +1042,16 @@ enum nnp_status nnp_convolution_inference(
 	if (status != nnp_status_success)
 		goto cleanup;
 
-	if (activation_parameters != NULL) {
+	if (activation_parameters != NULL) 
+	{
 		status = nnp_status_unsupported_activation_parameters;
 		goto cleanup;
 	}
 
 	const struct nnp_size output_size =
 	{
-		(input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1,
-		(input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1
+		.width = (input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1,
+		.height = (input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1
 	};
 
 	if (algorithm == nnp_convolution_algorithm_auto) 
@@ -1067,7 +1071,7 @@ enum nnp_status nnp_convolution_inference(
 			if (tile_count_8x8 <= 4 * tile_count_16x16) 
 			{
 				/* 8x8 tiles are more efficient */
-				if ((kernel_size.height == 3) && (kernel_size.width == 3)) 
+				if (kernel_size.height == 3 && kernel_size.width == 3) 
 					algorithm = nnp_convolution_algorithm_wt8x8;
 				else 
 					algorithm = nnp_convolution_algorithm_ft8x8;
@@ -1078,7 +1082,7 @@ enum nnp_status nnp_convolution_inference(
 	}
 
 	const size_t transform_element_size = sizeof(float);
-	struct nnp_size tile_size = (struct nnp_size) { 8, 8 };
+	struct nnp_size tile_size = (struct nnp_size) { .width = 8, .height = 8 };
 	bool fourier_transform = false;
 	nnp_transform_2d_with_offset input_transform_function  = NULL;
 	nnp_transform_2d_with_offset kernel_transform_function = NULL;
@@ -1088,17 +1092,19 @@ enum nnp_status nnp_convolution_inference(
 	{
 	case nnp_convolution_algorithm_wt8x8_fp16:
 		#if NNP_BACKEND_ARM
-			if (kernel_size.height != 3 || kernel_size.width != 3) {
+			if (kernel_size.height != 3 || kernel_size.width != 3) 
+			{
 				status = nnp_status_unsupported_algorithm;
 				goto cleanup;
 			}
-			tile_size = (struct nnp_size) { .height = 8, .width = 8 };
+			tile_size = (struct nnp_size) { .width = 8, .height = 8 };
 			transform_element_size = sizeof(uint16_t);
 			fourier_transform = false;
 
 			input_transform_function = nnp_hwinfo.transforms.iwt_f6x6_3x3_fp16_with_offset;
 			kernel_transform_function = nnp_hwinfo.transforms.kwt_f6x6_3x3_fp16;
-			switch (activation) {
+			switch (activation) 
+			{
 			case nnp_activation_identity:
 				output_transform_function = nnp_hwinfo.transforms.owt_f6x6_3x3_fp16_with_bias;
 				break;
@@ -1108,9 +1114,8 @@ enum nnp_status nnp_convolution_inference(
 			default:
 				NNP_UNREACHABLE;
 			}
-			if (input_transform_function != NULL && kernel_transform_function != NULL && output_transform_function != NULL) {
+			if (input_transform_function != NULL && kernel_transform_function != NULL && output_transform_function != NULL)
 				break;
-			}
 		#endif
 		/*
 		* Fallthrough otherwise. The rationale here is that only some backends have fp16 storage natively implemented
@@ -1120,7 +1125,8 @@ enum nnp_status nnp_convolution_inference(
 
 		case nnp_convolution_algorithm_wt8x8:
 		{
-			if (kernel_size.height != 3 || kernel_size.width != 3) {
+			if (kernel_size.height != 3 || kernel_size.width != 3) 
+			{
 				status = nnp_status_unsupported_algorithm;
 				goto cleanup;
 			}
@@ -1147,7 +1153,7 @@ enum nnp_status nnp_convolution_inference(
 
 		case nnp_convolution_algorithm_ft16x16:
 		{
-			tile_size = (struct nnp_size) { 16, 16 };
+			tile_size = (struct nnp_size) { .width = 16, .height = 16 };
 			input_transform_function  = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			kernel_transform_function = nnp_hwinfo.transforms.fft16x16_with_offset_and_stream;
 			fourier_transform = true;

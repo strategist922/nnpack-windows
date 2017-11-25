@@ -29,7 +29,7 @@ struct NNP_CACHE_ALIGN inplace_softmax_context
 {
 	const nnp_inplace_softmax_function softmax_function;
 	const size_t channels;
-	float* data;
+	float* output;
 };
 
 static void compute_inplace_softmax_output(
@@ -39,9 +39,9 @@ static void compute_inplace_softmax_output(
 	const nnp_inplace_softmax_function softmax = context->softmax_function;
 	const size_t channels                      = context->channels;
 
-	float* data = context->data;
+	float* output = context->output;
 
-	softmax(channels, data + sample * channels);
+	softmax(channels, output + sample * channels);
 }
 
 enum nnp_status nnp_softmax_output(
@@ -76,7 +76,7 @@ enum nnp_status nnp_softmax_output(
 		{
 			.softmax_function = nnp_hwinfo.activations.inplace_softmax,
 			.channels = channels,
-			.data = output
+			.output = output
 		};
 		pthreadpool_compute_1d(
 			(pthreadpool_function_1d_t)compute_inplace_softmax_output,
