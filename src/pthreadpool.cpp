@@ -91,13 +91,24 @@
 
 
 #ifdef __cplusplus
-#include <nnpack/utils.h>
-
 extern "C" {
 #endif
 
+	#include <nnpack/utils.h>
 	#include <nnpack/pthreadpool.h>
 	
+#ifdef NOMINMAX
+	static inline size_t max(size_t a, size_t b)
+	{
+		return a > b ? a : b;
+	}
+
+	static inline size_t min(size_t a, size_t b)
+	{
+		return a > b ? b : a;
+	}
+#endif // !NOMINMAX
+
 	void pthreadpool_compute_1d(
 		pthreadpool_function_1d_t function,
 		void* argument,
