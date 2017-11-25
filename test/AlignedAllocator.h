@@ -95,7 +95,7 @@ public:
 
 	inline void deallocate(pointer p, size_type n) noexcept {
 
-#if defined(__MSC_VER)
+#if defined(_MSC_VER)
 		_aligned_free(static_cast<void*>(p));
 #else
 		free(static_cast<void*>(p));

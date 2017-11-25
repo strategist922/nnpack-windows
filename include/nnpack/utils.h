@@ -16,6 +16,7 @@ static inline size_t doz(size_t a, size_t b)
 	return a > b ? a - b : 0;
 }
 
+#ifndef NOMINMAX
 static inline size_t max(size_t a, size_t b)
 {
 	return a > b ? a : b;
@@ -25,6 +26,7 @@ static inline size_t min(size_t a, size_t b)
 {
 	return a > b ? b : a;
 }
+#endif // !NOMINMAX
 
 static inline size_t round_up(size_t number, size_t factor)
 {

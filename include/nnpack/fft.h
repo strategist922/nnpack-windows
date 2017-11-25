@@ -49,6 +49,7 @@ extern "C" {
 	void nnp_ifft16_real__ref(const float t[], size_t f_stride, float f[], size_t t_stride);
 	void nnp_ifft32_real__ref(const float t[], size_t f_stride, float f[], size_t t_stride);
 
+	
 	typedef void(*nnp_fft_function)(const float*, float*);
 
 	void nnp_fft8_dualreal__ref(const float t[], float f[]);
@@ -117,7 +118,6 @@ extern "C" {
 
 	void nnp_ifft8_real__scalar(const float f[], float t[]);
 	void nnp_ifft16_real__scalar(const float f[], float t[]);
-
 
 
 	void nnp_fft8_dualreal__avx2(const float t[], float f[]);

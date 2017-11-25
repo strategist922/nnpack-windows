@@ -91,12 +91,13 @@
 
 
 #ifdef __cplusplus
+#include <nnpack/utils.h>
+
 extern "C" {
 #endif
 
 	#include <nnpack/pthreadpool.h>
-	#include <nnpack/utils.h>
-
+	
 	void pthreadpool_compute_1d(
 		pthreadpool_function_1d_t function,
 		void* argument,
