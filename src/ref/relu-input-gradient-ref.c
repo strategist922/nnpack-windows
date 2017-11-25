@@ -4,11 +4,11 @@
 
 struct relu_input_gradient_context 
 {
-	size_t channels;
+	const size_t channels;
 	const float* grad_output;
 	const float* input;
 	float* grad_input;
-	float negative_slope;
+	const float negative_slope;
 };
 
 static void compute_relu_input_gradient(
@@ -21,7 +21,7 @@ static void compute_relu_input_gradient(
 	float* grad_input        = context->grad_input  + sample * channels;
 	float negative_slope     = context->negative_slope;
 
-	for (size_t channel = 0ull; channel < channels; channel++)
+	for (size_t channel = 0; channel < channels; channel++)
 		grad_input[channel] = grad_relu(grad_output[channel], input[channel], negative_slope);
 }
 
@@ -35,11 +35,11 @@ void nnp_relu_input_gradient__reference(
 {
 	struct relu_input_gradient_context relu_input_gradient_context = 
 	{
-		channels,
-		grad_output,
-		input,
-		grad_input,
-		negative_slope
+		.channels = channels,
+		.grad_output = grad_output,
+		.input = input,
+		.grad_input = grad_input,
+		.negative_slope = negative_slope
 	};
 
 	pthreadpool_compute_1d(

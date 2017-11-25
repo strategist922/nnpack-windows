@@ -9,8 +9,8 @@ struct NNP_CACHE_ALIGN input_packing_context
 {
 	const float* matrix;
 	float* packed_matrix;
-	size_t input_channels;
-	size_t outer_subblock_max;
+	const size_t input_channels;
+	const size_t outer_subblock_max;
 };
 
 static void pack_input_matrix(
@@ -46,11 +46,11 @@ struct NNP_CACHE_ALIGN kernel_packing_context
 	const float* matrix;
 	float* packed_matrix;
 
-	size_t simd_width;
-	size_t input_channels;
-	size_t outer_subblock_max;
-	size_t input_channels_block_start;
-	size_t input_channels_block_size;
+	const size_t simd_width;
+	const size_t input_channels;
+	const size_t outer_subblock_max;
+	const size_t input_channels_block_start;
+	const size_t input_channels_block_size;
 };
 
 static void pack_kernel_matrix(

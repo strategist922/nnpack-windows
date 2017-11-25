@@ -85,10 +85,10 @@ enum nnp_status nnp_relu_output(
 		/* Out-of-place transformation */
 		struct relu_context relu_context = 
 		{
-			nnp_hwinfo.activations.relu,
-			input,
-			output,
-			negative_slope
+			.relu_function = nnp_hwinfo.activations.relu,
+			.input = input,
+			.output = output,
+			.negative_slope = negative_slope
 		};
 		pthreadpool_compute_1d_tiled(
 			(pthreadpool_function_1d_tiled_t)compute_relu_output,
@@ -101,9 +101,9 @@ enum nnp_status nnp_relu_output(
 		/* In-place transformation */
 		struct inplace_relu_context inplace_relu_context = 
 		{
-			nnp_hwinfo.activations.inplace_relu,
-			output,
-			negative_slope
+			.relu_function = nnp_hwinfo.activations.inplace_relu,
+			.data = output,
+			.negative_slope = negative_slope
 		};
 		pthreadpool_compute_1d_tiled(
 			(pthreadpool_function_1d_tiled_t)compute_inplace_relu_output,

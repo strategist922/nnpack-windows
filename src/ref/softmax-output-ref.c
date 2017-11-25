@@ -26,7 +26,7 @@ static inline float vector_sum_expf_minus_c(const size_t length, const float* ar
 
 struct softmax_output_context 
 {
-    size_t channels;
+    const size_t channels;
     const float* input;
     float* output;
 };
@@ -42,7 +42,7 @@ static void compute_softmax_output(
     const float max_element = vector_maxf(channels, &input[sample * channels]);
     const float sum_exp = vector_sum_expf_minus_c(channels, &input[sample * channels], max_element);
     const float norm_factor = 1.0f / sum_exp;
-    for (size_t channel = 0ull; channel < channels; channel++)
+    for (size_t channel = 0; channel < channels; channel++)
         output[sample * channels + channel] = norm_factor * expf(input[sample * channels + channel] - max_element);
 }
 
@@ -54,9 +54,9 @@ void nnp_softmax_output__reference(
 {
     struct softmax_output_context softmax_output_context = 
 	{
-        channels,
-        input,
-        output
+        .channels = channels,
+        .input = input,
+        .output = output
     };
     
 	pthreadpool_compute_1d(

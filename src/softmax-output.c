@@ -59,10 +59,10 @@ enum nnp_status nnp_softmax_output(
 		/* Out-of-place softmax */
 		struct softmax_context softmax_context = 
 		{
-			nnp_hwinfo.activations.softmax,
-			channels,
-			input,
-			output
+			.softmax_function = nnp_hwinfo.activations.softmax,
+			.channels = channels,
+			.input = input,
+			.output = output
 		};
 		pthreadpool_compute_1d(
 			(pthreadpool_function_1d_t)compute_softmax_output,
@@ -74,9 +74,9 @@ enum nnp_status nnp_softmax_output(
 		/* In-place softmax */
 		struct inplace_softmax_context inplace_softmax_context = 
 		{
-			nnp_hwinfo.activations.inplace_softmax,
-			channels,
-			output
+			.softmax_function = nnp_hwinfo.activations.inplace_softmax,
+			.channels = channels,
+			.data = output
 		};
 		pthreadpool_compute_1d(
 			(pthreadpool_function_1d_t)compute_inplace_softmax_output,

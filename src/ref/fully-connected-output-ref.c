@@ -3,8 +3,8 @@
 
 struct fully_connected_output_context 
 {
-	size_t input_channels;
-	size_t output_channels;
+	const size_t input_channels;
+	const size_t output_channels;
 	const float* input_pointer;
 	const float* kernel_pointer;
 	float* output_pointer;
@@ -23,7 +23,7 @@ static void compute_fully_connected_output_f32(
 	float* output = context->output_pointer;
 
 	double v = 0.0;
-	for (size_t input_channel = 0ull; input_channel < input_channels; input_channel++)
+	for (size_t input_channel = 0; input_channel < input_channels; input_channel++)
 		v += (double)input[sample * input_channels + input_channel] * (double)kernel[output_channel * input_channels + input_channel];
 	
 	output[sample * output_channels + output_channel] = (float)v;
@@ -39,11 +39,11 @@ void nnp_fully_connected_output_f32__reference(
 {
 	struct fully_connected_output_context fully_connected_output_context = 
 	{
-		input_channels,
-		output_channels,
-		input,
-		kernel,
-		output
+		.input_channels = input_channels,
+		.output_channels = output_channels,
+		.input_pointer = input,
+		.kernel_pointer = kernel,
+		.output_pointer = output
 	};
 
 	pthreadpool_compute_2d(

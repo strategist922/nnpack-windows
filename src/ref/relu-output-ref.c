@@ -19,7 +19,7 @@ static void compute_relu_output(
 	float* output				= context->output + sample * channels;
 	const float negative_slope	= context->negative_slope;
 
-	for (size_t channel = 0ull; channel < channels; channel++)
+	for (size_t channel = 0; channel < channels; channel++)
 		output[channel] = relu(input[channel], negative_slope);
 }
 
@@ -32,10 +32,10 @@ void nnp_relu_output__reference(
 {
 	struct relu_output_context relu_output_context = 
 	{
-		channels,
-		input,
-		output,
-		negative_slope
+		.channels = channels,
+		.input = input,
+		.output = output,
+		.negative_slope = negative_slope
 	};
 
 	pthreadpool_compute_1d(

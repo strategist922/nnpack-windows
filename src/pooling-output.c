@@ -71,8 +71,8 @@ static void compute_max_pooling_forward_2x2_2x2__avx2(
 	const uint32_t pooling_height,
 	const uint32_t pooling_width)
 {
-	const struct nnp_size input_tile = { 16 , 2 };
-	const struct nnp_size output_tile = { 8, 1 };
+	const struct nnp_size input_tile = { .width = 16 , .height = 2 };
+	const struct nnp_size output_tile = { .width = 8, .height = 1 };
 
 	const float* input = input_pointer;
 	float* output      = output_pointer;
@@ -141,21 +141,21 @@ enum nnp_status nnp_max_pooling_output(
 	
 	const struct nnp_size output_size = 
 	{ 
-		divide_round_up(doz(input_padding.left + input_size.width + input_padding.right, pooling_size.width), pooling_stride.width) + 1, 
-		divide_round_up(doz(input_padding.top + input_size.height + input_padding.bottom, pooling_size.height), pooling_stride.height) + 1 
+		.width = divide_round_up(doz(input_padding.left + input_size.width + input_padding.right, pooling_size.width), pooling_stride.width) + 1, 
+		.height = divide_round_up(doz(input_padding.top + input_size.height + input_padding.bottom, pooling_size.height), pooling_stride.height) + 1 
 	};
 
 	struct pooling_context pooling_context = 
 	{
-		compute_max_pooling_forward__generic,
-		input,
-		output,
-		channels,
-		input_size,
-		input_padding,
-		output_size,
-		pooling_size,
-		pooling_stride
+		.pooling_function = compute_max_pooling_forward__generic,
+		.input_pointer = input,
+		.output_pointer = output,
+		.channels = channels,
+		.input_size = input_size,
+		.input_padding = input_padding,
+		.output_size = output_size,
+		.pooling_size = pooling_size,
+		.pooling_stride = pooling_stride
 	};
 	
 	if ((pooling_stride.height == 2) && (pooling_stride.width == 2) && (pooling_size.height == 2) && (pooling_size.width == 2)) 
