@@ -10,7 +10,6 @@
 #include <chrono>
 #include <functional>
 #include <algorithm>
-#include <numeric>
 
 #include <nnpack.h>
 #include <nnpack/reference.h>
@@ -30,9 +29,7 @@ public:
 		inputSize(4, 4);
 		kernelSize(3, 3);
 		inputPadding(0, 0, 0, 0);
-		outputSubsampling(1, 1);
-
-		
+		outputSubsampling(1, 1);		
 	}
 
 	ConvolutionTester(const ConvolutionTester&) = delete;

@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+
 #include <cmath>
 #include <cfloat>
 #include <vector>
@@ -13,7 +14,6 @@
 #include <nnpack/hwinfo.h>
 
 #include <AlignedAllocator.h>
-
 
 class GemmMicroKernelTester {
 public:

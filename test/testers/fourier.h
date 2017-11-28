@@ -12,12 +12,9 @@
 #include <algorithm>
 #include <numeric>
 
-#include <nnpack.h>
-#include <nnpack/reference.h>
-#include <nnpack/utils.h>
+#include <nnpack/fft.h>
 
 #include <AlignedAllocator.h>
-#include <nnpack/fft.h>
 
 class FFTTester {
 public:

@@ -10,11 +10,11 @@
 #include <chrono>
 #include <functional>
 #include <algorithm>
-#include <numeric>
+
+//#include <fp16.h>
 
 #include <nnpack.h>
 #include <nnpack/reference.h>
-#include <nnpack/utils.h>
 
 
 class FullyConnectedTester {

@@ -16,7 +16,6 @@
 #include <nnpack/reference.h>
 #include <nnpack/utils.h>
 
-
 class SoftmaxTester {
 public:
 	SoftmaxTester() :

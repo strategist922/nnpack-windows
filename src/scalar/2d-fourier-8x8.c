@@ -210,7 +210,7 @@ void nnp_ifft8x8_with_offset__scalar(
 		}
 	}
 }
-#nedif /* !NNP_INFERENCE_ONLY */
+#endif /* !NNP_INFERENCE_ONLY */
 
 void nnp_ifft8x8_with_bias__scalar(
 	const float* transform,
