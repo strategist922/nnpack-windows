@@ -1,4 +1,4 @@
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 	#include <ppl.h>
 #else
 	#include <future>
@@ -8,7 +8,7 @@
 	#include <type_traits>
 	#include <vector>
 
-	/* BEGIN: The following templated code come from tiny dnn */
+	/* BEGIN: The following templated code comes from tiny dnn */
 	struct blocked_range {
 		typedef size_t const_iterator;
 		blocked_range(size_t begin, size_t end) : begin_(begin), end_(end) {}
@@ -86,7 +86,7 @@
 	inline void for_i(T size, Func f, size_t grainsize = 100) {
 		for_i(true, size, f, grainsize);
 	}
-	/* END: The following templated code come from tiny dnn */
+	/* END: The following templated code comes from tiny dnn */
 #endif
 
 
@@ -114,7 +114,7 @@ extern "C" {
 		void* argument,
 		const size_t range)
 	{
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 		concurrency::parallel_for(0ull, range, [=](size_t i)
 		{
 			function(argument, i);
@@ -213,7 +213,7 @@ extern "C" {
 			tile_i,
 			tile_j
 		};
-
+	
 		pthreadpool_compute_1d((pthreadpool_function_1d_t)compute_2d_tiled, &context, tile_range_i * tile_range_j);
 	}
 #ifdef __cplusplus

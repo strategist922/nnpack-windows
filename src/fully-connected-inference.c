@@ -7,7 +7,7 @@
 
 struct NNP_CACHE_ALIGN fully_connected_inference_context 
 {
-	size_t input_channels;
+	const size_t input_channels;
 	const float* input;
 	const float* kernel;
 	float* output;
@@ -43,10 +43,10 @@ enum nnp_status nnp_fully_connected_inference(
 	const size_t output_channels_subblock_max = nnp_hwinfo.sdotxf.fusion;
 	struct fully_connected_inference_context fully_connected_inference_context = 
 	{
-		input_channels,
-		input,
-		kernel,
-		output
+		.input_channels = input_channels,
+		.input = input,
+		.kernel = kernel,
+		.output = output
 	};
 	pthreadpool_compute_1d_tiled(
 		(pthreadpool_function_1d_tiled_t)compute_fully_connected_inference_f32,

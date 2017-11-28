@@ -323,18 +323,18 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 				NNP_INPUT_TRANSFORM_START(profile)
 				struct input_transform_context input_transform_context = 
 				{
-					tuple_elements,
-					input_size.height * input_size.width,
-					batch_block_size,
-					input_channels,
-					input_size.width,
-					row_offset,
-					column_offset,
-					min(input_size.height - input_y, tile_size.height - row_offset),
-					min(input_size.width - input_x, tile_size.width - column_offset),
-					input + (batch_block_start * input_channels * input_size.height + input_y) * input_size.width + input_x,
-					input_transform,
-					input_transform_function
+					.tuple_elements = tuple_elements,
+					.input_elements = input_size.height * input_size.width,
+					.batch_block_size = batch_block_size,
+					.input_channels = input_channels,
+					.input_stride = input_size.width,
+					.row_offset = row_offset,
+					.column_offset = column_offset,
+					.row_count = min(input_size.height - input_y, tile_size.height - row_offset),
+					.column_count = min(input_size.width - input_x, tile_size.width - column_offset),
+					.input = input + (batch_block_start * input_channels * input_size.height + input_y) * input_size.width + input_x,
+					.input_transform = input_transform,
+					.transform_function = input_transform_function
 				};
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_input_transform,
@@ -347,16 +347,16 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 				NNP_OUTPUT_TRANSFORM_START(profile)
 				struct grad_output_transform_context grad_output_transform_context = 
 				{
-					tuple_elements,
-					output_size.height * output_size.width,
-					batch_block_size,
-					output_channels,
-					output_size.width,
-					min(output_tile.height, output_size.height - y),
-					min(output_tile.width, output_size.width - x),
-					grad_output + (batch_block_start * output_channels * output_size.height + y) * output_size.width + x,
-					grad_output_transform,
-					grad_output_transform_function
+					.tuple_elements = tuple_elements,
+					.output_elements = output_size.height * output_size.width,
+					.batch_block_size = batch_block_size,
+					.output_channels = output_channels,
+					.grad_output_stride = output_size.width,
+					.row_count = min(output_tile.height, output_size.height - y),
+					.column_count = min(output_tile.width, output_size.width - x),
+					.grad_output = grad_output + (batch_block_start * output_channels * output_size.height + y) * output_size.width + x,
+					.grad_output_transform = grad_output_transform,
+					.transform_function = grad_output_transform_function
 				};
 				pthreadpool_compute_2d_tiled(
 					(pthreadpool_function_2d_tiled_t)compute_grad_output_transform,
@@ -374,29 +374,27 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 
 						struct matrix_multiplication_context matrix_multiplication_context = 
 						{
-							tuple_elements,
-							batch_size,
-							batch_block_size,
-							batch_block_start | x | y,
-							input_channels,
-							input_channels_block_start,
-							input_channels_block_size,
-							input_channels_subblock_max,
-							output_channels,
-							output_channels_subblock_max,
-							grad_output_transform +	tuple_index * tuple_elements * batch_block_size * output_channels,
-							input_transform + tuple_index * tuple_elements * batch_block_size * input_channels,
-							grad_kernel_transform + tuple_index * tuple_elements * output_channels * input_channels,
-							nnp_hwinfo.cxgemm.cX_conjb_transc_only_mr_x_nr,
-							nnp_hwinfo.cxgemm.cX_conjb_transc_upto_mr_x_nr
+							.tuple_elements = tuple_elements,
+							.batch_size = batch_size,
+							.batch_block_size = batch_block_size,
+							.batch_block_update = batch_block_start | x | y,
+							.input_channels = input_channels,
+							.input_channels_block_start = input_channels_block_start,
+							.input_channels_block_size = input_channels_block_size,
+							.input_channels_subblock_max = input_channels_subblock_max,
+							.output_channels = output_channels,
+							.output_channels_subblock_max = output_channels_subblock_max,
+							.grad_output_transform = grad_output_transform +	tuple_index * tuple_elements * batch_block_size * output_channels,
+							.input_transform = input_transform + tuple_index * tuple_elements * batch_block_size * input_channels,
+							.grad_kernel_transform = grad_kernel_transform + tuple_index * tuple_elements * output_channels * input_channels,
+							.fast_gemm = nnp_hwinfo.cxgemm.cX_conjb_transc_only_mr_x_nr,
+							.full_gemm = nnp_hwinfo.cxgemm.cX_conjb_transc_upto_mr_x_nr
 						};
-
 						if (tuple_index < NNP_COMPLEX_TUPLE_INDEX) 
 						{
 							matrix_multiplication_context.fast_gemm = nnp_hwinfo.cxgemm.s4cX_conjb_transc_only_mr_x_nr;
 							matrix_multiplication_context.full_gemm = nnp_hwinfo.cxgemm.s4cX_conjb_transc_upto_mr_x_nr;
 						} 
-						
 						pthreadpool_compute_2d_tiled(
 							(pthreadpool_function_2d_tiled_t)compute_matrix_multiplication,
 							&matrix_multiplication_context,
@@ -413,14 +411,14 @@ static enum nnp_status compute_fast_convolution_kernel_gradient(
 	NNP_KERNEL_TRANSFORM_START(profile)
 	struct grad_kernel_transform_context grad_kernel_transform_context = 
 	{
-		tuple_elements,
-		input_channels,
-		output_channels,
-		output_channels_block_max,
-		kernel_size,
-		grad_kernel_transform,
-		grad_kernel,
-		grad_kernel_transform_function
+		.tuple_elements = tuple_elements,
+		.input_channels = input_channels,
+		.output_channels = output_channels,
+		.output_channels_block_max = output_channels_block_max,
+		.kernel_size = kernel_size,
+		.grad_kernel_transform = grad_kernel_transform,
+		.grad_kernel = grad_kernel,
+		.transform_function = grad_kernel_transform_function
 	};
 	pthreadpool_compute_2d_tiled(
 		(pthreadpool_function_2d_tiled_t)compute_grad_kernel_transform,
@@ -456,12 +454,12 @@ enum nnp_status nnp_convolution_kernel_gradient(
 
 	const struct nnp_size output_size = 
 	{
-		input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1,
-		input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1
+		.width = input_padding.left + input_size.width + input_padding.right - kernel_size.width + 1,
+		.height = input_padding.top + input_size.height + input_padding.bottom - kernel_size.height + 1
 	};
 
 	/* Basic validation of parameters. This check detects invalid, but not unsupported parameters. */
-	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels,	input_size, input_padding, kernel_size, (struct nnp_size) { 1, 1 }, activation, activation_parameters);
+	enum nnp_status status = validate_convolution_arguments(batch_size, input_channels, output_channels,	input_size, input_padding, kernel_size, (struct nnp_size) { .width = 1, .height = 1 }, activation, activation_parameters);
 	if (status != nnp_status_success)
 		goto cleanup;
 	
@@ -501,11 +499,11 @@ enum nnp_status nnp_convolution_kernel_gradient(
 	switch (algorithm) 
 	{
 		case nnp_convolution_algorithm_ft8x8:
-			status = compute_fast_convolution_kernel_gradient(batch_size, input_channels, output_channels, (struct nnp_size) { 8, 8 }, input_size, input_padding, kernel_size, output_size, input, grad_output, grad_kernel, workspace_buffer, workspace_size, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.ifft8x8_with_offset, profile);
+			status = compute_fast_convolution_kernel_gradient(batch_size, input_channels, output_channels, (struct nnp_size) { .width = 8, .height = 8 }, input_size, input_padding, kernel_size, output_size, input, grad_output, grad_kernel, workspace_buffer, workspace_size, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.fft8x8_with_offset_and_stream, nnp_hwinfo.transforms.ifft8x8_with_offset, profile);
 			break;
 
 		case nnp_convolution_algorithm_ft16x16:
-			status = compute_fast_convolution_kernel_gradient(batch_size, input_channels, output_channels, (struct nnp_size) { 16, 16 }, input_size, input_padding, kernel_size, output_size, input, grad_output, grad_kernel, workspace_buffer, workspace_size, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_offset, profile);
+			status = compute_fast_convolution_kernel_gradient(batch_size, input_channels, output_channels, (struct nnp_size) { .width = 16, .height = 16 }, input_size, input_padding, kernel_size, output_size, input, grad_output, grad_kernel, workspace_buffer, workspace_size, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.fft16x16_with_offset_and_stream, nnp_hwinfo.transforms.ifft16x16_with_offset, profile);
 			break;
 
 		case nnp_convolution_algorithm_wt8x8:
