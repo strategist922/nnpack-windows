@@ -216,12 +216,12 @@ static void init_x86_hwinfo() {
 				const bool inclusive = !!(cache_info.edx & 0x2);
 
 				const struct cache_info cache_info = {
-					sets * associativity * line_partitions * line_size,
-					associativity,
-					threads,
-					inclusive};
-
-				struct cpu_info cpuInfo;
+					.size = sets * associativity * line_partitions * line_size,
+					.associativity = associativity,
+					.threads = threads,
+					.inclusive = inclusive};
+				
+				//struct cpu_info cpuInfo;
 
 				switch (level) {
 				case 1:
@@ -246,22 +246,22 @@ static void init_x86_hwinfo() {
 #if !(defined(__x86_64__) || defined(__i386__) || defined(_MSC_VER)) || defined(__ANDROID__)
 static void init_static_hwinfo(void) {
 	nnp_hwinfo.cache.l1 = cache_info {
-		16 * 1024,
-		4,
-		1,
+		.size = 16 * 1024,
+		.associativity = 4,
+		.threads = 1,
 		true 
 	};
 	nnp_hwinfo.cache.l2 = cache_info {
-		128 * 1024,
-		4,
-		1,
-		true 
+		.size = 128 * 1024,
+		.associativity = 4,
+		.threads = 1,
+		.inclusive = true
 	};
 	nnp_hwinfo.cache.l3 = cache_info {
-		2 * 1024 * 1024,
-		8,
-		1,
-		true 
+		.size = 2 * 1024 * 1024,
+		.associativity = 8,
+		.threads = 1,
+		.inclusive = true
 	};
 }
 #endif
@@ -269,22 +269,22 @@ static void init_static_hwinfo(void) {
 #if !defined(__i386__) && !defined(__x86_64__) && !defined(_MSC_VER) && defined(__APPLE__) 
 static void init_static_ios_hwinfo(void) {
 	nnp_hwinfo.cache.l1 = cache_info {
-		1 * 32 * 1024,
-		1,
-		1,
-		false
+		.size = 1 * 32 * 1024,
+		.associativity = 1,
+		.threads = 1,
+		.inclusive = false
 	};
 	nnp_hwinfo.cache.l2 = cache_info {
-		1024 * 1024,
-		1,
-		1,
-		false
+		.size = 1024 * 1024,
+		.associativity = 1,
+		.threads = 1,
+		.inclusive = false
 	};
 	nnp_hwinfo.cache.l3 = cache_info {
-		2 * 1024 * 1024,
-		8,
-		1,
-		false
+		.size = 2 * 1024 * 1024,
+		.associativity = 8,
+		.threads = 1,
+		.inclusive = false
 	};
 }
 #endif
@@ -292,87 +292,87 @@ static void init_static_ios_hwinfo(void) {
 #if !NNP_CONVOLUTION_ONLY
 	#if NNP_BACKEND_X86_64 || NNP_BACKEND_WIN64
 	static const nnp_sdotxf_function sdotxf_function[8] = {
-		nnp_sdotxf1__avx2,
-		nnp_sdotxf2__avx2,
-		nnp_sdotxf3__avx2,
-		nnp_sdotxf4__avx2,
-		nnp_sdotxf5__avx2,
-		nnp_sdotxf6__avx2,
-		nnp_sdotxf7__avx2,
-		nnp_sdotxf8__avx2
+		[0] = nnp_sdotxf1__avx2,
+		[1] = nnp_sdotxf2__avx2,
+		[2] = nnp_sdotxf3__avx2,
+		[3] = nnp_sdotxf4__avx2,
+		[4] = nnp_sdotxf5__avx2,
+		[5] = nnp_sdotxf6__avx2,
+		[6] = nnp_sdotxf7__avx2,
+		[7] = nnp_sdotxf8__avx2
 	};
 	static const nnp_shdotxf_function shdotxf_function[8] = {
-		nnp_shdotxf1__avx2,
-		nnp_shdotxf2__avx2,
-		nnp_shdotxf3__avx2,
-		nnp_shdotxf4__avx2,
-		nnp_shdotxf5__avx2,
-		nnp_shdotxf6__avx2,
-		nnp_shdotxf7__avx2,
-		nnp_shdotxf8__avx2
+		[0] = nnp_shdotxf1__avx2,
+		[1] = nnp_shdotxf2__avx2,
+		[2] = nnp_shdotxf3__avx2,
+		[3] = nnp_shdotxf4__avx2,
+		[4] = nnp_shdotxf5__avx2,
+		[5] = nnp_shdotxf6__avx2,
+		[6] = nnp_shdotxf7__avx2,
+		[7] = nnp_shdotxf8__avx2
 	};
 	#elif NNP_BACKEND_ARM
 	static const nnp_sdotxf_function sdotxf_function[8] = {
-		nnp_sdotxf1__neon,
-		nnp_sdotxf2__neon,
-		nnp_sdotxf3__neon,
-		nnp_sdotxf4__neon,
-		nnp_sdotxf5__neon,
-		nnp_sdotxf6__neon,
-		nnp_sdotxf7__neon,
-		nnp_sdotxf8__neon,
+		[0] = nnp_sdotxf1__neon,
+		[1] = nnp_sdotxf2__neon,
+		[2] = nnp_sdotxf3__neon,
+		[3] = nnp_sdotxf4__neon,
+		[4] = nnp_sdotxf5__neon,
+		[5] = nnp_sdotxf6__neon,
+		[6] = nnp_sdotxf7__neon,
+		[7] = nnp_sdotxf8__neon,
 	};
 	static const nnp_shdotxf_function shdotxf_function[8] = {
-		nnp_shdotxf1__psimd,
-		nnp_shdotxf2__psimd,
-		nnp_shdotxf3__psimd,
-		nnp_shdotxf4__psimd,
-		nnp_shdotxf5__psimd,
-		nnp_shdotxf6__psimd,
-		nnp_shdotxf7__psimd,
-		nnp_shdotxf8__psimd,
+		[0] = nnp_shdotxf1__psimd,
+		[1] = nnp_shdotxf2__psimd,
+		[2] = nnp_shdotxf3__psimd,
+		[3] = nnp_shdotxf4__psimd,
+		[4] = nnp_shdotxf5__psimd,
+		[5] = nnp_shdotxf6__psimd,
+		[6] = nnp_shdotxf7__psimd,
+		[7] = nnp_shdotxf8__psimd,
 	};
 	#elif NNP_BACKEND_PSIMD
 	static const nnp_sdotxf_function sdotxf_function[8] = {
-		nnp_sdotxf1__psimd,
-		nnp_sdotxf2__psimd,
-		nnp_sdotxf3__psimd,
-		nnp_sdotxf4__psimd,
-		nnp_sdotxf5__psimd,
-		nnp_sdotxf6__psimd,
-		nnp_sdotxf7__psimd,
-		nnp_sdotxf8__psimd,
+		[0] = nnp_sdotxf1__psimd,
+		[1] = nnp_sdotxf2__psimd,
+		[2] = nnp_sdotxf3__psimd,
+		[3] = nnp_sdotxf4__psimd,
+		[4] = nnp_sdotxf5__psimd,
+		[5] = nnp_sdotxf6__psimd,
+		[6] = nnp_sdotxf7__psimd,
+		[7] = nnp_sdotxf8__psimd,
 	};
 	static const nnp_shdotxf_function shdotxf_function[8] = {
-		nnp_shdotxf1__psimd,
-		nnp_shdotxf2__psimd,
-		nnp_shdotxf3__psimd,
-		nnp_shdotxf4__psimd,
-		nnp_shdotxf5__psimd,
-		nnp_shdotxf6__psimd,
-		nnp_shdotxf7__psimd,
-		nnp_shdotxf8__psimd,
+		[0] = nnp_shdotxf1__psimd,
+		[1] = nnp_shdotxf2__psimd,
+		[2] = nnp_shdotxf3__psimd,
+		[3] = nnp_shdotxf4__psimd,
+		[4] = nnp_shdotxf5__psimd,
+		[5] = nnp_shdotxf6__psimd,
+		[6] = nnp_shdotxf7__psimd,
+		[7] = nnp_shdotxf8__psimd,
 	};
 	#elif NNP_BACKEND_SCALAR
 	static const nnp_sdotxf_function sdotxf_function[8] = {
-		nnp_sdotxf1__scalar,
-		nnp_sdotxf2__scalar,
-		nnp_sdotxf3__scalar,
-		nnp_sdotxf4__scalar,
-		nnp_sdotxf5__scalar,
-		nnp_sdotxf6__scalar,
-		nnp_sdotxf7__scalar,
-		nnp_sdotxf8__scalar,
+		[0] = nnp_sdotxf1__scalar,
+		[1] = nnp_sdotxf2__scalar,
+		[2] = nnp_sdotxf3__scalar,
+		[3] = nnp_sdotxf4__scalar,
+		[4] = nnp_sdotxf5__scalar,
+		[5] = nnp_sdotxf6__scalar,
+		[6] = nnp_sdotxf7__scalar,
+		[7] = nnp_sdotxf8__scalar,
 	};
 	static const nnp_shdotxf_function shdotxf_function[8] = {
-		nnp_shdotxf1__scalar,
-		nnp_shdotxf2__scalar,
-		nnp_shdotxf3__scalar,
-		nnp_shdotxf4__scalar,
-		nnp_shdotxf5__scalar,
-		nnp_shdotxf6__scalar,
-		nnp_shdotxf7__scalar,
-		nnp_shdotxf8__scalar,
+		[0] = nnp_shdotxf1__scalar,
+		[1] = nnp_shdotxf2__scalar,
+		[2] = nnp_shdotxf3__scalar,
+		[3] = nnp_shdotxf4__scalar,
+		[4] = nnp_shdotxf5__scalar,
+		[5] = nnp_shdotxf6__scalar,
+		[6] = nnp_shdotxf7__scalar,
+		[7] = nnp_shdotxf8__scalar,
 	};
 	#endif
 #endif /* !NNP_INFERENCE_ONLY */
@@ -615,60 +615,61 @@ static void init_hwinfo() {
 		nnp_hwinfo.activations.softmax = nnp_softmax__psimd;
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__psimd;
 		nnp_hwinfo.sdotxf = (struct sdotxf) {
-			sdotxf_function,
-			NNP_COUNT_OF(sdotxf_function)
+			.functions = sdotxf_function,
+			.fusion = NNP_COUNT_OF(sdotxf_function)
 		};
 		nnp_hwinfo.shdotxf = (struct shdotxf) {
-			shdotxf_function,
-			NNP_COUNT_OF(shdotxf_function)
+			.functions = shdotxf_function,
+			.fusion = NNP_COUNT_OF(shdotxf_function)
 		};
 #endif /* !NNP_INFERENCE_ONLY */
 		nnp_hwinfo.conv1x1 = (struct convolution) {
-			nnp_conv1x1_only_2x4__neon,
-			nnp_conv1x1_upto_2x4__neon,
-			2,
-			4
+			.only_mr_x_nr nnp_conv1x1_only_2x4__neon,
+			.upto_mr_x_nr nnp_conv1x1_upto_2x4__neon,
+			.mr = 2,
+			.nr = 4
 		};
 		nnp_hwinfo.sgemm = (struct sgemm) {
-		nnp_sgemm_only_4x12__neon,
-			nnp_sgemm_upto_4x12__neon,
-			4,
-			12
+			.only_mr_x_nr = nnp_sgemm_only_4x12__neon,
+			.upto_mr_x_nr = nnp_sgemm_upto_4x12__neon,
+			.mr = 4,
+			.nr = 12
 		};
 		nnp_hwinfo.sxgemm = (struct sxgemm) {
-			(nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__neon,
-			(nnp_full_tuple_gemm_function)nnp_s4gemm_upto_3x4__neon,
-			3,
-			4
+			.only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__neon,
+			.upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s4gemm_upto_3x4__neon,
+			.mr = 3,
+			.nr = 4
 		};
 		if (has_fp16) {
 			nnp_hwinfo.hxgemm = (struct hxgemm) {
-				(nnp_fast_tuple_gemm_function)nnp_h4gemm_only_3x4__neonhp,
-				(nnp_full_tuple_gemm_function)nnp_h4gemm_upto_3x4__neonhp,
-				3,
-				4
+				.only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_h4gemm_only_3x4__neonhp,
+				.upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_h4gemm_upto_3x4__neonhp,
+				.mr = 3,
+				.br = 4
 			};
 		}
 		nnp_hwinfo.cxgemm = (struct cxgemm) {
 #if !NNP_INFERENCE_ONLY
-			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_only_2x2__neon,
-			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_upto_2x2__neon,
-			(nnp_fast_tuple_gemm_function)nnp_c4gemm_only_2x2__neon,
-			(nnp_full_tuple_gemm_function)nnp_c4gemm_upto_2x2__neon,
+			.s4cX_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s4c2gemm_only_2x2__neon,
+			.s4cX_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s4c2gemm_upto_2x2__neon,
+			.cX_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_c4gemm_only_2x2__neon,
+			.cX_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_c4gemm_upto_2x2__neon,
 #endif /* !NNP_INFERENCE_ONLY */
-			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_conjb_only_2x2__neon,
-			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_conjb_upto_2x2__neon,
-			(nnp_fast_tuple_gemm_function)nnp_c4gemm_conjb_only_2x2__neon,
-			(nnp_full_tuple_gemm_function)nnp_c4gemm_conjb_upto_2x2__neon,
+			.s4cX_conjb_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s4c2gemm_conjb_only_2x2__neon,
+			.s4cX_conjb_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s4c2gemm_conjb_upto_2x2__neon,
+			.cX_conjb_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_c4gemm_conjb_only_2x2__neon,
+			.cX_conjb_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_c4gemm_conjb_upto_2x2__neon,
 #if !NNP_INFERENCE_ONLY
-			(nnp_fast_tuple_gemm_function)nnp_s4c2gemm_conjb_transc_only_2x2__neon,
-			(nnp_full_tuple_gemm_function)nnp_s4c2gemm_conjb_transc_upto_2x2__neon,
-			(nnp_fast_tuple_gemm_function)nnp_c4gemm_conjb_transc_only_2x2__neon,
-			(nnp_full_tuple_gemm_function)nnp_c4gemm_conjb_transc_upto_2x2__neon,
+			.s4cX_conjb_transc_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s4c2gemm_conjb_transc_only_2x2__neon,
+			.s4cX_conjb_transc_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s4c2gemm_conjb_transc_upto_2x2__neon,
+			.cX_conjb_transc_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_c4gemm_conjb_transc_only_2x2__neon,
+			.cX_conjb_transc_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_c4gemm_conjb_transc_upto_2x2__neon,
 #endif /* !NNP_INFERENCE_ONLY */
-			2,
-			2
+			.mr = 2,
+			.nr = 2
 		};
+
 #if defined(__ANDROID__) && defined(__arm__) && !defined(__aarch64__)
 		nnp_hwinfo.supported = (android_getCpuFeatures() & ANDROID_CPU_ARM_FEATURE_NEON) != 0;
 #else
@@ -707,52 +708,53 @@ static void init_hwinfo() {
 		nnp_hwinfo.activations.inplace_softmax = nnp_inplace_softmax__scalar;
 
 		nnp_hwinfo.sdotxf = (struct sdotxf) {
-			sdotxf_function,
-			NNP_COUNT_OF(sdotxf_function),
+			.functions = sdotxf_function,
+			.fusion = NNP_COUNT_OF(sdotxf_function),
 		};
 		nnp_hwinfo.shdotxf = (struct shdotxf) {
-			shdotxf_function,
-			NNP_COUNT_OF(shdotxf_function),
+			.functions = shdotxf_function,
+			.fusion = NNP_COUNT_OF(shdotxf_function),
 		};
 #endif /* !NNP_INFERENCE_ONLY */
 		nnp_hwinfo.conv1x1 = (struct convolution) {
-			nnp_conv1x1_only_2x4__scalar,
-			nnp_conv1x1_upto_2x4__scalar,
-			2,
-			4
+			.only_mr_x_nr nnp_conv1x1_only_2x4__scalar,
+			.upto_mr_x_nr nnp_conv1x1_upto_2x4__scalar,
+			.mr = 2,
+			.nr = 4
 		};
 		nnp_hwinfo.sgemm = (struct sgemm) {
-			nnp_sgemm_only_4x3__scalar,
-			nnp_sgemm_upto_4x3__scalar,
-			4,
-			3
+			.only_mr_x_nr = nnp_sgemm_only_4x3__scalar,
+			.upto_mr_x_nr = nnp_sgemm_upto_4x3__scalar,
+			.mr = 4,
+			.nr = 3
 		};
 		nnp_hwinfo.sxgemm = (struct sxgemm) {
-			(nnp_fast_tuple_gemm_function)nnp_sgemm_only_4x3__scalar,
-			(nnp_full_tuple_gemm_function)nnp_sgemm_upto_4x3__scalar,
-			4,
-			3
+			.only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_sgemm_only_4x3__scalar,
+			.upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_sgemm_upto_4x3__scalar,
+			.mr = 4,
+			.nr = 3
 		};
 		nnp_hwinfo.cxgemm = (struct cxgemm) {
 #if !NNP_CONVOLUTION_ONLY
-			(nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
-			(nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
-			(nnp_fast_tuple_gemm_function)nnp_cgemm_only_2x2__scalar,
-			(nnp_full_tuple_gemm_function)nnp_cgemm_upto_2x2__scalar,
+			.s4cX_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
+			.s4cX_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
+			.cX_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_cgemm_only_2x2__scalar,
+			.cX_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_cgemm_upto_2x2__scalar,
 #endif /* !NNP_INFERENCE_ONLY */
-			(nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
-			(nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
-			(nnp_fast_tuple_gemm_function)nnp_cgemm_conjb_only_2x2__scalar,
-			(nnp_full_tuple_gemm_function)nnp_cgemm_conjb_upto_2x2__scalar,
+			.s4cX_conjb_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s2gemm_only_2x2__scalar,
+			.s4cX_conjb_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s2gemm_upto_2x2__scalar,
+			.cX_conjb_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_cgemm_conjb_only_2x2__scalar,
+			.cX_conjb_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_cgemm_conjb_upto_2x2__scalar,
 #if !NNP_CONVOLUTION_ONLY
-			(nnp_fast_tuple_gemm_function)nnp_s2gemm_transc_only_2x2__scalar,
-			(nnp_full_tuple_gemm_function)nnp_s2gemm_transc_upto_2x2__scalar,
-			(nnp_fast_tuple_gemm_function)nnp_cgemm_conjb_transc_only_2x2__scalar,
-			(nnp_full_tuple_gemm_function)nnp_cgemm_conjb_transc_upto_2x2__scalar,
+			.s4cX_conjb_transc_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s2gemm_transc_only_2x2__scalar,
+			.s4cX_conjb_transc_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_s2gemm_transc_upto_2x2__scalar,
+			.cX_conjb_transc_only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_cgemm_conjb_transc_only_2x2__scalar,
+			.cX_conjb_transc_upto_mr_x_nr = (nnp_full_tuple_gemm_function)nnp_cgemm_conjb_transc_upto_2x2__scalar,
 #endif /* !NNP_INFERENCE_ONLY */
-			2,
-			2
+			.mr = 2,
+			.nr = 2
 		};
+
 		nnp_hwinfo.supported = true;
 #else
 #error Unsupported backend
