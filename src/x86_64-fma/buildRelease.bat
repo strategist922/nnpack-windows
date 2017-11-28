@@ -34,7 +34,5 @@ cd "%source_dir%"
 
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\winograd-f6k3.obj "%source_dir%"\winograd-f6k3.py
 
-
 endlocal
 exit
-

@@ -9,7 +9,7 @@
 static inline float vector_maxf(const size_t length, const float* array) 
 {
     float max_element = -FLT_MAX;
-    for (size_t i = 0ull; i < length; i++) 
+    for (size_t i = 0; i < length; i++) 
 	     max_element = maxf(max_element, array[i]);
     
     return max_element;
@@ -18,7 +18,7 @@ static inline float vector_maxf(const size_t length, const float* array)
 static inline float vector_sum_expf_minus_c(const size_t length, const float* array, float c) 
 {
     float sum = 0.0f;
-    for (size_t i = 0ull; i < length; i++)
+    for (size_t i = 0; i < length; i++)
         sum += expf(array[i] - c);
     
     return sum;

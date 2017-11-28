@@ -1240,6 +1240,7 @@ enum nnp_status nnp_convolution_inference(
 				input, kernel, bias, output, workspace_buffer, workspace_size, activation, profile);
 		}
 		break;
+
 		case nnp_convolution_algorithm_auto:
 			NNP_UNREACHABLE;
 	}

@@ -268,8 +268,8 @@ static enum nnp_status compute_fast_convolution_output(
 
 	const struct nnp_size output_tile_size = 
 	{ 
-		tile_size.width - kernel_size.width + 1, 
-		tile_size.height - kernel_size.height + 1 
+		.width = tile_size.width - kernel_size.width + 1, 
+		.height = tile_size.height - kernel_size.height + 1 
 	};
 
 	/* Calculate cache blocking parameters */

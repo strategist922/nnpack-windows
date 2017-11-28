@@ -6,7 +6,6 @@ set source_dir=%nnpack_dir%src\x86_64-fma
 set output_dir=%nnpack_dir%x64\Debug
 set proc_arch=haswell
 
-
 cd "%source_dir%"
 
 "%PYTHONPATH%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\2d-fourier-8x8.obj "%source_dir%"\2d-fourier-8x8.py
@@ -37,4 +36,3 @@ cd "%source_dir%"
 
 endlocal
 exit
-
