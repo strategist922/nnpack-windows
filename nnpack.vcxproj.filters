@@ -274,6 +274,9 @@
     <ClInclude Include="include\nnpack\winograd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nnpack\arm_neon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
