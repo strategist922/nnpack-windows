@@ -219,7 +219,8 @@ static void init_x86_hwinfo() {
 					.size = sets * associativity * line_partitions * line_size,
 					.associativity = associativity,
 					.threads = threads,
-					.inclusive = inclusive};
+					.inclusive = inclusive
+				};
 				
 				//struct cpu_info cpuInfo;
 
