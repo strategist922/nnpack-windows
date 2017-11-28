@@ -67,13 +67,13 @@ void nnp_convolution_output__reference(
 	const float* bias,
 	float* output_pointer)
 {
-	const struct nnp_size output_size = 
+	const struct nnp_size output_size =
 	{
-		.width = (input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1, 
+		.width = (input_padding.left + input_size.width + input_padding.right - kernel_size.width) / output_subsampling.width + 1,
 		.height = (input_padding.top + input_size.height + input_padding.bottom - kernel_size.height) / output_subsampling.height + 1
 	};
 
-	struct convolution_output_context convolution_output_context = 
+	struct convolution_output_context convolution_output_context =
 	{
 		.input_channels = input_channels,
 		.output_channels = output_channels,
@@ -91,3 +91,4 @@ void nnp_convolution_output__reference(
 		(pthreadpool_function_2d_t)compute_convolution_output,
 		&convolution_output_context,
 		batch_size, output_channels);
+}
