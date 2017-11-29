@@ -397,6 +397,11 @@
     <None Include="src\x86_64-fma\winograd-f6k3.py" />
     <None Include="src\x86_64-fma\winograd\o6x6k3x3.py" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="pthread-win32\pthread_lib.2015.vcxproj">
+      <Project>{a063dfad-6995-4e1a-afff-e43dc11e95b1}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
