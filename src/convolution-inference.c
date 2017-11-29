@@ -1068,6 +1068,7 @@ enum nnp_status nnp_convolution_inference(
 				                            divide_round_up(output_size.width, 8 - kernel_size.width + 1);
 			const size_t tile_count_16x16 = divide_round_up(output_size.height, 16 - kernel_size.height + 1) * 
 				                            divide_round_up(output_size.width, 16 - kernel_size.width + 1);
+			
 			if (tile_count_8x8 <= 4 * tile_count_16x16) 
 			{
 				/* 8x8 tiles are more efficient */
@@ -1113,6 +1114,7 @@ enum nnp_status nnp_convolution_inference(
 				break;
 			default:
 				NNP_UNREACHABLE;
+				break;
 			}
 			if (input_transform_function != NULL && kernel_transform_function != NULL && output_transform_function != NULL)
 				break;
@@ -1170,9 +1172,12 @@ enum nnp_status nnp_convolution_inference(
 
 		case nnp_convolution_algorithm_auto:
 			NNP_UNREACHABLE;
+			break;
+
 		default:
 			status = nnp_status_invalid_algorithm;
 			goto cleanup;
+			break;
 	}
 
 	switch (algorithm) 
@@ -1231,7 +1236,7 @@ enum nnp_status nnp_convolution_inference(
 
 			if (max(kernel_size.height, kernel_size.width) != 1)
 			{
-				status =nnp_status_unsupported_algorithm;
+				status = nnp_status_unsupported_algorithm;
 				goto cleanup;
 			}
 
@@ -1243,6 +1248,7 @@ enum nnp_status nnp_convolution_inference(
 
 		case nnp_convolution_algorithm_auto:
 			NNP_UNREACHABLE;
+			break;
 	}
 
 cleanup:
