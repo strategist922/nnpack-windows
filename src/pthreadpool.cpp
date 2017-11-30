@@ -8,7 +8,9 @@
 	#include <type_traits>
 	#include <vector>
 
-	/* BEGIN: The following templated code comes from tiny dnn */
+	/* BEGIN: The following templated code comes from tiny dnn                       */
+    /* https://github.com/tiny-dnn/tiny-dnn/blob/master/tiny_dnn/util/parallel_for.h */
+    
 	struct blocked_range {
 		typedef size_t const_iterator;
 		blocked_range(size_t begin, size_t end) : begin_(begin), end_(end) {}
@@ -86,7 +88,7 @@
 	inline void for_i(T size, Func f, size_t grainsize = 100) {
 		for_i(true, size, f, grainsize);
 	}
-	/* END: The following templated code comes from tiny dnn */
+	/* END: The following templated code comes from tiny dnn                            */
 #endif
 
 
@@ -97,17 +99,6 @@ extern "C" {
 	#include <nnpack/utils.h>
 	#include <nnpack/pthreadpool.h>
 	
-#ifdef NOMINMAX
-	static inline size_t max(size_t a, size_t b)
-	{
-		return a > b ? a : b;
-	}
-
-	static inline size_t min(size_t a, size_t b)
-	{
-		return a > b ? b : a;
-	}
-#endif // !NOMINMAX
 
 	void pthreadpool_compute_1d(
 		pthreadpool_function_1d_t function,

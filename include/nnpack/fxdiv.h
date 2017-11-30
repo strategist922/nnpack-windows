@@ -3,13 +3,13 @@
 #define FXDIV_H
 
 #if defined(__cplusplus)
-#include <cstddef>
-#include <cstdint>
-#include <climits>
+	#include <cstddef>
+	#include <cstdint>
+	#include <climits>
 #elif !defined(__OPENCL_VERSION__)
-#include <stddef.h>
-#include <stdint.h>
-#include <limits.h>
+	#include <stddef.h>
+	#include <stdint.h>
+	#include <limits.h>
 #endif
 
 #if defined(_MSC_VER)

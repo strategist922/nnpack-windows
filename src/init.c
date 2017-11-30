@@ -56,7 +56,7 @@ struct cpu_info {
 		}
 	#endif
 #else
-	static inline uint64_t xgetbv(uint32_t ext_ctrl_reg) {
+    static inline uint64_t xgetbv(uint32_t ext_ctrl_reg) {
 		return _xgetbv(ext_ctrl_reg);
 	}
 
@@ -378,7 +378,7 @@ static void init_static_ios_hwinfo(void) {
 	#endif
 #endif /* !NNP_INFERENCE_ONLY */
 
-static void init_hwinfo() {
+static void init_hwinfo(void) {
 	init_x86_hwinfo();
 	
 	// Compute high-level cache blocking parameters
@@ -766,6 +766,7 @@ static void init_hwinfo() {
 }
 
 enum nnp_status nnp_initialize() {
+
 #ifdef _MSC_VER
 	init_hwinfo();
 #else
