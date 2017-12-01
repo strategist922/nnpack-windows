@@ -194,7 +194,7 @@
     <ClCompile Include="src\x86_64-fma\exp.c">
       <Filter>x86_64-fma</Filter>
     </ClCompile>
-    <ClCompile Include="src\pthreadpool.cpp">
+    <ClCompile Include="src\pthreadpool.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
