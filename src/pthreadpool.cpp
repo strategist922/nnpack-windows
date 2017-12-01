@@ -1,4 +1,4 @@
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && defined(__cplusplus)
 	#include <ppl.h>
 #else
 	#include <cassert>
