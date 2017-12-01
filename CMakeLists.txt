@@ -20,8 +20,8 @@ ENDIF()
 
 # ---[ Build flags
 IF(NOT MSVC)
-  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -fopenmp")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -fopenmp")
 ENDIF()
 
 IF(NOT CMAKE_SYSTEM_PROCESSOR)
