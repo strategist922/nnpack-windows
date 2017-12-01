@@ -54,7 +54,7 @@ def main(args):
         nnpack_objects = [
             build.cc("init.c"),
             build.cc("convolution-inference.c"),
-            build.cc("pthreadpool.c")
+            build.cxx("pthreadpool.cpp")
         ]
         if not options.convolution_only:
             # Fully-connected, pooling, Softmax, ReLU layers
