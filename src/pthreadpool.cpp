@@ -1,21 +1,32 @@
+#if defined(_MSC_VER) && defined(__cplusplus)
+#include <ppl.h>
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-	#include <omp.h>
 
-	#include <nnpack/utils.h>
 	#include <nnpack/pthreadpool.h>
-	
+	#include <nnpack/utils.h>
+
 
 	void pthreadpool_compute_1d(
 		pthreadpool_function_1d_t function,
 		void* argument,
 		const size_t range)
 	{
+#if defined(_MSC_VER) && defined(__cplusplus)
+		concurrency::parallel_for(0ull, range, [=](size_t i)
+		{
+			function(argument, i);
+		}, concurrency::static_partitioner());
+#else
 		long long i;
-		#pragma omp parallel for schedule(static)
+#pragma omp parallel for schedule(static)
 		for (i = 0; i < range; i++)
 			function(argument, i);
+#endif
 	}
 
 	static void compute_1d_tiled(const struct compute_1d_tiled_context* context, const size_t linear_index)

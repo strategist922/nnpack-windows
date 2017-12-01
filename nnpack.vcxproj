@@ -219,7 +219,7 @@
     <ClCompile Include="src\fully-connected-output.c" />
     <ClCompile Include="src\init.c" />
     <ClCompile Include="src\pooling-output.c" />
-    <ClCompile Include="src\pthreadpool.c" />
+    <ClCompile Include="src\pthreadpool.cpp" />
     <ClCompile Include="src\ref\convolution-input-gradient-ref.c" />
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.c" />
     <ClCompile Include="src\ref\convolution-output-ref.c" />

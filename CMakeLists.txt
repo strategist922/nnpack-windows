@@ -141,7 +141,7 @@ ENDIF()
 
 # ---[ NNPACK library
 SET(NNPACK_SRCS
-  src/pthreadpool.c
+  src/pthreadpool.cpp
   src/init.c
   src/convolution-inference.c
   src/convolution-input-gradient.c
