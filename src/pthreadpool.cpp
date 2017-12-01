@@ -8,6 +8,8 @@
 	#include <type_traits>
 	#include <utility>
 	#include <vector>
+	#include <future>
+	#include <thread>
 
 	struct blocked_range {
 		typedef size_t const_iterator;
@@ -35,11 +37,32 @@
 		const Func &f,
 		size_t /*grainsize*/) {
 		assert(end >= begin);
-		// unsigned index isn't allowed in OpenMP 2.0
-	#pragma omp parallel for
-		for (int i = static_cast<int>(begin); i < static_cast<int>(end); ++i)
-			f(blocked_range(i, i + 1));
+		size_t nthreads = std::thread::hardware_concurrency();
+		size_t blockSize = (end - begin) / nthreads;
+		if (blockSize * nthreads < end - begin) blockSize++;
+
+		std::vector<std::future<void> > futures;
+
+		size_t blockBegin = begin;
+		size_t blockEnd = blockBegin + blockSize;
+
+		if (blockEnd > end) blockEnd = end;
+
+		for (size_t i = 0; i < nthreads; i++) {
+			futures.push_back(
+				std::move(std::async(std::launch::async, [blockBegin, blockEnd, &f] {
+				f(blocked_range(blockBegin, blockEnd));
+			})));
+
+			blockBegin += blockSize;
+			blockEnd = blockBegin + blockSize;
+			if (blockBegin >= end) break;
+			if (blockEnd > end) blockEnd = end;
+		}
+
+		for (auto &future : futures) future.wait();
 	}
+
 	template <typename T, typename U>
 	bool value_representation(U const &value) {
 		return static_cast<U>(static_cast<T>(value)) == value;
@@ -52,7 +75,7 @@
 		parallelize = parallelize && value_representation<size_t>(end);
 		parallelize ? parallel_for(begin, end, f, grainsize)
 			: xparallel_for(begin, end, f);
-	}
+		}
 
 	template <typename T, typename Func>
 	inline void for_i(bool parallelize, T size, Func f, size_t grainsize = 100u) {
