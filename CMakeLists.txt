@@ -1,5 +1,4 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
-SET(CMAKE_SYSTEM_PROCESSOR STRING "x86_64")
 
 INCLUDE(GNUInstallDirs)
 
@@ -47,7 +46,7 @@ IF(NNPACK_BACKEND STREQUAL "auto")
   ELSEIF(NOT CMAKE_SYSTEM_PROCESSOR)
     MESSAGE(WARNING "CMAKE_SYSTEM_PROCESSOR is not defined, using PSIMD backend")    
     SET(NNPACK_BACKEND "psimd")
-  ELSEIF(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND NOT CMAKE_SYSTEM_NAME STREQUAL "Android")
+  ELSEIF(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" OR CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND NOT CMAKE_SYSTEM_NAME STREQUAL "Android")
     SET(NNPACK_BACKEND "x86-64")
   ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "^(armv5te|armv7-a|armv7l|aarch64)$")
     SET(NNPACK_BACKEND "neon")
@@ -158,7 +157,7 @@ SET(NNPACK_SRCS
 SET(NNPACK_REFERENCE_LAYERS_SRCS
   src/ref/convolution-output-ref.c
   src/ref/convolution-input-gradient-ref.c
-  src/ref/convolution-kernel-ref.c
+  src/ref/convolution-kernel-gradient-ref.c
   src/ref/fully-connected-output-ref.c
   src/ref/max-pooling-output-ref.c
   src/ref/softmax-output-ref.c
