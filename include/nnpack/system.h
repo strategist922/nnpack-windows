@@ -22,6 +22,8 @@
 #elif defined(_MSC_VER) && defined(__cplusplus)
 	#include <chrono>
 	#include <malloc.h>
+#elif defined(_MSC_VER) && !defined(__cplusplus)
+	#include "stdafx.h"
 #endif
 
 inline static double read_timer() 
@@ -44,7 +46,11 @@ inline static double read_timer()
 	#if defined(__cplusplus)
 	return double(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 	#else
-	return 0.0;
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER start;
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&start);
+	return (double)(start.QuadPart / frequency.QuadPart);
 	#endif
 #else
 	//#error No implementation available

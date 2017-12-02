@@ -10,8 +10,6 @@
 	#define NNP_UNREACHABLE do { } while (0)
 #endif
 
-//#define NNP_BACKEND_SCALAR 1
-
 #if defined(NNP_BACKEND_PSIMD)
 	#if !(NNP_BACKEND_PSIMD)
 		#error NNP_BACKEND_PSIMD predefined as 0
@@ -24,12 +22,10 @@
 	#define NNP_BACKEND_ARM 1
 #elif defined(__ANDROID__) && (defined(__i686__) || defined(__x86_64__))
 	#define NNP_BACKEND_PSIMD 1
-#elif defined(__x86_64__)
+#elif defined(__x86_64__) || defined(_MSC_VER)
 	#define NNP_BACKEND_X86_64 1
 #elif defined(__ANDROID__) && defined(__mips__)
 	#define NNP_BACKEND_SCALAR 1
-#elif defined(_MSC_VER)
-	#define NNP_BACKEND_WIN64 1
 #else
 	#define NNP_BACKEND_PSIMD 1
 #endif
@@ -45,9 +41,6 @@
 #endif
 #ifndef NNP_BACKEND_X86_64
 	#define NNP_BACKEND_X86_64 0
-#endif
-#ifndef NNP_BACKEND_WIN64
-#define NNP_BACKEND_WIN64 0
 #endif
 
 #if defined(_MSC_VER)

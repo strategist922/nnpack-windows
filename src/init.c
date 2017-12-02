@@ -291,7 +291,7 @@ static void init_static_ios_hwinfo(void) {
 #endif
 
 #if !NNP_CONVOLUTION_ONLY
-	#if NNP_BACKEND_X86_64 || NNP_BACKEND_WIN64
+	#if NNP_BACKEND_X86_64
 	static const nnp_sdotxf_function sdotxf_function[8] = {
 		[0] = nnp_sdotxf1__avx2,
 		[1] = nnp_sdotxf2__avx2,
@@ -405,7 +405,7 @@ static void init_hwinfo(void) {
 	nnp_hwinfo.blocking.l4 = nnp_hwinfo.cache.l4.size;
 
 	if (nnp_hwinfo.cache.l1.size && nnp_hwinfo.cache.l2.size && nnp_hwinfo.cache.l3.size) {
-#if NNP_BACKEND_X86_64 || NNP_BACKEND_WIN64
+#if NNP_BACKEND_X86_64
 		if (nnp_hwinfo.isa.has_avx2 && nnp_hwinfo.isa.has_fma3)	{
 			nnp_hwinfo.simd_width = 8;
 			nnp_hwinfo.transforms.fft8x8_with_offset_and_store = (nnp_transform_2d_with_offset)nnp_fft8x8_with_offset_and_store__avx2;

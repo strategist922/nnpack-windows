@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FP16_FP16_H
 #define FP16_FP16_H
 
@@ -245,8 +243,7 @@ static inline float fp16_ieee_to_fp32_value(uint16_t h) {
 	 * - Combine the result of conversion of exponent and mantissa with the sign of the input number.
 	 */
 	const uint32_t denormalized_cutoff = UINT32_C(1) << 27;
-	const uint32_t result = sign |
-		(two_w < denormalized_cutoff ? fp32_to_bits(denormalized_value) : fp32_to_bits(normalized_value));
+	const uint32_t result = sign | (two_w < denormalized_cutoff ? fp32_to_bits(denormalized_value) : fp32_to_bits(normalized_value));
 	return fp32_from_bits(result);
 }
 
@@ -447,8 +444,7 @@ static inline float fp16_alt_to_fp32_value(uint16_t h) {
 	 * - Combine the result of conversion of exponent and mantissa with the sign of the input number.
 	 */
 	const uint32_t denormalized_cutoff = UINT32_C(1) << 27;
-	const uint32_t result = sign |
-		(two_w < denormalized_cutoff ? fp32_to_bits(denormalized_value) : fp32_to_bits(normalized_value));
+	const uint32_t result = sign | (two_w < denormalized_cutoff ? fp32_to_bits(denormalized_value) : fp32_to_bits(normalized_value));
 	return fp32_from_bits(result);
 }
 

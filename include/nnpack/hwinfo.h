@@ -1,11 +1,11 @@
 #pragma once
 
 #if defined(__cplusplus)
-#include <cstdint>
-#include <cstdbool>
+	#include <cstdint>
+	#include <cstdbool>
 #else
-#include <stdint.h>
-#include <stdbool.h>
+	#include <stdint.h>
+	#include <stdbool.h>
 #endif
 
 #include <nnpack/macros.h>
@@ -42,9 +42,9 @@ struct cache_blocking_info {
 };
 
 #if NNP_BACKEND_SCALAR
-#define NNP_COMPLEX_TUPLE_INDEX 2
+	#define NNP_COMPLEX_TUPLE_INDEX 2
 #else
-#define NNP_COMPLEX_TUPLE_INDEX 1
+	#define NNP_COMPLEX_TUPLE_INDEX 1
 #endif
 
 typedef void(*nnp_transform_2d)(const void*, void*, size_t, size_t, uint32_t, uint32_t);
