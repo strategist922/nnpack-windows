@@ -8,7 +8,6 @@ PROJECT(NNPACK C CXX)
 # ---[ Options.
 SET(NNPACK_BACKEND "auto" CACHE STRING "Backend for micro-kernels implementation")
 SET_PROPERTY(CACHE NNPACK_BACKEND PROPERTY STRINGS auto psimd scalar)
-OPTION(NNPACK_CUSTOM_THREADPOOL "Build NNPACK for custom thread pool" OFF)
 SET(NNPACK_LIBRARY_TYPE "default" CACHE STRING "Type of library (shared, static, or default) to build")
 SET_PROPERTY(CACHE NNPACK_LIBRARY_TYPE PROPERTY STRINGS default static shared)
 OPTION(NNPACK_BUILD_TESTS "Build NNPACK unit tests" ON)
@@ -121,14 +120,6 @@ IF(NOT TARGET psimd)
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/psimd-download")
   EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/psimd-download")
-ENDIF()
-
-IF(NOT TARGET pthreadpool)
-  CONFIGURE_FILE(cmake/DownloadPThreadPool.cmake "${CMAKE_BINARY_DIR}/pthreadpool-download/CMakeLists.txt")
-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pthreadpool-download")
-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pthreadpool-download")
 ENDIF()
 
 IF(NOT TARGET gtest)
