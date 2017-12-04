@@ -103,6 +103,12 @@ extern "C" {
 #include <nnpack/pthreadpool.h>
 #include <nnpack/utils.h>
 
+#ifdef NOMINMAX
+	static inline size_t min(size_t a, size_t b)
+	{
+		return a > b ? b : a;
+	}
+#endif // NOMINMAX
 
 	void pthreadpool_compute_1d(
 		pthreadpool_function_1d_t function,
