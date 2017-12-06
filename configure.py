@@ -325,7 +325,7 @@ def main(args):
 
     # Build test for layers. Link to the library.
     with build.options(source_dir="test", include_dirs="test", deps={
-                (build, build.deps.googletest.core, build.deps.fp16): any,
+                (build, build.deps.googletest.core): any,
                 "rt": build.target.is_linux
             }):
 
