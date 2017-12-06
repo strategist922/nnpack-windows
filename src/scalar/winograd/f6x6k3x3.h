@@ -136,19 +136,6 @@ static NNP_INLINE void winograd_f6k3_kernel_transform(
 
 	if (rescale_coefficients) 
 	{
-#if defined(_MSC_VER)
-		const float minus_2_over_9 = -0.222222223877907f;
-		w1 *= minus_2_over_9;
-		w2 *= minus_2_over_9;
-
-		const float rcp_90 = 0.0111111113801599f;
-		w3 *= rcp_90;
-		w4 *= rcp_90;
-
-		const float rcp_180 = 0.00555555569007993f;
-		w5 *= rcp_180;
-		w6 *= rcp_180;
-#else
 		const float minus_2_over_9 = -0x1.C71C72p-3f;
 		w1 *= minus_2_over_9;
 		w2 *= minus_2_over_9;
@@ -160,7 +147,6 @@ static NNP_INLINE void winograd_f6k3_kernel_transform(
 		const float rcp_180 = 0x1.6C16C2p-8f;
 		w5 *= rcp_180;
 		w6 *= rcp_180;
-#endif
 	}
 
 	*transform0 = g0;

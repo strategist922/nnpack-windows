@@ -3,21 +3,19 @@
 #include <stdint.h>
 #include <math.h>
 
-#define ToFloat(str) strtof(str, NULL)
-
 __m256 _mm256_exp_ps(__m256 x) 
 {
-	const __m256 magic_bias = _mm256_set1_ps(ToFloat("0x1.800000p+23f"));
-	const __m256 zero_cutoff = _mm256_set1_ps(ToFloat("-0x1.9FE368p+6f")); /* The smallest x for which expf(x) is non-zero */
-	const __m256 inf_cutoff = _mm256_set1_ps(ToFloat("0x1.62E42Ep+6f")); /* The largest x for which expf(x) is finite */
-	const __m256 log2e = _mm256_set1_ps(ToFloat("0x1.715476p+3f"));
-	const __m256 minus_ln2_hi = _mm256_set1_ps(ToFloat("-0x1.62E430p-4f"));
-	const __m256 minus_ln2_lo = _mm256_set1_ps(ToFloat("0x1.05C610p-32f"));
+	const __m256 magic_bias = _mm256_set1_ps(0x1.800000p+23f);
+	const __m256 zero_cutoff = _mm256_set1_ps(-0x1.9FE368p+6f); /* The smallest x for which expf(x) is non-zero */
+	const __m256 inf_cutoff = _mm256_set1_ps(0x1.62E42Ep+6f); /* The largest x for which expf(x) is finite */
+	const __m256 log2e = _mm256_set1_ps(0x1.715476p+3f);
+	const __m256 minus_ln2_hi = _mm256_set1_ps(-0x1.62E430p-4f);
+	const __m256 minus_ln2_lo = _mm256_set1_ps(0x1.05C610p-32f);
 	const __m256 plus_inf = _mm256_set1_ps(INFINITY);
 
-	const __m256 c2 = _mm256_set1_ps(ToFloat("0x1.00088Ap-1f"));
-	const __m256 c3 = _mm256_set1_ps(ToFloat("0x1.555A86p-3f"));
-	const __m256 table = _mm256_set_ps(ToFloat("0x1.D5818Ep+0f"), ToFloat("0x1.AE89FAp+0f"), ToFloat("0x1.8ACE54p+0f"), ToFloat("0x1.6A09E6p+0f"), ToFloat("0x1.4BFDAEp+0f"), ToFloat("0x1.306FE0p+0f"), ToFloat("0x1.172B84p+0f"), ToFloat("0x1.000000p+0f"));
+	const __m256 c2 = _mm256_set1_ps(0x1.00088Ap-1f);
+	const __m256 c3 = _mm256_set1_ps(0x1.555A86p-3f);
+	const __m256 table = _mm256_set_ps(0x1.D5818Ep+0f, 0x1.AE89FAp+0f, 0x1.8ACE54p+0f, 0x1.6A09E6p+0f, 0x1.4BFDAEp+0f, 0x1.306FE0p+0f, 0x1.172B84p+0f, 0x1.000000p+0f);
 
 	const __m256i min_exponent = _mm256_set1_epi32(-126 << 23);
 	const __m256i max_exponent = _mm256_set1_epi32(127 << 23);

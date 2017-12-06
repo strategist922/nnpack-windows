@@ -15,35 +15,35 @@
 #ifdef _MSC_VER
 	#include <intrin.h>
 
-static inline uint32_t ctz(uint32_t value)
-{
-	unsigned long  trailing_zero = 0;
+	static inline uint32_t ctz(uint32_t value)
+	{
+		unsigned long  trailing_zero = 0;
 
-	if (_BitScanForward(&trailing_zero, value))
-	{
-		return trailing_zero;
+		if (_BitScanForward(&trailing_zero, value))
+		{
+			return trailing_zero;
+		}
+		else
+		{
+			// This is undefined, I better choose 32 than 0
+			return 32;
+		}
 	}
-	else
-	{
-		// This is undefined, I better choose 32 than 0
-		return 32;
-	}
-}
 
-static inline uint32_t __builtin_clz(uint32_t value)
-{
-	unsigned long  leading_zero = 0;
+	static inline uint32_t __builtin_clz(uint32_t value)
+	{
+		unsigned long  leading_zero = 0;
 
-	if (_BitScanReverse(&leading_zero, value))
-	{
-		return 31 - leading_zero;
+		if (_BitScanReverse(&leading_zero, value))
+		{
+			return 31 - leading_zero;
+		}
+		else
+		{
+			// Same remarks as above
+			return 32;
+		}
 	}
-	else
-	{
-		// Same remarks as above
-		return 32;
-	}
-}
 #endif // _MSC_VER
 
 /*
