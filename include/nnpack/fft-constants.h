@@ -3,7 +3,8 @@
 #ifdef __cplusplus
 #include <cstddef>
 #include <cstdint>
-#include <ccomplex>
+#include <complex>
+
 #define COMPLEX_LITERAL_HELPER(real, imag) std::complex<float>(real, imag)
 #else
 #include <stddef.h>

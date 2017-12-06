@@ -2,7 +2,6 @@
 
 #if defined(__cplusplus)
 	#include <cstdint>
-	#include <cstdbool>
 #else
 	#include <stdint.h>
 	#include <stdbool.h>

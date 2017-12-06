@@ -43,7 +43,6 @@ def main(args):
 
     with build.options(source_dir="src", macros=macros,
             deps={
-                (build.deps.fxdiv, build.deps.fp16): any,
                 build.deps.psimd: backend == "psimd" or backend == "arm",
             },
             extra_include_dirs={
