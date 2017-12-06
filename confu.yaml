@@ -2,6 +2,6 @@ name: nnpack
 title: Neural Networks acceleration PACKage
 license: Simplified BSD
 deps:
-   - name: psimd
+  - name: psimd
     url:  https://github.com/Maratyszcza/psimd.git
   - name: googletest
