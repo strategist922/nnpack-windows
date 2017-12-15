@@ -1,3 +1,4 @@
+
 # NNPACK for Windows (AVX2 backend)
 #### port of Marat Dukhan NNPACK - BSD 2-Clause "Simplified" (https://github.com/Maratyszcza/NNPACK)
 
@@ -63,3 +64,22 @@ Results of the unit tests:
 ### winograd:
 
   * all passed
+  
+  
+  
+This ported version of NNPACK compiles and run without modification on Linux as well.
+Under Linux all kernels (including the FT16x16) passes the unit tests.
+
+git clone https://github.com/zeno40/nnpack-windows.git
+
+cd nnpack-windows
+
+confu setup
+
+python ./configure.py
+
+ninja
+
+ninja smoketest
+
+
