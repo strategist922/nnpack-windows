@@ -68,7 +68,7 @@ Results of the unit tests:
   
   
 This ported version of NNPACK compiles and run without modification on Linux as well.
-Under Linux all kernels (including the FT16x16) are passing the unit tests.
+Under Linux all kernels (including FT16x16) are passing the unit tests.
 
 git clone https://github.com/zeno40/nnpack-windows.git
 
