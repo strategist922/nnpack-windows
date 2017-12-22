@@ -77,15 +77,16 @@
 	}
 
 	template <typename T, typename Func>
-	inline void for_(bool parallelize, const size_t& begin, const T& end, const Func &f) {
+	inline void for_(bool parallelize, const size_t& begin, const T& end, const Func &f) 
+	{
 		static_assert(std::is_integral<T>::value, "end must be integral type");
 		parallelize = parallelize && value_representation<size_t>(end);
-		parallelize ? parallel_for(begin, end, f)
-			: xparallel_for(begin, end, f);
-		}
+		parallelize ? parallel_for(begin, end, f) : xparallel_for(begin, end, f);
+	}
 
 	template <typename T, typename Func>
-	inline void for_i(bool parallelize, const T& size, const Func &f) {
+	inline void for_i(bool parallelize, const T& size, const Func &f)
+	{
 		for_(parallelize, 0ull, size,[=](const blocked_range &r) 
 		{
 			for (int i = static_cast<int>(r.begin()); i < static_cast<int>(r.end()); i++) 
@@ -94,7 +95,8 @@
 	}
 
 	template <typename T, typename Func>
-	inline void for_i(const T& size, const Func &f) {
+	inline void for_i(const T& size, const Func &f)
+	{
 		for_i(true, size, f);
 	}
 #endif
