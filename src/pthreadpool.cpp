@@ -11,88 +11,91 @@
 	#include <future>
 	#include <thread>
 
-	struct blocked_range {
+	struct blocked_range 
+	{
+	public:
 		typedef size_t const_iterator;
 
-		blocked_range(size_t begin, size_t end) : begin_(begin), end_(end) {}
-		blocked_range(int begin, int end) : begin_(begin), end_(end) {}
+		blocked_range(const size_t begin, const size_t end) : begin_(begin), end_(end) {}
+		blocked_range(const int begin, const int end) : begin_(begin), end_(end) {}
 
 		const_iterator begin() const { return begin_; }
 		const_iterator end() const { return end_; }
 
 	private:
-		size_t begin_;
-		size_t end_;
+		const size_t begin_;
+		const size_t end_;
 	};
 
 	template <typename Func>
-	void xparallel_for(size_t begin, size_t end, const Func &f) {
+	void xparallel_for(const size_t& begin, const size_t& end, const Func &f) 
+	{
 		blocked_range r(begin, end);
 		f(r);
 	}
 
 	template <typename Func>
-	void parallel_for(size_t begin,
-		size_t end,
-		const Func &f,
-		size_t /*grainsize*/) {
+	void parallel_for(const size_t& begin, const size_t& end, const Func &f) 
+	{
 		assert(end >= begin);
-		size_t nthreads = std::thread::hardware_concurrency();
+		const size_t nthreads = std::thread::hardware_concurrency();
 		size_t blockSize = (end - begin) / nthreads;
 		if (blockSize * nthreads < end - begin) blockSize++;
 
-		std::vector<std::future<void> > futures;
+		std::vector<std::future<void>> futures;
 
 		size_t blockBegin = begin;
 		size_t blockEnd = blockBegin + blockSize;
 
 		if (blockEnd > end) blockEnd = end;
 
-		for (size_t i = 0; i < nthreads; i++) {
-			futures.push_back(
-				std::move(std::async(std::launch::async, [blockBegin, blockEnd, &f] {
+		for (size_t i = 0ull; i < nthreads; i++) 
+		{
+			futures.push_back(std::move(std::async(std::launch::async, [blockBegin, blockEnd, &f] 
+			{
 				f(blocked_range(blockBegin, blockEnd));
 			})));
 
 			blockBegin += blockSize;
 			blockEnd = blockBegin + blockSize;
-			if (blockBegin >= end) break;
-			if (blockEnd > end) blockEnd = end;
+
+			if (blockBegin >= end) 
+				break;
+
+			if (blockEnd > end) 
+				blockEnd = end;
 		}
 
-		for (auto &future : futures) future.wait();
+		for (auto &future : futures) 
+			future.wait();
 	}
 
 	template <typename T, typename U>
-	bool value_representation(U const &value) {
+	bool value_representation(U const &value) 
+	{
 		return static_cast<U>(static_cast<T>(value)) == value;
 	}
 
 	template <typename T, typename Func>
-	inline void for_(
-		bool parallelize, size_t begin, T end, Func f, size_t grainsize = 100) {
+	inline void for_(bool parallelize, const size_t& begin, const T& end, const Func &f) {
 		static_assert(std::is_integral<T>::value, "end must be integral type");
 		parallelize = parallelize && value_representation<size_t>(end);
-		parallelize ? parallel_for(begin, end, f, grainsize)
+		parallelize ? parallel_for(begin, end, f)
 			: xparallel_for(begin, end, f);
 		}
 
 	template <typename T, typename Func>
-	inline void for_i(bool parallelize, T size, Func f, size_t grainsize = 100u) {
-		for_(parallelize, 0u, size,
-			[&](const blocked_range &r) {
-
-			for (int i = static_cast<int>(r.begin());
-				i < static_cast<int>(r.end()); i++) {
+	inline void for_i(bool parallelize, const T& size, const Func &f) {
+		for_(parallelize, 0ull, size,[=](const blocked_range &r) 
+		{
+			for (int i = static_cast<int>(r.begin()); i < static_cast<int>(r.end()); i++) 
 				f(i);
-			}
-
-		}, grainsize);
+		});
 	}
 
 	template <typename T, typename Func>
-	inline void for_i(T size, Func f, size_t grainsize = 100) {
-		for_i(true, size, f, grainsize);
+	inline void for_i(const T& size, const Func &f) {
+		for_i(true, size, f);
 	}
 #endif
 
@@ -121,7 +124,8 @@ extern "C" {
 			function(argument, i);
 		}, concurrency::static_partitioner());
 #else
-		for_i(range, [&](size_t i) {
+		for_i(range, [=](size_t i)
+		{
 			function(argument, i);
 		});
 #endif
