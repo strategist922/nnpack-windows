@@ -16,8 +16,8 @@
 	public:
 		typedef size_t const_iterator;
 
-		blocked_range(const size_t begin, const size_t end) : begin_(begin), end_(end) {}
-		blocked_range(const int begin, const int end) : begin_(begin), end_(end) {}
+		blocked_range(const size_t& begin, const size_t& end) : begin_(begin), end_(end) {}
+		blocked_range(const int& begin, const int& end) : begin_(begin), end_(end) {}
 
 		const_iterator begin() const { return begin_; }
 		const_iterator end() const { return end_; }
