@@ -23,7 +23,8 @@ Results of the unit tests:
   * FT8x8:          passed
   
   * FT16x16:        failed
-  
+
+
   * WT8x8:          passed
   
 ### convolution-output:
@@ -67,14 +68,18 @@ Results of the unit tests:
   
   
   
+  
 This ported version of NNPACK runs and can be compiled without modification on Linux/OS X/Android as well.
 Under these operating systems all kernels (including FT16x16) are passing the unit tests.
 
 git clone https://github.com/zeno40/nnpack-windows.git
+
 cd nnpack-windows
+
 confu setup
+
 python ./configure.py
+
 ninja
+
 ninja smoketest
-
-
