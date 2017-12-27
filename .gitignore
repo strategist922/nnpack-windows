@@ -4,50 +4,29 @@
 
 build.ninja
 
-
-
 # Build objects and artifacts
 
 deps/
-
 build/
-
 bin/
-
 lib/
-
 out/
-
 obj/
-
 libs/
-
 x64/
-
 Debug/
-
 googletest/
-
 .vs/
 
 *.pyc
-
 *.pyo
 
-
-
 # System files
-
 .DS_Store
-
 .DS_Store?
-
 ._*
-
 .Spotlight-V100
-
 .Trashes
 
 ehthumbs.db
-
 Thumbs.db
