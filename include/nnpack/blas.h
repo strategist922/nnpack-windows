@@ -1,12 +1,7 @@
 #pragma once
 
-#if defined(__cplusplus)
-#include <cstddef>
-#include <cstdint>
-#else
 #include <stddef.h>
 #include <stdint.h>
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,8 +13,10 @@ extern "C" {
 	void nnp_sgemm_only_4x8__psimd(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 	void nnp_sgemm_upto_4x8__psimd(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 
-	void nnp_sgemm_only_4x12__neon(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
-	void nnp_sgemm_upto_4x12__neon(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+	void nnp_sgemm_only_6x8__neon(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+	void nnp_sgemm_upto_6x8__neon(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
+
+	void nnp_sgemm_only_6x8__aarch32_neon(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 
 	void nnp_sgemm_only_4x3__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 	void nnp_sgemm_upto_4x3__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
@@ -99,8 +96,8 @@ extern "C" {
 	void nnp_s4c2gemm_conjb_transc_only_2x2__neon(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 	void nnp_s4c2gemm_conjb_transc_upto_2x2__neon(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 
-	void nnp_h4gemm_only_3x4__neonhp(size_t k, size_t update, const char* a, const char* b, char* c, size_t row_stride_c);
-	void nnp_h4gemm_upto_3x4__neonhp(uint32_t mr, uint32_t nr, size_t k, size_t update, const char* a, const char* b, char* c, size_t row_stride_c);
+	void nnp_h4gemm_only_3x4__neonhp(size_t k, size_t update, const void* a, const void* b, void* c, size_t row_stride_c);
+	void nnp_h4gemm_upto_3x4__neonhp(uint32_t mr, uint32_t nr, size_t k, size_t update, const void* a, const void* b, void* c, size_t row_stride_c);
 
 	void nnp_s2gemm_only_2x2__scalar(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
 	void nnp_s2gemm_upto_2x2__scalar(uint32_t mr, uint32_t nr, size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c);
@@ -183,4 +180,3 @@ extern "C" {
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-

@@ -609,7 +609,7 @@ static void init_hwinfo(void) {
 			nnp_hwinfo.transforms.owt_f6x6_3x3_fp16_with_bias = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_fp16_with_bias__neonhp;
 			nnp_hwinfo.transforms.owt_f6x6_3x3_fp16_with_bias_with_relu = (nnp_transform_2d_with_bias)nnp_owt8x8_3x3_fp16_with_bias_with_relu__neonhp;
 		}
-#if !NNP_INFERENCE_ONLY
+#if !!NNP_CONVOLUTION_ONLY
 		nnp_hwinfo.activations.relu = nnp_relu__neon;
 		nnp_hwinfo.activations.inplace_relu = nnp_inplace_relu__neon;
 		nnp_hwinfo.activations.grad_relu = nnp_grad_relu__neon;
@@ -623,7 +623,7 @@ static void init_hwinfo(void) {
 			.functions = shdotxf_function,
 			.fusion = NNP_COUNT_OF(shdotxf_function)
 		};
-#endif /* !NNP_INFERENCE_ONLY */
+#endif /* !NNP_CONVOLUTION_ONLY */
 		nnp_hwinfo.conv1x1 = (struct convolution) {
 			.only_mr_x_nr nnp_conv1x1_only_2x4__neon,
 			.upto_mr_x_nr nnp_conv1x1_upto_2x4__neon,
@@ -631,10 +631,14 @@ static void init_hwinfo(void) {
 			.nr = 4
 		};
 		nnp_hwinfo.sgemm = (struct sgemm) {
-			.only_mr_x_nr = nnp_sgemm_only_4x12__neon,
-			.upto_mr_x_nr = nnp_sgemm_upto_4x12__neon,
-			.mr = 4,
-			.nr = 12
+			.mr = 6,
+			.nr = 8,
+#if CPUINFO_ARCH_ARM
+			.only_mr_x_nr = nnp_sgemm_only_6x8__aarch32_neon,
+#else
+			.only_mr_x_nr = nnp_sgemm_only_6x8__neon,
+#endif
+			.upto_mr_x_nr = nnp_sgemm_upto_6x8__neon,
 		};
 		nnp_hwinfo.sxgemm = (struct sxgemm) {
 			.only_mr_x_nr = (nnp_fast_tuple_gemm_function)nnp_s4gemm_only_3x4__neon,
