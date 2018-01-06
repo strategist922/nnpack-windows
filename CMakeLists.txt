@@ -196,28 +196,41 @@ ELSEIF(NNPACK_BACKEND STREQUAL "neon")
     # Transformations
     src/psimd/2d-fourier-8x8.c
     src/psimd/2d-fourier-16x16.c
-    src/psimd/2d-winograd-8x8-3x3.c
     src/neon/2d-winograd-8x8-3x3.c
     src/neon/2d-winograd-8x8-3x3-fp16.c
-    # ReLU
-    src/neon/relu.c
-    # Softmax
-    src/psimd/softmax.c
     # Tuple GEMM
     src/neon/blas/h4gemm.c
     src/neon/blas/s4gemm.c
-    src/neon/blas/c4gemm.c
-    src/neon/blas/s4c2gemm.c
     src/neon/blas/c4gemm-conjb.c
     src/neon/blas/s4c2gemm-conjb.c
-    src/neon/blas/c4gemm-conjb-transc.c
-    src/neon/blas/s4c2gemm-conjb-transc.c
     # Direct convolution
     src/neon/blas/conv1x1.c
     # BLAS microkernels
-    src/neon/blas/sgemm.c
-    src/neon/blas/sdotxf.c
-    src/psimd/blas/shdotxf.c)
+    src/neon/blas/sgemm.c)
+  IF(CMAKE_SYSTEM_PROCESSOR MATCHES "^(armv5te|armv7-a|armv7l)$")
+    LIST(APPEND NNPACK_BACKEND_SRCS
+      # BLAS microkernels
+      src/neon/blas/sgemm-aarch32.S)
+  ENDIF()
+  IF(NOT NNPACK_CONVOLUTION_ONLY)
+    LIST(APPEND NNPACK_BACKEND_SRCS
+      # ReLU
+      src/neon/relu.c
+      # Softmax
+      src/psimd/softmax.c
+      # BLAS microkernels
+      src/neon/blas/sdotxf.c
+      src/psimd/blas/shdotxf.c)
+  ENDIF()
+  IF(NOT NNPACK_INFERENCE_ONLY)
+    LIST(APPEND NNPACK_BACKEND_SRCS
+      # Tuple GEMM
+      src/neon/blas/c4gemm.c
+      src/neon/blas/s4c2gemm.c
+      src/neon/blas/c4gemm-conjb-transc.c
+      src/neon/blas/s4c2gemm-conjb-transc.c)
+  ENDIF()
+
 ELSEIF(NNPACK_BACKEND STREQUAL "psimd")
   SET(NNPACK_BACKEND_SRCS
     # Transformations
