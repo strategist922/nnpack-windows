@@ -2,7 +2,7 @@
 [![Build Status](https://img.shields.io/travis/Maratyszcza/NNPACK.svg)](https://travis-ci.org/Maratyszcza/NNPACK)
 
 # NNPACK for Windows (AVX2 backend)
-#### port of Marat Dukhan NNPACK - (https://github.com/Maratyszcza/NNPACK)
+#### port of Marat Dukhan NNPACK (https://github.com/Maratyszcza/NNPACK)
 
 
 Before building this repo you have to install PeachPy.
