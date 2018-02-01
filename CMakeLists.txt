@@ -1,9 +1,9 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
+ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
 
 INCLUDE(GNUInstallDirs)
 
 # ---[ Project and semantic versioning.
-PROJECT(NNPACK C CXX)
+PROJECT(NNPACK C CXX ASM)
 
 # ---[ Options.
 SET(NNPACK_BACKEND "auto" CACHE STRING "Backend for micro-kernels implementation")
