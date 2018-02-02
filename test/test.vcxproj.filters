@@ -59,7 +59,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-inference\smoke.cc">
+    <ClCompile Include="convolution-output\smoke.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
