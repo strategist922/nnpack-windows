@@ -315,6 +315,7 @@
     <ClInclude Include="include\nnpack.h" />
     <ClInclude Include="include\nnpack\activations.h" />
     <ClInclude Include="include\nnpack\arm_neon.h" />
+    <ClInclude Include="include\nnpack\assembly.h" />
     <ClInclude Include="include\nnpack\bitcasts.h" />
     <ClInclude Include="include\nnpack\blas.h" />
     <ClInclude Include="include\nnpack\fft-constants.h" />
