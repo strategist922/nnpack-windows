@@ -1,4 +1,11 @@
 #pragma once
+#ifdef _WIN64
+#include <SDKDDKVer.h>
+#define WIN64_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
+#define NOMINMAX
+#include "Windows.h"
+#include <intrin.h>
+#endif
 
 #include <stddef.h>
 #include <stdbool.h>
@@ -45,7 +52,7 @@ static inline bool disable_perf_counter(int file_descriptor) {
 #endif
 }
 
-static inline bool read_perf_counter(int file_descriptor, unsigned long long output[restrict static 1]) {
+static inline bool read_perf_counter(int file_descriptor, unsigned long long* output) {
 #if defined(__linux__) && defined(__x86_64__) && !defined(__ANDROID__)
 	return read(file_descriptor, output, sizeof(*output)) == sizeof(*output);
 #elif defined(EMSCRIPTEN) || (defined(__native_client__) && !defined(__x86_64__))
@@ -59,10 +66,14 @@ static inline bool read_perf_counter(int file_descriptor, unsigned long long out
 		: "=a" (lo), "=d" (hi)
 		:
 		: "%rbx", "%rcx"
-	);
+		);
 	*output = (((unsigned long long) hi) << 32) | ((unsigned long long) lo);
 	return true;
 #elif defined(__x86_64__)
+	unsigned int aux;
+	*output = __rdtscp(&aux);
+	return true;
+#elif defined(_MSC_VER)
 	unsigned int aux;
 	*output = __rdtscp(&aux);
 	return true;
@@ -71,12 +82,14 @@ static inline bool read_perf_counter(int file_descriptor, unsigned long long out
 #endif
 }
 
-static inline bool read_timer(unsigned long long output[restrict static 1]) {
+
+static inline bool read_timer(unsigned long long* output) {
 #if defined(__linux__)
 	struct timespec ts;
 	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
 		return false;
-	} else {
+	}
+	else {
 		*output = ts.tv_sec * 1000000000ull + ts.tv_nsec;
 		return true;
 	}
@@ -93,14 +106,20 @@ static inline bool read_timer(unsigned long long output[restrict static 1]) {
 	if (gettimeofday(&walltime, NULL) == 0) {
 		*output = walltime.tv_sec * 1000000000ull + walltime.tv_usec * 1000ull;
 		return true;
-	} else {
+	}
+	else {
 		return false;
 	}
 #elif defined(EMSCRIPTEN)
 	*output = (unsigned long long) (emscripten_get_now() * 1.0e+6);
 	return true;
+#elif defined(_MSC_VER)
+	SYSTEMTIME time;
+	GetSystemTime(&time);
+	*output = (unsigned long long)((time.wSecond * 1000) + time.wMilliseconds);
+	return true;
 #else
-	#error No implementation available
+#error No implementation available
 #endif
 }
 

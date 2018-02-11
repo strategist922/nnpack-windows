@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#ifndef _WIN64
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
@@ -9,6 +10,8 @@
 #include <linux/perf_event.h>
 
 #include <cpuid.h>
+#endif // !_WIN64
+
 
 #include <perf_counter.h>
 
@@ -21,11 +24,30 @@ struct x86_cpu_info {
 
 struct x86_cpu_info get_x86_cpu_info(void) {
 	uint32_t eax, ebx, ecx, edx;
+	struct cpu_info {
+		int eax;
+		int ebx;
+		int ecx;
+		int edx;
+	};
+
+	struct cpu_info basic_info;
+#if defined(_MSC_VER)
+	__cpuid(&basic_info.eax, 1);
+
+	const uint32_t model = (basic_info.eax >> 4) & 0xF;
+	const uint32_t family = (basic_info.eax >> 8) & 0xF;
+	const uint32_t extended_model = (basic_info.eax >> 16) & 0xF;
+	const uint32_t extended_family = (basic_info.eax >> 20) & 0xFF;
+#else
 	__cpuid(1, eax, ebx, ecx, edx);
+
 	const uint32_t model = (eax >> 4) & 0xF;
 	const uint32_t family = (eax >> 8) & 0xF;
 	const uint32_t extended_model = (eax >> 16) & 0xF;
 	const uint32_t extended_family = (eax >> 20) & 0xFF;
+#endif
+
 	uint32_t display_family = family;
 	if (family == 0xF) {
 		display_family += extended_family;
@@ -36,7 +58,7 @@ struct x86_cpu_info get_x86_cpu_info(void) {
 	}
 	return (struct x86_cpu_info) {
 		.display_model = display_model,
-		.display_family = display_family
+			.display_family = display_family
 	};
 }
 
@@ -627,6 +649,7 @@ static const struct performance_counter_specification bobcat_specification[] = {
 	{ .name = "RETIRED_FP_INSTRUCTIONS.MMX_X87", .event = 0xCB, .umask = 0x01 },
 };
 
+#ifndef _WIN64
 static int perf_event_open(struct perf_event_attr *hw_event, pid_t pid, int cpu, int group_fd, unsigned long flags) {
 	return syscall(__NR_perf_event_open, hw_event, pid, cpu, group_fd, flags);
 }
@@ -642,6 +665,7 @@ static int open_performance_counter(enum perf_type_id type, uint64_t config) {
 	perf_event_attr.exclude_hv = 1;
 	return perf_event_open(&perf_event_attr, 0, -1, -1, 0);
 }
+#endif // !_WIN64
 
 const struct performance_counter* init_performance_counters(size_t* count_ptr) {
 	size_t generic_count = 2;

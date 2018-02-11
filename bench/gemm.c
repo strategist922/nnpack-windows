@@ -238,8 +238,6 @@ int main(int argc, char** argv) {
 		case gemm_type_cgemm:
 			components = 2;
 			break;
-		default:
-			__builtin_unreachable();
 	}
 
 	const size_t cache_size = 128 * 1024 * 1024;

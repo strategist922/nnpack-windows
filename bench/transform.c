@@ -129,7 +129,6 @@ unsigned long long benchmark_batch_transform(
 	size_t transform_size,
 	const float input[],
 	float output[],
-	pthreadpool_t threadpool,
 	size_t max_iterations)
 {
 	struct nnpack_context nnpack_context = {
@@ -230,7 +229,7 @@ unsigned long long benchmark_batch_transform(
 		if (!read_timer(&start_time))
 			continue;
 
-		pthreadpool_compute_1d(threadpool, compute_function, compute_context, batch_size);
+		pthreadpool_compute_1d(compute_function, compute_context, batch_size);
 
 		if (!read_timer(&end_time))
 			continue;
@@ -318,7 +317,7 @@ unsigned long long profile_batch_fft(
 		if (!read_perf_counter(perf_counter_file_descriptor, &start_count))
 			continue;
 
-		pthreadpool_compute_1d(NULL, (pthreadpool_function_1d_t) compute_nnpack_transform, &context, batch_size);
+		pthreadpool_compute_1d((pthreadpool_function_1d_t) compute_nnpack_transform, &context, batch_size);
 
 		if (!read_perf_counter(perf_counter_file_descriptor, &end_count))
 			continue;
@@ -513,6 +512,20 @@ int main(int argc, char** argv) {
 
 	void* input = NULL;
 	void* output = NULL;
+#ifdef _MSC_VER
+	input = aligned_malloc(input_elements * options.batch_size * sizeof(float), 64);
+	if (input == NULL) {
+		fprintf(stderr, "Error: failed to allocate %zu bytes for input array\n",
+			input_elements * options.batch_size * sizeof(float));
+		exit(EXIT_FAILURE);
+	}
+	output = _aligned_malloc(output_elements * options.batch_size * sizeof(float), 64);
+	if (output == NULL) {
+		fprintf(stderr, "Error: failed to allocate %zu bytes for output array\n",
+			output_elements * options.batch_size * sizeof(float));
+		exit(EXIT_FAILURE);
+	}
+#else
 	if (posix_memalign(&input, 64, input_elements * options.batch_size * sizeof(float)) != 0) {
 		fprintf(stderr, "Error: failed to allocate %zu bytes for input array\n",
 			input_elements * options.batch_size * sizeof(float));
@@ -523,20 +536,18 @@ int main(int argc, char** argv) {
 			output_elements * options.batch_size * sizeof(float));
 		exit(EXIT_FAILURE);
 	}
-
+#endif
 	memset(input, 0, input_elements * options.batch_size * sizeof(float));
 	memset(output, 0, output_elements * options.batch_size * sizeof(float));
 
 	{
-		pthreadpool_t threadpool = pthreadpool_create(options.threads);
-		printf("Threads: %zu\n", pthreadpool_get_threads_count(threadpool));
 		printf("Iterations: %zu\n", options.iterations);
 
 		const unsigned long long transformation_nanoseconds = benchmark_batch_transform(
 			options.type, options.batch_size,
 			input_elements, output_elements, transform_size,
 			input, output,
-			threadpool, options.iterations);
+			options.iterations);
 		const size_t transformation_bytes = (input_elements * options.batch_size + output_elements * options.batch_size) * sizeof(float);
 		const double transformation_gbps = ((double) transformation_bytes) / transformation_nanoseconds;
 

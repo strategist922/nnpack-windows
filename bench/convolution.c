@@ -17,6 +17,8 @@ extern void read_memory(const void* memory, size_t length);
 static void* malloc_with_alignment(size_t size, size_t alignment) {
 	#if defined(__ANDROID__)
 		return memalign(alignment, size);
+	#elif defined(_MSC_VER)
+	return _aligned_malloc(size, alignment);
 	#else
 		void* memory_block = NULL;
 		if (posix_memalign(&memory_block, alignment, size) != 0) {
@@ -50,7 +52,6 @@ struct nnp_profile benchmark_convolution(
 	float kernel[],
 	const float bias[],
 	float output[],
-	pthreadpool_t threadpool,
 	size_t max_iterations)
 {
 	struct nnp_profile computation_profile[max_iterations];
@@ -66,7 +67,7 @@ struct nnp_profile benchmark_convolution(
 				input_size, input_padding, kernel_size,
 				NULL, NULL, NULL, NULL, NULL, &memory_size,
 				nnp_activation_identity, NULL,
-				threadpool, NULL);
+				NULL);
 			break;
 		case mode_input_gradient:
 			status = nnp_convolution_input_gradient(
@@ -75,7 +76,7 @@ struct nnp_profile benchmark_convolution(
 				input_size, input_padding, kernel_size,
 				NULL, NULL, NULL, NULL, &memory_size,
 				nnp_activation_identity, NULL,
-				threadpool, NULL);
+				NULL);
 			break;
 		case mode_kernel_gradient:
 			status = nnp_convolution_kernel_gradient(
@@ -84,7 +85,7 @@ struct nnp_profile benchmark_convolution(
 				input_size, input_padding, kernel_size,
 				NULL, NULL, NULL, NULL, &memory_size,
 				nnp_activation_identity, NULL,
-				threadpool, NULL);
+				NULL);
 			break;
 		case mode_inference:
 			if (transform_strategy == nnp_convolution_transform_strategy_precompute) {
@@ -94,7 +95,7 @@ struct nnp_profile benchmark_convolution(
 					input_size, input_padding, kernel_size, output_subsampling,
 					NULL, NULL, NULL, NULL, NULL, &transformed_kernel_size,
 					nnp_activation_identity, NULL,
-					threadpool, NULL);
+					NULL);
 				switch (status) {
 					case nnp_status_success:
 						break;
@@ -124,7 +125,7 @@ struct nnp_profile benchmark_convolution(
 					input_size, input_padding, kernel_size, output_subsampling,
 					NULL, kernel, NULL, NULL, transformed_kernel, &transformed_kernel_size,
 					nnp_activation_identity, NULL,
-					threadpool, NULL);
+					NULL);
 				if (status != nnp_status_success) {
 					fprintf(stderr, "Error: failed to pre-compute kernel transform: status %d\n", status);
 					exit(EXIT_FAILURE);
@@ -138,7 +139,7 @@ struct nnp_profile benchmark_convolution(
 				input_size, input_padding, kernel_size, output_subsampling,
 				NULL, NULL, NULL, NULL, NULL, &memory_size,
 				nnp_activation_identity, NULL,
-				threadpool, NULL);
+				NULL);
 			break;
 	}
 	switch (status) {
@@ -171,7 +172,6 @@ struct nnp_profile benchmark_convolution(
 					input, kernel, bias, output,
 					memory_block, memory_size == 0 ? NULL : &memory_size,
 					nnp_activation_identity, NULL,
-					threadpool,
 					&computation_profile[iteration]);
 				break;
 			case mode_input_gradient:
@@ -182,7 +182,6 @@ struct nnp_profile benchmark_convolution(
 					output, kernel, input,
 					memory_block, memory_size == 0 ? NULL : &memory_size,
 					nnp_activation_identity, NULL,
-					threadpool,
 					&computation_profile[iteration]);
 				break;
 			case mode_kernel_gradient:
@@ -193,7 +192,6 @@ struct nnp_profile benchmark_convolution(
 					input, output, kernel,
 					memory_block, memory_size == 0 ? NULL : &memory_size,
 					nnp_activation_identity, NULL,
-					threadpool,
 					&computation_profile[iteration]);
 				break;
 			case mode_inference:
@@ -204,13 +202,17 @@ struct nnp_profile benchmark_convolution(
 					input, transformed_kernel == NULL ? kernel : transformed_kernel, bias, output,
 					memory_block, memory_size == 0 ? NULL : &memory_size,
 					nnp_activation_identity, NULL,
-					threadpool,
 					&computation_profile[iteration]);
 				break;
 		}
 	}
-	free(memory_block);
 
+#ifdef _MSC_VER
+	_aligned_free(memory_block);
+#else
+	free(memory_block);
+#endif // _MSC_VER
+	
 	return median_profile(computation_profile, max_iterations);
 }
 
@@ -600,11 +602,6 @@ int main(int argc, char** argv) {
 	memset(output, 0, batch_size * output_channels * output_size.width * output_size.height * sizeof(float));
 	memset(bias, 0, output_channels * sizeof(float));
 
-	pthreadpool_t threadpool = NULL;
-	if (options.threadpool) {
-		threadpool = pthreadpool_create(options.threads);
-		printf("Threads: %zu\n", pthreadpool_get_threads_count(threadpool));
-	}
 	printf("Iterations: %zu\n", options.iterations);
 
 	const struct nnp_profile convolution_profile =
@@ -616,7 +613,7 @@ int main(int argc, char** argv) {
 			batch_size, input_channels, output_channels,
 			input_size, input_padding, kernel_size, output_subsampling,
 			input, kernel, bias, output,
-			threadpool, options.iterations);
+			options.iterations);
 	const double convolution_time = convolution_profile.total;
 
 	const size_t input_transform_footprint = sizeof(float) * batch_size * input_channels *
@@ -660,10 +657,6 @@ int main(int argc, char** argv) {
 			convolution_profile.block_multiplication);
 	printf("Overhead: %5.3f ms (%.1f%%)\n",
 		overhead_time * 1.0e+3, (overhead_time / convolution_time) * 100.0);
-
-	if (threadpool) {
-		pthreadpool_destroy(threadpool);
-	}
 
 	return EXIT_SUCCESS;
 }
