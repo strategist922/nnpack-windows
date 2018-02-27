@@ -10,7 +10,7 @@
 
 #include <nnpack/hwinfo.h>
 #include <nnpack/macros.h>
-#include <pthreadpool.h>
+#include <nnpack/pthreadpool.h>
 
 #ifdef USE_MKL
 #include <mkl_dfti.h>

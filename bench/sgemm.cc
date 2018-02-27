@@ -6,7 +6,6 @@
 #include <functional>
 #include <algorithm>
 
-#include <cpuinfo.h>
 #include <nnpack/macros.h>
 #include <nnpack/blas.h>
 #include <AlignedAllocator.h>
