@@ -553,7 +553,6 @@ int main(int argc, char** argv) {
 
 		printf("Time: %5.3lf ms\n", transformation_nanoseconds * 1.0e-6);
 		printf("Bandwidth: %5.3lf GB/s\n", transformation_gbps);
-		pthreadpool_destroy(threadpool);
 	}
 
 	int failures = 0;
