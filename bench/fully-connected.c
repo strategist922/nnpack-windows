@@ -53,12 +53,14 @@ struct nnp_profile benchmark_fully_connected(
 							output);
 						break;
 					case mode_inference_mixed:
+						/*
 						nnp_fully_connected_inference_f16f32(
 							input_channels,
 							output_channels,
 							input,
 							kernel,
 							output);
+						*/
 						break;
 					case mode_output:
 						break;

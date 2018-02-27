@@ -12,6 +12,8 @@
 #include <AlignedAllocator.h>
 
 #include <benchmark/benchmark.h>
+#include <nnpack>
+#include <nnpack/hwinfo.h>
 
 
 template<uint32_t mr_, uint32_t nr_>
