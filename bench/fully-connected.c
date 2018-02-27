@@ -28,7 +28,6 @@ struct nnp_profile benchmark_fully_connected(
 	const float* input,
 	const void* kernel,
 	float* output,
-	pthreadpool_t threadpool,
 	size_t max_iterations)
 {
 	switch (mode) {
@@ -51,8 +50,7 @@ struct nnp_profile benchmark_fully_connected(
 							output_channels,
 							input,
 							kernel,
-							output,
-							threadpool);
+							output);
 						break;
 					case mode_inference_mixed:
 						nnp_fully_connected_inference_f16f32(
@@ -60,8 +58,7 @@ struct nnp_profile benchmark_fully_connected(
 							output_channels,
 							input,
 							kernel,
-							output,
-							threadpool);
+							output);
 						break;
 					case mode_output:
 						break;
@@ -91,7 +88,6 @@ struct nnp_profile benchmark_fully_connected(
 					input,
 					kernel,
 					output,
-					threadpool,
 					&computation_profile[iteration]);
 			}
 			return median_profile(computation_profile, max_iterations);
@@ -284,11 +280,6 @@ int main(int argc, char** argv) {
 	memset(kernel, 0, input_channels * output_channels * sizeof(float));
 	memset(output, 0, batch_size * output_channels * sizeof(float));
 
-	pthreadpool_t threadpool = NULL;
-	if (options.threadpool) {
-		threadpool = pthreadpool_create(options.threads);
-		printf("Threads: %zu\n", pthreadpool_get_threads_count(threadpool));
-	}
 	printf("Iterations: %zu\n", options.iterations);
 
 	const struct nnp_profile output_profile =
@@ -297,7 +288,7 @@ int main(int argc, char** argv) {
 			memory, cache_size,
 			batch_size, input_channels, output_channels,
 			input, kernel, output,
-			threadpool, options.iterations);
+			options.iterations);
 
 	printf("Time: %5.3f ms [%.1f GFLOPS]\n", output_profile.total * 1.0e+3,
 		(2.0 * batch_size * output_channels * input_channels * 1.0e-9) / output_profile.total);
@@ -316,9 +307,6 @@ int main(int argc, char** argv) {
 		overhead * 1.0e+3,
 		(overhead / output_profile.total) * 100.0);
 
-	if (threadpool) {
-		pthreadpool_destroy(threadpool);
-	}
-
+	
 	return EXIT_SUCCESS;
 }
