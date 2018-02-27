@@ -7,13 +7,12 @@
 #include <algorithm>
 
 #include <nnpack.h>
+#include <nnpack/hwinfo.h>
 #include <nnpack/macros.h>
 #include <nnpack/blas.h>
 #include <AlignedAllocator.h>
 
 #include <benchmark/benchmark.h>
-#include <nnpack>
-#include <nnpack/hwinfo.h>
 
 
 template<uint32_t mr_, uint32_t nr_>
