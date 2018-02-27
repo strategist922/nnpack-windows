@@ -27,7 +27,6 @@ unsigned long long benchmark_relu(
 	const float gradient[],
 	const float input[],
 	float output[],
-	pthreadpool_t threadpool,
 	size_t max_iterations)
 {
 	unsigned long long computation_time[max_iterations];
@@ -44,22 +43,19 @@ unsigned long long benchmark_relu(
 				nnp_relu_output(
 					batch_size, channels,
 					input, output,
-					0.0f,
-					threadpool);
+					0.0f);
 				break;
 			case mode_output_inplace:
 				nnp_relu_output(
 					batch_size, channels,
 					output, output,
-					0.0f,
-					threadpool);
+					0.0f);
 				break;
 			case mode_input_gradient:
 				nnp_relu_input_gradient(
 					batch_size, channels,
 					gradient, input, output,
-					0.0f,
-					threadpool);
+					0.0f);
 				break;
 		}
 
@@ -236,19 +232,13 @@ int main(int argc, char** argv) {
 		memset(input, 0, layer_bytes);
 	}
 
-	pthreadpool_t threadpool = NULL;
-	if (options.threadpool) {
-		threadpool = pthreadpool_create(options.threads);
-		printf("Threads: %zu\n", pthreadpool_get_threads_count(threadpool));
-	}
 	printf("Iterations: %zu\n", options.iterations);
 
 	const unsigned long long relu_nanoseconds = benchmark_relu(
 		options.mode,
 		memory, cache_size,
 		options.batch_size, options.channels,
-		gradient, input, output,
-		threadpool, options.iterations);
+		gradient, input, output, options.iterations);
 
 	const double transferred_bytes =
 		(options.mode == mode_input_gradient) ?
@@ -256,9 +246,6 @@ int main(int argc, char** argv) {
 	printf("Time: %5.3f ms [%.1f GB/s]\n",
 		((double) relu_nanoseconds) * 1.0e-6,
 		transferred_bytes / ((double) relu_nanoseconds));
-	if (threadpool) {
-		pthreadpool_destroy(threadpool);
-	}
 
 	return EXIT_SUCCESS;
 }

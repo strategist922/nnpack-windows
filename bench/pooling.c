@@ -23,7 +23,6 @@ unsigned long long benchmark_pooling(
 	struct nnp_size pooling_stride,
 	const float input[],
 	float output[],
-	pthreadpool_t threadpool,
 	size_t max_iterations)
 {
 	unsigned long long computation_time[max_iterations];
@@ -43,8 +42,7 @@ unsigned long long benchmark_pooling(
 			pooling_size,
 			pooling_stride,
 			input,
-			output,
-			threadpool);
+			output);
 
 		if (!read_timer(&end_time))
 			continue;
@@ -304,11 +302,6 @@ int main(int argc, char** argv) {
 	memset(input, 0, input_bytes);
 	memset(output, 0, output_bytes);
 
-	pthreadpool_t threadpool = NULL;
-	if (options.threadpool) {
-		threadpool = pthreadpool_create(options.threads);
-		printf("Threads: %zu\n", pthreadpool_get_threads_count(threadpool));
-	}
 	printf("Iterations: %zu\n", options.iterations);
 
 	const unsigned long long pooling_output_nanoseconds =
@@ -317,14 +310,11 @@ int main(int argc, char** argv) {
 			batch_size, channels,
 			input_size, input_padding, pooling_size, pooling_stride,
 			input, output,
-			threadpool, options.iterations);
+			options.iterations);
 
 	printf("Time: %5.3f ms [%.1f GB/s]\n",
 		((double) pooling_output_nanoseconds) * 1.0e-6,
 		((double) (input_bytes + output_bytes)) / ((double) pooling_output_nanoseconds));
-	if (threadpool) {
-		pthreadpool_destroy(threadpool);
-	}
 
 	return EXIT_SUCCESS;
 }

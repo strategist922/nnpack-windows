@@ -6,6 +6,7 @@
 #include <functional>
 #include <algorithm>
 
+#include <nnpack.h>
 #include <nnpack/macros.h>
 #include <nnpack/blas.h>
 #include <AlignedAllocator.h>
@@ -17,8 +18,14 @@ template<uint32_t mr_, uint32_t nr_>
 class SGEMM : public benchmark::Fixture {
 public:
 	inline SGEMM() {
-		cpuinfo_initialize();
-		const size_t l1d_size = cpuinfo_get_l1d_cache(0)->size - 512;
+		enum nnp_status init_status = nnp_initialize();
+		
+		if (init_status != nnp_status_success) {
+			fprintf(stderr, "NNPACK initialization failed: error code %d\n", init_status);
+			exit(EXIT_FAILURE);
+		}
+
+		const size_t l1d_size = nnp_hwinfo.blocking.l1 - 512;
 		kc_ = (l1d_size / sizeof(float) - mr() * nr()) / (mr() + nr());
 	}
 
