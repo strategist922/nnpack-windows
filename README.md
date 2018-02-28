@@ -1,5 +1,6 @@
 [![BSD (2 clause) License](https://img.shields.io/badge/License-BSD%202--Clause%20%22Simplified%22%20License-blue.svg)](https://github.com/Maratyszcza/NNPACK/blob/master/LICENSE)
 # NNPACK for Windows (AVX2 backend)
+[![HitCount](http://hits.dwyl.io/zeno40/nnpack-windows.svg)](http://hits.dwyl.io/zeno40/nnpack-windows)
 #### port of Marat Dukhan NNPACK (https://github.com/Maratyszcza/NNPACK)
 
 Before building this repo you have to install PeachPy.
