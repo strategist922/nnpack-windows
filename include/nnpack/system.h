@@ -49,7 +49,7 @@ inline static double read_timer()
 	LARGE_INTEGER start;
 	QueryPerformanceFrequency(&frequency);
 	QueryPerformanceCounter(&start);
-	return (double)(start.QuadPart / frequency.QuadPart);
+	return (double)(start.QuadPart * 10) / frequency.QuadPart;
 	#endif
 #else
 	//#error No implementation available

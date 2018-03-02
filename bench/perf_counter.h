@@ -114,16 +114,22 @@ static inline bool read_timer(unsigned long long* output) {
 	*output = (unsigned long long) (emscripten_get_now() * 1.0e+6);
 	return true;
 #elif defined(_MSC_VER)
-	SYSTEMTIME time;
-	GetSystemTime(&time);
-	*output = (unsigned long long)((time.wSecond * 1000) + time.wMilliseconds);
+#if defined(__cplusplus)
+	return double(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count()) * 1.0e+3;
+#else
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER start;
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&start);
+	*output = (unsigned long long)((double)(start.QuadPart * 10) / frequency.QuadPart);
+#endif
 	return true;
 #else
 #error No implementation available
 #endif
 }
 
-#if defined(__linux__) && defined(__x86_64__)
+#if defined(_MSC_VER) || (defined(__linux__) && defined(__x86_64__))
 const struct performance_counter* init_performance_counters(size_t* count_ptr);
 #else
 static inline const struct performance_counter* init_performance_counters(size_t* count_ptr) {
