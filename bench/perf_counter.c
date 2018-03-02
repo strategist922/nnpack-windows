@@ -17,14 +17,17 @@
 
 #define COUNT_OF(x) (sizeof(x) / sizeof(x[0]))
 
-struct x86_cpu_info {
+struct x86_cpu_info
+{
 	uint32_t display_model;
 	uint32_t display_family;
 };
 
-struct x86_cpu_info get_x86_cpu_info(void) {
-	uint32_t eax, ebx, ecx, edx;
-	struct cpu_info {
+struct x86_cpu_info get_x86_cpu_info(void)
+{
+#if defined(_MSC_VER)
+	struct cpu_info
+	{
 		int eax;
 		int ebx;
 		int ecx;
@@ -32,7 +35,7 @@ struct x86_cpu_info get_x86_cpu_info(void) {
 	};
 
 	struct cpu_info basic_info;
-#if defined(_MSC_VER)
+
 	__cpuid(&basic_info.eax, 1);
 
 	const uint32_t model = (basic_info.eax >> 4) & 0xF;
@@ -40,6 +43,8 @@ struct x86_cpu_info get_x86_cpu_info(void) {
 	const uint32_t extended_model = (basic_info.eax >> 16) & 0xF;
 	const uint32_t extended_family = (basic_info.eax >> 20) & 0xFF;
 #else
+	uint32_t eax, ebx, ecx, edx;
+
 	__cpuid(1, eax, ebx, ecx, edx);
 
 	const uint32_t model = (eax >> 4) & 0xF;
@@ -49,20 +54,22 @@ struct x86_cpu_info get_x86_cpu_info(void) {
 #endif
 
 	uint32_t display_family = family;
-	if (family == 0xF) {
+	if (family == 0xF)
 		display_family += extended_family;
-	}
+	
 	uint32_t display_model = model;
-	if ((family == 0x6) || (family == 0xF)) {
+	if (family == 0x6 || family == 0xF)
 		display_model += extended_model << 4;
-	}
-	return (struct x86_cpu_info) {
+	
+	return (struct x86_cpu_info) 
+	{
 		.display_model = display_model,
-			.display_family = display_family
+		.display_family = display_family
 	};
 }
 
-struct performance_counter_specification {
+struct performance_counter_specification 
+{
 	const char* name;
 	uint8_t event;
 	uint8_t umask;
