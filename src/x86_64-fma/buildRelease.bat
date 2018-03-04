@@ -9,6 +9,14 @@ set proc_arch=haswell
 
 cd "%source_dir%"
 
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\fft-soa.obj "%source_dir%"\fft-soa.py
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\fft-aos.obj "%source_dir%"\fft-aos.py
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\fft-dualreal.obj "%source_dir%"\fft-dualreal.py
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\ifft-dualreal.obj "%source_dir%"\ifft-dualreal.py
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\fft-real.obj "%source_dir%"\fft-real.py
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\ifft-real.obj "%source_dir%"\ifft-real.py
+"%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\winograd-f6k3.obj "%source_dir%"\winograd-f6k3.py
+
 "%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\2d-fourier-8x8.obj "%source_dir%"\2d-fourier-8x8.py
 "%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\2d-fourier-16x16.obj "%source_dir%"\2d-fourier-16x16.py
 "%python_dir%"python.exe -m peachpy.x86_64 -mabi=ms -mimage-format=ms-coff -mcpu=%proc_arch% -o "%output_dir%"\2d-winograd-8x8-3x3.obj "%source_dir%"\2d-winograd-8x8-3x3.py

@@ -3,9 +3,6 @@ from __future__ import division
 
 from peachpy import *
 from peachpy.x86_64 import *
-from common import butterfly, sqrt2_over_2
-
-
 from common import butterfly, sqrt2_over_2, cos_npi_over_8, interleave
 
 

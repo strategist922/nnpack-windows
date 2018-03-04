@@ -216,7 +216,8 @@ struct nnp_profile benchmark_convolution(
 	return median_profile(computation_profile, max_iterations);
 }
 
-struct options {
+struct options
+{
 	enum mode mode;
 	size_t batch_size;
 	size_t input_channels;
