@@ -59,7 +59,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolution-output\smoke.cc">
+    <ClCompile Include="fourier\x86_64-avx2.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
