@@ -746,10 +746,10 @@ const struct performance_counter* init_performance_counters(size_t* count_ptr) {
 	};
 	for (size_t i = 0; i < model_count; i++) {
 		const uint64_t config = ((uint32_t) model_specification[i].event) |
-			(((uint32_t) model_specification[i].umask) << 8) |
-			(((uint32_t) model_specification[i].edge) << 18) |
-			(((uint32_t) model_specification[i].inv) << 23) |
-			(((uint32_t) model_specification[i].cmask) << 24);
+			(((uint32_t)model_specification[i].umask) << 8) |
+			(((uint32_t)model_specification[i].edge) << 18) |
+			(((uint32_t)model_specification[i].inv) << 23) |
+			(((uint32_t)model_specification[i].cmask) << 24);
 
 		performance_counters[generic_count + i] = (struct performance_counter) {
 			.name = model_specification[i].name,

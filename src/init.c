@@ -379,7 +379,14 @@ static void init_static_ios_hwinfo(void) {
 #endif /* !NNP_INFERENCE_ONLY */
 
 static void init_hwinfo(void) {
+
+#if (defined(__i386__) || defined(__x86_64__) || defined(_MSC_VER)) && !defined(__ANDROID__)
 	init_x86_hwinfo();
+#elif !defined(__i386__) && !defined(__x86_64__) && defined(__APPLE__)
+	init_static_ios_hwinfo();
+#else
+	init_static_hwinfo();
+#endif
 	
 	// Compute high-level cache blocking parameters
 	nnp_hwinfo.blocking.l1 = nnp_hwinfo.cache.l1.size;
