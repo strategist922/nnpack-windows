@@ -76,3 +76,6 @@ python ./configure.py
 ninja
 ninja smoketest
 ```
+
+### Dependencies & Licenses
+* Agner Fog C++ Vector Class Library - GNU License (http://www.agner.org/optimize)
