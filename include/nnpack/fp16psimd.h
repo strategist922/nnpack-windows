@@ -23,7 +23,7 @@ PSIMD_INTRINSIC psimd_f32 fp16_ieee_to_fp32_psimd(psimd_u16 half) {
 
 	const psimd_u16 magic_mask = psimd_splat_u16(UINT16_C(0x3E80));
 	const psimd_f32 magic_bias = psimd_splat_f32(0.25f);
-	const psimd_f32 denorm_nonsign = psimd_sub_f32(to_float(psimd_interleave_lo_u16(half + half, magic_mask)), magic_bias);
+	const psimd_f32 denorm_nonsign = psimd_sub_f32(to_float(Vec4i(psimd_interleave_lo_u16(half + half, magic_mask))), magic_bias);
 
 	const psimd_s32 denorm_cutoff = psimd_splat_s32(INT32_C(0x00800000));
 	const psimd_s32 denorm_mask = (psimd_s32) shr3_nonsign < denorm_cutoff;
@@ -48,8 +48,8 @@ PSIMD_INTRINSIC psimd_f32x2 fp16_ieee_to_fp32x2_psimd(psimd_u16 half) {
 	const psimd_u16 magic_mask = psimd_splat_u16(UINT16_C(0x3E80));
 	const psimd_u16 shl1_half = half + half;
 	const psimd_f32 magic_bias = psimd_splat_f32(0.25f);
-	const psimd_f32 denorm_nonsign_lo = psimd_sub_f32(to_float(psimd_interleave_lo_u16(shl1_half, magic_mask)), magic_bias);
-	const psimd_f32 denorm_nonsign_hi = psimd_sub_f32(to_float(psimd_interleave_hi_u16(shl1_half, magic_mask)), magic_bias);
+	const psimd_f32 denorm_nonsign_lo = psimd_sub_f32(to_float(Vec4i(psimd_interleave_lo_u16(shl1_half, magic_mask))), magic_bias);
+	const psimd_f32 denorm_nonsign_hi = psimd_sub_f32(to_float(Vec4i(psimd_interleave_hi_u16(shl1_half, magic_mask))), magic_bias);
 
 	const psimd_s32 denorm_cutoff = psimd_splat_s32(INT32_C(0x00800000));
 	const psimd_s32 denorm_mask_lo = (psimd_s32) shr3_nonsign_lo < denorm_cutoff;
