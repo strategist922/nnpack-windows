@@ -627,7 +627,7 @@ using psimd_f32 = Vec4f;
 
 	/* Vector negation */
 	PSIMD_INTRINSIC psimd_f32 psimd_neg_f32(psimd_f32 v) {
-		const psimd_s32 mask = truncate_to_int(psimd_splat_f32(-0.0f));
+		static const psimd_s32 mask = truncate_to_int(psimd_splat_f32(-0.0f));
 		return to_float(truncate_to_int(v) ^ mask);
 	}
 
@@ -811,8 +811,6 @@ using psimd_f32 = Vec4f;
 		}
 	#else
 		static const __m128i vmA = _mm_setr_epi8(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
-		static const __m128i vmB = _mm_setr_epi8(14, 15, 12, 13, 10, 11, 8, 9, 6, 7, 4, 5, 2, 3, 0, 1);
-
 		PSIMD_INTRINSIC psimd_s8 psimd_reverse_s8(psimd_s8 v) {
 			return _mm_shuffle_epi8(v, vmA);
 		}
@@ -821,6 +819,7 @@ using psimd_f32 = Vec4f;
 			return _mm_shuffle_epi8(v, vmA);
 		}
 
+		static const __m128i vmB = _mm_setr_epi8(14, 15, 12, 13, 10, 11, 8, 9, 6, 7, 4, 5, 2, 3, 0, 1);
 		PSIMD_INTRINSIC psimd_s16 psimd_reverse_s16(psimd_s16 v) {
 			return  _mm_shuffle_epi8(v, vmB);
 		}
@@ -885,35 +884,36 @@ using psimd_f32 = Vec4f;
 		}
 	#else
 		PSIMD_INTRINSIC psimd_s16 psimd_interleave_lo_s16(psimd_s16 a, psimd_s16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 0, 8+0, 1, 8+1, 2, 8+2, 3, 8+3 });
+			return blend8s<0, 8, 1, 9, 2, 10, 3, 11>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s16 psimd_interleave_hi_s16(psimd_s16 a, psimd_s16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 4, 8+4, 5, 8+5, 6, 8+6, 7, 8+7 });
+			return blend8s<4, 12, 5, 13, 6, 14, 7, 15>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_interleave_lo_u16(psimd_u16 a, psimd_u16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 0, 8+0, 1, 8+1, 2, 8+2, 3, 8+3 });
+			return blend8us<0, 8, 1, 9, 2, 10, 3, 11>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_interleave_hi_u16(psimd_u16 a, psimd_u16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 4, 8+4, 5, 8+5, 6, 8+6, 7, 8+7 });
+			return blend8us<4, 12, 5, 13, 6, 14, 7, 15>(a, b);
+
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_interleave_lo_s32(psimd_s32 a, psimd_s32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 0, 4+0, 1, 4+1 });
+			return blend4i<0, 4, 1, 5>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_interleave_hi_s32(psimd_s32 a, psimd_s32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 2, 4+2, 3, 4+3 });
+			return blend4i<2, 6, 3, 7>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_interleave_lo_u32(psimd_u32 a, psimd_u32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 0, 4+0, 1, 4+1 });
+			return blend4ui<0, 4, 1, 5>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_interleave_hi_u32(psimd_u32 a, psimd_u32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 2, 4+2, 3, 4+3 });
+			return blend4ui<2, 6, 3, 7>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_interleave_lo_f32(psimd_f32 a, psimd_f32 b) {
@@ -968,35 +968,35 @@ using psimd_f32 = Vec4f;
 		}
 	#else
 		PSIMD_INTRINSIC psimd_s16 psimd_concat_lo_s16(psimd_s16 a, psimd_s16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 0, 1, 2, 3, 8+0, 8+1, 8+2, 8+3 });
+			return blend8s<0, 1, 2, 3, 8, 9, 10, 11>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s16 psimd_concat_hi_s16(psimd_s16 a, psimd_s16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 4, 5, 6, 7, 8+4, 8+5, 8+6, 8+7 });
+			return blend8s<4, 5, 6, 7, 12, 13, 14, 15>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_concat_lo_u16(psimd_u16 a, psimd_u16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 0, 1, 2, 3, 8+0, 8+1, 8+2, 8+3 });
+			return blend8us<0, 1, 2, 3, 8, 9, 10, 11>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_concat_hi_u16(psimd_u16 a, psimd_u16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 4, 5, 6, 7, 8+4, 8+5, 8+6, 8+7 });
+			return blend8us<4, 5, 6, 7, 12, 13, 14, 15>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_concat_lo_s32(psimd_s32 a, psimd_s32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 0, 1, 4+0, 4+1 });
+			return blend4i<0, 1, 4, 5>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_concat_hi_s32(psimd_s32 a, psimd_s32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 2, 3, 4+2, 4+3 });
+			return blend4i<2, 3, 6, 7>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_concat_lo_u32(psimd_u32 a, psimd_u32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 0, 1, 4+0, 4+1 });
+			return blend4ui<0, 1, 4, 5>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_concat_hi_u32(psimd_u32 a, psimd_u32 b) {
-			return __builtin_shuffle(a, b, (psimd_s32) { 2, 3, 4+2, 4+3 });
+			return blend4ui<2, 3, 6, 7>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_lo_f32(psimd_f32 a, psimd_f32 b) {
@@ -1051,36 +1051,35 @@ using psimd_f32 = Vec4f;
 		}
 	#else
 		PSIMD_INTRINSIC psimd_s16 psimd_concat_even_s16(psimd_s16 a, psimd_s16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 0, 2, 4, 6, 8+0, 8+2, 8+4, 8+6 });
+			return blend8s<0, 2, 4, 6, 8, 10, 12, 14>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s16 psimd_concat_odd_s16(psimd_s16 a, psimd_s16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 1, 3, 5, 7, 8+1, 8+3, 8+5, 8+7 });
+			return blend8s<1, 3, 5, 7, 9, 11, 13, 15>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_concat_even_u16(psimd_u16 a, psimd_u16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 0, 2, 4, 6, 8+0, 8+2, 8+4, 8+6 });
+			return blend8us<0, 2, 4, 6, 8, 10, 12, 14>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_concat_odd_u16(psimd_u16 a, psimd_u16 b) {
-			return __builtin_shuffle(a, b, (psimd_s16) { 1, 3, 5, 7, 8+1, 8+3, 8+5, 8+7 });
+			return blend8us<1, 3, 5, 7, 9, 11, 13, 15>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_concat_even_s32(psimd_s32 a, psimd_s32 b) {
-			return __builtin_shuffle(a, b, _MM_SHUFFLE(0, 2, 4 + 0, 4 + 2));
+			return blend4i<0, 2, 4, 6>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_concat_odd_s32(psimd_s32 a, psimd_s32 b) {
-			return __builtin_shuffle(a, b, _MM_SHUFFLE(1, 3, 4 + 1, 4 + 3));
+			return blend4i<1, 3, 5, 7>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_concat_even_u32(psimd_u32 a, psimd_u32 b) {
-			return __builtin_shuffle(a, b, _MM_SHUFFLE(0, 2, 4 + 0, 4 + 2));
+			return blend4ui<0, 2, 4, 6>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_concat_odd_u32(psimd_u32 a, psimd_u32 b) {
-			
-			return __builtin_shuffle(a, b, _MM_SHUFFLE(1, 3, 4 + 1, 4 + 3));
+			return blend4ui<1, 3, 5, 7>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_even_f32(psimd_f32 a, psimd_f32 b) {
