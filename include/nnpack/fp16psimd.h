@@ -27,7 +27,7 @@ PSIMD_INTRINSIC psimd_f32 fp16_ieee_to_fp32_psimd(psimd_u16 half) {
 
 	const psimd_s32 denorm_cutoff = psimd_splat_s32(INT32_C(0x00800000));
 	const psimd_s32 denorm_mask = (psimd_s32) shr3_nonsign < denorm_cutoff;
-	return (psimd_f32) (sign | round_to_int(psimd_blend_f32(denorm_mask, denorm_nonsign, norm_nonsign)));
+	return to_float(sign | round_to_int(psimd_blend_f32(denorm_mask, denorm_nonsign, norm_nonsign)));
 }
 
 PSIMD_INTRINSIC psimd_f32x2 fp16_ieee_to_fp32x2_psimd(psimd_u16 half) {
