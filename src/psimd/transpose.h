@@ -1,14 +1,14 @@
 #pragma once
 
-#include <psimd.h>
+#include <nnpack/psimd.h>
 
 
 static inline void psimd_transpose4x4_f32(
     const psimd_f32 row0, const psimd_f32 row1, const psimd_f32 row2, const psimd_f32 row3,
-    psimd_f32 col0[restrict static 1],
-    psimd_f32 col1[restrict static 1],
-    psimd_f32 col2[restrict static 1],
-    psimd_f32 col3[restrict static 1])
+    psimd_f32* col0,
+    psimd_f32* col1,
+    psimd_f32* col2,
+    psimd_f32* col3)
 {
     /*
      * row0 = ( x00 x01 x02 x03 )

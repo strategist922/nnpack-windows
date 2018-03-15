@@ -2,21 +2,21 @@
 
 #include <stdbool.h>
 
-#include <psimd.h>
+#include <nnpack/psimd.h>
 
 #include <nnpack/macros.h>
 
 
 static NNP_INLINE void winograd_f6k3_input_transform(
 	const psimd_f32 d0, const psimd_f32 d1, const psimd_f32 d2, const psimd_f32 d3, const psimd_f32 d4, const psimd_f32 d5, const psimd_f32 d6, const psimd_f32 d7,
-	psimd_f32 transform0[restrict static 1],
-	psimd_f32 transform1[restrict static 1],
-	psimd_f32 transform2[restrict static 1],
-	psimd_f32 transform3[restrict static 1],
-	psimd_f32 transform4[restrict static 1],
-	psimd_f32 transform5[restrict static 1],
-	psimd_f32 transform6[restrict static 1],
-	psimd_f32 transform7[restrict static 1])
+	psimd_f32* transform0,
+	psimd_f32* transform1,
+	psimd_f32* transform2,
+	psimd_f32* transform3,
+	psimd_f32* transform4,
+	psimd_f32* transform5,
+	psimd_f32* transform6,
+	psimd_f32* transform7)
 {
 	const psimd_f32 const_0_25 = psimd_splat_f32(0.25f);
 
@@ -80,14 +80,14 @@ static NNP_INLINE void winograd_f6k3_input_transform(
 
 static NNP_INLINE void winograd_f6k3_kernel_transform(
 	const psimd_f32 g0, const psimd_f32 g1, const psimd_f32 g2,
-	psimd_f32 transform0[restrict static 1],
-	psimd_f32 transform1[restrict static 1],
-	psimd_f32 transform2[restrict static 1],
-	psimd_f32 transform3[restrict static 1],
-	psimd_f32 transform4[restrict static 1],
-	psimd_f32 transform5[restrict static 1],
-	psimd_f32 transform6[restrict static 1],
-	psimd_f32 transform7[restrict static 1],
+	psimd_f32* transform0,
+	psimd_f32* transform1,
+	psimd_f32* transform2,
+	psimd_f32* transform3,
+	psimd_f32* transform4,
+	psimd_f32* transform5,
+	psimd_f32* transform6,
+	psimd_f32* transform7,
 	bool rescale_coefficients)
 {
 	/*
@@ -155,12 +155,12 @@ static NNP_INLINE void winograd_f6k3_kernel_transform(
 
 static NNP_INLINE void winograd_f6k3_output_transform(
 	const psimd_f32 m0, const psimd_f32 m1, const psimd_f32 m2, const psimd_f32 m3, const psimd_f32 m4, const psimd_f32 m5, const psimd_f32 m6, const psimd_f32 m7,
-	psimd_f32 output0[restrict static 1],
-	psimd_f32 output1[restrict static 1],
-	psimd_f32 output2[restrict static 1],
-	psimd_f32 output3[restrict static 1],
-	psimd_f32 output4[restrict static 1],
-	psimd_f32 output5[restrict static 1])
+	psimd_f32* output0,
+	psimd_f32* output1,
+	psimd_f32* output2,
+	psimd_f32* output3,
+	psimd_f32* output4,
+	psimd_f32* output5)
 {
 	/*
 	 * s0 = m0 + (m1 + m2) +      (m3 + m4) + 32 * (m5 + m6)

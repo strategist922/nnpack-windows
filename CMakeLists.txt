@@ -98,14 +98,6 @@ IF(NNPACK_BACKEND STREQUAL "x86-64")
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/peachpy-download")
 ENDIF()
 
-IF(NOT TARGET psimd)
-  CONFIGURE_FILE(cmake/DownloadPSimd.cmake "${CMAKE_BINARY_DIR}/psimd-download/CMakeLists.txt")
-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/psimd-download")
-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/psimd-download")
-ENDIF()
-
 IF(NOT TARGET gtest)
   CONFIGURE_FILE(cmake/DownloadGoogleTest.cmake "${CMAKE_BINARY_DIR}/googletest-download/CMakeLists.txt")
   EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
@@ -194,8 +186,8 @@ ELSEIF(NNPACK_BACKEND STREQUAL "scalar")
 ELSEIF(NNPACK_BACKEND STREQUAL "neon")
   SET(NNPACK_BACKEND_SRCS
     # Transformations
-    src/psimd/2d-fourier-8x8.c
-    src/psimd/2d-fourier-16x16.c
+    src/psimd/2d-fourier-8x8.cpp
+    src/psimd/2d-fourier-16x16.cpp
     src/neon/2d-winograd-8x8-3x3.c
     src/neon/2d-winograd-8x8-3x3-fp16.c
     # Tuple GEMM
@@ -217,10 +209,10 @@ ELSEIF(NNPACK_BACKEND STREQUAL "neon")
       # ReLU
       src/neon/relu.c
       # Softmax
-      src/psimd/softmax.c
+      src/psimd/softmax.cpp
       # BLAS microkernels
       src/neon/blas/sdotxf.c
-      src/psimd/blas/shdotxf.c)
+      src/psimd/blas/shdotxf.cpp)
   ENDIF()
   IF(NOT NNPACK_INFERENCE_ONLY)
     LIST(APPEND NNPACK_BACKEND_SRCS
@@ -234,27 +226,27 @@ ELSEIF(NNPACK_BACKEND STREQUAL "neon")
 ELSEIF(NNPACK_BACKEND STREQUAL "psimd")
   SET(NNPACK_BACKEND_SRCS
     # Transformations
-    src/psimd/2d-fourier-8x8.c
-    src/psimd/2d-fourier-16x16.c
-    src/psimd/2d-winograd-8x8-3x3.c
+    src/psimd/2d-fourier-8x8.cpp
+    src/psimd/2d-fourier-16x16.cpp
+    src/psimd/2d-winograd-8x8-3x3.cpp
     # ReLU
-    src/psimd/relu.c
+    src/psimd/relu.cpp
     # Softmax
-    src/psimd/softmax.c
+    src/psimd/softmax.cpp
     # Tuple GEMM
-    src/psimd/blas/s4gemm.c
-    src/psimd/blas/c4gemm.c
-    src/psimd/blas/s4c2gemm.c
-    src/psimd/blas/c4gemm-conjb.c
-    src/psimd/blas/s4c2gemm-conjb.c
-    src/psimd/blas/c4gemm-conjb-transc.c
-    src/psimd/blas/s4c2gemm-conjb-transc.c
+    src/psimd/blas/s4gemm.cpp
+    src/psimd/blas/c4gemm.cpp
+    src/psimd/blas/s4c2gemm.cpp
+    src/psimd/blas/c4gemm-conjb.cpp
+    src/psimd/blas/s4c2gemm-conjb.cpp
+    src/psimd/blas/c4gemm-conjb-transc.cpp
+    src/psimd/blas/s4c2gemm-conjb-transc.cpp
     # Direct convolution
-    src/psimd/blas/conv1x1.c
+    src/psimd/blas/conv1x1.cpp
     # BLAS microkernels
-    src/psimd/blas/sgemm.c
-    src/psimd/blas/sdotxf.c
-    src/psimd/blas/shdotxf.c)
+    src/psimd/blas/sgemm.cpp
+    src/psimd/blas/sdotxf.cpp
+    src/psimd/blas/shdotxf.cpp)
 ENDIF()
 
 FILE(GLOB_RECURSE PEACHPY_POTENTIAL_DEPS "src/*.py")
@@ -326,14 +318,6 @@ SET_TARGET_PROPERTIES(nnpack PROPERTIES PUBLIC_HEADER include/nnpack.h)
 
 ADD_LIBRARY(nnpack_reference_layers ${NNPACK_REFERENCE_LAYERS_SRCS})
 TARGET_INCLUDE_DIRECTORIES(nnpack_reference_layers PUBLIC include)
-
-# ---[ Configure psimd
-IF(NOT TARGET psimd)
-  ADD_SUBDIRECTORY(
-    "${CONFU_DEPENDENCIES_SOURCE_DIR}/psimd"
-    "${CONFU_DEPENDENCIES_BINARY_DIR}/psimd")
-ENDIF()
-TARGET_LINK_LIBRARIES(nnpack PRIVATE psimd)
 
 IF(CMAKE_SYSTEM_NAME STREQUAL "Android")
   ADD_LIBRARY(cpufeatures ${ANDROID_NDK}/sources/android/cpufeatures/cpu-features.c)

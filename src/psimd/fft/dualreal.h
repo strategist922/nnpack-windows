@@ -1,16 +1,16 @@
 #pragma once
 
 #include <nnpack/fft-constants.h>
-#include <psimd.h>
+#include <nnpack/psimd.h>
 #include <psimd/butterfly.h>
 #include <psimd/fft/soa.h>
 
 
 static inline void psimd_fft8_dualreal_f32(
-	psimd_f32 s0123[restrict static 1],
-	psimd_f32 s4567[restrict static 1],
-	psimd_f32 h0123[restrict static 1],
-	psimd_f32 h4567[restrict static 1])
+	psimd_f32* s0123,
+	psimd_f32* s4567,
+	psimd_f32* h0123,
+	psimd_f32* h4567)
 {
 	psimd_fft8_soa_f32(s0123, s4567, h0123, h4567);
 
@@ -27,8 +27,8 @@ static inline void psimd_fft8_dualreal_f32(
 		const psimd_f32 x0765 = __builtin_shufflevector(x4567, x0123, 4, 3, 2, 1);
 		const psimd_f32 y0765 = __builtin_shufflevector(y4567, y0123, 4, 3, 2, 1);
 	#else
-		const psimd_f32 x0765 = __builtin_shuffle(x4567, x0123, (psimd_s32) { 4, 3, 2, 1 });
-		const psimd_f32 y0765 = __builtin_shuffle(y4567, y0123, (psimd_s32) { 4, 3, 2, 1 });
+		const psimd_f32 x0765 = _mm_shuffle_ps(x4567, x0123, _MM_SHUFFLE(4, 3, 2, 1));
+		const psimd_f32 y0765 = _mm_shuffle_ps(y4567, y0123, _MM_SHUFFLE(4, 3, 2, 1));
 	#endif
 
 	const psimd_f32 half = psimd_splat_f32(0.5f);
@@ -42,8 +42,8 @@ static inline void psimd_fft8_dualreal_f32(
 		const psimd_f32 i0246 = __builtin_shufflevector(i_246, x4567, 4, 1, 2, 3);
 		const psimd_f32 i1357 = __builtin_shufflevector(i_357, y4567, 4, 1, 2, 3);
 	#else
-		const psimd_f32 i0246 = __builtin_shuffle(i_246, x4567, (psimd_s32) { 4, 1, 2, 3 });
-		const psimd_f32 i1357 = __builtin_shuffle(i_357, y4567, (psimd_s32) { 4, 1, 2, 3 });
+		const psimd_f32 i0246 = _mm_shuffle_ps(i_246, x4567, _MM_SHUFFLE( 4, 1, 2, 3 ));
+		const psimd_f32 i1357 = _mm_shuffle_ps(i_357, y4567, _MM_SHUFFLE(4, 1, 2, 3));
 	#endif
 
 	/* Interleave and store */
@@ -54,14 +54,14 @@ static inline void psimd_fft8_dualreal_f32(
 }
 
 static inline void psimd_fft16_dualreal_f32(
-	psimd_f32 s0123[restrict static 1],
-	psimd_f32 s4567[restrict static 1],
-	psimd_f32 s89AB[restrict static 1],
-	psimd_f32 sCDEF[restrict static 1],
-	psimd_f32 h0123[restrict static 1],
-	psimd_f32 h4567[restrict static 1],
-	psimd_f32 h89AB[restrict static 1],
-	psimd_f32 hCDEF[restrict static 1])
+	psimd_f32* s0123,
+	psimd_f32* s4567,
+	psimd_f32* s89AB,
+	psimd_f32* sCDEF,
+	psimd_f32* h0123,
+	psimd_f32* h4567,
+	psimd_f32* h89AB,
+	psimd_f32* hCDEF)
 {
 	psimd_fft16_soa_f32(s0123, s4567, s89AB, sCDEF, h0123, h4567, h89AB, hCDEF);
 
@@ -74,10 +74,10 @@ static inline void psimd_fft16_dualreal_f32(
 		const psimd_f32 xCBA9 = __builtin_shufflevector(x89AB, xCDEF, 4, 3, 2, 1);
 		const psimd_f32 yCBA9 = __builtin_shufflevector(y89AB, yCDEF, 4, 3, 2, 1);
 	#else
-		const psimd_f32 x0FED = __builtin_shuffle(xCDEF, x0123, (psimd_s32) { 4, 3, 2, 1 });
-		const psimd_f32 y0FED = __builtin_shuffle(yCDEF, y0123, (psimd_s32) { 4, 3, 2, 1 });
-		const psimd_f32 xCBA9 = __builtin_shuffle(x89AB, xCDEF, (psimd_s32) { 4, 3, 2, 1 });
-		const psimd_f32 yCBA9 = __builtin_shuffle(y89AB, yCDEF, (psimd_s32) { 4, 3, 2, 1 });
+		const psimd_f32 x0FED = _mm_shuffle_ps(xCDEF, x0123, _MM_SHUFFLE(4, 3, 2, 1));
+		const psimd_f32 y0FED = _mm_shuffle_ps(yCDEF, y0123, _MM_SHUFFLE(4, 3, 2, 1));
+		const psimd_f32 xCBA9 = _mm_shuffle_ps(x89AB, xCDEF, _MM_SHUFFLE(4, 3, 2, 1));
+		const psimd_f32 yCBA9 = _mm_shuffle_ps(y89AB, yCDEF, _MM_SHUFFLE(4, 3, 2, 1));
 	#endif
 
 	const psimd_f32 half = psimd_splat_f32(0.5f);
@@ -95,8 +95,8 @@ static inline void psimd_fft16_dualreal_f32(
 		const psimd_f32 i0246 = __builtin_shufflevector(i_246, x89AB, 4, 1, 2, 3);
 		const psimd_f32 i1357 = __builtin_shufflevector(i_357, y89AB, 4, 1, 2, 3);
 	#else
-		const psimd_f32 i0246 = __builtin_shuffle(i_246, x89AB, (psimd_s32) { 4, 1, 2, 3 });
-		const psimd_f32 i1357 = __builtin_shuffle(i_357, y89AB, (psimd_s32) { 4, 1, 2, 3 });
+		const psimd_f32 i0246 = _mm_shuffle_ps(i_246, x89AB, _MM_SHUFFLE(4, 1, 2, 3));
+		const psimd_f32 i1357 = _mm_shuffle_ps(i_357, y89AB, _MM_SHUFFLE(4, 1, 2, 3));
 	#endif
 
 	/* Interleave and store */
@@ -111,10 +111,10 @@ static inline void psimd_fft16_dualreal_f32(
 }
 
 static inline void psimd_ifft8_dualreal_f32(
-	psimd_f32 s0123[restrict static 1],
-	psimd_f32 s4567[restrict static 1],
-	psimd_f32 h0123[restrict static 1],
-	psimd_f32 h4567[restrict static 1])
+	psimd_f32* s0123,
+	psimd_f32* s4567,
+	psimd_f32* h0123,
+	psimd_f32* h4567)
 {
 	const psimd_f32 r0123 = *s0123;
 	const psimd_f32 r4567 = *s4567;
@@ -132,24 +132,24 @@ static inline void psimd_ifft8_dualreal_f32(
 		*h0123 = __builtin_shufflevector(r1357 + i0246, r1357, 4, 1, 2, 3);
 		*h4567 = __builtin_shufflevector(r1357 - i0246, i1357, 4, 3, 2, 1);
 	#else
-		*s0123 = __builtin_shuffle(r0246 - i1357, r0246, (psimd_s32) { 4, 1, 2, 3 });
-		*s4567 = __builtin_shuffle(r0246 + i1357, i0246, (psimd_s32) { 4, 3, 2, 1 });
-		*h0123 = __builtin_shuffle(r1357 + i0246, r1357, (psimd_s32) { 4, 1, 2, 3 });
-		*h4567 = __builtin_shuffle(r1357 - i0246, i1357, (psimd_s32) { 4, 3, 2, 1 });
+		*s0123 = _mm_shuffle_ps(r0246 - i1357, r0246, _MM_SHUFFLE(4, 1, 2, 3)); 
+		*s4567 = _mm_shuffle_ps(r0246 + i1357, i0246, _MM_SHUFFLE(4, 3, 2, 1));
+		*h0123 = _mm_shuffle_ps(r1357 + i0246, r1357, _MM_SHUFFLE(4, 1, 2, 3));
+		*h4567 = _mm_shuffle_ps(r1357 - i0246, i1357, _MM_SHUFFLE(4, 3, 2, 1));
 	#endif
 
 	psimd_ifft8_soa_f32(s0123, s4567, h0123, h4567);
 }
 
 static inline void psimd_ifft16_dualreal_f32(
-	psimd_f32 s0123[restrict static 1],
-	psimd_f32 s4567[restrict static 1],
-	psimd_f32 s89AB[restrict static 1],
-	psimd_f32 sCDEF[restrict static 1],
-	psimd_f32 h0123[restrict static 1],
-	psimd_f32 h4567[restrict static 1],
-	psimd_f32 h89AB[restrict static 1],
-	psimd_f32 hCDEF[restrict static 1])
+	psimd_f32* s0123,
+	psimd_f32* s4567,
+	psimd_f32* s89AB,
+	psimd_f32* sCDEF,
+	psimd_f32* h0123,
+	psimd_f32* h4567,
+	psimd_f32* h89AB,
+	psimd_f32* hCDEF)
 {
 	const psimd_f32 r0123 = *s0123;
 	const psimd_f32 r4567 = *s4567;
@@ -177,7 +177,7 @@ static inline void psimd_ifft16_dualreal_f32(
 	#ifdef __clang__
 		*s0123 = __builtin_shufflevector(r0246 - i1357, r0246, 4, 1, 2, 3);
 	#else
-		*s0123 = __builtin_shuffle(r0246 - i1357, r0246, (psimd_s32) { 4, 1, 2, 3 });
+		*s0123 = _mm_shuffle_ps(r0246 - i1357, r0246, _MM_SHUFFLE(4, 1, 2, 3));
 	#endif
 	*s4567 = r8ACE - i9BDF;
 	#ifdef __clang__
@@ -185,17 +185,17 @@ static inline void psimd_ifft16_dualreal_f32(
 		*sCDEF = __builtin_shufflevector(s_FED, sCBA9, 4, 3, 2, 1);
 		*h0123 = __builtin_shufflevector(r1357 + i0246, r1357, 4, 1, 2, 3);
 	#else
-		*s89AB = __builtin_shuffle(sCBA9, i0246, (psimd_s32) { 4, 3, 2, 1 });
-		*sCDEF = __builtin_shuffle(s_FED, sCBA9, (psimd_s32) { 4, 3, 2, 1 });
-		*h0123 = __builtin_shuffle(r1357 + i0246, r1357, (psimd_s32) { 4, 1, 2, 3 });
+		*s89AB = _mm_shuffle_ps(sCBA9, i0246, _MM_SHUFFLE(4, 3, 2, 1));
+		*sCDEF = _mm_shuffle_ps(s_FED, sCBA9, _MM_SHUFFLE(4, 3, 2, 1));
+		*h0123 = _mm_shuffle_ps(r1357 + i0246, r1357, _MM_SHUFFLE(4, 1, 2, 3));
 	#endif
 	*h4567 = r9BDF + i8ACE;
 	#ifdef __clang__
 		*h89AB = __builtin_shufflevector(hCBA9, i1357, 4, 3, 2, 1);
 		*hCDEF = __builtin_shufflevector(h_FED, hCBA9, 4, 3, 2, 1);
 	#else
-		*h89AB = __builtin_shuffle(hCBA9, i1357, (psimd_s32) { 4, 3, 2, 1 });
-		*hCDEF = __builtin_shuffle(h_FED, hCBA9, (psimd_s32) { 4, 3, 2, 1 });
+		*h89AB = _mm_shuffle_ps(hCBA9, i1357, _MM_SHUFFLE(4, 3, 2, 1));
+		*hCDEF = _mm_shuffle_ps(h_FED, hCBA9, _MM_SHUFFLE(4, 3, 2, 1));
 	#endif
 
 	psimd_ifft16_soa_f32(s0123, s4567, s89AB, sCDEF, h0123, h4567, h89AB, hCDEF);

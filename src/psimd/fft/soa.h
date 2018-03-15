@@ -1,13 +1,13 @@
 #pragma once
 
 #include <nnpack/fft-constants.h>
-#include <psimd.h>
+#include <nnpack/psimd.h>
 #include <psimd/butterfly.h>
 
 
 static inline void psimd_cmul_soa_f32(
-	psimd_f32 real[restrict static 1],
-	psimd_f32 imag[restrict static 1],
+	psimd_f32* real,
+	psimd_f32* imag,
 	psimd_f32 cr, psimd_f32 ci)
 {
 	const psimd_f32 xr = *real;
@@ -21,8 +21,8 @@ static inline void psimd_cmul_soa_f32(
 }
 
 static inline void psimd_cmulc_soa_f32(
-	psimd_f32 real[restrict static 1],
-	psimd_f32 imag[restrict static 1],
+	psimd_f32* real,
+	psimd_f32* imag,
 	psimd_f32 cr, psimd_f32 ci)
 {
 	const psimd_f32 xr = *real;
@@ -36,10 +36,10 @@ static inline void psimd_cmulc_soa_f32(
 }
 
 static inline void psimd_fft8_soa_f32(
-	psimd_f32 real0123[restrict static 1],
-	psimd_f32 real4567[restrict static 1],
-	psimd_f32 imag0123[restrict static 1],
-	psimd_f32 imag4567[restrict static 1])
+	psimd_f32* real0123,
+	psimd_f32* real4567,
+	psimd_f32* imag0123,
+	psimd_f32* imag4567)
 {
 	psimd_f32 w0123r = *real0123;
 	psimd_f32 w4567r = *real4567;
@@ -52,8 +52,8 @@ static inline void psimd_fft8_soa_f32(
 
 	/* FFT8: multiplication by twiddle factors */
 	psimd_cmulc_soa_f32(&w4567r, &w4567i,
-		(psimd_f32) { COS_0PI_OVER_4, COS_1PI_OVER_4, COS_2PI_OVER_4, COS_3PI_OVER_4 },
-		(psimd_f32) { SIN_0PI_OVER_4, SIN_1PI_OVER_4, SIN_2PI_OVER_4, SIN_3PI_OVER_4 });
+		psimd_f32(COS_0PI_OVER_4, COS_1PI_OVER_4, COS_2PI_OVER_4, COS_3PI_OVER_4),
+		psimd_f32(SIN_0PI_OVER_4, SIN_1PI_OVER_4, SIN_2PI_OVER_4, SIN_3PI_OVER_4));
 
 	/* 2x FFT4: butterfly */
 	psimd_f32 w0145r = psimd_concat_lo_f32(w0123r, w4567r);
@@ -66,8 +66,8 @@ static inline void psimd_fft8_soa_f32(
 
 	/* 2x FFT4: multiplication by twiddle factors */
 	psimd_cmulc_soa_f32(&w2367r, &w2367i,
-		(psimd_f32) { COS_0PI_OVER_2, COS_1PI_OVER_2, COS_0PI_OVER_2, COS_1PI_OVER_2 },
-		(psimd_f32) { SIN_0PI_OVER_2, SIN_1PI_OVER_2, SIN_0PI_OVER_2, SIN_1PI_OVER_2 });
+		psimd_f32(COS_0PI_OVER_2, COS_1PI_OVER_2, COS_0PI_OVER_2, COS_1PI_OVER_2), 
+		psimd_f32(SIN_0PI_OVER_2, SIN_1PI_OVER_2, SIN_0PI_OVER_2, SIN_1PI_OVER_2));
 
 	/* 4x FFT2: butterfly */
 	psimd_f32 w0426r = psimd_concat_even_f32(w0145r, w2367r);
@@ -79,12 +79,12 @@ static inline void psimd_fft8_soa_f32(
 	psimd_butterfly_f32(&w0426i, &w1537i);
 
 	/*
-	 * Bit reversal:
-	 *   0  4  2  6  1  5  3  7
-	 *   ^  ^  ^  ^  ^  ^  ^  ^
-	 *   |  |  |  |  |  |  |  |
-	 *   0  1  2  3  4  5  6  7
-	 */
+	* Bit reversal:
+	*   0  4  2  6  1  5  3  7
+	*   ^  ^  ^  ^  ^  ^  ^  ^
+	*   |  |  |  |  |  |  |  |
+	*   0  1  2  3  4  5  6  7
+	*/
 	*real0123 = w0426r;
 	*real4567 = w1537r;
 	*imag0123 = w0426i;
@@ -92,18 +92,18 @@ static inline void psimd_fft8_soa_f32(
 }
 
 static inline void psimd_ifft8_soa_f32(
-	psimd_f32 real0123[restrict static 1],
-	psimd_f32 real4567[restrict static 1],
-	psimd_f32 imag0123[restrict static 1],
-	psimd_f32 imag4567[restrict static 1])
+	psimd_f32* real0123,
+	psimd_f32* real4567,
+	psimd_f32* imag0123,
+	psimd_f32* imag4567)
 {
 	/*
-	 * Bit reversal:
-	 *   0  4  2  6  1  5  3  7
-	 *   ^  ^  ^  ^  ^  ^  ^  ^
-	 *   |  |  |  |  |  |  |  |
-	 *   0  1  2  3  4  5  6  7
-	 */
+	* Bit reversal:
+	*   0  4  2  6  1  5  3  7
+	*   ^  ^  ^  ^  ^  ^  ^  ^
+	*   |  |  |  |  |  |  |  |
+	*   0  1  2  3  4  5  6  7
+	*/
 	psimd_f32 w0426r = *real0123;
 	psimd_f32 w1537r = *real4567;
 	psimd_f32 w0426i = *imag0123;
@@ -120,8 +120,8 @@ static inline void psimd_ifft8_soa_f32(
 
 	/* 2x IFFT4: multiplication by twiddle factors */
 	psimd_cmul_soa_f32(&w2367r, &w2367i,
-		(psimd_f32) { COS_0PI_OVER_2, COS_1PI_OVER_2, COS_0PI_OVER_2, COS_1PI_OVER_2 },
-		(psimd_f32) { SIN_0PI_OVER_2, SIN_1PI_OVER_2, SIN_0PI_OVER_2, SIN_1PI_OVER_2 });
+		psimd_f32(COS_0PI_OVER_2, COS_1PI_OVER_2, COS_0PI_OVER_2, COS_1PI_OVER_2),
+		psimd_f32(SIN_0PI_OVER_2, SIN_1PI_OVER_2, SIN_0PI_OVER_2, SIN_1PI_OVER_2));
 
 	/* 2x IFFT4: butterfly */
 	psimd_butterfly_f32(&w0145r, &w2367r);
@@ -134,8 +134,8 @@ static inline void psimd_ifft8_soa_f32(
 
 	/* IFFT8: multiplication by twiddle factors and scaling by 1/8 */
 	psimd_cmul_soa_f32(&w4567r, &w4567i,
-		(psimd_f32) { COS_0PI_OVER_4 * 0.125f, COS_1PI_OVER_4 * 0.125f, COS_2PI_OVER_4 * 0.125f, COS_3PI_OVER_4 * 0.125f },
-		(psimd_f32) { SIN_0PI_OVER_4 * 0.125f, SIN_1PI_OVER_4 * 0.125f, SIN_2PI_OVER_4 * 0.125f, SIN_3PI_OVER_4 * 0.125f });
+		psimd_f32(COS_0PI_OVER_4 * 0.125f, COS_1PI_OVER_4 * 0.125f, COS_2PI_OVER_4 * 0.125f, COS_3PI_OVER_4 * 0.125f),
+		psimd_f32(SIN_0PI_OVER_4 * 0.125f, SIN_1PI_OVER_4 * 0.125f, SIN_2PI_OVER_4 * 0.125f, SIN_3PI_OVER_4 * 0.125f));
 
 	/* IFFT8: scaling of remaining coefficients by 1/8 */
 	const psimd_f32 scale = psimd_splat_f32(0.125f);
@@ -153,14 +153,14 @@ static inline void psimd_ifft8_soa_f32(
 }
 
 static inline void psimd_fft16_soa_f32(
-	psimd_f32 real0123[restrict static 1],
-	psimd_f32 real4567[restrict static 1],
-	psimd_f32 real89AB[restrict static 1],
-	psimd_f32 realCDEF[restrict static 1],
-	psimd_f32 imag0123[restrict static 1],
-	psimd_f32 imag4567[restrict static 1],
-	psimd_f32 imag89AB[restrict static 1],
-	psimd_f32 imagCDEF[restrict static 1])
+	psimd_f32* real0123,
+	psimd_f32* real4567,
+	psimd_f32* real89AB,
+	psimd_f32* realCDEF,
+	psimd_f32* imag0123,
+	psimd_f32* imag4567,
+	psimd_f32* imag89AB,
+	psimd_f32* imagCDEF)
 {
 	psimd_f32 w0123r = *real0123;
 	psimd_f32 w4567r = *real4567;
@@ -179,11 +179,11 @@ static inline void psimd_fft16_soa_f32(
 
 	/* FFT16: multiplication by twiddle factors */
 	psimd_cmulc_soa_f32(&w89ABr, &w89ABi,
-		(psimd_f32) { COS_0PI_OVER_8, COS_1PI_OVER_8, COS_2PI_OVER_8, COS_3PI_OVER_8 },
-		(psimd_f32) { SIN_0PI_OVER_8, SIN_1PI_OVER_8, SIN_2PI_OVER_8, SIN_3PI_OVER_8 });
+		psimd_f32(COS_0PI_OVER_8, COS_1PI_OVER_8, COS_2PI_OVER_8, COS_3PI_OVER_8),
+		psimd_f32(SIN_0PI_OVER_8, SIN_1PI_OVER_8, SIN_2PI_OVER_8, SIN_3PI_OVER_8));
 	psimd_cmulc_soa_f32(&wCDEFr, &wCDEFi,
-		(psimd_f32) { COS_4PI_OVER_8, COS_5PI_OVER_8, COS_6PI_OVER_8, COS_7PI_OVER_8 },
-		(psimd_f32) { SIN_4PI_OVER_8, SIN_5PI_OVER_8, SIN_6PI_OVER_8, SIN_7PI_OVER_8 });
+		psimd_f32(COS_4PI_OVER_8, COS_5PI_OVER_8, COS_6PI_OVER_8, COS_7PI_OVER_8),
+		psimd_f32(SIN_4PI_OVER_8, SIN_5PI_OVER_8, SIN_6PI_OVER_8, SIN_7PI_OVER_8));
 
 	/* 2x FFT8: butterfly */
 	psimd_butterfly_f32(&w0123r, &w4567r);
@@ -238,12 +238,12 @@ static inline void psimd_fft16_soa_f32(
 	psimd_butterfly_f32(&w2A6Ei, &w3B7Fi);
 
 	/*
-	 * Bit reversal:
-	 *   0   8   4  12   2  10   6  14   1   9   5  13   3  11   7  15
-	 *   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^
-	 *   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-	 *   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-	 */
+	* Bit reversal:
+	*   0   8   4  12   2  10   6  14   1   9   5  13   3  11   7  15
+	*   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^
+	*   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+	*   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+	*/
 	*real0123 = w084Cr;
 	*real4567 = w2A6Er;
 	*real89AB = w195Dr;
@@ -255,22 +255,22 @@ static inline void psimd_fft16_soa_f32(
 }
 
 static inline void psimd_ifft16_soa_f32(
-	psimd_f32 real0123[restrict static 1],
-	psimd_f32 real4567[restrict static 1],
-	psimd_f32 real89AB[restrict static 1],
-	psimd_f32 realCDEF[restrict static 1],
-	psimd_f32 imag0123[restrict static 1],
-	psimd_f32 imag4567[restrict static 1],
-	psimd_f32 imag89AB[restrict static 1],
-	psimd_f32 imagCDEF[restrict static 1])
+	psimd_f32* real0123,
+	psimd_f32* real4567,
+	psimd_f32* real89AB,
+	psimd_f32* realCDEF,
+	psimd_f32* imag0123,
+	psimd_f32* imag4567,
+	psimd_f32* imag89AB,
+	psimd_f32* imagCDEF)
 {
 	/*
-	 * Bit reversal:
-	 *   0   8   4  12   2  10   6  14   1   9   5  13   3  11   7  15
-	 *   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^
-	 *   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-	 *   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-	 */
+	* Bit reversal:
+	*   0   8   4  12   2  10   6  14   1   9   5  13   3  11   7  15
+	*   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^   ^
+	*   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+	*   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+	*/
 	psimd_f32 w084Cr = *real0123;
 	psimd_f32 w2A6Er = *real4567;
 	psimd_f32 w195Dr = *real89AB;
@@ -334,11 +334,11 @@ static inline void psimd_ifft16_soa_f32(
 
 	/* IFFT16: multiplication by twiddle factors and scaling by 1/16 */
 	psimd_cmul_soa_f32(&w89ABr, &w89ABi,
-		(psimd_f32) { COS_0PI_OVER_8 * 0.0625f, COS_1PI_OVER_8 * 0.0625f, COS_2PI_OVER_8 * 0.0625f, COS_3PI_OVER_8 * 0.0625f },
-		(psimd_f32) { SIN_0PI_OVER_8 * 0.0625f, SIN_1PI_OVER_8 * 0.0625f, SIN_2PI_OVER_8 * 0.0625f, SIN_3PI_OVER_8 * 0.0625f });
+		psimd_f32(COS_0PI_OVER_8 * 0.0625f, COS_1PI_OVER_8 * 0.0625f, COS_2PI_OVER_8 * 0.0625f, COS_3PI_OVER_8 * 0.0625f),
+		psimd_f32(SIN_0PI_OVER_8 * 0.0625f, SIN_1PI_OVER_8 * 0.0625f, SIN_2PI_OVER_8 * 0.0625f, SIN_3PI_OVER_8 * 0.0625f));
 	psimd_cmul_soa_f32(&wCDEFr, &wCDEFi,
-		(psimd_f32) { COS_4PI_OVER_8 * 0.0625f, COS_5PI_OVER_8 * 0.0625f, COS_6PI_OVER_8 * 0.0625f, COS_7PI_OVER_8 * 0.0625f },
-		(psimd_f32) { SIN_4PI_OVER_8 * 0.0625f, SIN_5PI_OVER_8 * 0.0625f, SIN_6PI_OVER_8 * 0.0625f, SIN_7PI_OVER_8 * 0.0625f });
+		psimd_f32(COS_4PI_OVER_8 * 0.0625f, COS_5PI_OVER_8 * 0.0625f, COS_6PI_OVER_8 * 0.0625f, COS_7PI_OVER_8 * 0.0625f),
+		psimd_f32(SIN_4PI_OVER_8 * 0.0625f, SIN_5PI_OVER_8 * 0.0625f, SIN_6PI_OVER_8 * 0.0625f, SIN_7PI_OVER_8 * 0.0625f));
 
 	/* IFFT16: scaling of remaining coefficients by 1/16 */
 	const psimd_f32 scale = psimd_splat_f32(0.0625f);

@@ -20,7 +20,7 @@ extern "C" {
 		return a > b ? a - b : 0;
 	}
 
-#ifndef NOMINMAX
+//#ifdef NOMINMAX
 	static inline size_t max(size_t a, size_t b)
 	{
 		return a > b ? a : b;
@@ -30,7 +30,7 @@ extern "C" {
 	{
 		return a > b ? b : a;
 	}
-#endif // !NOMINMAX
+//#endif // !NOMINMAX
 
 	static inline size_t round_up(size_t number, size_t factor)
 	{

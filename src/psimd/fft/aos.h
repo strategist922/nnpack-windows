@@ -5,23 +5,23 @@
 
 #include <nnpack/fft-constants.h>
 
-#include <psimd.h>
+#include <nnpack/psimd.h>
 #include <psimd/butterfly.h>
 
 
 static inline void psimd_fft4_aos_f32(
-	const float t_lo[restrict static 16],
-	const float t_hi[restrict static 16],
+	const float* t_lo,
+	const float* t_hi,
 	size_t stride_t,
 	uint32_t row_start, uint32_t row_count,
-	psimd_f32 f0r[restrict static 1],
-	psimd_f32 f0i[restrict static 1],
-	psimd_f32 f1r[restrict static 1],
-	psimd_f32 f1i[restrict static 1],
-	psimd_f32 f2r[restrict static 1],
-	psimd_f32 f2i[restrict static 1],
-	psimd_f32 f3r[restrict static 1],
-	psimd_f32 f3i[restrict static 1])
+	psimd_f32* f0r,
+	psimd_f32* f0i,
+	psimd_f32* f1r,
+	psimd_f32* f1i,
+	psimd_f32* f2r,
+	psimd_f32* f2i,
+	psimd_f32* f3r,
+	psimd_f32* f3i)
 {
 	/* Load inputs and FFT4: butterfly */
 	psimd_f32 w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i;
@@ -94,15 +94,15 @@ static inline void psimd_fft4_aos_f32(
 
 fft4_twiddle:
 	/*
-	 * FFT4: multiplication by twiddle factors:
-	 *   w3r, w3i = w3i, -w3r
-	 * (negation of w3i is merged into the next butterfly)
-	 */
+	* FFT4: multiplication by twiddle factors:
+	*   w3r, w3i = w3i, -w3r
+	* (negation of w3i is merged into the next butterfly)
+	*/
 	psimd_swap_f32(&w3r, &w3i);
 
 	/*
-	 * 2x FFT2: butterfly
-	 */
+	* 2x FFT2: butterfly
+	*/
 	psimd_butterfly_f32(&w0r, &w1r);
 	psimd_butterfly_f32(&w0i, &w1i);
 	psimd_butterfly_f32(&w2r, &w3r);
@@ -124,8 +124,8 @@ fft4_twiddle:
 
 static inline void psimd_ifft4_aos_f32(
 	psimd_f32 w0r, psimd_f32 w0i, psimd_f32 w1r, psimd_f32 w1i, psimd_f32 w2r, psimd_f32 w2i, psimd_f32 w3r, psimd_f32 w3i,
-	float t0[restrict static 16],
-	float t2[restrict static 16],
+	float* t0,
+	float* t2,
 	size_t stride_t)
 {
 	/* Bit reversal */
@@ -133,18 +133,18 @@ static inline void psimd_ifft4_aos_f32(
 	psimd_swap_f32(&w1i, &w2i);
 
 	/*
-	 * 2x IFFT2: butterfly
-	 */
+	* 2x IFFT2: butterfly
+	*/
 	psimd_butterfly_f32(&w0r, &w1r);
 	psimd_butterfly_f32(&w0i, &w1i);
 	psimd_butterfly_f32(&w2r, &w3r);
 	psimd_butterfly_f32(&w2i, &w3i);
 
 	/*
-	 * IFFT4: multiplication by twiddle factors:
-	 *   w3r, w3i = -w3i, w3r
-	 * (negation of w3r is merged into the next butterfly)
-	 */
+	* IFFT4: multiplication by twiddle factors:
+	*   w3r, w3i = -w3i, w3r
+	* (negation of w3r is merged into the next butterfly)
+	*/
 	psimd_swap_f32(&w3r, &w3i);
 
 	/* IFFT4: scaling by 1/4 */
@@ -183,26 +183,26 @@ static inline void psimd_ifft4_aos_f32(
 }
 
 static inline void psimd_fft8_aos_f32(
-	const float t_lo[restrict static 32],
-	const float t_hi[restrict static 32],
+	const float* t_lo,
+	const float* t_hi,
 	size_t stride_t,
 	uint32_t row_start, uint32_t row_count,
-	psimd_f32 f0r[restrict static 1],
-	psimd_f32 f0i[restrict static 1],
-	psimd_f32 f1r[restrict static 1],
-	psimd_f32 f1i[restrict static 1],
-	psimd_f32 f2r[restrict static 1],
-	psimd_f32 f2i[restrict static 1],
-	psimd_f32 f3r[restrict static 1],
-	psimd_f32 f3i[restrict static 1],
-	psimd_f32 f4r[restrict static 1],
-	psimd_f32 f4i[restrict static 1],
-	psimd_f32 f5r[restrict static 1],
-	psimd_f32 f5i[restrict static 1],
-	psimd_f32 f6r[restrict static 1],
-	psimd_f32 f6i[restrict static 1],
-	psimd_f32 f7r[restrict static 1],
-	psimd_f32 f7i[restrict static 1])
+	psimd_f32* f0r,
+	psimd_f32* f0i,
+	psimd_f32* f1r,
+	psimd_f32* f1i,
+	psimd_f32* f2r,
+	psimd_f32* f2i,
+	psimd_f32* f3r,
+	psimd_f32* f3i,
+	psimd_f32* f4r,
+	psimd_f32* f4i,
+	psimd_f32* f5r,
+	psimd_f32* f5i,
+	psimd_f32* f6r,
+	psimd_f32* f6i,
+	psimd_f32* f7r,
+	psimd_f32* f7i)
 {
 	/* Load inputs and FFT8: butterfly */
 	psimd_f32 w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i;
@@ -339,14 +339,14 @@ static inline void psimd_fft8_aos_f32(
 
 fft8_twiddle:;
 	/*
-	 * FFT8: multiplication by twiddle factors:
-	 *   
-	 *   w5r, w5i = sqrt(2)/2 (w5i + w5r),  sqrt(2)/2 (w5i - w5r)
-	 *   w6r, w6i = w6i, -w6r
-	 *   w7r, w7i = sqrt(2)/2 (w7i - w7r), -sqrt(2)/2 (w7i + w7r)
-	 *
-	 * (negation of w6i and w7i is merged into the next butterfly)
-	 */
+	* FFT8: multiplication by twiddle factors:
+	*
+	*   w5r, w5i = sqrt(2)/2 (w5i + w5r),  sqrt(2)/2 (w5i - w5r)
+	*   w6r, w6i = w6i, -w6r
+	*   w7r, w7i = sqrt(2)/2 (w7i - w7r), -sqrt(2)/2 (w7i + w7r)
+	*
+	* (negation of w6i and w7i is merged into the next butterfly)
+	*/
 	const psimd_f32 sqrt2_over_2 = psimd_splat_f32(SQRT2_OVER_2);
 	const psimd_f32 new_w5r = sqrt2_over_2 * (w5i + w5r);
 	const psimd_f32 new_w5i = sqrt2_over_2 * (w5i - w5r);
@@ -359,8 +359,8 @@ fft8_twiddle:;
 	w7i = minus_new_w7i;
 
 	/*
-	 * 2x FFT4: butterfly
-	 */
+	* 2x FFT4: butterfly
+	*/
 	psimd_butterfly_f32(&w0r, &w2r);
 	psimd_butterfly_f32(&w0i, &w2i);
 	psimd_butterfly_f32(&w1r, &w3r);
@@ -371,19 +371,19 @@ fft8_twiddle:;
 	psimd_butterfly_with_negated_b_f32(&w5i, &w7i);
 
 	/*
-	 * 2x FFT4: multiplication by twiddle factors:
-	 *
-	 *   w3r, w3i = w3i, -w3r
-	 *   w7r, w7i = w7i, -w7r
-	 *
-	 * (negation of w3i and w7i is merged into the next butterfly)
-	 */
+	* 2x FFT4: multiplication by twiddle factors:
+	*
+	*   w3r, w3i = w3i, -w3r
+	*   w7r, w7i = w7i, -w7r
+	*
+	* (negation of w3i and w7i is merged into the next butterfly)
+	*/
 	psimd_swap_f32(&w3r, &w3i);
 	psimd_swap_f32(&w7r, &w7i);
 
 	/*
-	 * 4x FFT2: butterfly
-	 */
+	* 4x FFT2: butterfly
+	*/
 	psimd_butterfly_f32(&w0r, &w1r);
 	psimd_butterfly_f32(&w0i, &w1i);
 	psimd_butterfly_f32(&w2r, &w3r);
@@ -420,8 +420,8 @@ fft8_twiddle:;
 static inline void psimd_ifft8_aos_f32(
 	psimd_f32 w0r, psimd_f32 w0i, psimd_f32 w1r, psimd_f32 w1i, psimd_f32 w2r, psimd_f32 w2i, psimd_f32 w3r, psimd_f32 w3i,
 	psimd_f32 w4r, psimd_f32 w4i, psimd_f32 w5r, psimd_f32 w5i, psimd_f32 w6r, psimd_f32 w6i, psimd_f32 w7r, psimd_f32 w7i,
-	float t_lo[restrict static 32],
-	float t_hi[restrict static 32],
+	float* t_lo,
+	float* t_hi,
 	size_t stride_t)
 {
 	/* Bit reversal */
@@ -431,8 +431,8 @@ static inline void psimd_ifft8_aos_f32(
 	psimd_swap_f32(&w3i, &w6i);
 
 	/*
-	 * 4x IFFT2: butterfly
-	 */
+	* 4x IFFT2: butterfly
+	*/
 	psimd_butterfly_f32(&w0r, &w1r);
 	psimd_butterfly_f32(&w0i, &w1i);
 	psimd_butterfly_f32(&w2r, &w3r);
@@ -443,19 +443,19 @@ static inline void psimd_ifft8_aos_f32(
 	psimd_butterfly_f32(&w6i, &w7i);
 
 	/*
-	 * 2x IFFT4: multiplication by twiddle factors:
-	 *
-	 *   w3r, w3i = -w3i, w3r
-	 *   w7r, w7i = -w7i, w7r
-	 *
-	 * (negation of w3r and w7r is merged into the next butterfly)
-	 */
+	* 2x IFFT4: multiplication by twiddle factors:
+	*
+	*   w3r, w3i = -w3i, w3r
+	*   w7r, w7i = -w7i, w7r
+	*
+	* (negation of w3r and w7r is merged into the next butterfly)
+	*/
 	psimd_swap_f32(&w3r, &w3i);
 	psimd_swap_f32(&w7r, &w7i);
 
 	/*
-	 * 2x IFFT4: butterfly
-	 */
+	* 2x IFFT4: butterfly
+	*/
 	psimd_butterfly_f32(&w0r, &w2r);
 	psimd_butterfly_f32(&w0i, &w2i);
 	psimd_butterfly_with_negated_b_f32(&w1r, &w3r);
@@ -466,14 +466,14 @@ static inline void psimd_ifft8_aos_f32(
 	psimd_butterfly_f32(&w5i, &w7i);
 
 	/*
-	 * IFFT8: multiplication by twiddle factors and scaling by 1/8:
-	 *
-	 *   w5r, w5i =  sqrt(2)/2 (w5r - w5i), sqrt(2)/2 (w5r + w5i)
-	 *   w6r, w6i = -w6i, w6r
-	 *   w7r, w7i = -sqrt(2)/2 (w7r + w7i), sqrt(2)/2 (w7r - w7i)
-	 *
-	 * (negation of w6r and w7r is merged into the next butterfly)
-	 */
+	* IFFT8: multiplication by twiddle factors and scaling by 1/8:
+	*
+	*   w5r, w5i =  sqrt(2)/2 (w5r - w5i), sqrt(2)/2 (w5r + w5i)
+	*   w6r, w6i = -w6i, w6r
+	*   w7r, w7i = -sqrt(2)/2 (w7r + w7i), sqrt(2)/2 (w7r - w7i)
+	*
+	* (negation of w6r and w7r is merged into the next butterfly)
+	*/
 	const psimd_f32 sqrt2_over_2 = psimd_splat_f32(SQRT2_OVER_2 * 0.125f);
 	const psimd_f32 new_w5r = sqrt2_over_2 * (w5r - w5i);
 	const psimd_f32 new_w5i = sqrt2_over_2 * (w5r + w5i);

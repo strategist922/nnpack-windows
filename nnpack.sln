@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "googletest\googlet
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70AC2E2E-794C-4D30-8636-7FDD20C4BEDD}"
 	ProjectSection(SolutionItems) = preProject
+		src\x86_64-fma\buildDebug.bat = src\x86_64-fma\buildDebug.bat
+		src\x86_64-fma\buildRelease.bat = src\x86_64-fma\buildRelease.bat
 		CMakeLists.txt = CMakeLists.txt
 		configure.py = configure.py
 		confu.yaml = confu.yaml

@@ -24,136 +24,148 @@
     <Filter Include="x86_64-fma\vecmath">
       <UniqueIdentifier>{2c134976-58e2-431a-8acb-7f8b59918f9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scalar">
-      <UniqueIdentifier>{8dd86891-7bed-4c70-9019-0548f6ca5f0c}</UniqueIdentifier>
+    <Filter Include="psimd">
+      <UniqueIdentifier>{5fb39468-8c38-4ee3-8844-f366155e4a28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scalar\blas">
-      <UniqueIdentifier>{61d22557-9f5e-4a8f-a940-ec1cf7c0e83a}</UniqueIdentifier>
+    <Filter Include="psimd\blas">
+      <UniqueIdentifier>{0b25c9fe-5736-404b-a9ea-2ef7ad2d118a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scalar\fft">
-      <UniqueIdentifier>{9019426e-b2b7-4655-827b-d48ac3427e3e}</UniqueIdentifier>
+    <Filter Include="psimd\fft">
+      <UniqueIdentifier>{0469df8d-d40e-4ae6-b3ff-9b0d03633268}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scalar\winograd">
-      <UniqueIdentifier>{830d2ea0-62a2-49cc-a852-c662cd008fe8}</UniqueIdentifier>
+    <Filter Include="psimd\winograd">
+      <UniqueIdentifier>{25ae816f-3a27-4df8-9a3d-a6acca6e6010}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Reference">
+    <Filter Include="ref">
       <UniqueIdentifier>{d3884015-d0af-4f5d-9574-bd74ba49b2cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Reference\fft">
+    <Filter Include="ref\fft">
       <UniqueIdentifier>{33f47aaf-093d-44be-b48d-ec1cf921bafb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scalar">
+      <UniqueIdentifier>{8dd86891-7bed-4c70-9019-0548f6ca5f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scalar\blas">
+      <UniqueIdentifier>{61d22557-9f5e-4a8f-a940-ec1cf7c0e83a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scalar\fft">
+      <UniqueIdentifier>{9019426e-b2b7-4655-827b-d48ac3427e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scalar\winograd">
+      <UniqueIdentifier>{830d2ea0-62a2-49cc-a852-c662cd008fe8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ref\fft\aos-ref.cpp">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\forward-dualreal-ref.cpp">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\forward-real-ref.cpp">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\inverse-dualreal-ref.cpp">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\inverse-real-ref.cpp">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fft\soa-ref.cpp">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\cgemm.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\cgemm-conjb.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\cgemm-conjb-transc.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\conv1x1.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\s2gemm.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\s2gemm-transc.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\sdotxf.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\sgemm.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\blas\shdotxf.c">
-      <Filter>Scalar\blas</Filter>
+      <Filter>scalar\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\2d-fourier-8x8.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\2d-fourier-16x16.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\2d-winograd-8x8-3x3.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft-aos.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft-dualreal.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft-real.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft-soa.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\relu.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\softmax.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft\aos.h">
-      <Filter>Scalar\fft</Filter>
+      <Filter>scalar\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft\real.h">
-      <Filter>Scalar\fft</Filter>
+      <Filter>scalar\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft\soa.h">
-      <Filter>Scalar\fft</Filter>
+      <Filter>scalar\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\fft\dualreal.h">
-      <Filter>Scalar\fft</Filter>
+      <Filter>scalar\fft</Filter>
     </ClCompile>
     <ClCompile Include="src\scalar\winograd-f6k3.c">
-      <Filter>Scalar</Filter>
+      <Filter>scalar</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-input-gradient-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-kernel-gradient-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\convolution-output-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\fully-connected-output-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\max-pooling-output-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\relu-input-gradient-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\relu-output-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\ref\softmax-output-ref.c">
-      <Filter>Reference</Filter>
+      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="src\convolution-inference.c">
       <Filter>Source Files</Filter>
@@ -197,19 +209,82 @@
     <ClCompile Include="src\pthreadpool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\psimd\2d-fourier-16x16.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\2d-winograd-8x8-3x3.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\exp.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\fft-aos.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\fft-dualreal.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\fft-real.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\fft-soa.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\relu.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\softmax.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\winograd-f6k3.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\2d-fourier-8x8.cpp">
+      <Filter>psimd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\c4gemm.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\c4gemm-conjb.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\c4gemm-conjb-transc.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\conv1x1.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\s4c2gemm.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\s4c2gemm-conjb.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\s4c2gemm-conjb-transc.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\s4gemm.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\sdotxf.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\sgemm.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\shdotxf.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\nnpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ref\fft\complex-ref.h">
-      <Filter>Reference\fft</Filter>
+      <Filter>ref\fft</Filter>
     </ClInclude>
     <ClInclude Include="src\scalar\butterfly.h">
-      <Filter>Scalar</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scalar\winograd\f6x6k3x3.h">
-      <Filter>Scalar\winograd</Filter>
+      <Filter>scalar</Filter>
     </ClInclude>
     <ClInclude Include="include\nnpack\activations.h">
       <Filter>Header Files</Filter>
@@ -278,6 +353,39 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nnpack\assembly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scalar\winograd\f6x6k3x3.h">
+      <Filter>scalar\winograd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\fft\aos.h">
+      <Filter>psimd\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\fft\dualreal.h">
+      <Filter>psimd\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\fft\real.h">
+      <Filter>psimd\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\fft\soa.h">
+      <Filter>psimd\fft</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\winograd\f6x6k3x3.h">
+      <Filter>psimd\winograd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\butterfly.h">
+      <Filter>psimd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\exp.h">
+      <Filter>psimd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\psimd\transpose.h">
+      <Filter>psimd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\psimd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nnpack\fp16psimd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -176,34 +176,34 @@ def main(args):
         elif backend == "psimd":
             arch_nnpack_objects = [
                 # Transformations
-                build.cc("psimd/2d-fourier-8x8.c"),
-                build.cc("psimd/2d-fourier-16x16.c"),
-                build.cc("psimd/2d-winograd-8x8-3x3.c"),
+                build.cc("psimd/2d-fourier-8x8.cpp"),
+                build.cc("psimd/2d-fourier-16x16.cpp"),
+                build.cc("psimd/2d-winograd-8x8-3x3.cpp"),
                 # Tuple GEMM
-                build.cc("psimd/blas/s4gemm.c"),
-                build.cc("psimd/blas/c4gemm-conjb.c"),
-                build.cc("psimd/blas/s4c2gemm-conjb.c"),
+                build.cc("psimd/blas/s4gemm.cpp"),
+                build.cc("psimd/blas/c4gemm-conjb.cpp"),
+                build.cc("psimd/blas/s4c2gemm-conjb.cpp"),
                 # Direct convolution
-                build.cc("psimd/blas/conv1x1.c"),
+                build.cc("psimd/blas/conv1x1.cpp"),
                 # BLAS microkernels
-                build.cc("psimd/blas/sgemm.c"),
+                build.cc("psimd/blas/sgemm.cpp"),
             ]
             if not options.inference_only:
                 arch_nnpack_objects += [
                     # Tuple GEMM
-                    build.cc("psimd/blas/c4gemm.c"),
-                    build.cc("psimd/blas/s4c2gemm.c"),
-                    build.cc("psimd/blas/c4gemm-conjb-transc.c"),
-                    build.cc("psimd/blas/s4c2gemm-conjb-transc.c"),
+                    build.cc("psimd/blas/c4gemm.cpp"),
+                    build.cc("psimd/blas/s4c2gemm.cpp"),
+                    build.cc("psimd/blas/c4gemm-conjb-transc.cpp"),
+                    build.cc("psimd/blas/s4c2gemm-conjb-transc.cpp"),
                 ]
             if not options.convolution_only:
                 arch_nnpack_objects += [
                     # Activations
-                    build.cc("psimd/relu.c"),
-                    build.cc("psimd/softmax.c"),
+                    build.cc("psimd/relu.cpp"),
+                    build.cc("psimd/softmax.cpp"),
                     # BLAS microkernels
-                    build.cc("psimd/blas/sdotxf.c"),
-                    build.cc("psimd/blas/shdotxf.c"),
+                    build.cc("psimd/blas/sdotxf.cpp"),
+                    build.cc("psimd/blas/shdotxf.cpp"),
                 ]
 
         reference_layer_objects = [
@@ -255,15 +255,15 @@ def main(args):
             ]
         elif backend == "psimd" or backend == "arm":
             arch_fft_stub_objects = [
-                build.cc("psimd/fft-aos.c"),
-                build.cc("psimd/fft-soa.c"),
-                build.cc("psimd/fft-real.c"),
-                build.cc("psimd/fft-dualreal.c"),
+                build.cc("psimd/fft-aos.cpp"),
+                build.cc("psimd/fft-soa.cpp"),
+                build.cc("psimd/fft-real.cpp"),
+                build.cc("psimd/fft-dualreal.cpp"),
             ]
 
             if backend == "psimd":
                 arch_winograd_stub_objects = [
-                    build.cc("psimd/winograd-f6k3.c"),
+                    build.cc("psimd/winograd-f6k3.cpp"),
                 ]
             else:
                 # ARM NEON Winograd transform optionally uses FP16 storage
@@ -273,7 +273,7 @@ def main(args):
                     ]
 
             arch_math_stub_objects = [
-                build.cc("psimd/exp.c"),
+                build.cc("psimd/exp.cpp"),
             ]
 
         fft_objects = reference_fft_objects + arch_fft_stub_objects
