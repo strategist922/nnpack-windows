@@ -369,3 +369,4 @@ void nnp_sdotxf8__psimd(
 	sum[6] = acc6;
 	sum[7] = acc7;
 }
+

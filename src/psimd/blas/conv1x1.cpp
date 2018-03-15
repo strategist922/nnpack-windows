@@ -2,7 +2,6 @@
 #include <stdint.h>
 
 #include <nnpack/psimd.h>
-
 #include <nnpack/macros.h>
 
 
@@ -233,3 +232,4 @@ void nnp_conv1x1_upto_2x4__psimd(
 		}
 	}
 }
+

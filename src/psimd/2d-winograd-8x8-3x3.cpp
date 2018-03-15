@@ -79,7 +79,7 @@ void nnp_kwt8x8_3x3__psimd(
 	#ifdef __clang__
 		const psimd_f32 g2 = __builtin_shufflevector(g5678, g5678, 1, 2, 3, -1);
 	#else
-		const psimd_f32 g2 = _mm_shuffle_ps(g5678, g5678, _MM_SHUFFLE(1, 2, 3, -1));
+	const psimd_f32 g2 = blend4f<1, 2, 3, -1>(g5678, g5678);
 	#endif
 
 	psimd_f32 w[8];
@@ -129,9 +129,9 @@ void nnp_kwt8x8_3Rx3R__psimd(
 		const psimd_f32 g1 = __builtin_shufflevector(g2345, g2345, 3, 2, 1, -1);
 		const psimd_f32 g2 = __builtin_shufflevector(g0123, g0123, 2, 1, 0, -1);
 	#else
-		const psimd_f32 g0 = _mm_shuffle_ps(g5678, g5678, _MM_SHUFFLE(3, 2, 1, -1));
-		const psimd_f32 g1 = _mm_shuffle_ps(g2345, g2345, _MM_SHUFFLE(3, 2, 1, -1));
-		const psimd_f32 g2 = _mm_shuffle_ps(g0123, g0123, _MM_SHUFFLE(2, 1, 0, -1));
+	    const psimd_f32 g0 = blend4f<3, 2, 1, -1>(g5678, g5678);
+	    const psimd_f32 g1 = blend4f<3, 2, 1, -1>(g2345, g2345);
+		const psimd_f32 g2 = blend4f<2, 1, 0, -1>(g0123, g0123);
 	#endif
 
 	psimd_f32 w[8];

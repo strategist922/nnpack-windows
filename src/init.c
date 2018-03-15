@@ -780,9 +780,9 @@ enum nnp_status nnp_initialize() {
 
 #ifdef _MSC_VER
 	// Flush denormals to zero (the FTZ flag).
-	// _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
 	// Interpret denormal inputs as zero (the DAZ flag).
-	// _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
+	_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
 
 	init_hwinfo();
 #else

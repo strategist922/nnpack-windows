@@ -2,7 +2,6 @@
 #include <stdint.h>
 
 #include <nnpack/psimd.h>
-
 #include <nnpack/macros.h>
 
 
@@ -303,3 +302,4 @@ void nnp_sgemm_upto_4x8__psimd(uint32_t mr, uint32_t nr, size_t k, size_t update
 		}
 	}
 }
+

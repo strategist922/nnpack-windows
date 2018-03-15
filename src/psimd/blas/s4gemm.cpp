@@ -202,3 +202,4 @@ void nnp_s4gemm_upto_3x4__psimd(
 		}
 	}
 }
+

@@ -203,9 +203,6 @@
     <ClCompile Include="src\x86_64-fma\softmax.c">
       <Filter>x86_64-fma</Filter>
     </ClCompile>
-    <ClCompile Include="src\x86_64-fma\exp.c">
-      <Filter>x86_64-fma</Filter>
-    </ClCompile>
     <ClCompile Include="src\pthreadpool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -242,9 +239,6 @@
     <ClCompile Include="src\psimd\2d-fourier-8x8.cpp">
       <Filter>psimd</Filter>
     </ClCompile>
-    <ClCompile Include="src\psimd\blas\c4gemm.cpp">
-      <Filter>psimd\blas</Filter>
-    </ClCompile>
     <ClCompile Include="src\psimd\blas\c4gemm-conjb.cpp">
       <Filter>psimd\blas</Filter>
     </ClCompile>
@@ -273,6 +267,12 @@
       <Filter>psimd\blas</Filter>
     </ClCompile>
     <ClCompile Include="src\psimd\blas\shdotxf.cpp">
+      <Filter>psimd\blas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\x86_64-fma\exp.c">
+      <Filter>x86_64-fma</Filter>
+    </ClCompile>
+    <ClCompile Include="src\psimd\blas\c4gemm.cpp">
       <Filter>psimd\blas</Filter>
     </ClCompile>
   </ItemGroup>

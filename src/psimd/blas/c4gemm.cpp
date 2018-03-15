@@ -3,7 +3,6 @@
 
 #include <nnpack/psimd.h>
 
-
 void nnp_c4gemm_only_2x2__psimd(
 	size_t k, size_t update,
 	const float* a,
@@ -158,3 +157,4 @@ void nnp_c4gemm_upto_2x2__psimd(
 		}
 	}
 }
+

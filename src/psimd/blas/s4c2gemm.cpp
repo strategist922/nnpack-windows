@@ -41,12 +41,12 @@ void nnp_s4c2gemm_only_2x2__psimd(
 		acc10i += a1i * b0r;
 		acc11i += a1i * b1r;
 
-		b0i = psimd_andmask_f32((psimd_s32) { 0, 0, -1, -1 }, b0i);
+		b0i = psimd_andmask_f32(psimd_s32(0, 0, -1, -1), b0i);
 		acc00r -= a0i * b0i;
 		acc00i += a0r * b0i;
 		acc10r -= a1i * b0i;
 		acc10i += a1r * b0i;
-		b1i = psimd_andmask_f32((psimd_s32) { 0, 0, -1, -1 }, b1i);
+		b1i = psimd_andmask_f32(psimd_s32(0, 0, -1, -1), b1i);
 		acc01r -= a0i * b1i;
 		acc01i += a0r * b1i;
 		acc11r -= a1i * b1i;
@@ -181,3 +181,4 @@ void nnp_s4c2gemm_upto_2x2__psimd(
 		}
 	}
 }
+

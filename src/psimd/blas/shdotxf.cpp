@@ -1,5 +1,6 @@
 #include <stddef.h>
 
+
 #include <nnpack/psimd.h>
 #include <nnpack/fp16.h>
 #include <nnpack/fp16psimd.h>
@@ -514,3 +515,4 @@ void nnp_shdotxf8__psimd(
 	sum[6] = acc6;
 	sum[7] = acc7;
 }
+

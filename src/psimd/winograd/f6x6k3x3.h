@@ -3,7 +3,6 @@
 #include <stdbool.h>
 
 #include <nnpack/psimd.h>
-
 #include <nnpack/macros.h>
 
 
@@ -211,3 +210,4 @@ static NNP_INLINE void winograd_f6k3_output_transform(
 	*output4 = s4;
 	*output5 = s5;
 }
+

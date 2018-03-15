@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+
 #include <nnpack/psimd.h>
 
 
@@ -182,3 +183,4 @@ void nnp_s4c2gemm_conjb_transc_upto_2x2__psimd(
 		}
 	}
 }
+

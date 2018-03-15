@@ -4,13 +4,13 @@
 
 #include "vectorclass.h"
 
-using psimd_s8 = Vec16c;
-using psimd_u8 = Vec16uc;
-using psimd_s16 = Vec8s;
-using psimd_u16 = Vec8us;
-using psimd_s32 = Vec4i;
-using psimd_u32 = Vec4ui;
-using psimd_f32 = Vec4f;
+typedef Vec16c psimd_s8;
+typedef Vec16uc psimd_u8;
+typedef Vec8s psimd_s16;
+typedef Vec8us psimd_u16;
+typedef Vec4i psimd_s32;
+typedef Vec4ui psimd_u32;
+typedef Vec4f psimd_f32;
 
 #if defined(__CUDA_ARCH__)
 	/* CUDA compiler */

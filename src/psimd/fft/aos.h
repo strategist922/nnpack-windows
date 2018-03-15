@@ -4,7 +4,6 @@
 #include <stdint.h>
 
 #include <nnpack/fft-constants.h>
-
 #include <nnpack/psimd.h>
 #include <psimd/butterfly.h>
 

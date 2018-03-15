@@ -158,3 +158,4 @@ void nnp_c4gemm_conjb_transc_upto_2x2__psimd(
 		}
 	}
 }
+
