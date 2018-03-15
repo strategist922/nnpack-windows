@@ -826,7 +826,6 @@ using psimd_f32 = Vec4f;
 		}
 
 		PSIMD_INTRINSIC psimd_u16 psimd_reverse_u16(psimd_u16 v) {
-			
 			return  _mm_shuffle_epi8(v, vmB);
 		}
 
@@ -1076,12 +1075,12 @@ using psimd_f32 = Vec4f;
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_concat_even_u32(psimd_u32 a, psimd_u32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(0, 2, 4 + 0, 4 + 2));
+			return __builtin_shuffle(a, b, _MM_SHUFFLE(0, 2, 4 + 0, 4 + 2));
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_concat_odd_u32(psimd_u32 a, psimd_u32 b) {
 			
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(1, 3, 4 + 1, 4 + 3));
+			return __builtin_shuffle(a, b, _MM_SHUFFLE(1, 3, 4 + 1, 4 + 3));
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_even_f32(psimd_f32 a, psimd_f32 b) {
