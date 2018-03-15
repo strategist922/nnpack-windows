@@ -917,11 +917,11 @@ using psimd_f32 = Vec4f;
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_interleave_lo_f32(psimd_f32 a, psimd_f32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(0, 4+0, 1, 4+1));
+			return blend4f<0, 4, 1, 5>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_interleave_hi_f32(psimd_f32 a, psimd_f32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(2, 4+2, 3, 4+3));
+			return blend4f<2,6,3,7>(a, b);
 		}
 	#endif
 
@@ -1000,11 +1000,11 @@ using psimd_f32 = Vec4f;
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_lo_f32(psimd_f32 a, psimd_f32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(0, 1, 4+0, 4+1));
+			return blend4f<0, 1, 4, 5>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_hi_f32(psimd_f32 a, psimd_f32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(2, 3, 4+2, 4+3));
+			return blend4f<2, 3, 6, 7>(a, b);
 		}
 	#endif
 
@@ -1083,11 +1083,11 @@ using psimd_f32 = Vec4f;
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_even_f32(psimd_f32 a, psimd_f32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(0, 2, 4+0, 4+2));
+			return blend4f<0, 2, 4, 6>(a, b);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_concat_odd_f32(psimd_f32 a, psimd_f32 b) {
-			return _mm_shuffle_ps(a, b, _MM_SHUFFLE(1, 3, 4+1, 4+3));
+			return blend4f<1, 3, 5, 7>(a, b);
 		}
 	#endif
 
