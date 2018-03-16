@@ -22,7 +22,7 @@
 	#define NNP_BACKEND_ARM 1
 #elif defined(__ANDROID__) && (defined(__i686__) || defined(__x86_64__))
 	#define NNP_BACKEND_PSIMD 1
-#elif defined(__x86_64__) || defined(_MSC_VER)
+#elif defined(__x86_64__)
 	#define NNP_BACKEND_X86_64 1
 #elif defined(__ANDROID__) && defined(__mips__)
 	#define NNP_BACKEND_SCALAR 1
