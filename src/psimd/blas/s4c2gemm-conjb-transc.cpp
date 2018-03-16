@@ -4,6 +4,9 @@
 
 #include <nnpack/psimd.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_s4c2gemm_conjb_transc_only_2x2__psimd(
 	size_t k, size_t update,
@@ -183,4 +186,6 @@ void nnp_s4c2gemm_conjb_transc_upto_2x2__psimd(
 		}
 	}
 }
-
+#ifdef __cplusplus
+}
+#endif

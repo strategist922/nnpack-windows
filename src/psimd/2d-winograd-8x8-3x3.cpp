@@ -10,6 +10,9 @@
 #include <psimd/winograd/f6x6k3x3.h>
 #include <psimd/transpose.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_iwt8x8_3x3_with_offset__psimd(
 	const float* data,
@@ -375,3 +378,6 @@ void nnp_owt8x8_3x3_with_bias_with_relu__psimd(
 		}
 	}
 }
+#ifdef __cplusplus
+}
+#endif

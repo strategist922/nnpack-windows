@@ -1,5 +1,8 @@
 #include <psimd/winograd/f6x6k3x3.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_iwt_f6k3__psimd(
 	const float* d,
@@ -78,3 +81,6 @@ void nnp_owt_f6k3__psimd(
 	psimd_store_f32(s + 16, s4);
 	psimd_store_f32(s + 20, s5);
 }
+#ifdef __cplusplus
+}
+#endif

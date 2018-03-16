@@ -1,5 +1,8 @@
 #include <psimd/fft/dualreal.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_fft8_dualreal__psimd(
 	const float* t,
@@ -84,3 +87,6 @@ void nnp_ifft16_dualreal__psimd(
 	psimd_store_f32(t + 24, h89AB);
 	psimd_store_f32(t + 28, hCDEF);
 }
+#ifdef __cplusplus
+}
+#endif

@@ -5,6 +5,9 @@
 #include <psimd/butterfly.h>
 #include <psimd/fft/aos.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static inline void psimd_fft8_real_f32(
 	const float* t0,
@@ -228,4 +231,7 @@ static inline void psimd_ifft16_real_f32(
 		w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i,
 		t0, t8, stride_t);
 }
+#ifdef __cplusplus
+}
+#endif
 

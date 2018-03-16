@@ -9,15 +9,6 @@
 #include <nnpack/psimd.h>
 #include <psimd/exp.h>
 
-
-static float max__scalar(size_t n, const float* v) {
-	float max_v = *v++;
-	while (--n) {
-		max_v = maxf(max_v, *v++);
-	}
-	return max_v;
-}
-
 static psimd_f32 max__psimd(size_t n, const float* v) {
 	NNP_ALIGN(16) static const int32_t mask[12] = {
 		0x00000000, 0x00000000, 0x00000000, 0xFFFFFFFF,
@@ -30,9 +21,9 @@ static psimd_f32 max__psimd(size_t n, const float* v) {
 	v += 4;
 	n -= 4;
 	while (n >= 16) {
-		max0 = psimd_max_f32(max0, psimd_load_f32(v +  0));
-		max1 = psimd_max_f32(max1, psimd_load_f32(v +  4));
-		max2 = psimd_max_f32(max2, psimd_load_f32(v +  8));
+		max0 = psimd_max_f32(max0, psimd_load_f32(v + 0));
+		max1 = psimd_max_f32(max1, psimd_load_f32(v + 4));
+		max2 = psimd_max_f32(max2, psimd_load_f32(v + 8));
 		max3 = psimd_max_f32(max3, psimd_load_f32(v + 12));
 
 		v += 16;
@@ -49,6 +40,18 @@ static psimd_f32 max__psimd(size_t n, const float* v) {
 		max0 = psimd_max_f32(max0, psimd_blend_f32(psimd_load_s32(&mask[4 * (n - 1)]), psimd_load_f32(v + n - 4), max0));
 	}
 	return psimd_allreduce_max_f32(max0);
+}
+
+#ifdef __cplusplus 
+extern "C" {
+#endif
+
+static float max__scalar(size_t n, const float* v) {
+	float max_v = *v++;
+	while (--n) {
+		max_v = maxf(max_v, *v++);
+	}
+	return max_v;
 }
 
 static float sum_exp_minus_c__scalar(size_t n, const float* v, float c) {
@@ -184,3 +187,6 @@ void nnp_inplace_softmax__psimd(
 		scaled_exp_minus_c__scalar(n, v, v, scale, c);
 	}
 }
+#ifdef __cplusplus
+}
+#endif

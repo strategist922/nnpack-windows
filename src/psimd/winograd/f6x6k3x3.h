@@ -5,6 +5,9 @@
 #include <nnpack/psimd.h>
 #include <nnpack/macros.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static NNP_INLINE void winograd_f6k3_input_transform(
 	const psimd_f32 d0, const psimd_f32 d1, const psimd_f32 d2, const psimd_f32 d3, const psimd_f32 d4, const psimd_f32 d5, const psimd_f32 d6, const psimd_f32 d7,
@@ -210,4 +213,7 @@ static NNP_INLINE void winograd_f6k3_output_transform(
 	*output4 = s4;
 	*output5 = s5;
 }
+#ifdef __cplusplus
+}
+#endif
 

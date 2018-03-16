@@ -125,11 +125,11 @@ typedef Vec4f psimd_f32;
 	}
 
 	PSIMD_INTRINSIC psimd_s32x2 psimd_cast_f32x2_s32x2(psimd_f32x2 v) {
-		return psimd_s32x2 { truncate_to_int(v.lo), truncate_to_int(v.hi) };
+		return psimd_s32x2 { round_to_int(v.lo), round_to_int(v.hi) };
 	}
 
 	PSIMD_INTRINSIC psimd_u32x2 psimd_cast_f32x2_u32x2(psimd_f32x2 v) {
-		return psimd_u32x2 { psimd_u32(truncate_to_int(v.lo)), psimd_u32(truncate_to_int(v.hi)) };
+		return psimd_u32x2 { psimd_u32(round_to_int(v.lo)), psimd_u32(round_to_int(v.hi)) };
 	}
 
 	/* Swap */
@@ -184,60 +184,60 @@ typedef Vec4f psimd_f32;
 
 	/* Zero-initialization */
 	PSIMD_INTRINSIC psimd_s8 psimd_zero_s8() {
-		return psimd_s8(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		return psimd_s8(0);
 	}
 
 	PSIMD_INTRINSIC psimd_u8 psimd_zero_u8() {
-		return psimd_u8(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		return psimd_u8(0u);
 	}
 
 	PSIMD_INTRINSIC psimd_s16 psimd_zero_s16() {
-		return psimd_s16(0, 0, 0, 0, 0, 0, 0, 0);
+		return psimd_s16(0);
 	}
 
 	PSIMD_INTRINSIC psimd_u16 psimd_zero_u16() {
-		return psimd_u16(0, 0, 0, 0, 0, 0, 0, 0);
+		return psimd_u16(0u);
 	}
 
 	PSIMD_INTRINSIC psimd_s32 psimd_zero_s32() {
-		return psimd_s32(0, 0, 0, 0);
+		return psimd_s32(0);
 	}
 
 	PSIMD_INTRINSIC psimd_u32 psimd_zero_u32() {
-		return psimd_u32(0, 0, 0, 0);
+		return psimd_u32(0u);
 	}
 
 	PSIMD_INTRINSIC psimd_f32 psimd_zero_f32() {
-		return psimd_f32(0.0f, 0.0f, 0.0f, 0.0f);
+		return psimd_f32(0.0f);
 	}
 
 	/* Initialization to the same constant */
 	PSIMD_INTRINSIC psimd_s8 psimd_splat_s8(int8_t c) {
-		return psimd_s8(c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c);
+		return psimd_s8(c);
 	}
 
 	PSIMD_INTRINSIC psimd_u8 psimd_splat_u8(uint8_t c) {
-		return psimd_u8(c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c);
+		return psimd_u8(c);
 	}
 
 	PSIMD_INTRINSIC psimd_s16 psimd_splat_s16(int16_t c) {
-		return psimd_s16(c, c, c, c, c, c, c, c);
+		return psimd_s16(c);
 	}
 
 	PSIMD_INTRINSIC psimd_u16 psimd_splat_u16(uint16_t c) {
-		return psimd_u16(c, c, c, c, c, c, c, c);
+		return psimd_u16(c);
 	}
 
 	PSIMD_INTRINSIC psimd_s32 psimd_splat_s32(int32_t c) {
-		return psimd_s32(c, c, c, c);
+		return psimd_s32(c);
 	}
 
 	PSIMD_INTRINSIC psimd_u32 psimd_splat_u32(uint32_t c) {
-		return psimd_u32(c, c, c, c);
+		return psimd_u32(c);
 	}
 
 	PSIMD_INTRINSIC psimd_f32 psimd_splat_f32(float c) {
-		return psimd_f32(c, c, c, c);
+		return psimd_f32(c);
 	}
 
 	/* Load vector */
@@ -266,7 +266,8 @@ typedef Vec4f psimd_f32;
 	}
 
 	PSIMD_INTRINSIC psimd_f32 psimd_load_f32(const void* address) {
-		return *((const psimd_f32*) address);
+		return Vec4f().load((const float*)address);
+		//return *((const psimd_f32*) address);
 	}
 
 	PSIMD_INTRINSIC psimd_f32 psimd_load1_f32(const void* address) {
@@ -293,7 +294,7 @@ typedef Vec4f psimd_f32;
 		#if defined(__clang__)
 			return __builtin_shufflevector(v0x1x, vx2x3, 0, 2, 5, 7);
 		#else
-			return _mm_shuffle_ps(v0x1x, vx2x3, _MM_SHUFFLE(0,2,5,7));
+			return  blend4f<0, 2, 5, 7>(v0x1x, vx2x3);
 		#endif
 	}
 
@@ -312,7 +313,7 @@ typedef Vec4f psimd_f32;
 		#if defined(__clang__)
 			return __builtin_shufflevector(v0x1x, v2zzz, 0, 2, 4, 6);
 		#else
-			return _mm_shuffle_ps(v0x1x, v2zzz, _MM_SHUFFLE(0,2,4,6));
+			return blend4f<0,2,4,6>(v0x1x, v2zzz);
 		#endif
 	}
 
@@ -350,31 +351,39 @@ typedef Vec4f psimd_f32;
 
 	/* Store vector */
 	PSIMD_INTRINSIC void psimd_store_s8(void* address, psimd_s8 value) {
-		*((psimd_s8*) address) = value;
+		value.store(address);
+		//*((psimd_s8*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store_u8(void* address, psimd_u8 value) {
-		*((psimd_u8*) address) = value;
+		value.store(address);
+
+		//*((psimd_u8*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store_s16(void* address, psimd_s16 value) {
-		*((psimd_s16*) address) = value;
+		value.store(address);
+		//*((psimd_s16*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store_u16(void* address, psimd_u16 value) {
-		*((psimd_u16*) address) = value;
+		value.store(address);
+		//*((psimd_u16*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store_s32(void* address, psimd_s32 value) {
-		*((psimd_s32*) address) = value;
+		value.store(address);
+		//*((psimd_s32*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store_u32(void* address, psimd_u32 value) {
-		*((psimd_u32*) address) = value;
+		value.store(address);
+		//*((psimd_u32*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store_f32(void* address, psimd_f32 value) {
-		*((psimd_f32*) address) = value;
+		value.store((float*)address);
+		//*((psimd_f32*) address) = value;
 	}
 
 	PSIMD_INTRINSIC void psimd_store1_f32(void* address, psimd_f32 value) {
@@ -585,7 +594,7 @@ typedef Vec4f psimd_f32;
 		#if defined(__ARM_NEON__)
 			return (psimd_f32) vbslq_f32((uint32x4_t) mask, (float32x4_t) a, (float32x4_t) b);
 		#else
-			return to_float(psimd_blend_s32(mask, truncate_to_int(a), truncate_to_int(b)));
+			return to_float(psimd_blend_s32(mask, round_to_int(a), round_to_int(b)));
 		#endif
 	}
 	
@@ -615,7 +624,7 @@ typedef Vec4f psimd_f32;
 	}
 
 	PSIMD_INTRINSIC psimd_f32 psimd_signblend_f32(psimd_f32 x, psimd_f32 a, psimd_f32 b) {
-		const psimd_s32 mask = psimd_s32(truncate_to_int(x) >> 31);
+		const psimd_s32 mask = psimd_s32(round_to_int(x) >> 31);
 		return psimd_blend_f32(mask, a, b);
 	}
 	
@@ -627,8 +636,8 @@ typedef Vec4f psimd_f32;
 
 	/* Vector negation */
 	PSIMD_INTRINSIC psimd_f32 psimd_neg_f32(psimd_f32 v) {
-		static const psimd_s32 mask = truncate_to_int(psimd_splat_f32(-0.0f));
-		return to_float(truncate_to_int(v) ^ mask);
+		const psimd_s32 mask = round_to_int(psimd_splat_f32(-0.0f));
+		return to_float(round_to_int(v) ^ mask);
 	}
 
 	/* Vector maximum */
@@ -764,19 +773,19 @@ typedef Vec4f psimd_f32;
 		}
 	#else
 		PSIMD_INTRINSIC psimd_f32 psimd_splat0_f32(psimd_f32 v) {
-			return _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0)); 
+			return blend4f<0,0,0,0>(v, v);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_splat1_f32(psimd_f32 v) {
-			return _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
+			return blend4f<1, 1, 1, 1>(v, v);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_splat2_f32(psimd_f32 v) {
-			return _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+			return blend4f<2, 2, 2, 2>(v, v);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_splat3_f32(psimd_f32 v) {
-			return _mm_shuffle_ps(v, v, _MM_SHUFFLE(3, 3, 3, 3));
+			return blend4f<3, 3, 3, 3>(v, v);
 		}
 	#endif
 
@@ -829,15 +838,15 @@ typedef Vec4f psimd_f32;
 		}
 
 		PSIMD_INTRINSIC psimd_s32 psimd_reverse_s32(psimd_s32 v) {
-			return _mm_shuffle_epi32(v, _MM_SHUFFLE(3, 2, 1, 0));
+			return blend4i<3, 2, 1, 0>(v, v);
 		}
 
 		PSIMD_INTRINSIC psimd_u32 psimd_reverse_u32(psimd_u32 v) {
-			return _mm_shuffle_epi32(v, _MM_SHUFFLE(3, 2, 1, 0));
+			return blend4ui<3, 2, 1, 0>(v, v);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_reverse_f32(psimd_f32 v) {
-			return _mm_shuffle_ps(v, v, _MM_SHUFFLE(3, 2, 1, 0));
+			return blend4f<3, 2, 1, 0>(v, v);
 		}
 	#endif
 
@@ -1127,18 +1136,18 @@ typedef Vec4f psimd_f32;
 		}
 	#else
 		PSIMD_INTRINSIC psimd_f32 psimd_allreduce_sum_f32(psimd_f32 v) {
-			const psimd_f32 temp = v + _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 3, 0, 1));
-			return temp + _mm_shuffle_ps(temp, temp, _MM_SHUFFLE(1, 0, 3, 2 ));
+			const psimd_f32 temp = v + blend4f<2,3,0,1>(v, v);
+			return temp + blend4f<1,0,3,2>(temp, temp);
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_allreduce_max_f32(psimd_f32 v) {
-			const psimd_f32 temp = psimd_max_f32(v, _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 3, 0, 1)));
-			return psimd_max_f32(temp, _mm_shuffle_ps(temp, temp, _MM_SHUFFLE(1, 0, 3, 2)));
+			const psimd_f32 temp = psimd_max_f32(v, blend4f<2, 3, 0, 1>(v, v));
+			return psimd_max_f32(temp, blend4f<1, 0, 3, 2>(temp, temp));
 		}
 
 		PSIMD_INTRINSIC psimd_f32 psimd_allreduce_min_f32(psimd_f32 v) {
-			const psimd_f32 temp = psimd_min_f32(v, _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 3, 0, 1)));
-			return psimd_min_f32(temp, _mm_shuffle_ps(temp, temp, _MM_SHUFFLE(1, 0, 3, 2)));
+			const psimd_f32 temp = psimd_min_f32(v, blend4f<2, 3, 0, 1>(v, v));
+			return psimd_min_f32(temp, blend4f<1, 0, 3, 2>(temp, temp));
 		}
 
 		PSIMD_INTRINSIC float psimd_reduce_sum_f32(psimd_f32 v) {

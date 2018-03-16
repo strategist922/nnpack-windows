@@ -2,6 +2,9 @@
 
 #include <nnpack/psimd.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static inline void psimd_butterfly_f32(
     psimd_f32* a,
@@ -32,3 +35,6 @@ static inline void psimd_butterfly_with_negated_b_f32(
     *a = new_a;
     *b = new_b;
 }
+#ifdef __cplusplus
+}
+#endif

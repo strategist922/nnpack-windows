@@ -2,6 +2,9 @@
 
 #include <nnpack/psimd.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static inline void psimd_transpose4x4_f32(
     const psimd_f32 row0, const psimd_f32 row1, const psimd_f32 row2, const psimd_f32 row3,
@@ -39,3 +42,6 @@ static inline void psimd_transpose4x4_f32(
     *col2 = psimd_concat_lo_f32(row01hi, row23hi);
     *col3 = psimd_concat_hi_f32(row01hi, row23hi);
 }
+#ifdef __cplusplus
+}
+#endif

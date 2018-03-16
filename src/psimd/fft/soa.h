@@ -4,6 +4,9 @@
 #include <nnpack/psimd.h>
 #include <psimd/butterfly.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static inline void psimd_cmul_soa_f32(
 	psimd_f32* real,
@@ -362,3 +365,6 @@ static inline void psimd_ifft16_soa_f32(
 	*imag89AB = w89ABi;
 	*imagCDEF = wCDEFi;
 }
+#ifdef __cplusplus
+}
+#endif

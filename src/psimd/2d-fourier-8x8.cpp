@@ -11,6 +11,9 @@
 #include <psimd/fft/soa.h>
 #include <psimd/fft/dualreal.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 union NNP_SIMD_ALIGN block8x8 {
 	float as_float[8][8];
@@ -250,3 +253,6 @@ void nnp_ifft8x8_with_bias_with_relu__psimd(
 		}
 	}
 }
+#ifdef __cplusplus
+}
+#endif

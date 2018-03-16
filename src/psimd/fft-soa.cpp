@@ -1,5 +1,8 @@
 #include <psimd/fft/soa.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_fft8_soa__psimd(
 	const float* t,
@@ -84,3 +87,6 @@ void nnp_ifft16_soa__psimd(
 	psimd_store_f32(t + 24, w89ABi);
 	psimd_store_f32(t + 28, wCDEFi);
 }
+#ifdef __cplusplus
+}
+#endif

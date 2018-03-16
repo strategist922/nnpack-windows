@@ -4,6 +4,9 @@
 
 #include <nnpack/activations.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_relu__psimd(
 	const float* input,
@@ -61,3 +64,6 @@ void nnp_grad_relu__psimd(
 		length -= 4;
 	} while (length != 0);
 }
+#ifdef __cplusplus
+}
+#endif

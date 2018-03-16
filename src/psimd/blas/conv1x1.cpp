@@ -4,6 +4,9 @@
 #include <nnpack/psimd.h>
 #include <nnpack/macros.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static NNP_SIMD_ALIGN int32_t mask_array[8] = {
 	0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
@@ -232,4 +235,6 @@ void nnp_conv1x1_upto_2x4__psimd(
 		}
 	}
 }
-
+#ifdef __cplusplus
+}
+#endif

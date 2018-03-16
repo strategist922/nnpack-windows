@@ -3,6 +3,9 @@
 
 #include <nnpack/psimd.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_s4gemm_only_3x4__psimd(
 	size_t k, size_t update,
@@ -202,4 +205,7 @@ void nnp_s4gemm_upto_3x4__psimd(
 		}
 	}
 }
+#ifdef __cplusplus
+}
+#endif
 

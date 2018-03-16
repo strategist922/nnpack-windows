@@ -1,5 +1,8 @@
 #include <psimd/fft/aos.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_fft4_4aos__psimd(
 	const float* t,
@@ -88,3 +91,6 @@ void nnp_ifft8_4aos__psimd(
 		w0r, w0i, w1r, w1i, w2r, w2i, w3r, w3i, w4r, w4i, w5r, w5i, w6r, w6i, w7r, w7i,
 		t, t + 32, 4);
 }
+#ifdef __cplusplus
+}
+#endif

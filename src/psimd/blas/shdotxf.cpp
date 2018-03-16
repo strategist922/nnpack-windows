@@ -5,6 +5,10 @@
 #include <nnpack/fp16.h>
 #include <nnpack/fp16psimd.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
+
 void nnp_shdotxf1__psimd(
 	const float* x,
 	const uint16_t* y,
@@ -515,4 +519,7 @@ void nnp_shdotxf8__psimd(
 	sum[6] = acc6;
 	sum[7] = acc7;
 }
+#ifdef __cplusplus
+}
+#endif
 

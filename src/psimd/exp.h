@@ -43,3 +43,4 @@ static inline psimd_f32 psimd_exp_f32(psimd_f32 x) {
     f = psimd_blend_f32(x > inf_cutoff, plus_inf, f);
     return f;
 }
+

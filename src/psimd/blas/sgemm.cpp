@@ -4,6 +4,9 @@
 #include <nnpack/psimd.h>
 #include <nnpack/macros.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_sgemm_only_4x8__psimd(size_t k, size_t update, const float* a, const float* b, float* c, size_t row_stride_c) {
 	psimd_f32 vc00, vc01, vc10, vc11, vc20, vc21, vc30, vc31;
@@ -302,4 +305,7 @@ void nnp_sgemm_upto_4x8__psimd(uint32_t mr, uint32_t nr, size_t k, size_t update
 		}
 	}
 }
+#ifdef __cplusplus
+}
+#endif
 

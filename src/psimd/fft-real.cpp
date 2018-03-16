@@ -1,5 +1,8 @@
 #include <psimd/fft/real.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 void nnp_fft8_4real__psimd(
 	const float* t,
@@ -60,3 +63,6 @@ void nnp_ifft16_4real__psimd(
 		f0r, f8r, f1r, f1i, f2r, f2i, f3r, f3i, f4r, f4i, f5r, f5i, f6r, f6i, f7r, f7i,
 		t, t + 32, 4);
 }
+#ifdef __cplusplus
+}
+#endif

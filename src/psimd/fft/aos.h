@@ -7,6 +7,9 @@
 #include <nnpack/psimd.h>
 #include <psimd/butterfly.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static inline void psimd_fft4_aos_f32(
 	const float* t_lo,
@@ -546,3 +549,6 @@ static inline void psimd_ifft8_aos_f32(
 	psimd_store_f32(t_lo, w3i);
 	psimd_store_f32(t_hi, w7i);
 }
+#ifdef __cplusplus
+}
+#endif

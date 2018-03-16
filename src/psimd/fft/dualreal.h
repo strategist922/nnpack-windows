@@ -5,6 +5,9 @@
 #include <psimd/butterfly.h>
 #include <psimd/fft/soa.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 
 static inline void psimd_fft8_dualreal_f32(
 	psimd_f32* s0123,
@@ -200,4 +203,7 @@ static inline void psimd_ifft16_dualreal_f32(
 
 	psimd_ifft16_soa_f32(s0123, s4567, s89AB, sCDEF, h0123, h4567, h89AB, hCDEF);
 }
+#ifdef __cplusplus
+}
+#endif
 

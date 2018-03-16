@@ -4,7 +4,9 @@
 
 #include <nnpack/softmax.h>
 
-
+#ifdef __cplusplus 
+extern "C" {
+#endif
 void nnp_vector_exp__psimd(
 	size_t n,
 	const float* x,
@@ -23,3 +25,6 @@ void nnp_vector_exp__psimd(
 			psimd_exp_f32(psimd_load_f32(x + n - 4)));
 	}
 }
+#ifdef __cplusplus
+}
+#endif
