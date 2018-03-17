@@ -37,8 +37,8 @@ void nnp_s4c2gemm_only_2x2__psimd(
 			b0r = __builtin_shufflevector(b0i, b0r, 0, 1, 6, 7);
 			b1r = __builtin_shufflevector(b1i, b1r, 0, 1, 6, 7);
 		#else
-			b0r = _mm_shuffle_ps(b0i, b0r, _MM_SHUFFLE(0, 1, 6, 7));
-			b1r = _mm_shuffle_ps(b1i, b1r, _MM_SHUFFLE(0, 1, 6, 7));
+			b0r = blend4f<0, 1, 6, 7>(b0i, b0r);
+			b1r = blend4f<0, 1, 6, 7>(b1i, b1r);
 		#endif
 		acc00i += a0i * b0r;
 		acc01i += a0i * b1r;
@@ -117,7 +117,7 @@ void nnp_s4c2gemm_upto_2x2__psimd(
 		#ifdef __clang__
 			b0r = __builtin_shufflevector(b0i, b0r, 0, 1, 6, 7);
 		#else
-			b0r = _mm_shuffle_ps(b0i, b0r, _MM_SHUFFLE(0, 1, 6, 7));
+		b0r = blend4f<0, 1, 6, 7>(b0i, b0r);
 		#endif
 		acc00i += a0i * b0r;
 		acc10i += a1i * b0r;
@@ -138,7 +138,7 @@ void nnp_s4c2gemm_upto_2x2__psimd(
 			#ifdef __clang__
 				b1r = __builtin_shufflevector(b1i, b1r, 0, 1, 6, 7);
 			#else
-				b1r = _mm_shuffle_ps(b1i, b1r, _MM_SHUFFLE(0, 1, 6, 7));
+				b1r = blend4f<0, 1, 6, 7>(b1i, b1r);
 			#endif
 			acc01i += a0i * b1r;
 			acc11i += a1i * b1r;

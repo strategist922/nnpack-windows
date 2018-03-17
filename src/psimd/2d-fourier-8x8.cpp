@@ -32,7 +32,7 @@ void nnp_fft8x8_with_offset__psimd(
 	const uint32_t block_size = 8;
 	transform_stride /= sizeof(float);
 
-	union block8x8 block = { 0 };
+	union block8x8 block = { 0.0f };
 	if (column_count >= simd_width) {
 		const psimd_f32 zero = psimd_zero_f32();
 		float* block_data = &block.as_float[0][0];
@@ -122,7 +122,7 @@ void nnp_ifft8x8_with_offset__psimd(
 {
 	transform_stride /= sizeof(float);
 
-	union block8x8 block = { 0 };
+	union block8x8 block = { 0.0f };
 	for (size_t row = 0; row < 8; row += 2) {
 		for (size_t column = 0; column < 2; column += 1) {
 			block.as_psimd_f32[row][column] = psimd_load_f32(transform + 0);
@@ -169,7 +169,7 @@ void nnp_ifft8x8_with_bias__psimd(
 {
 	transform_stride /= sizeof(float);
 
-	union block8x8 block = { 0 };
+	union block8x8 block = { 0.0f };
 	for (size_t row = 0; row < 8; row += 2) {
 		for (size_t column = 0; column < 2; column += 1) {
 			block.as_psimd_f32[row][column] = psimd_load_f32(transform + 0);
@@ -216,7 +216,7 @@ void nnp_ifft8x8_with_bias_with_relu__psimd(
 {
 	transform_stride /= sizeof(float);
 
-	union block8x8 block = { 0 };
+	union block8x8 block = { 0.0f };
 	for (size_t row = 0; row < 8; row += 2) {
 		for (size_t column = 0; column < 2; column += 1) {
 			block.as_psimd_f32[row][column] = psimd_load_f32(transform + 0);

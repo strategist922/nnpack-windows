@@ -7,7 +7,7 @@
 #include <nnpack/softmax.h>
 
 #include <nnpack/psimd.h>
-#include <psimd/exp.h>
+#include <vectormath_exp.h>
 
 static psimd_f32 max__psimd(size_t n, const float* v) {
 	NNP_ALIGN(16) static const int32_t mask[12] = {
@@ -71,23 +71,23 @@ static float sum_exp_minus_c__psimd(size_t n, const float* v, psimd_f32 c) {
 	psimd_f32 sum0, sum1, sum2, sum3;
 	sum0 = sum1 = sum2 = sum3 = psimd_zero_f32();
 	while (n >= 16) {
-		sum0 += psimd_exp_f32(psimd_load_f32(v +  0) - c);
-		sum1 += psimd_exp_f32(psimd_load_f32(v +  4) - c);
-		sum2 += psimd_exp_f32(psimd_load_f32(v +  8) - c);
-		sum3 += psimd_exp_f32(psimd_load_f32(v + 12) - c);
+		sum0 += exp(psimd_load_f32(v +  0) - c);
+		sum1 += exp(psimd_load_f32(v +  4) - c);
+		sum2 += exp(psimd_load_f32(v +  8) - c);
+		sum3 += exp(psimd_load_f32(v + 12) - c);
 
 		v += 16;
 		n -= 16;
 	}
 	sum0 = (sum0 + sum1) + (sum2 + sum3);
 	while (n >= 4) {
-		sum0 += psimd_exp_f32(psimd_load_f32(v) - c);
+		sum0 += exp(psimd_load_f32(v) - c);
 
 		v += 4;
 		n -= 4;
 	}
 	if (n != 0) {
-		sum0 += psimd_exp_f32(psimd_andmask_f32(psimd_load_s32(&mask[4 * (n - 1)]), psimd_load_f32(v + n - 4)) - c);
+		sum0 += exp(psimd_andmask_f32(psimd_load_s32(&mask[4 * (n - 1)]), psimd_load_f32(v + n - 4)) - c);
 	}
 	return psimd_reduce_sum_f32(sum0);
 }
@@ -99,12 +99,12 @@ static void scaled_exp_minus_c__scalar(size_t n, const float* x, float* y, float
 }
 
 static void inplace_scaled_exp_minus_c__psimd(size_t n, float* v, psimd_f32 scale, psimd_f32 c) {
-	const psimd_f32 vlast = scale * psimd_exp_f32(psimd_load_f32(v + n - 4) - c);
+	const psimd_f32 vlast = scale * exp(psimd_load_f32(v + n - 4) - c);
 	while (n >= 16) {
-		const psimd_f32 v0 = scale * psimd_exp_f32(psimd_load_f32(v +  0) - c);
-		const psimd_f32 v1 = scale * psimd_exp_f32(psimd_load_f32(v +  4) - c);
-		const psimd_f32 v2 = scale * psimd_exp_f32(psimd_load_f32(v +  8) - c);
-		const psimd_f32 v3 = scale * psimd_exp_f32(psimd_load_f32(v + 12) - c);
+		const psimd_f32 v0 = scale * exp(psimd_load_f32(v +  0) - c);
+		const psimd_f32 v1 = scale * exp(psimd_load_f32(v +  4) - c);
+		const psimd_f32 v2 = scale * exp(psimd_load_f32(v +  8) - c);
+		const psimd_f32 v3 = scale * exp(psimd_load_f32(v + 12) - c);
 
 		psimd_store_f32(v +  0, v0);
 		psimd_store_f32(v +  4, v1);
@@ -115,7 +115,7 @@ static void inplace_scaled_exp_minus_c__psimd(size_t n, float* v, psimd_f32 scal
 		n -= 16;
 	}
 	while (n >= 4) {
-		psimd_store_f32(v, scale * psimd_exp_f32(psimd_load_f32(v) - c));
+		psimd_store_f32(v, scale * exp(psimd_load_f32(v) - c));
 
 		v += 4;
 		n -= 4;
@@ -126,12 +126,12 @@ static void inplace_scaled_exp_minus_c__psimd(size_t n, float* v, psimd_f32 scal
 }
 
 static void outplace_scaled_exp_minus_c__psimd(size_t n, const float* x, float* y, psimd_f32 scale, psimd_f32 c) {
-	const psimd_f32 ylast = scale * psimd_exp_f32(psimd_load_f32(x + n - 4) - c);
+	const psimd_f32 ylast = scale * exp(psimd_load_f32(x + n - 4) - c);
 	while (n >= 16) {
-		const psimd_f32 y0 = scale * psimd_exp_f32(psimd_load_f32(x +  0) - c);
-		const psimd_f32 y1 = scale * psimd_exp_f32(psimd_load_f32(x +  4) - c);
-		const psimd_f32 y2 = scale * psimd_exp_f32(psimd_load_f32(x +  8) - c);
-		const psimd_f32 y3 = scale * psimd_exp_f32(psimd_load_f32(x + 12) - c);
+		const psimd_f32 y0 = scale * exp(psimd_load_f32(x +  0) - c);
+		const psimd_f32 y1 = scale * exp(psimd_load_f32(x +  4) - c);
+		const psimd_f32 y2 = scale * exp(psimd_load_f32(x +  8) - c);
+		const psimd_f32 y3 = scale * exp(psimd_load_f32(x + 12) - c);
 
 		psimd_store_f32(y +  0, y0);
 		psimd_store_f32(y +  4, y1);
@@ -143,7 +143,7 @@ static void outplace_scaled_exp_minus_c__psimd(size_t n, const float* x, float* 
 		n -= 16;
 	}
 	while (n >= 4) {
-		psimd_store_f32(y, scale * psimd_exp_f32(psimd_load_f32(x) - c));
+		psimd_store_f32(y, scale * exp(psimd_load_f32(x) - c));
 
 		x += 4;
 		y += 4;
